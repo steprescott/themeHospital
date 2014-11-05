@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5cf1b0a601d647808255335531e84164" Name="Diagram1" >
+      <Diagram DiagramId="5cf1b0a601d647808255335531e84164" Name="Diagram1" ZoomLevel="96" >
         <EntityTypeShape EntityType="ThemeHospitalDatabase.User" Width="1.5" PointX="12.625" PointY="0.5" />
         <EntityTypeShape EntityType="ThemeHospitalDatabase.Patient" Width="1.5" PointX="8.5" PointY="3.75" />
         <InheritanceConnector EntityType="ThemeHospitalDatabase.Patient" ManuallyRouted="false" >
@@ -37,8 +37,10 @@
         <EntityTypeShape EntityType="ThemeHospitalDatabase.Bed" Width="1.5" PointX="6.25" PointY="4.625" />
         <EntityTypeShape EntityType="ThemeHospitalDatabase.Note" Width="1.5" PointX="0.5" PointY="9.375" IsExpanded="true" />
         <AssociationConnector Association="ThemeHospitalDatabase.TreatmentNote" ManuallyRouted="true" >
-          <ConnectorPoint PointX="15.625" PointY="11.03155359100877" />
-          <ConnectorPoint PointX="2" PointY="11.051777418239762" />
+          <ConnectorPoint PointX="15.625" PointY="11.105257157360096" />
+          <ConnectorPoint PointX="15.25" PointY="11.105257157360096" />
+          <ConnectorPoint PointX="15.25" PointY="11.106857146692439" />
+          <ConnectorPoint PointX="2" PointY="11.106857146692439" />
         </AssociationConnector>
         <EntityTypeShape EntityType="ThemeHospitalDatabase.WardWaitingList" Width="1.5" PointX="2" PointY="4.625" />
         <AssociationConnector Association="ThemeHospitalDatabase.WardWaitingListWard" />
@@ -52,9 +54,9 @@
         <AssociationConnector Association="ThemeHospitalDatabase.TreatmentStaffMemeber1" />
         <AssociationConnector Association="ThemeHospitalDatabase.VisitNote" />
         <AssociationConnector Association="ThemeHospitalDatabase.PatientNote" ManuallyRouted="true" >
-          <ConnectorPoint PointX="8.5" PointY="3.9374972499999994" />
-          <ConnectorPoint PointX="1.2780855240035605" PointY="3.9374972499999994" />
-          <ConnectorPoint PointX="1.2780855240035605" PointY="9.375" />
+          <ConnectorPoint PointX="8.5" PointY="3.9279471675228321" />
+          <ConnectorPoint PointX="1.21875" PointY="3.9279471675228321" />
+          <ConnectorPoint PointX="1.21875" PointY="9.375" />
         </AssociationConnector>
         <AssociationConnector Association="ThemeHospitalDatabase.DoctorTeam" />
         <AssociationConnector Association="ThemeHospitalDatabase.ConsultantTeam" />
