@@ -1,0 +1,1242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ThemeHospitalDatabase.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ThemeHospitalDatabaseStoreContainer">
+    <EntitySet Name="Users" EntityType="ThemeHospitalDatabase.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Addresses" EntityType="ThemeHospitalDatabase.Store.Addresses" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Teams" EntityType="ThemeHospitalDatabase.Store.Teams" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Treatments" EntityType="ThemeHospitalDatabase.Store.Treatments" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Medicines" EntityType="ThemeHospitalDatabase.Store.Medicines" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Operations" EntityType="ThemeHospitalDatabase.Store.Operations" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Wards" EntityType="ThemeHospitalDatabase.Store.Wards" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Beds" EntityType="ThemeHospitalDatabase.Store.Beds" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Notes" EntityType="ThemeHospitalDatabase.Store.Notes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WardWaitingLists" EntityType="ThemeHospitalDatabase.Store.WardWaitingLists" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Visits" EntityType="ThemeHospitalDatabase.Store.Visits" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Treatments_CourseOfMedicine" EntityType="ThemeHospitalDatabase.Store.Treatments_CourseOfMedicine" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Treatments_Procedure" EntityType="ThemeHospitalDatabase.Store.Treatments_Procedure" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users_Patient" EntityType="ThemeHospitalDatabase.Store.Users_Patient" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users_StaffMemeber" EntityType="ThemeHospitalDatabase.Store.Users_StaffMemeber" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users_Doctor" EntityType="ThemeHospitalDatabase.Store.Users_Doctor" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users_Consultant" EntityType="ThemeHospitalDatabase.Store.Users_Consultant" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users_Receptionist" EntityType="ThemeHospitalDatabase.Store.Users_Receptionist" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserAddress" EntityType="ThemeHospitalDatabase.Store.UserAddress" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CauseOfMedicineMedicine" EntityType="ThemeHospitalDatabase.Store.CauseOfMedicineMedicine" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="VisitTeam" EntityType="ThemeHospitalDatabase.Store.VisitTeam" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_UserAddress_User" Association="ThemeHospitalDatabase.Store.FK_UserAddress_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserAddress" EntitySet="UserAddress" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserAddress_Address" Association="ThemeHospitalDatabase.Store.FK_UserAddress_Address">
+      <End Role="Address" EntitySet="Addresses" />
+      <End Role="UserAddress" EntitySet="UserAddress" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CauseOfMedicineMedicine_CauseOfMedicine" Association="ThemeHospitalDatabase.Store.FK_CauseOfMedicineMedicine_CauseOfMedicine">
+      <End Role="CauseOfMedicine" EntitySet="Treatments_CourseOfMedicine" />
+      <End Role="CauseOfMedicineMedicine" EntitySet="CauseOfMedicineMedicine" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CauseOfMedicineMedicine_Medicine" Association="ThemeHospitalDatabase.Store.FK_CauseOfMedicineMedicine_Medicine">
+      <End Role="Medicine" EntitySet="Medicines" />
+      <End Role="CauseOfMedicineMedicine" EntitySet="CauseOfMedicineMedicine" />
+    </AssociationSet>
+    <AssociationSet Name="ProcedureOperation" Association="ThemeHospitalDatabase.Store.ProcedureOperation">
+      <End Role="Procedure" EntitySet="Treatments_Procedure" />
+      <End Role="Operation" EntitySet="Operations" />
+    </AssociationSet>
+    <AssociationSet Name="TreatmentNote" Association="ThemeHospitalDatabase.Store.TreatmentNote">
+      <End Role="Treatment" EntitySet="Treatments" />
+      <End Role="Note" EntitySet="Notes" />
+    </AssociationSet>
+    <AssociationSet Name="WardWaitingListWard" Association="ThemeHospitalDatabase.Store.WardWaitingListWard">
+      <End Role="WardWaitingList" EntitySet="WardWaitingLists" />
+      <End Role="Ward" EntitySet="Wards" />
+    </AssociationSet>
+    <AssociationSet Name="PatientVisit" Association="ThemeHospitalDatabase.Store.PatientVisit">
+      <End Role="Patient" EntitySet="Users_Patient" />
+      <End Role="Visit" EntitySet="Visits" />
+    </AssociationSet>
+    <AssociationSet Name="VisitBed" Association="ThemeHospitalDatabase.Store.VisitBed">
+      <End Role="Visit" EntitySet="Visits" />
+      <End Role="Bed" EntitySet="Beds" />
+    </AssociationSet>
+    <AssociationSet Name="WardWaitingListPatient" Association="ThemeHospitalDatabase.Store.WardWaitingListPatient">
+      <End Role="WardWaitingList" EntitySet="WardWaitingLists" />
+      <End Role="Patient" EntitySet="Users_Patient" />
+    </AssociationSet>
+    <AssociationSet Name="TreatmentStaffMemeber" Association="ThemeHospitalDatabase.Store.TreatmentStaffMemeber">
+      <End Role="Treatment" EntitySet="Treatments" />
+      <End Role="StaffMemeber" EntitySet="Users_StaffMemeber" />
+    </AssociationSet>
+    <AssociationSet Name="TreatmentStaffMemeber1" Association="ThemeHospitalDatabase.Store.TreatmentStaffMemeber1">
+      <End Role="Treatment" EntitySet="Treatments" />
+      <End Role="StaffMemeber" EntitySet="Users_StaffMemeber" />
+    </AssociationSet>
+    <AssociationSet Name="VisitNote" Association="ThemeHospitalDatabase.Store.VisitNote">
+      <End Role="Visit" EntitySet="Visits" />
+      <End Role="Note" EntitySet="Notes" />
+    </AssociationSet>
+    <AssociationSet Name="PatientNote" Association="ThemeHospitalDatabase.Store.PatientNote">
+      <End Role="Patient" EntitySet="Users_Patient" />
+      <End Role="Note" EntitySet="Notes" />
+    </AssociationSet>
+    <AssociationSet Name="DoctorTeam" Association="ThemeHospitalDatabase.Store.DoctorTeam">
+      <End Role="Doctor" EntitySet="Users_Doctor" />
+      <End Role="Team" EntitySet="Teams" />
+    </AssociationSet>
+    <AssociationSet Name="ConsultantTeam" Association="ThemeHospitalDatabase.Store.ConsultantTeam">
+      <End Role="Consultant" EntitySet="Users_Consultant" />
+      <End Role="Team" EntitySet="Teams" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VisitTeam_Visit" Association="ThemeHospitalDatabase.Store.FK_VisitTeam_Visit">
+      <End Role="Visit" EntitySet="Visits" />
+      <End Role="VisitTeam" EntitySet="VisitTeam" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VisitTeam_Team" Association="ThemeHospitalDatabase.Store.FK_VisitTeam_Team">
+      <End Role="Team" EntitySet="Teams" />
+      <End Role="VisitTeam" EntitySet="VisitTeam" />
+    </AssociationSet>
+    <AssociationSet Name="TreatmentVisit" Association="ThemeHospitalDatabase.Store.TreatmentVisit">
+      <End Role="Treatment" EntitySet="Treatments" />
+      <End Role="Visit" EntitySet="Visits" />
+    </AssociationSet>
+    <AssociationSet Name="WardBed" Association="ThemeHospitalDatabase.Store.WardBed">
+      <End Role="Ward" EntitySet="Wards" />
+      <End Role="Bed" EntitySet="Beds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseOfMedicine_inherits_Treatment" Association="ThemeHospitalDatabase.Store.FK_CourseOfMedicine_inherits_Treatment">
+      <End Role="Treatment" EntitySet="Treatments" />
+      <End Role="CourseOfMedicine" EntitySet="Treatments_CourseOfMedicine" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Procedure_inherits_Treatment" Association="ThemeHospitalDatabase.Store.FK_Procedure_inherits_Treatment">
+      <End Role="Treatment" EntitySet="Treatments" />
+      <End Role="Procedure" EntitySet="Treatments_Procedure" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Patient_inherits_User" Association="ThemeHospitalDatabase.Store.FK_Patient_inherits_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Patient" EntitySet="Users_Patient" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StaffMemeber_inherits_User" Association="ThemeHospitalDatabase.Store.FK_StaffMemeber_inherits_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="StaffMemeber" EntitySet="Users_StaffMemeber" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Doctor_inherits_StaffMemeber" Association="ThemeHospitalDatabase.Store.FK_Doctor_inherits_StaffMemeber">
+      <End Role="StaffMemeber" EntitySet="Users_StaffMemeber" />
+      <End Role="Doctor" EntitySet="Users_Doctor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Consultant_inherits_StaffMemeber" Association="ThemeHospitalDatabase.Store.FK_Consultant_inherits_StaffMemeber">
+      <End Role="StaffMemeber" EntitySet="Users_StaffMemeber" />
+      <End Role="Consultant" EntitySet="Users_Consultant" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Receptionist_inherits_StaffMemeber" Association="ThemeHospitalDatabase.Store.FK_Receptionist_inherits_StaffMemeber">
+      <End Role="StaffMemeber" EntitySet="Users_StaffMemeber" />
+      <End Role="Receptionist" EntitySet="Users_Receptionist" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="OtherNames" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateOfBirth" Type="datetime" Nullable="false" />
+    <Property Name="ContactNumber" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Addresses">
+    <Key>
+      <PropertyRef Name="AddressId" />
+    </Key>
+    <Property Name="AddressId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="AddressLine1" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AddressLine2" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AddressLine3" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="City" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PostCode" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsCurrentAddress" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Teams">
+    <Key>
+      <PropertyRef Name="TeamId" />
+    </Key>
+    <Property Name="TeamId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Consultant_UserId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Treatments">
+    <Key>
+      <PropertyRef Name="TreatmentId" />
+    </Key>
+    <Property Name="TreatmentId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="RecordedBy_UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="AdministeredBy_UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Visit_VisitId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Medicines">
+    <Key>
+      <PropertyRef Name="MedicineId" />
+    </Key>
+    <Property Name="MedicineId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Operations">
+    <Key>
+      <PropertyRef Name="OperationId" />
+    </Key>
+    <Property Name="OperationId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Wards">
+    <Key>
+      <PropertyRef Name="WardId" />
+    </Key>
+    <Property Name="WardId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Beds">
+    <Key>
+      <PropertyRef Name="BedId" />
+    </Key>
+    <Property Name="BedId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="WardWardId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Notes">
+    <Key>
+      <PropertyRef Name="NoteId" />
+    </Key>
+    <Property Name="NoteId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="VisitVisitId" Type="uniqueidentifier" Nullable="true" />
+    <Property Name="Treatment_TreatmentId" Type="uniqueidentifier" Nullable="true" />
+    <Property Name="Patient_UserId" Type="uniqueidentifier" Nullable="true" />
+  </EntityType>
+  <EntityType Name="WardWaitingLists">
+    <Key>
+      <PropertyRef Name="WardWaitingListId" />
+    </Key>
+    <Property Name="WardWaitingListId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Ward_WardId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Visits">
+    <Key>
+      <PropertyRef Name="VisitId" />
+    </Key>
+    <Property Name="VisitId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="AdmittedDate" Type="datetime" Nullable="false" />
+    <Property Name="ReleaseDate" Type="datetime" Nullable="false" />
+    <Property Name="Patient_UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Bed_BedId" Type="uniqueidentifier" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Treatments_CourseOfMedicine">
+    <Key>
+      <PropertyRef Name="TreatmentId" />
+    </Key>
+    <Property Name="StartDate" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EndDate" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Instructions" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TreatmentId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Treatments_Procedure">
+    <Key>
+      <PropertyRef Name="TreatmentId" />
+    </Key>
+    <Property Name="TreatmentId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Operation_OperationId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users_Patient">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="EmergencyContactName" Type="int" Nullable="false" />
+    <Property Name="EmergencyContactNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="WardWaitingList_WardWaitingListId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users_StaffMemeber">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users_Doctor">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Team_TeamId" Type="uniqueidentifier" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Users_Consultant">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users_Receptionist">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserAddress">
+    <Key>
+      <PropertyRef Name="Users_UserId" />
+      <PropertyRef Name="Addresses_AddressId" />
+    </Key>
+    <Property Name="Users_UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Addresses_AddressId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CauseOfMedicineMedicine">
+    <Key>
+      <PropertyRef Name="CourseOfMedicine_TreatmentId" />
+      <PropertyRef Name="Medicines_MedicineId" />
+    </Key>
+    <Property Name="CourseOfMedicine_TreatmentId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Medicines_MedicineId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VisitTeam">
+    <Key>
+      <PropertyRef Name="Visits_VisitId" />
+      <PropertyRef Name="Teams_TeamId" />
+    </Key>
+    <Property Name="Visits_VisitId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Teams_TeamId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <Association Name="ProcedureOperation">
+    <End Role="Procedure" Type="ThemeHospitalDatabase.Store.Treatments_Procedure" Multiplicity="*" />
+    <End Role="Operation" Type="ThemeHospitalDatabase.Store.Operations" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Operation">
+        <PropertyRef Name="OperationId" />
+      </Principal>
+      <Dependent Role="Procedure">
+        <PropertyRef Name="Operation_OperationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TreatmentNote">
+    <End Role="Treatment" Type="ThemeHospitalDatabase.Store.Treatments" Multiplicity="0..1" />
+    <End Role="Note" Type="ThemeHospitalDatabase.Store.Notes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Treatment">
+        <PropertyRef Name="TreatmentId" />
+      </Principal>
+      <Dependent Role="Note">
+        <PropertyRef Name="Treatment_TreatmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="WardWaitingListWard">
+    <End Role="WardWaitingList" Type="ThemeHospitalDatabase.Store.WardWaitingLists" Multiplicity="*" />
+    <End Role="Ward" Type="ThemeHospitalDatabase.Store.Wards" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Ward">
+        <PropertyRef Name="WardId" />
+      </Principal>
+      <Dependent Role="WardWaitingList">
+        <PropertyRef Name="Ward_WardId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PatientVisit">
+    <End Role="Patient" Type="ThemeHospitalDatabase.Store.Users_Patient" Multiplicity="1" />
+    <End Role="Visit" Type="ThemeHospitalDatabase.Store.Visits" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Visit">
+        <PropertyRef Name="Patient_UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="VisitBed">
+    <End Role="Visit" Type="ThemeHospitalDatabase.Store.Visits" Multiplicity="*" />
+    <End Role="Bed" Type="ThemeHospitalDatabase.Store.Beds" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Bed">
+        <PropertyRef Name="BedId" />
+      </Principal>
+      <Dependent Role="Visit">
+        <PropertyRef Name="Bed_BedId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="WardWaitingListPatient">
+    <End Role="WardWaitingList" Type="ThemeHospitalDatabase.Store.WardWaitingLists" Multiplicity="1" />
+    <End Role="Patient" Type="ThemeHospitalDatabase.Store.Users_Patient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WardWaitingList">
+        <PropertyRef Name="WardWaitingListId" />
+      </Principal>
+      <Dependent Role="Patient">
+        <PropertyRef Name="WardWaitingList_WardWaitingListId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TreatmentStaffMemeber">
+    <End Role="Treatment" Type="ThemeHospitalDatabase.Store.Treatments" Multiplicity="*" />
+    <End Role="StaffMemeber" Type="ThemeHospitalDatabase.Store.Users_StaffMemeber" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="StaffMemeber">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Treatment">
+        <PropertyRef Name="RecordedBy_UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TreatmentStaffMemeber1">
+    <End Role="Treatment" Type="ThemeHospitalDatabase.Store.Treatments" Multiplicity="*" />
+    <End Role="StaffMemeber" Type="ThemeHospitalDatabase.Store.Users_StaffMemeber" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="StaffMemeber">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Treatment">
+        <PropertyRef Name="AdministeredBy_UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="VisitNote">
+    <End Role="Visit" Type="ThemeHospitalDatabase.Store.Visits" Multiplicity="0..1" />
+    <End Role="Note" Type="ThemeHospitalDatabase.Store.Notes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Visit">
+        <PropertyRef Name="VisitId" />
+      </Principal>
+      <Dependent Role="Note">
+        <PropertyRef Name="VisitVisitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PatientNote">
+    <End Role="Patient" Type="ThemeHospitalDatabase.Store.Users_Patient" Multiplicity="0..1" />
+    <End Role="Note" Type="ThemeHospitalDatabase.Store.Notes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Note">
+        <PropertyRef Name="Patient_UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DoctorTeam">
+    <End Role="Doctor" Type="ThemeHospitalDatabase.Store.Users_Doctor" Multiplicity="*" />
+    <End Role="Team" Type="ThemeHospitalDatabase.Store.Teams" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Team">
+        <PropertyRef Name="TeamId" />
+      </Principal>
+      <Dependent Role="Doctor">
+        <PropertyRef Name="Team_TeamId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ConsultantTeam">
+    <End Role="Consultant" Type="ThemeHospitalDatabase.Store.Users_Consultant" Multiplicity="1" />
+    <End Role="Team" Type="ThemeHospitalDatabase.Store.Teams" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Consultant">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Team">
+        <PropertyRef Name="Consultant_UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TreatmentVisit">
+    <End Role="Treatment" Type="ThemeHospitalDatabase.Store.Treatments" Multiplicity="*" />
+    <End Role="Visit" Type="ThemeHospitalDatabase.Store.Visits" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Visit">
+        <PropertyRef Name="VisitId" />
+      </Principal>
+      <Dependent Role="Treatment">
+        <PropertyRef Name="Visit_VisitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="WardBed">
+    <End Role="Ward" Type="ThemeHospitalDatabase.Store.Wards" Multiplicity="1" />
+    <End Role="Bed" Type="ThemeHospitalDatabase.Store.Beds" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ward">
+        <PropertyRef Name="WardId" />
+      </Principal>
+      <Dependent Role="Bed">
+        <PropertyRef Name="WardWardId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserAddress_User">
+    <End Role="User" Type="ThemeHospitalDatabase.Store.Users" Multiplicity="1" />
+    <End Role="UserAddress" Type="ThemeHospitalDatabase.Store.UserAddress" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserAddress">
+        <PropertyRef Name="Users_UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserAddress_Address">
+    <End Role="UserAddress" Type="ThemeHospitalDatabase.Store.UserAddress" Multiplicity="*" />
+    <End Role="Address" Type="ThemeHospitalDatabase.Store.Addresses" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Address">
+        <PropertyRef Name="AddressId" />
+      </Principal>
+      <Dependent Role="UserAddress">
+        <PropertyRef Name="Addresses_AddressId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CauseOfMedicineMedicine_CauseOfMedicine">
+    <End Role="CauseOfMedicine" Type="ThemeHospitalDatabase.Store.Treatments_CourseOfMedicine" Multiplicity="1" />
+    <End Role="CauseOfMedicineMedicine" Type="ThemeHospitalDatabase.Store.CauseOfMedicineMedicine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CauseOfMedicine">
+        <PropertyRef Name="TreatmentId" />
+      </Principal>
+      <Dependent Role="CauseOfMedicineMedicine">
+        <PropertyRef Name="CourseOfMedicine_TreatmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CauseOfMedicineMedicine_Medicine">
+    <End Role="CauseOfMedicineMedicine" Type="ThemeHospitalDatabase.Store.CauseOfMedicineMedicine" Multiplicity="*" />
+    <End Role="Medicine" Type="ThemeHospitalDatabase.Store.Medicines" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Medicine">
+        <PropertyRef Name="MedicineId" />
+      </Principal>
+      <Dependent Role="CauseOfMedicineMedicine">
+        <PropertyRef Name="Medicines_MedicineId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VisitTeam_Visit">
+    <End Role="Visit" Type="ThemeHospitalDatabase.Store.Visits" Multiplicity="1" />
+    <End Role="VisitTeam" Type="ThemeHospitalDatabase.Store.VisitTeam" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Visit">
+        <PropertyRef Name="VisitId" />
+      </Principal>
+      <Dependent Role="VisitTeam">
+        <PropertyRef Name="Visits_VisitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VisitTeam_Team">
+    <End Role="VisitTeam" Type="ThemeHospitalDatabase.Store.VisitTeam" Multiplicity="*" />
+    <End Role="Team" Type="ThemeHospitalDatabase.Store.Teams" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Team">
+        <PropertyRef Name="TeamId" />
+      </Principal>
+      <Dependent Role="VisitTeam">
+        <PropertyRef Name="Teams_TeamId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseOfMedicine_inherits_Treatment">
+    <End Role="Treatment" Type="ThemeHospitalDatabase.Store.Treatments" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CourseOfMedicine" Type="ThemeHospitalDatabase.Store.Treatments_CourseOfMedicine" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Treatment">
+        <PropertyRef Name="TreatmentId" />
+      </Principal>
+      <Dependent Role="CourseOfMedicine">
+        <PropertyRef Name="TreatmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Procedure_inherits_Treatment">
+    <End Role="Treatment" Type="ThemeHospitalDatabase.Store.Treatments" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Procedure" Type="ThemeHospitalDatabase.Store.Treatments_Procedure" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Treatment">
+        <PropertyRef Name="TreatmentId" />
+      </Principal>
+      <Dependent Role="Procedure">
+        <PropertyRef Name="TreatmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Patient_inherits_User">
+    <End Role="User" Type="ThemeHospitalDatabase.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Patient" Type="ThemeHospitalDatabase.Store.Users_Patient" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Patient">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StaffMemeber_inherits_User">
+    <End Role="User" Type="ThemeHospitalDatabase.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="StaffMemeber" Type="ThemeHospitalDatabase.Store.Users_StaffMemeber" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="StaffMemeber">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Doctor_inherits_StaffMemeber">
+    <End Role="StaffMemeber" Type="ThemeHospitalDatabase.Store.Users_StaffMemeber" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Doctor" Type="ThemeHospitalDatabase.Store.Users_Doctor" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="StaffMemeber">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Doctor">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Consultant_inherits_StaffMemeber">
+    <End Role="StaffMemeber" Type="ThemeHospitalDatabase.Store.Users_StaffMemeber" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Consultant" Type="ThemeHospitalDatabase.Store.Users_Consultant" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="StaffMemeber">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Consultant">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Receptionist_inherits_StaffMemeber">
+    <End Role="StaffMemeber" Type="ThemeHospitalDatabase.Store.Users_StaffMemeber" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Receptionist" Type="ThemeHospitalDatabase.Store.Users_Receptionist" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="StaffMemeber">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Receptionist">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ThemeHospitalDatabase" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ThemeHospitalDatabaseContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Users" EntityType="ThemeHospitalDatabase.User" />
+          <EntitySet Name="Addresses" EntityType="ThemeHospitalDatabase.Address" />
+          <AssociationSet Name="UserAddress" Association="ThemeHospitalDatabase.UserAddress">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+          <EntitySet Name="Teams" EntityType="ThemeHospitalDatabase.Team" />
+          <EntitySet Name="Treatments" EntityType="ThemeHospitalDatabase.Treatment" />
+          <EntitySet Name="Medicines" EntityType="ThemeHospitalDatabase.Medicine" />
+          <AssociationSet Name="CauseOfMedicineMedicine" Association="ThemeHospitalDatabase.CauseOfMedicineMedicine">
+            <End Role="CauseOfMedicine" EntitySet="Treatments" />
+            <End Role="Medicine" EntitySet="Medicines" />
+          </AssociationSet>
+          <EntitySet Name="Operations" EntityType="ThemeHospitalDatabase.Operation" />
+          <AssociationSet Name="ProcedureOperation" Association="ThemeHospitalDatabase.ProcedureOperation">
+            <End Role="Procedure" EntitySet="Treatments" />
+            <End Role="Operation" EntitySet="Operations" />
+          </AssociationSet>
+          <EntitySet Name="Wards" EntityType="ThemeHospitalDatabase.Ward" />
+          <EntitySet Name="Beds" EntityType="ThemeHospitalDatabase.Bed" />
+          <EntitySet Name="Notes" EntityType="ThemeHospitalDatabase.Note" />
+          <AssociationSet Name="TreatmentNote" Association="ThemeHospitalDatabase.TreatmentNote">
+            <End Role="Treatment" EntitySet="Treatments" />
+            <End Role="Note" EntitySet="Notes" />
+          </AssociationSet>
+          <EntitySet Name="WardWaitingLists" EntityType="ThemeHospitalDatabase.WardWaitingList" />
+          <AssociationSet Name="WardWaitingListWard" Association="ThemeHospitalDatabase.WardWaitingListWard">
+            <End Role="WardWaitingList" EntitySet="WardWaitingLists" />
+            <End Role="Ward" EntitySet="Wards" />
+          </AssociationSet>
+          <EntitySet Name="Visits" EntityType="ThemeHospitalDatabase.Visit" />
+          <AssociationSet Name="PatientVisit" Association="ThemeHospitalDatabase.PatientVisit">
+            <End Role="Patient" EntitySet="Users" />
+            <End Role="Visit" EntitySet="Visits" />
+          </AssociationSet>
+          <AssociationSet Name="VisitBed" Association="ThemeHospitalDatabase.VisitBed">
+            <End Role="Visit" EntitySet="Visits" />
+            <End Role="Bed" EntitySet="Beds" />
+          </AssociationSet>
+          <AssociationSet Name="WardWaitingListPatient" Association="ThemeHospitalDatabase.WardWaitingListPatient">
+            <End Role="WardWaitingList" EntitySet="WardWaitingLists" />
+            <End Role="Patient" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="TreatmentStaffMemeber" Association="ThemeHospitalDatabase.TreatmentStaffMemeber">
+            <End Role="Treatment" EntitySet="Treatments" />
+            <End Role="StaffMemeber" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="TreatmentStaffMemeber1" Association="ThemeHospitalDatabase.TreatmentStaffMemeber1">
+            <End Role="Treatment" EntitySet="Treatments" />
+            <End Role="StaffMemeber" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="VisitNote" Association="ThemeHospitalDatabase.VisitNote">
+            <End Role="Visit" EntitySet="Visits" />
+            <End Role="Note" EntitySet="Notes" />
+          </AssociationSet>
+          <AssociationSet Name="PatientNote" Association="ThemeHospitalDatabase.PatientNote">
+            <End Role="Patient" EntitySet="Users" />
+            <End Role="Note" EntitySet="Notes" />
+          </AssociationSet>
+          <AssociationSet Name="DoctorTeam" Association="ThemeHospitalDatabase.DoctorTeam">
+            <End Role="Doctor" EntitySet="Users" />
+            <End Role="Team" EntitySet="Teams" />
+          </AssociationSet>
+          <AssociationSet Name="ConsultantTeam" Association="ThemeHospitalDatabase.ConsultantTeam">
+            <End Role="Consultant" EntitySet="Users" />
+            <End Role="Team" EntitySet="Teams" />
+          </AssociationSet>
+          <AssociationSet Name="VisitTeam" Association="ThemeHospitalDatabase.VisitTeam">
+            <End Role="Visit" EntitySet="Visits" />
+            <End Role="Team" EntitySet="Teams" />
+          </AssociationSet>
+          <AssociationSet Name="TreatmentVisit" Association="ThemeHospitalDatabase.TreatmentVisit">
+            <End Role="Treatment" EntitySet="Treatments" />
+            <End Role="Visit" EntitySet="Visits" />
+          </AssociationSet>
+          <AssociationSet Name="WardBed" Association="ThemeHospitalDatabase.WardBed">
+            <End Role="Ward" EntitySet="Wards" />
+            <End Role="Bed" EntitySet="Beds" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" />
+          <Property Name="OtherNames" Type="String" Nullable="false" />
+          <Property Name="LastName" Type="String" Nullable="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" />
+          <Property Name="ContactNumber" Type="String" Nullable="false" />
+          <NavigationProperty Name="Addresses" Relationship="ThemeHospitalDatabase.UserAddress" FromRole="User" ToRole="Address" />
+        </EntityType>
+        <EntityType Name="Patient" BaseType="ThemeHospitalDatabase.User" >
+          <Property Name="EmergencyContactName" Type="Int32" Nullable="false" />
+          <Property Name="EmergencyContactNumber" Type="String" Nullable="false" />
+          <NavigationProperty Name="Visits" Relationship="ThemeHospitalDatabase.PatientVisit" FromRole="Patient" ToRole="Visit" />
+          <NavigationProperty Name="WardWaitingList" Relationship="ThemeHospitalDatabase.WardWaitingListPatient" FromRole="Patient" ToRole="WardWaitingList" />
+          <NavigationProperty Name="Notes" Relationship="ThemeHospitalDatabase.PatientNote" FromRole="Patient" ToRole="Note" />
+        </EntityType>
+        <EntityType Name="Doctor" BaseType="ThemeHospitalDatabase.StaffMemeber" >
+          <NavigationProperty Name="Team" Relationship="ThemeHospitalDatabase.DoctorTeam" FromRole="Doctor" ToRole="Team" />
+        </EntityType>
+        <EntityType Name="Consultant" BaseType="ThemeHospitalDatabase.StaffMemeber" >
+          <NavigationProperty Name="Team" Relationship="ThemeHospitalDatabase.ConsultantTeam" FromRole="Consultant" ToRole="Team" />
+        </EntityType>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="AddressId" />
+          </Key>
+          <Property Name="AddressId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="AddressLine1" Type="String" Nullable="false" />
+          <Property Name="AddressLine2" Type="String" Nullable="false" />
+          <Property Name="AddressLine3" Type="String" Nullable="false" />
+          <Property Name="City" Type="String" Nullable="false" />
+          <Property Name="PostCode" Type="String" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="ThemeHospitalDatabase.UserAddress" FromRole="Address" ToRole="User" />
+          <Property Name="IsCurrentAddress" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="UserAddress">
+          <End Type="ThemeHospitalDatabase.User" Role="User" Multiplicity="*" />
+          <End Type="ThemeHospitalDatabase.Address" Role="Address" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="TeamId" />
+          </Key>
+          <Property Name="TeamId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <NavigationProperty Name="Doctors" Relationship="ThemeHospitalDatabase.DoctorTeam" FromRole="Team" ToRole="Doctor" />
+          <NavigationProperty Name="Consultant" Relationship="ThemeHospitalDatabase.ConsultantTeam" FromRole="Team" ToRole="Consultant" />
+          <NavigationProperty Name="Visits" Relationship="ThemeHospitalDatabase.VisitTeam" FromRole="Team" ToRole="Visit" />
+        </EntityType>
+        <EntityType Name="Treatment">
+          <Key>
+            <PropertyRef Name="TreatmentId" />
+          </Key>
+          <Property Name="TreatmentId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <NavigationProperty Name="Notes" Relationship="ThemeHospitalDatabase.TreatmentNote" FromRole="Treatment" ToRole="Note" />
+          <NavigationProperty Name="RecordedBy" Relationship="ThemeHospitalDatabase.TreatmentStaffMemeber" FromRole="Treatment" ToRole="StaffMemeber" />
+          <NavigationProperty Name="AdministeredBy" Relationship="ThemeHospitalDatabase.TreatmentStaffMemeber1" FromRole="Treatment" ToRole="StaffMemeber" />
+          <NavigationProperty Name="Visit" Relationship="ThemeHospitalDatabase.TreatmentVisit" FromRole="Treatment" ToRole="Visit" />
+        </EntityType>
+        <EntityType Name="Procedure" BaseType="ThemeHospitalDatabase.Treatment" >
+          <NavigationProperty Name="Operation" Relationship="ThemeHospitalDatabase.ProcedureOperation" FromRole="Procedure" ToRole="Operation" />
+        </EntityType>
+        <EntityType Name="CourseOfMedicine" BaseType="ThemeHospitalDatabase.Treatment" >
+          <NavigationProperty Name="Medicines" Relationship="ThemeHospitalDatabase.CauseOfMedicineMedicine" FromRole="CauseOfMedicine" ToRole="Medicine" />
+          <Property Name="StartDate" Type="String" Nullable="false" />
+          <Property Name="EndDate" Type="String" Nullable="false" />
+          <Property Name="Instructions" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Medicine">
+          <Key>
+            <PropertyRef Name="MedicineId" />
+          </Key>
+          <Property Name="MedicineId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <NavigationProperty Name="CourseOfMedicine" Relationship="ThemeHospitalDatabase.CauseOfMedicineMedicine" FromRole="Medicine" ToRole="CauseOfMedicine" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="CauseOfMedicineMedicine">
+          <End Type="ThemeHospitalDatabase.CourseOfMedicine" Role="CauseOfMedicine" Multiplicity="*" />
+          <End Type="ThemeHospitalDatabase.Medicine" Role="Medicine" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Operation">
+          <Key>
+            <PropertyRef Name="OperationId" />
+          </Key>
+          <Property Name="OperationId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <NavigationProperty Name="Procedure" Relationship="ThemeHospitalDatabase.ProcedureOperation" FromRole="Operation" ToRole="Procedure" />
+          <Property Name="Description" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="ProcedureOperation">
+          <End Type="ThemeHospitalDatabase.Procedure" Role="Procedure" Multiplicity="0..1" />
+          <End Type="ThemeHospitalDatabase.Operation" Role="Operation" Multiplicity="1" />
+        </Association>
+        <EntityType Name="StaffMemeber" BaseType="ThemeHospitalDatabase.User" >
+          <Property Name="Username" Type="String" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" />
+          <NavigationProperty Name="TreatmentsAssigned" Relationship="ThemeHospitalDatabase.TreatmentStaffMemeber" FromRole="StaffMemeber" ToRole="Treatment" />
+          <NavigationProperty Name="TreatmentsAdministered" Relationship="ThemeHospitalDatabase.TreatmentStaffMemeber1" FromRole="StaffMemeber" ToRole="Treatment" />
+        </EntityType>
+        <EntityType Name="Receptionist" BaseType="ThemeHospitalDatabase.StaffMemeber" />
+        <EntityType Name="Ward">
+          <Key>
+            <PropertyRef Name="WardId" />
+          </Key>
+          <Property Name="WardId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <NavigationProperty Name="WardWaitingList" Relationship="ThemeHospitalDatabase.WardWaitingListWard" FromRole="Ward" ToRole="WardWaitingList" />
+          <NavigationProperty Name="Beds" Relationship="ThemeHospitalDatabase.WardBed" FromRole="Ward" ToRole="Bed" />
+        </EntityType>
+        <EntityType Name="Bed">
+          <Key>
+            <PropertyRef Name="BedId" />
+          </Key>
+          <Property Name="BedId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <NavigationProperty Name="Visits" Relationship="ThemeHospitalDatabase.VisitBed" FromRole="Bed" ToRole="Visit" />
+          <NavigationProperty Name="Ward" Relationship="ThemeHospitalDatabase.WardBed" FromRole="Bed" ToRole="Ward" />
+          <Property Name="WardWardId" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Note">
+          <Key>
+            <PropertyRef Name="NoteId" />
+          </Key>
+          <Property Name="NoteId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <NavigationProperty Name="Treatment" Relationship="ThemeHospitalDatabase.TreatmentNote" FromRole="Note" ToRole="Treatment" />
+          <NavigationProperty Name="Visit" Relationship="ThemeHospitalDatabase.VisitNote" FromRole="Note" ToRole="Visit" />
+          <Property Name="VisitVisitId" Type="Guid" Nullable="true" />
+          <NavigationProperty Name="Patient" Relationship="ThemeHospitalDatabase.PatientNote" FromRole="Note" ToRole="Patient" />
+        </EntityType>
+        <Association Name="TreatmentNote">
+          <End Type="ThemeHospitalDatabase.Treatment" Role="Treatment" Multiplicity="0..1" />
+          <End Type="ThemeHospitalDatabase.Note" Role="Note" Multiplicity="*" />
+        </Association>
+        <EntityType Name="WardWaitingList">
+          <Key>
+            <PropertyRef Name="WardWaitingListId" />
+          </Key>
+          <Property Name="WardWaitingListId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <NavigationProperty Name="Ward" Relationship="ThemeHospitalDatabase.WardWaitingListWard" FromRole="WardWaitingList" ToRole="Ward" />
+          <NavigationProperty Name="Patients" Relationship="ThemeHospitalDatabase.WardWaitingListPatient" FromRole="WardWaitingList" ToRole="Patient" />
+        </EntityType>
+        <Association Name="WardWaitingListWard">
+          <End Type="ThemeHospitalDatabase.WardWaitingList" Role="WardWaitingList" Multiplicity="1" />
+          <End Type="ThemeHospitalDatabase.Ward" Role="Ward" Multiplicity="1" />
+        </Association>
+        <EntityType Name="Visit">
+          <Key>
+            <PropertyRef Name="VisitId" />
+          </Key>
+          <Property Name="VisitId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <NavigationProperty Name="Patient" Relationship="ThemeHospitalDatabase.PatientVisit" FromRole="Visit" ToRole="Patient" />
+          <NavigationProperty Name="Bed" Relationship="ThemeHospitalDatabase.VisitBed" FromRole="Visit" ToRole="Bed" />
+          <Property Name="AdmittedDate" Type="DateTime" Nullable="false" />
+          <Property Name="ReleaseDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Notes" Relationship="ThemeHospitalDatabase.VisitNote" FromRole="Visit" ToRole="Note" />
+          <NavigationProperty Name="Teams" Relationship="ThemeHospitalDatabase.VisitTeam" FromRole="Visit" ToRole="Team" />
+          <NavigationProperty Name="Treatments" Relationship="ThemeHospitalDatabase.TreatmentVisit" FromRole="Visit" ToRole="Treatment" />
+        </EntityType>
+        <Association Name="PatientVisit">
+          <End Type="ThemeHospitalDatabase.Patient" Role="Patient" Multiplicity="1" />
+          <End Type="ThemeHospitalDatabase.Visit" Role="Visit" Multiplicity="*" />
+        </Association>
+        <Association Name="VisitBed">
+          <End Type="ThemeHospitalDatabase.Visit" Role="Visit" Multiplicity="*" />
+          <End Type="ThemeHospitalDatabase.Bed" Role="Bed" Multiplicity="0..1" />
+        </Association>
+        <Association Name="WardWaitingListPatient">
+          <End Type="ThemeHospitalDatabase.WardWaitingList" Role="WardWaitingList" Multiplicity="1" />
+          <End Type="ThemeHospitalDatabase.Patient" Role="Patient" Multiplicity="*" />
+        </Association>
+        <Association Name="TreatmentStaffMemeber">
+          <End Type="ThemeHospitalDatabase.Treatment" Role="Treatment" Multiplicity="*" />
+          <End Type="ThemeHospitalDatabase.StaffMemeber" Role="StaffMemeber" Multiplicity="1" />
+        </Association>
+        <Association Name="TreatmentStaffMemeber1">
+          <End Type="ThemeHospitalDatabase.Treatment" Role="Treatment" Multiplicity="*" />
+          <End Type="ThemeHospitalDatabase.StaffMemeber" Role="StaffMemeber" Multiplicity="1" />
+        </Association>
+        <Association Name="VisitNote">
+          <End Type="ThemeHospitalDatabase.Visit" Role="Visit" Multiplicity="0..1" />
+          <End Type="ThemeHospitalDatabase.Note" Role="Note" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visit">
+              <PropertyRef Name="VisitId" />
+            </Principal>
+            <Dependent Role="Note">
+              <PropertyRef Name="VisitVisitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PatientNote">
+          <End Type="ThemeHospitalDatabase.Patient" Role="Patient" Multiplicity="0..1" />
+          <End Type="ThemeHospitalDatabase.Note" Role="Note" Multiplicity="*" />
+        </Association>
+        <Association Name="DoctorTeam">
+          <End Type="ThemeHospitalDatabase.Doctor" Role="Doctor" Multiplicity="*" />
+          <End Type="ThemeHospitalDatabase.Team" Role="Team" Multiplicity="0..1" />
+        </Association>
+        <Association Name="ConsultantTeam">
+          <End Type="ThemeHospitalDatabase.Consultant" Role="Consultant" Multiplicity="1" />
+          <End Type="ThemeHospitalDatabase.Team" Role="Team" Multiplicity="0..1" />
+        </Association>
+        <Association Name="VisitTeam">
+          <End Type="ThemeHospitalDatabase.Visit" Role="Visit" Multiplicity="*" />
+          <End Type="ThemeHospitalDatabase.Team" Role="Team" Multiplicity="*" />
+        </Association>
+        <Association Name="TreatmentVisit">
+          <End Type="ThemeHospitalDatabase.Treatment" Role="Treatment" Multiplicity="*" />
+          <End Type="ThemeHospitalDatabase.Visit" Role="Visit" Multiplicity="1" />
+        </Association>
+        <Association Name="WardBed">
+          <End Type="ThemeHospitalDatabase.Ward" Role="Ward" Multiplicity="1" />
+          <End Type="ThemeHospitalDatabase.Bed" Role="Bed" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ward">
+              <PropertyRef Name="WardId" />
+            </Principal>
+            <Dependent Role="Bed">
+              <PropertyRef Name="WardWardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ThemeHospitalDatabaseStoreContainer" CdmEntityContainer="ThemeHospitalDatabaseContainer">
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(ThemeHospitalDatabase.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="OtherNames" ColumnName="OtherNames" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(ThemeHospitalDatabase.Patient)">
+        <MappingFragment StoreEntitySet="Users_Patient">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="EmergencyContactName" ColumnName="EmergencyContactName" />
+          <ScalarProperty Name="EmergencyContactNumber" ColumnName="EmergencyContactNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(ThemeHospitalDatabase.StaffMemeber)">
+        <MappingFragment StoreEntitySet="Users_StaffMemeber">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(ThemeHospitalDatabase.Doctor)">
+        <MappingFragment StoreEntitySet="Users_Doctor">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(ThemeHospitalDatabase.Consultant)">
+        <MappingFragment StoreEntitySet="Users_Consultant">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(ThemeHospitalDatabase.Receptionist)">
+        <MappingFragment StoreEntitySet="Users_Receptionist">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Addresses">
+      <EntityTypeMapping TypeName="IsTypeOf(ThemeHospitalDatabase.Address)">
+        <MappingFragment StoreEntitySet="Addresses">
+          <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+          <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+          <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+          <ScalarProperty Name="AddressLine3" ColumnName="AddressLine3" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="PostCode" ColumnName="PostCode" />
+          <ScalarProperty Name="IsCurrentAddress" ColumnName="IsCurrentAddress" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Teams">
+      <EntityTypeMapping TypeName="IsTypeOf(ThemeHospitalDatabase.Team)">
+        <MappingFragment StoreEntitySet="Teams">
+          <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Treatments">
+      <EntityTypeMapping TypeName="IsTypeOf(ThemeHospitalDatabase.Treatment)">
+        <MappingFragment StoreEntitySet="Treatments">
+          <ScalarProperty Name="TreatmentId" ColumnName="TreatmentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(ThemeHospitalDatabase.CourseOfMedicine)">
+        <MappingFragment StoreEntitySet="Treatments_CourseOfMedicine">
+          <ScalarProperty Name="TreatmentId" ColumnName="TreatmentId" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="Instructions" ColumnName="Instructions" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(ThemeHospitalDatabase.Procedure)">
+        <MappingFragment StoreEntitySet="Treatments_Procedure">
+          <ScalarProperty Name="TreatmentId" ColumnName="TreatmentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Medicines">
+      <EntityTypeMapping TypeName="IsTypeOf(ThemeHospitalDatabase.Medicine)">
+        <MappingFragment StoreEntitySet="Medicines">
+          <ScalarProperty Name="MedicineId" ColumnName="MedicineId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Operations">
+      <EntityTypeMapping TypeName="IsTypeOf(ThemeHospitalDatabase.Operation)">
+        <MappingFragment StoreEntitySet="Operations">
+          <ScalarProperty Name="OperationId" ColumnName="OperationId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Wards">
+      <EntityTypeMapping TypeName="IsTypeOf(ThemeHospitalDatabase.Ward)">
+        <MappingFragment StoreEntitySet="Wards">
+          <ScalarProperty Name="WardId" ColumnName="WardId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Beds">
+      <EntityTypeMapping TypeName="IsTypeOf(ThemeHospitalDatabase.Bed)">
+        <MappingFragment StoreEntitySet="Beds">
+          <ScalarProperty Name="BedId" ColumnName="BedId" />
+          <ScalarProperty Name="WardWardId" ColumnName="WardWardId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Notes">
+      <EntityTypeMapping TypeName="IsTypeOf(ThemeHospitalDatabase.Note)">
+        <MappingFragment StoreEntitySet="Notes">
+          <ScalarProperty Name="NoteId" ColumnName="NoteId" />
+          <ScalarProperty Name="VisitVisitId" ColumnName="VisitVisitId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WardWaitingLists">
+      <EntityTypeMapping TypeName="IsTypeOf(ThemeHospitalDatabase.WardWaitingList)">
+        <MappingFragment StoreEntitySet="WardWaitingLists">
+          <ScalarProperty Name="WardWaitingListId" ColumnName="WardWaitingListId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Visits">
+      <EntityTypeMapping TypeName="IsTypeOf(ThemeHospitalDatabase.Visit)">
+        <MappingFragment StoreEntitySet="Visits">
+          <ScalarProperty Name="VisitId" ColumnName="VisitId" />
+          <ScalarProperty Name="AdmittedDate" ColumnName="AdmittedDate" />
+          <ScalarProperty Name="ReleaseDate" ColumnName="ReleaseDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="UserAddress" TypeName="ThemeHospitalDatabase.UserAddress" StoreEntitySet="UserAddress">
+      <EndProperty Name="User">
+        <ScalarProperty Name="UserId" ColumnName="Users_UserId" />
+      </EndProperty>
+      <EndProperty Name="Address">
+        <ScalarProperty Name="AddressId" ColumnName="Addresses_AddressId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CauseOfMedicineMedicine" TypeName="ThemeHospitalDatabase.CauseOfMedicineMedicine" StoreEntitySet="CauseOfMedicineMedicine">
+      <EndProperty Name="CauseOfMedicine">
+        <ScalarProperty Name="TreatmentId" ColumnName="CourseOfMedicine_TreatmentId" />
+      </EndProperty>
+      <EndProperty Name="Medicine">
+        <ScalarProperty Name="MedicineId" ColumnName="Medicines_MedicineId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ProcedureOperation" TypeName="ThemeHospitalDatabase.ProcedureOperation" StoreEntitySet="Treatments_Procedure">
+      <EndProperty Name="Operation">
+        <ScalarProperty Name="OperationId" ColumnName="Operation_OperationId" />
+      </EndProperty>
+      <EndProperty Name="Procedure">
+        <ScalarProperty Name="TreatmentId" ColumnName="TreatmentId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TreatmentNote" TypeName="ThemeHospitalDatabase.TreatmentNote" StoreEntitySet="Notes">
+      <EndProperty Name="Treatment">
+        <ScalarProperty Name="TreatmentId" ColumnName="Treatment_TreatmentId" />
+      </EndProperty>
+      <EndProperty Name="Note">
+        <ScalarProperty Name="NoteId" ColumnName="NoteId" />
+      </EndProperty>
+      <Condition ColumnName="Treatment_TreatmentId" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="WardWaitingListWard" TypeName="ThemeHospitalDatabase.WardWaitingListWard" StoreEntitySet="WardWaitingLists">
+      <EndProperty Name="Ward">
+        <ScalarProperty Name="WardId" ColumnName="Ward_WardId" />
+      </EndProperty>
+      <EndProperty Name="WardWaitingList">
+        <ScalarProperty Name="WardWaitingListId" ColumnName="WardWaitingListId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PatientVisit" TypeName="ThemeHospitalDatabase.PatientVisit" StoreEntitySet="Visits">
+      <EndProperty Name="Patient">
+        <ScalarProperty Name="UserId" ColumnName="Patient_UserId" />
+      </EndProperty>
+      <EndProperty Name="Visit">
+        <ScalarProperty Name="VisitId" ColumnName="VisitId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="VisitBed" TypeName="ThemeHospitalDatabase.VisitBed" StoreEntitySet="Visits">
+      <EndProperty Name="Bed">
+        <ScalarProperty Name="BedId" ColumnName="Bed_BedId" />
+      </EndProperty>
+      <EndProperty Name="Visit">
+        <ScalarProperty Name="VisitId" ColumnName="VisitId" />
+      </EndProperty>
+      <Condition ColumnName="Bed_BedId" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="WardWaitingListPatient" TypeName="ThemeHospitalDatabase.WardWaitingListPatient" StoreEntitySet="Users_Patient">
+      <EndProperty Name="WardWaitingList">
+        <ScalarProperty Name="WardWaitingListId" ColumnName="WardWaitingList_WardWaitingListId" />
+      </EndProperty>
+      <EndProperty Name="Patient">
+        <ScalarProperty Name="UserId" ColumnName="UserId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TreatmentStaffMemeber" TypeName="ThemeHospitalDatabase.TreatmentStaffMemeber" StoreEntitySet="Treatments">
+      <EndProperty Name="StaffMemeber">
+        <ScalarProperty Name="UserId" ColumnName="RecordedBy_UserId" />
+      </EndProperty>
+      <EndProperty Name="Treatment">
+        <ScalarProperty Name="TreatmentId" ColumnName="TreatmentId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TreatmentStaffMemeber1" TypeName="ThemeHospitalDatabase.TreatmentStaffMemeber1" StoreEntitySet="Treatments">
+      <EndProperty Name="StaffMemeber">
+        <ScalarProperty Name="UserId" ColumnName="AdministeredBy_UserId" />
+      </EndProperty>
+      <EndProperty Name="Treatment">
+        <ScalarProperty Name="TreatmentId" ColumnName="TreatmentId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PatientNote" TypeName="ThemeHospitalDatabase.PatientNote" StoreEntitySet="Notes">
+      <EndProperty Name="Patient">
+        <ScalarProperty Name="UserId" ColumnName="Patient_UserId" />
+      </EndProperty>
+      <EndProperty Name="Note">
+        <ScalarProperty Name="NoteId" ColumnName="NoteId" />
+      </EndProperty>
+      <Condition ColumnName="Patient_UserId" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DoctorTeam" TypeName="ThemeHospitalDatabase.DoctorTeam" StoreEntitySet="Users_Doctor">
+      <EndProperty Name="Team">
+        <ScalarProperty Name="TeamId" ColumnName="Team_TeamId" />
+      </EndProperty>
+      <EndProperty Name="Doctor">
+        <ScalarProperty Name="UserId" ColumnName="UserId" />
+      </EndProperty>
+      <Condition ColumnName="Team_TeamId" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ConsultantTeam" TypeName="ThemeHospitalDatabase.ConsultantTeam" StoreEntitySet="Teams">
+      <EndProperty Name="Consultant">
+        <ScalarProperty Name="UserId" ColumnName="Consultant_UserId" />
+      </EndProperty>
+      <EndProperty Name="Team">
+        <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="VisitTeam" TypeName="ThemeHospitalDatabase.VisitTeam" StoreEntitySet="VisitTeam">
+      <EndProperty Name="Visit">
+        <ScalarProperty Name="VisitId" ColumnName="Visits_VisitId" />
+      </EndProperty>
+      <EndProperty Name="Team">
+        <ScalarProperty Name="TeamId" ColumnName="Teams_TeamId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TreatmentVisit" TypeName="ThemeHospitalDatabase.TreatmentVisit" StoreEntitySet="Treatments">
+      <EndProperty Name="Visit">
+        <ScalarProperty Name="VisitId" ColumnName="Visit_VisitId" />
+      </EndProperty>
+      <EndProperty Name="Treatment">
+        <ScalarProperty Name="TreatmentId" ColumnName="TreatmentId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
