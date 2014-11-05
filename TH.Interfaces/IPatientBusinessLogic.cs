@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TH.Domain;
+using TH.Domain.User;
 
 namespace TH.Interfaces
 {
-    public interface IUserBusinessLogic
+    public interface IPatientBusinessLogic
     {
-        IEnumerable<User> GetAllUsers(); 
+        IEnumerable<Patient> GetAllUsers(); 
     }
 }

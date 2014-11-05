@@ -25,7 +25,9 @@ namespace TH.Container
         private static void Register()
         {
             _unityContainer = new UnityContainer();
-            _unityContainer.RegisterType<IUserBusinessLogic, UserBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
+            _unityContainer.RegisterType<IPatientBusinessLogic, PatientBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
+            _unityContainer.RegisterType<ILoginServiceBusinessLogic, LoginServiceBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
+
             _unityContainer.RegisterType<IUnitOfWork, UnitOfWorkEntityFrameworkImplementation>(new ContainerControlledLifetimeManager());
         }
     }

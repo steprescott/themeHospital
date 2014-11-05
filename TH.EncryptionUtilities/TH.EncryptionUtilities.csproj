@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6030569B-643F-4E9E-B454-BB45F4CD6084}</ProjectGuid>
+    <ProjectGuid>{4AE23799-4EB8-40CE-8E4B-07ADC3FF8A30}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TH.Interfaces</RootNamespace>
-    <AssemblyName>TH.Interfaces</AssemblyName>
+    <RootNamespace>TH.EncryptionUtilities</RootNamespace>
+    <AssemblyName>TH.EncryptionUtilities</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,18 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ILoginServiceBusinessLogic.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="IUnitOfWork.cs" />
-    <Compile Include="IPatientBusinessLogic.cs" />
+    <Compile Include="BasicEncryptDecryptUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TH.Domain\TH.Domain.csproj">
-      <Project>{3AE08C0A-9CAA-411C-87B2-8CC7A5D13708}</Project>
-      <Name>TH.Domain</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

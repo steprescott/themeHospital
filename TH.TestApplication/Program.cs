@@ -10,7 +10,7 @@ namespace TH.TestApplication
     {
         static void Main(string[] args)
         {
-            var container = ThemeHospitalContainer.GetInstance<IUserBusinessLogic>();
+            var container = ThemeHospitalContainer.GetInstance<IPatientBusinessLogic>();
 
             Console.WriteLine(container.GetAllUsers().Any());
             Console.ReadKey();
