@@ -52,11 +52,11 @@
         <AssociationConnector Association="ThemeHospitalDatabase.ConsultantTeam" />
         <AssociationConnector Association="ThemeHospitalDatabase.VisitTeam" />
         <AssociationConnector Association="ThemeHospitalDatabase.TreatmentVisit" />
-        <AssociationConnector Association="ThemeHospitalDatabase.WardBed" />
         <EntityTypeShape EntityType="ThemeHospitalDatabase.Skill" Width="1.5" PointX="13.875" PointY="8.375" />
         <AssociationConnector Association="ThemeHospitalDatabase.ConsultantSkill" />
         <AssociationConnector Association="ThemeHospitalDatabase.TreatmentNote" />
         <AssociationConnector Association="ThemeHospitalDatabase.VisitNote" />
+        <AssociationConnector Association="ThemeHospitalDatabase.WardBed" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

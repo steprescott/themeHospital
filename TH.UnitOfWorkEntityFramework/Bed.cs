@@ -20,7 +20,6 @@ namespace TH.UnitOfWorkEntityFramework
         }
     
         public System.Guid BedId { get; set; }
-        public System.Guid WardWardId { get; set; }
         public int Number { get; set; }
     
         public virtual ICollection<Visit> Visits { get; set; }

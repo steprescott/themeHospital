@@ -20,7 +20,7 @@ namespace TH.UnitOfWorkEntityFramework
             this.Notes = new HashSet<Note>();
         }
     
-        public int EmergencyContactName { get; set; }
+        public string EmergencyContactName { get; set; }
         public string EmergencyContactNumber { get; set; }
     
         public virtual ICollection<Visit> Visits { get; set; }

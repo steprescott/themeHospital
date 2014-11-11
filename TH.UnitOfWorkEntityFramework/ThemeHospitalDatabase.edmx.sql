@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/11/2014 01:31:06
+-- Date Created: 11/11/2014 22:49:41
 -- Generated from EDMX file: C:\Users\Jonathan\documents\visual studio 2013\Projects\Theme Hospital\TH.UnitOfWorkEntityFramework\ThemeHospitalDatabase.edmx
 -- --------------------------------------------------
 
@@ -32,9 +32,6 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ProcedureOperation]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Treatments_Procedure] DROP CONSTRAINT [FK_ProcedureOperation];
 GO
-IF OBJECT_ID(N'[dbo].[FK_TreatmentNote]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Notes] DROP CONSTRAINT [FK_TreatmentNote];
-GO
 IF OBJECT_ID(N'[dbo].[FK_WardWaitingListWard]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[WardWaitingLists] DROP CONSTRAINT [FK_WardWaitingListWard];
 GO
@@ -53,9 +50,6 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_TreatmentStaffMemeber1]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Treatments] DROP CONSTRAINT [FK_TreatmentStaffMemeber1];
 GO
-IF OBJECT_ID(N'[dbo].[FK_VisitNote]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Notes] DROP CONSTRAINT [FK_VisitNote];
-GO
 IF OBJECT_ID(N'[dbo].[FK_PatientNote]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Notes] DROP CONSTRAINT [FK_PatientNote];
 GO
@@ -73,6 +67,18 @@ IF OBJECT_ID(N'[dbo].[FK_VisitTeam_Team]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_TreatmentVisit]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Treatments] DROP CONSTRAINT [FK_TreatmentVisit];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ConsultantSkill_Consultant]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ConsultantSkill] DROP CONSTRAINT [FK_ConsultantSkill_Consultant];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ConsultantSkill_Skill]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ConsultantSkill] DROP CONSTRAINT [FK_ConsultantSkill_Skill];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TreatmentNote]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Notes] DROP CONSTRAINT [FK_TreatmentNote];
+GO
+IF OBJECT_ID(N'[dbo].[FK_VisitNote]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Notes] DROP CONSTRAINT [FK_VisitNote];
 GO
 IF OBJECT_ID(N'[dbo].[FK_WardBed]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Beds] DROP CONSTRAINT [FK_WardBed];
@@ -136,6 +142,9 @@ GO
 IF OBJECT_ID(N'[dbo].[Visits]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Visits];
 GO
+IF OBJECT_ID(N'[dbo].[Skills]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Skills];
+GO
 IF OBJECT_ID(N'[dbo].[Treatments_CourseOfMedicine]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Treatments_CourseOfMedicine];
 GO
@@ -165,6 +174,9 @@ IF OBJECT_ID(N'[dbo].[CauseOfMedicineMedicine]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[VisitTeam]', 'U') IS NOT NULL
     DROP TABLE [dbo].[VisitTeam];
+GO
+IF OBJECT_ID(N'[dbo].[ConsultantSkill]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ConsultantSkill];
 GO
 
 -- --------------------------------------------------
@@ -239,8 +251,8 @@ GO
 -- Creating table 'Beds'
 CREATE TABLE [dbo].[Beds] (
     [BedId] uniqueidentifier  NOT NULL,
-    [WardWardId] uniqueidentifier  NOT NULL,
-    [Number] int  NOT NULL
+    [Number] int  NOT NULL,
+    [Ward_WardId] uniqueidentifier  NOT NULL
 );
 GO
 
@@ -298,7 +310,7 @@ GO
 
 -- Creating table 'Users_Patient'
 CREATE TABLE [dbo].[Users_Patient] (
-    [EmergencyContactName] int  NOT NULL,
+    [EmergencyContactName] nvarchar(max)  NOT NULL,
     [EmergencyContactNumber] nvarchar(max)  NOT NULL,
     [UserId] uniqueidentifier  NOT NULL,
     [WardWaitingList_WardWaitingListId] uniqueidentifier  NOT NULL
@@ -744,21 +756,6 @@ ON [dbo].[Treatments]
     ([Visit_VisitId]);
 GO
 
--- Creating foreign key on [WardWardId] in table 'Beds'
-ALTER TABLE [dbo].[Beds]
-ADD CONSTRAINT [FK_WardBed]
-    FOREIGN KEY ([WardWardId])
-    REFERENCES [dbo].[Wards]
-        ([WardId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_WardBed'
-CREATE INDEX [IX_FK_WardBed]
-ON [dbo].[Beds]
-    ([WardWardId]);
-GO
-
 -- Creating foreign key on [Consultants_UserId] in table 'ConsultantSkill'
 ALTER TABLE [dbo].[ConsultantSkill]
 ADD CONSTRAINT [FK_ConsultantSkill_Consultant]
@@ -811,6 +808,21 @@ GO
 CREATE INDEX [IX_FK_VisitNote]
 ON [dbo].[Notes]
     ([Visit_VisitId]);
+GO
+
+-- Creating foreign key on [Ward_WardId] in table 'Beds'
+ALTER TABLE [dbo].[Beds]
+ADD CONSTRAINT [FK_WardBed]
+    FOREIGN KEY ([Ward_WardId])
+    REFERENCES [dbo].[Wards]
+        ([WardId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_WardBed'
+CREATE INDEX [IX_FK_WardBed]
+ON [dbo].[Beds]
+    ([Ward_WardId]);
 GO
 
 -- Creating foreign key on [TreatmentId] in table 'Treatments_CourseOfMedicine'

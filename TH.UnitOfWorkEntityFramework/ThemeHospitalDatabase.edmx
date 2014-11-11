@@ -97,10 +97,6 @@
       <End Role="Treatment" EntitySet="Treatments" />
       <End Role="Visit" EntitySet="Visits" />
     </AssociationSet>
-    <AssociationSet Name="WardBed" Association="ThemeHospitalDatabase.Store.WardBed">
-      <End Role="Ward" EntitySet="Wards" />
-      <End Role="Bed" EntitySet="Beds" />
-    </AssociationSet>
     <AssociationSet Name="FK_ConsultantSkill_Consultant" Association="ThemeHospitalDatabase.Store.FK_ConsultantSkill_Consultant">
       <End Role="Consultant" EntitySet="Users_Consultant" />
       <End Role="ConsultantSkill" EntitySet="ConsultantSkill" />
@@ -116,6 +112,10 @@
     <AssociationSet Name="VisitNote" Association="ThemeHospitalDatabase.Store.VisitNote">
       <End Role="Visit" EntitySet="Visits" />
       <End Role="Note" EntitySet="Notes" />
+    </AssociationSet>
+    <AssociationSet Name="WardBed" Association="ThemeHospitalDatabase.Store.WardBed">
+      <End Role="Ward" EntitySet="Wards" />
+      <End Role="Bed" EntitySet="Beds" />
     </AssociationSet>
     <AssociationSet Name="FK_CourseOfMedicine_inherits_Treatment" Association="ThemeHospitalDatabase.Store.FK_CourseOfMedicine_inherits_Treatment">
       <End Role="Treatment" EntitySet="Treatments" />
@@ -216,8 +216,8 @@
       <PropertyRef Name="BedId" />
     </Key>
     <Property Name="BedId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="WardWardId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Number" Type="int" Nullable="false" />
+    <Property Name="Ward_WardId" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
   <EntityType Name="Notes">
     <Key>
@@ -275,7 +275,7 @@
     <Key>
       <PropertyRef Name="UserId" />
     </Key>
-    <Property Name="EmergencyContactName" Type="int" Nullable="false" />
+    <Property Name="EmergencyContactName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="EmergencyContactNumber" Type="nvarchar(max)" Nullable="false" />
     <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="WardWaitingList_WardWaitingListId" Type="uniqueidentifier" Nullable="false" />
@@ -472,18 +472,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="WardBed">
-    <End Role="Ward" Type="ThemeHospitalDatabase.Store.Wards" Multiplicity="1" />
-    <End Role="Bed" Type="ThemeHospitalDatabase.Store.Beds" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Ward">
-        <PropertyRef Name="WardId" />
-      </Principal>
-      <Dependent Role="Bed">
-        <PropertyRef Name="WardWardId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="TreatmentNote">
     <End Role="Treatment" Type="ThemeHospitalDatabase.Store.Treatments" Multiplicity="1" />
     <End Role="Note" Type="ThemeHospitalDatabase.Store.Notes" Multiplicity="*" />
@@ -505,6 +493,18 @@
       </Principal>
       <Dependent Role="Note">
         <PropertyRef Name="Visit_VisitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="WardBed">
+    <End Role="Ward" Type="ThemeHospitalDatabase.Store.Wards" Multiplicity="1" />
+    <End Role="Bed" Type="ThemeHospitalDatabase.Store.Beds" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ward">
+        <PropertyRef Name="WardId" />
+      </Principal>
+      <Dependent Role="Bed">
+        <PropertyRef Name="Ward_WardId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -774,10 +774,6 @@
             <End Role="Treatment" EntitySet="Treatments" />
             <End Role="Visit" EntitySet="Visits" />
           </AssociationSet>
-          <AssociationSet Name="WardBed" Association="ThemeHospitalDatabase.WardBed">
-            <End Role="Ward" EntitySet="Wards" />
-            <End Role="Bed" EntitySet="Beds" />
-          </AssociationSet>
           <EntitySet Name="Skills" EntityType="ThemeHospitalDatabase.Skill" />
           <AssociationSet Name="ConsultantSkill" Association="ThemeHospitalDatabase.ConsultantSkill">
             <End EntitySet="Users" Role="Consultant" />
@@ -790,6 +786,10 @@
           <AssociationSet Name="VisitNote" Association="ThemeHospitalDatabase.VisitNote">
             <End Role="Visit" EntitySet="Visits" />
             <End Role="Note" EntitySet="Notes" />
+          </AssociationSet>
+          <AssociationSet Name="WardBed" Association="ThemeHospitalDatabase.WardBed">
+            <End EntitySet="Wards" Role="Ward" />
+            <End EntitySet="Beds" Role="Bed" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="User">
@@ -807,7 +807,7 @@
           <Property Name="Gender" Type="String" Nullable="false" />
         </EntityType>
         <EntityType Name="Patient" BaseType="ThemeHospitalDatabase.User" >
-          <Property Name="EmergencyContactName" Type="Int32" Nullable="false" />
+          <Property Name="EmergencyContactName" Type="String" Nullable="false" />
           <Property Name="EmergencyContactNumber" Type="String" Nullable="false" />
           <NavigationProperty Name="Visits" Relationship="ThemeHospitalDatabase.PatientVisit" FromRole="Patient" ToRole="Visit" />
           <NavigationProperty Name="WardWaitingList" Relationship="ThemeHospitalDatabase.WardWaitingListPatient" FromRole="Patient" ToRole="WardWaitingList" />
@@ -907,8 +907,8 @@
           </Key>
           <Property Name="WardId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
           <NavigationProperty Name="WardWaitingList" Relationship="ThemeHospitalDatabase.WardWaitingListWard" FromRole="Ward" ToRole="WardWaitingList" />
-          <NavigationProperty Name="Beds" Relationship="ThemeHospitalDatabase.WardBed" FromRole="Ward" ToRole="Bed" />
           <Property Name="Number" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Beds" Relationship="ThemeHospitalDatabase.WardBed" FromRole="Ward" ToRole="Bed" />
         </EntityType>
         <EntityType Name="Bed">
           <Key>
@@ -916,9 +916,8 @@
           </Key>
           <Property Name="BedId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
           <NavigationProperty Name="Visits" Relationship="ThemeHospitalDatabase.VisitBed" FromRole="Bed" ToRole="Visit" />
-          <NavigationProperty Name="Ward" Relationship="ThemeHospitalDatabase.WardBed" FromRole="Bed" ToRole="Ward" />
-          <Property Name="WardWardId" Type="Guid" Nullable="false" />
           <Property Name="Number" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ward" Relationship="ThemeHospitalDatabase.WardBed" FromRole="Bed" ToRole="Ward" />
         </EntityType>
         <EntityType Name="Note">
           <Key>
@@ -996,18 +995,6 @@
           <End Type="ThemeHospitalDatabase.Treatment" Role="Treatment" Multiplicity="*" />
           <End Type="ThemeHospitalDatabase.Visit" Role="Visit" Multiplicity="1" />
         </Association>
-        <Association Name="WardBed">
-          <End Type="ThemeHospitalDatabase.Ward" Role="Ward" Multiplicity="1" />
-          <End Type="ThemeHospitalDatabase.Bed" Role="Bed" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Ward">
-              <PropertyRef Name="WardId" />
-            </Principal>
-            <Dependent Role="Bed">
-              <PropertyRef Name="WardWardId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Skill">
           <Key>
             <PropertyRef Name="SkillId" />
@@ -1027,6 +1014,10 @@
         <Association Name="VisitNote">
           <End Type="ThemeHospitalDatabase.Visit" Role="Visit" Multiplicity="1" />
           <End Type="ThemeHospitalDatabase.Note" Role="Note" Multiplicity="*" />
+        </Association>
+        <Association Name="WardBed">
+          <End Type="ThemeHospitalDatabase.Ward" Multiplicity="1" Role="Ward" />
+          <End Type="ThemeHospitalDatabase.Bed" Multiplicity="*" Role="Bed" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -1150,7 +1141,6 @@
       <EntityTypeMapping TypeName="IsTypeOf(ThemeHospitalDatabase.Bed)">
         <MappingFragment StoreEntitySet="Beds">
           <ScalarProperty Name="BedId" ColumnName="BedId" />
-          <ScalarProperty Name="WardWardId" ColumnName="WardWardId" />
           <ScalarProperty Name="Number" ColumnName="Number" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -1325,6 +1315,14 @@
       </EndProperty>
       <EndProperty Name="Note">
         <ScalarProperty Name="NoteId" ColumnName="NoteId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="WardBed" TypeName="ThemeHospitalDatabase.WardBed" StoreEntitySet="Beds">
+      <EndProperty Name="Ward">
+        <ScalarProperty Name="WardId" ColumnName="Ward_WardId" />
+      </EndProperty>
+      <EndProperty Name="Bed">
+        <ScalarProperty Name="BedId" ColumnName="BedId" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>
