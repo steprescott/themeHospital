@@ -4,26 +4,26 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5cf1b0a601d647808255335531e84164" Name="Diagram1" ZoomLevel="96" >
-        <EntityTypeShape EntityType="ThemeHospitalDatabase.User" Width="1.5" PointX="12.625" PointY="0.5" />
-        <EntityTypeShape EntityType="ThemeHospitalDatabase.Patient" Width="1.5" PointX="8.5" PointY="3.75" />
+      <Diagram DiagramId="5cf1b0a601d647808255335531e84164" Name="Diagram1" ZoomLevel="96" DisplayType="true" >
+        <EntityTypeShape EntityType="ThemeHospitalDatabase.User" Width="2" PointX="12.625" PointY="0.5" />
+        <EntityTypeShape EntityType="ThemeHospitalDatabase.Patient" Width="2.625" PointX="8.5" PointY="3.75" />
         <InheritanceConnector EntityType="ThemeHospitalDatabase.Patient" ManuallyRouted="false" >
         </InheritanceConnector>
         <EntityTypeShape EntityType="ThemeHospitalDatabase.Doctor" Width="1.5" PointX="10.5" PointY="6.375" />
         <EntityTypeShape EntityType="ThemeHospitalDatabase.Consultant" Width="1.5" PointX="12.625" PointY="6.375" />
-        <EntityTypeShape EntityType="ThemeHospitalDatabase.Address" Width="1.5" PointX="14.75" PointY="0.5" />
+        <EntityTypeShape EntityType="ThemeHospitalDatabase.Address" Width="2.125" PointX="15.5" PointY="0.5" />
         <AssociationConnector Association="ThemeHospitalDatabase.UserAddress" />
-        <EntityTypeShape EntityType="ThemeHospitalDatabase.Team" Width="1.5" PointX="11.625" PointY="8.125" />
-        <EntityTypeShape EntityType="ThemeHospitalDatabase.Treatment" Width="1.5" PointX="15.625" PointY="9.625" />
-        <EntityTypeShape EntityType="ThemeHospitalDatabase.Procedure" Width="1.5" PointX="14.5" PointY="12.375" />
+        <EntityTypeShape EntityType="ThemeHospitalDatabase.Team" Width="1.5" PointX="11.625" PointY="8.375" />
+        <EntityTypeShape EntityType="ThemeHospitalDatabase.Treatment" Width="2" PointX="15.625" PointY="9.625" />
+        <EntityTypeShape EntityType="ThemeHospitalDatabase.Procedure" Width="2.375" PointX="13.875" PointY="12.75" />
         <InheritanceConnector EntityType="ThemeHospitalDatabase.Procedure" />
-        <EntityTypeShape EntityType="ThemeHospitalDatabase.CourseOfMedicine" Width="1.5" PointX="16.75" PointY="12.375" />
+        <EntityTypeShape EntityType="ThemeHospitalDatabase.CourseOfMedicine" Width="1.75" PointX="16.75" PointY="12.75" />
         <InheritanceConnector EntityType="ThemeHospitalDatabase.CourseOfMedicine" ></InheritanceConnector>
-        <EntityTypeShape EntityType="ThemeHospitalDatabase.Medicine" Width="1.5" PointX="16.75" PointY="14.625" />
+        <EntityTypeShape EntityType="ThemeHospitalDatabase.Medicine" Width="1.75" PointX="16.75" PointY="15" />
         <AssociationConnector Association="ThemeHospitalDatabase.CauseOfMedicineMedicine" />
-        <EntityTypeShape EntityType="ThemeHospitalDatabase.Operation" Width="1.5" PointX="14.5" PointY="14.625" />
+        <EntityTypeShape EntityType="ThemeHospitalDatabase.Operation" Width="1.75" PointX="14.25" PointY="15" />
         <AssociationConnector Association="ThemeHospitalDatabase.ProcedureOperation" />
-        <EntityTypeShape EntityType="ThemeHospitalDatabase.StaffMemeber" Width="1.5" PointX="12.625" PointY="3.5" />
+        <EntityTypeShape EntityType="ThemeHospitalDatabase.StaffMemeber" Width="2" PointX="12.625" PointY="3.5" />
         <InheritanceConnector EntityType="ThemeHospitalDatabase.StaffMemeber" />
         <InheritanceConnector EntityType="ThemeHospitalDatabase.Consultant" />
         <InheritanceConnector EntityType="ThemeHospitalDatabase.Doctor" />
@@ -34,17 +34,11 @@
         <InheritanceConnector EntityType="ThemeHospitalDatabase.Receptionist" ManuallyRouted="false" >
         </InheritanceConnector>
         <EntityTypeShape EntityType="ThemeHospitalDatabase.Ward" Width="1.5" PointX="4.125" PointY="4.625" />
-        <EntityTypeShape EntityType="ThemeHospitalDatabase.Bed" Width="1.5" PointX="6.25" PointY="4.625" />
-        <EntityTypeShape EntityType="ThemeHospitalDatabase.Note" Width="1.5" PointX="0.5" PointY="9.375" IsExpanded="true" />
-        <AssociationConnector Association="ThemeHospitalDatabase.TreatmentNote" ManuallyRouted="true" >
-          <ConnectorPoint PointX="15.625" PointY="11.105257157360096" />
-          <ConnectorPoint PointX="15.25" PointY="11.105257157360096" />
-          <ConnectorPoint PointX="15.25" PointY="11.106857146692439" />
-          <ConnectorPoint PointX="2" PointY="11.106857146692439" />
-        </AssociationConnector>
-        <EntityTypeShape EntityType="ThemeHospitalDatabase.WardWaitingList" Width="1.5" PointX="2" PointY="4.625" />
+        <EntityTypeShape EntityType="ThemeHospitalDatabase.Bed" Width="1.625" PointX="6.25" PointY="4.625" />
+        <EntityTypeShape EntityType="ThemeHospitalDatabase.Note" Width="2" PointX="0.5" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ThemeHospitalDatabase.WardWaitingList" Width="2" PointX="1.5" PointY="4.625" />
         <AssociationConnector Association="ThemeHospitalDatabase.WardWaitingListWard" />
-        <EntityTypeShape EntityType="ThemeHospitalDatabase.Visit" Width="1.5" PointX="6.25" PointY="7.375" />
+        <EntityTypeShape EntityType="ThemeHospitalDatabase.Visit" Width="2" PointX="6.125" PointY="7.375" />
         <AssociationConnector Association="ThemeHospitalDatabase.PatientVisit" />
         <AssociationConnector Association="ThemeHospitalDatabase.VisitBed" ManuallyRouted="false" >
         </AssociationConnector>
@@ -52,17 +46,17 @@
         <AssociationConnector Association="ThemeHospitalDatabase.TreatmentStaffMemeber" ManuallyRouted="false" >
         </AssociationConnector>
         <AssociationConnector Association="ThemeHospitalDatabase.TreatmentStaffMemeber1" />
-        <AssociationConnector Association="ThemeHospitalDatabase.VisitNote" />
-        <AssociationConnector Association="ThemeHospitalDatabase.PatientNote" ManuallyRouted="true" >
-          <ConnectorPoint PointX="8.5" PointY="3.9279471675228321" />
-          <ConnectorPoint PointX="1.21875" PointY="3.9279471675228321" />
-          <ConnectorPoint PointX="1.21875" PointY="9.375" />
+        <AssociationConnector ManuallyRouted="false" Association="ThemeHospitalDatabase.PatientNote">
         </AssociationConnector>
         <AssociationConnector Association="ThemeHospitalDatabase.DoctorTeam" />
         <AssociationConnector Association="ThemeHospitalDatabase.ConsultantTeam" />
         <AssociationConnector Association="ThemeHospitalDatabase.VisitTeam" />
         <AssociationConnector Association="ThemeHospitalDatabase.TreatmentVisit" />
         <AssociationConnector Association="ThemeHospitalDatabase.WardBed" />
+        <EntityTypeShape EntityType="ThemeHospitalDatabase.Skill" Width="1.5" PointX="13.875" PointY="8.375" />
+        <AssociationConnector Association="ThemeHospitalDatabase.ConsultantSkill" />
+        <AssociationConnector Association="ThemeHospitalDatabase.TreatmentNote" />
+        <AssociationConnector Association="ThemeHospitalDatabase.VisitNote" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

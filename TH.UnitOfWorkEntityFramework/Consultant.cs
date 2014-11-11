@@ -14,7 +14,13 @@ namespace TH.UnitOfWorkEntityFramework
     
     public partial class Consultant : StaffMemeber
     {
+        public Consultant()
+        {
+            this.Skills = new HashSet<Skill>();
+        }
+    
     
         public virtual Team Team { get; set; }
+        public virtual ICollection<Skill> Skills { get; set; }
     }
 }

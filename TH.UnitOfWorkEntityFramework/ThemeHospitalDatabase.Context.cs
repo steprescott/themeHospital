@@ -36,5 +36,6 @@ namespace TH.UnitOfWorkEntityFramework
         public virtual DbSet<Note> Notes { get; set; }
         public virtual DbSet<WardWaitingList> WardWaitingLists { get; set; }
         public virtual DbSet<Visit> Visits { get; set; }
+        public virtual DbSet<Skill> Skills { get; set; }
     }
 }

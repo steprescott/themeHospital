@@ -16,9 +16,9 @@ namespace TH.UnitOfWorkEntityFramework
     {
         public Visit()
         {
-            this.Notes = new HashSet<Note>();
             this.Teams = new HashSet<Team>();
             this.Treatments = new HashSet<Treatment>();
+            this.Notes = new HashSet<Note>();
         }
     
         public System.Guid VisitId { get; set; }
@@ -27,8 +27,8 @@ namespace TH.UnitOfWorkEntityFramework
     
         public virtual Patient Patient { get; set; }
         public virtual Bed Bed { get; set; }
-        public virtual ICollection<Note> Notes { get; set; }
         public virtual ICollection<Team> Teams { get; set; }
         public virtual ICollection<Treatment> Treatments { get; set; }
+        public virtual ICollection<Note> Notes { get; set; }
     }
 }

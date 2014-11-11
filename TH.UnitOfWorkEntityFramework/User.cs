@@ -25,6 +25,8 @@ namespace TH.UnitOfWorkEntityFramework
         public string LastName { get; set; }
         public System.DateTime DateOfBirth { get; set; }
         public string ContactNumber { get; set; }
+        public System.DateTime DateCreated { get; set; }
+        public string Gender { get; set; }
     
         public virtual ICollection<Address> Addresses { get; set; }
     }

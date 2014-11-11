@@ -81,6 +81,9 @@
     <Compile Include="Receptionist.cs">
       <DependentUpon>ThemeHospitalDatabase.tt</DependentUpon>
     </Compile>
+    <Compile Include="Skill.cs">
+      <DependentUpon>ThemeHospitalDatabase.tt</DependentUpon>
+    </Compile>
     <Compile Include="StaffMemeber.cs">
       <DependentUpon>ThemeHospitalDatabase.tt</DependentUpon>
     </Compile>

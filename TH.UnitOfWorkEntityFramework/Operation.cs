@@ -15,6 +15,7 @@ namespace TH.UnitOfWorkEntityFramework
     public partial class Operation
     {
         public System.Guid OperationId { get; set; }
+        public string Name { get; set; }
         public string Description { get; set; }
     
         public virtual Procedure Procedure { get; set; }

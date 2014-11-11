@@ -22,6 +22,7 @@ namespace TH.UnitOfWorkEntityFramework
     
         public string Username { get; set; }
         public string Password { get; set; }
+        public System.DateTime LastLoggedIn { get; set; }
     
         public virtual ICollection<Treatment> TreatmentsAssigned { get; set; }
         public virtual ICollection<Treatment> TreatmentsAdministered { get; set; }

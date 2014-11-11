@@ -20,6 +20,7 @@ namespace TH.UnitOfWorkEntityFramework
         }
     
         public System.Guid WardId { get; set; }
+        public int Number { get; set; }
     
         public virtual WardWaitingList WardWaitingList { get; set; }
         public virtual ICollection<Bed> Beds { get; set; }
