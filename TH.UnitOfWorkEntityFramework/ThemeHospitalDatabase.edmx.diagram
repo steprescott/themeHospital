@@ -23,8 +23,8 @@
         <AssociationConnector Association="ThemeHospitalDatabase.CauseOfMedicineMedicine" />
         <EntityTypeShape EntityType="ThemeHospitalDatabase.Operation" Width="1.75" PointX="14.25" PointY="15" />
         <AssociationConnector Association="ThemeHospitalDatabase.ProcedureOperation" />
-        <EntityTypeShape EntityType="ThemeHospitalDatabase.StaffMemeber" Width="2" PointX="12.625" PointY="3.5" />
-        <InheritanceConnector EntityType="ThemeHospitalDatabase.StaffMemeber" />
+        <EntityTypeShape EntityType="ThemeHospitalDatabase.StaffMember" Width="2" PointX="12.625" PointY="3.5" />
+        <InheritanceConnector EntityType="ThemeHospitalDatabase.StaffMember" />
         <InheritanceConnector EntityType="ThemeHospitalDatabase.Consultant" />
         <InheritanceConnector EntityType="ThemeHospitalDatabase.Doctor" />
         <InheritanceConnector EntityType="ThemeHospitalDatabase.Consultant" />

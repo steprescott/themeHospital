@@ -7,6 +7,10 @@ namespace TH.Interfaces
 {
     public interface IPatientBusinessLogic
     {
-        IEnumerable<Patient> GetAllUsers(); 
+        Domain.User.Patient GetPatientWithId(Guid userId);
+        IEnumerable<Patient> GetAllPatients();
+        bool InsertOrUpdatePatient(Domain.User.Patient domainPatient);
+        bool DeletePatientWithId(Guid userId);
+        bool DeletePatient(Domain.User.Patient domainPatient);
     }
 }

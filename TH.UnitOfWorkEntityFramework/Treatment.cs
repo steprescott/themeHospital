@@ -22,8 +22,8 @@ namespace TH.UnitOfWorkEntityFramework
         public System.Guid TreatmentId { get; set; }
         public System.DateTime ScheduledDate { get; set; }
     
-        public virtual StaffMemeber RecordedBy { get; set; }
-        public virtual StaffMemeber AdministeredBy { get; set; }
+        public virtual StaffMember RecordedBy { get; set; }
+        public virtual StaffMember AdministeredBy { get; set; }
         public virtual Visit Visit { get; set; }
         public virtual ICollection<Note> Notes { get; set; }
     }

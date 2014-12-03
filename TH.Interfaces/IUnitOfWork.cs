@@ -8,9 +8,9 @@ namespace TH.Interfaces
     {
         T GetById<T>(object id) where T : class;
 
-        T Add<T>(T entity) where T : class;
+        T Insert<T>(T entity) where T : class;
 
-        void Remove<T>(T entity) where T : class;
+        void Delete<T>(T entity) where T : class;
 
         IQueryable<T> GetAll<T>() where T : class;
 

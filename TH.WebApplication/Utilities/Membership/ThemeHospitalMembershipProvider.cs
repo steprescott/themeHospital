@@ -15,22 +15,22 @@ namespace TH.WebApplication.Utilities.Membership
     {
         static readonly ILoginServiceBusinessLogic loginService = ThemeHospitalContainer.GetInstance<ILoginServiceBusinessLogic>();
 
-        private static StaffUser User
+        private static StaffMember Member
         {
-            get { return (StaffUser)HttpContext.Current.Session["User"]; }
-            set { HttpContext.Current.Session["User"] = value; }
+            get { return (StaffMember)HttpContext.Current.Session["Member"]; }
+            set { HttpContext.Current.Session["Member"] = value; }
         }
 
-        public StaffUser GetUser()
+        public StaffMember GetUser()
         {
-            return User;
+            return Member;
         }
 
         public override MembershipUser GetUser(string username, bool userIsOnline)
         {
-            if (User != null)
+            if (Member != null)
             {
-                return new ThemeHospitalMembershipUser("ThemeHospitalMembershipUser", User);
+                return new ThemeHospitalMembershipUser("ThemeHospitalMembershipUser", Member);
             }
 
             //LogCurrentUserOut();
@@ -39,9 +39,9 @@ namespace TH.WebApplication.Utilities.Membership
 
         public static LoginResult LogUserIn(string username, string password)
         {
-            User = loginService.LoginUser(username, password);
+            Member = loginService.LoginUser(username, password);
 
-            if (User != null)
+            if (Member != null)
             {
                 FormsAuthentication.SetAuthCookie(username, false);
                 return LoginResult.Success;

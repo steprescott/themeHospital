@@ -10,7 +10,7 @@ namespace TH.WebApplication.Utilities.Membership
 {
     public class ThemeHospitalMembershipUser : MembershipUser
     {
-        private readonly StaffUser _user;
+        private readonly StaffMember _member;
 
         public ThemeHospitalMembershipUser(string providerName,
             string name,
@@ -30,10 +30,10 @@ namespace TH.WebApplication.Utilities.Membership
                 lastLockoutDate)
         { }
 
-        public ThemeHospitalMembershipUser(string providerName, StaffUser userRoles) :
+        public ThemeHospitalMembershipUser(string providerName, StaffMember memberRoles) :
             this(providerName,
-                 userRoles.Username,
-                 userRoles.UserId,
+                 memberRoles.Username,
+                 memberRoles.UserId,
                  null,
                  null,
                  null,
@@ -45,7 +45,7 @@ namespace TH.WebApplication.Utilities.Membership
                  DateTime.MinValue,
                  DateTime.MinValue)
         {
-            _user = userRoles;
+            _member = memberRoles;
         }
     }
 }

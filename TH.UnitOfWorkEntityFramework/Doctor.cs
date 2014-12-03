@@ -12,7 +12,7 @@ namespace TH.UnitOfWorkEntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class Doctor : StaffMemeber
+    public partial class Doctor : StaffMember
     {
     
         public virtual Team Team { get; set; }

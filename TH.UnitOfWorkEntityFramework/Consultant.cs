@@ -12,7 +12,7 @@ namespace TH.UnitOfWorkEntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class Consultant : StaffMemeber
+    public partial class Consultant : StaffMember
     {
         public Consultant()
         {

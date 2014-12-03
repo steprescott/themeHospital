@@ -21,7 +21,7 @@ namespace TH.UnitOfWorkEntityFramework
             return _mscDatabaseContainer.Set<T>().Find(id);
         }
 
-        public T Add<T>(T entity) where T : class
+        public T Insert<T>(T entity) where T : class
         {
             return _mscDatabaseContainer.Set<T>().Add(entity);
         }
@@ -32,7 +32,7 @@ namespace TH.UnitOfWorkEntityFramework
             _mscDatabaseContainer.Entry(entity).State = EntityState.Modified;
         }
 
-        public void Remove<T>(T entity) where T : class
+        public void Delete<T>(T entity) where T : class
         {
             _mscDatabaseContainer.Set<T>().Remove(entity);
         }

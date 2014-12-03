@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/11/2014 22:49:41
--- Generated from EDMX file: C:\Users\Jonathan\documents\visual studio 2013\Projects\Theme Hospital\TH.UnitOfWorkEntityFramework\ThemeHospitalDatabase.edmx
+-- Date Created: 12/03/2014 02:28:32
+-- Generated from EDMX file: C:\Users\steprescott\Documents\Visual Studio 2013\Projects\Theme Hospital\TH.UnitOfWorkEntityFramework\ThemeHospitalDatabase.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -92,17 +92,17 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_Patient_inherits_User]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Users_Patient] DROP CONSTRAINT [FK_Patient_inherits_User];
 GO
-IF OBJECT_ID(N'[dbo].[FK_StaffMemeber_inherits_User]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Users_StaffMemeber] DROP CONSTRAINT [FK_StaffMemeber_inherits_User];
+IF OBJECT_ID(N'[dbo].[FK_StaffMember_inherits_User]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Users_StaffMember] DROP CONSTRAINT [FK_StaffMember_inherits_User];
 GO
-IF OBJECT_ID(N'[dbo].[FK_Doctor_inherits_StaffMemeber]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Users_Doctor] DROP CONSTRAINT [FK_Doctor_inherits_StaffMemeber];
+IF OBJECT_ID(N'[dbo].[FK_Doctor_inherits_StaffMember]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Users_Doctor] DROP CONSTRAINT [FK_Doctor_inherits_StaffMember];
 GO
-IF OBJECT_ID(N'[dbo].[FK_Consultant_inherits_StaffMemeber]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Users_Consultant] DROP CONSTRAINT [FK_Consultant_inherits_StaffMemeber];
+IF OBJECT_ID(N'[dbo].[FK_Consultant_inherits_StaffMember]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Users_Consultant] DROP CONSTRAINT [FK_Consultant_inherits_StaffMember];
 GO
-IF OBJECT_ID(N'[dbo].[FK_Receptionist_inherits_StaffMemeber]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Users_Receptionist] DROP CONSTRAINT [FK_Receptionist_inherits_StaffMemeber];
+IF OBJECT_ID(N'[dbo].[FK_Receptionist_inherits_StaffMember]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Users_Receptionist] DROP CONSTRAINT [FK_Receptionist_inherits_StaffMember];
 GO
 
 -- --------------------------------------------------
@@ -154,8 +154,8 @@ GO
 IF OBJECT_ID(N'[dbo].[Users_Patient]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Users_Patient];
 GO
-IF OBJECT_ID(N'[dbo].[Users_StaffMemeber]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Users_StaffMemeber];
+IF OBJECT_ID(N'[dbo].[Users_StaffMember]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Users_StaffMember];
 GO
 IF OBJECT_ID(N'[dbo].[Users_Doctor]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Users_Doctor];
@@ -313,12 +313,12 @@ CREATE TABLE [dbo].[Users_Patient] (
     [EmergencyContactName] nvarchar(max)  NOT NULL,
     [EmergencyContactNumber] nvarchar(max)  NOT NULL,
     [UserId] uniqueidentifier  NOT NULL,
-    [WardWaitingList_WardWaitingListId] uniqueidentifier  NOT NULL
+    [WardWaitingList_WardWaitingListId] uniqueidentifier  NULL
 );
 GO
 
--- Creating table 'Users_StaffMemeber'
-CREATE TABLE [dbo].[Users_StaffMemeber] (
+-- Creating table 'Users_StaffMember'
+CREATE TABLE [dbo].[Users_StaffMember] (
     [Username] nvarchar(max)  NOT NULL,
     [Password] nvarchar(max)  NOT NULL,
     [LastLoggedIn] datetime  NOT NULL,
@@ -467,9 +467,9 @@ ADD CONSTRAINT [PK_Users_Patient]
     PRIMARY KEY CLUSTERED ([UserId] ASC);
 GO
 
--- Creating primary key on [UserId] in table 'Users_StaffMemeber'
-ALTER TABLE [dbo].[Users_StaffMemeber]
-ADD CONSTRAINT [PK_Users_StaffMemeber]
+-- Creating primary key on [UserId] in table 'Users_StaffMember'
+ALTER TABLE [dbo].[Users_StaffMember]
+ADD CONSTRAINT [PK_Users_StaffMember]
     PRIMARY KEY CLUSTERED ([UserId] ASC);
 GO
 
@@ -646,7 +646,7 @@ GO
 ALTER TABLE [dbo].[Treatments]
 ADD CONSTRAINT [FK_TreatmentStaffMemeber]
     FOREIGN KEY ([RecordedBy_UserId])
-    REFERENCES [dbo].[Users_StaffMemeber]
+    REFERENCES [dbo].[Users_StaffMember]
         ([UserId])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
@@ -661,7 +661,7 @@ GO
 ALTER TABLE [dbo].[Treatments]
 ADD CONSTRAINT [FK_TreatmentStaffMemeber1]
     FOREIGN KEY ([AdministeredBy_UserId])
-    REFERENCES [dbo].[Users_StaffMemeber]
+    REFERENCES [dbo].[Users_StaffMember]
         ([UserId])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
@@ -852,9 +852,9 @@ ADD CONSTRAINT [FK_Patient_inherits_User]
     ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
--- Creating foreign key on [UserId] in table 'Users_StaffMemeber'
-ALTER TABLE [dbo].[Users_StaffMemeber]
-ADD CONSTRAINT [FK_StaffMemeber_inherits_User]
+-- Creating foreign key on [UserId] in table 'Users_StaffMember'
+ALTER TABLE [dbo].[Users_StaffMember]
+ADD CONSTRAINT [FK_StaffMember_inherits_User]
     FOREIGN KEY ([UserId])
     REFERENCES [dbo].[Users]
         ([UserId])
@@ -863,27 +863,27 @@ GO
 
 -- Creating foreign key on [UserId] in table 'Users_Doctor'
 ALTER TABLE [dbo].[Users_Doctor]
-ADD CONSTRAINT [FK_Doctor_inherits_StaffMemeber]
+ADD CONSTRAINT [FK_Doctor_inherits_StaffMember]
     FOREIGN KEY ([UserId])
-    REFERENCES [dbo].[Users_StaffMemeber]
+    REFERENCES [dbo].[Users_StaffMember]
         ([UserId])
     ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
 -- Creating foreign key on [UserId] in table 'Users_Consultant'
 ALTER TABLE [dbo].[Users_Consultant]
-ADD CONSTRAINT [FK_Consultant_inherits_StaffMemeber]
+ADD CONSTRAINT [FK_Consultant_inherits_StaffMember]
     FOREIGN KEY ([UserId])
-    REFERENCES [dbo].[Users_StaffMemeber]
+    REFERENCES [dbo].[Users_StaffMember]
         ([UserId])
     ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
 -- Creating foreign key on [UserId] in table 'Users_Receptionist'
 ALTER TABLE [dbo].[Users_Receptionist]
-ADD CONSTRAINT [FK_Receptionist_inherits_StaffMemeber]
+ADD CONSTRAINT [FK_Receptionist_inherits_StaffMember]
     FOREIGN KEY ([UserId])
-    REFERENCES [dbo].[Users_StaffMemeber]
+    REFERENCES [dbo].[Users_StaffMember]
         ([UserId])
     ON DELETE CASCADE ON UPDATE NO ACTION;
 GO

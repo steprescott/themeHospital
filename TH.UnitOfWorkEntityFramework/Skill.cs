@@ -12,19 +12,16 @@ namespace TH.UnitOfWorkEntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class StaffMemeber : User
+    public partial class Skill
     {
-        public StaffMemeber()
+        public Skill()
         {
-            this.TreatmentsAssigned = new HashSet<Treatment>();
-            this.TreatmentsAdministered = new HashSet<Treatment>();
+            this.Consultants = new HashSet<Consultant>();
         }
     
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public System.DateTime LastLoggedIn { get; set; }
+        public System.Guid SkillId { get; set; }
+        public string Name { get; set; }
     
-        public virtual ICollection<Treatment> TreatmentsAssigned { get; set; }
-        public virtual ICollection<Treatment> TreatmentsAdministered { get; set; }
+        public virtual ICollection<Consultant> Consultants { get; set; }
     }
 }

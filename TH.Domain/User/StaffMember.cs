@@ -4,14 +4,12 @@ using System.Linq;
 
 namespace TH.Domain.User
 {
-    public class StaffUser
+    public class StaffMember : User
     {
-        public Guid UserId { get; set; }
-
         public string Username { get; set; }
 
-        public string Firstname { get; set; }
+        public string Password { get; set; }
 
-        public string Surname { get; set; }
+        public DateTime LastLoggedIn { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TH.Domain", "TH.Domain\TH.Domain.csproj", "{3AE08C0A-9CAA-411C-87B2-8CC7A5D13708}"
 EndProject
@@ -18,6 +18,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TH.WebApplication", "TH.WebApplication\TH.WebApplication.csproj", "{7980172C-3B44-4D4B-A82D-475CD24788A7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TH.EncryptionUtilities", "TH.EncryptionUtilities\TH.EncryptionUtilities.csproj", "{4AE23799-4EB8-40CE-8E4B-07ADC3FF8A30}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D1FB71CF-1F97-4FB9-9040-16E233C39C6C}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

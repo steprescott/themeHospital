@@ -8,12 +8,12 @@ namespace TH.Domain
 {
     public class Address
     {
-        public Guid AddressId { get; set; }
-        public string LineOne { get; set; }
-        public string LineTwo { get; set; }
-        public string LineThree { get; set; }
+        public System.Guid AddressId { get; set; }
+        public string AddressLine1 { get; set; }
+        public string AddressLine2 { get; set; }
+        public string AddressLine3 { get; set; }
         public string City { get; set; }
-        public string Postcode { get; set; }
+        public string PostCode { get; set; }
         public bool IsCurrentAddress { get; set; }
     }
 }
