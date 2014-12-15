@@ -33,7 +33,7 @@ namespace TH.BusinessLogicEntityFramework
 
             if (patient == null)
             {
-                domainPatient.UserId = Guid.NewGuid();
+                domainPatient.UserId = domainPatient.UserId == null ? Guid.NewGuid() : domainPatient.UserId;
                 domainPatient.DateCreated = DateTime.Now;
             }
 

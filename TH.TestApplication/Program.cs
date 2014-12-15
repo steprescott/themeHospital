@@ -77,7 +77,8 @@ namespace TH.TestApplication
                 });
 
             Console.WriteLine(patientBusinessLogic.GetAllPatients().Any());
-            Console.WriteLine(patientBusinessLogic.GetPatientWithId(new Guid("c7cacc72-d6f9-45cc-b663-92d504ff5734")).Firstname);
+            Console.WriteLine(patientBusinessLogic.GetPatientWithId(new Guid("11a9a41f-67eb-4c18-9db2-58f57a396caa")).Firstname);
+            Console.WriteLine(staffMemberBusinessLogic.LoginStaffMember("staffMember1", "password").Firstname);
             Console.ReadKey();
         }
     }

@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace TH.WebApplication
+namespace TH.WebSystem
 {
     public class BundleConfig
     {
@@ -15,7 +15,7 @@ namespace TH.WebApplication
                         "~/Scripts/jquery.validate*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/main.css"));
+                      "~/Styles/main.css"));
 
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862

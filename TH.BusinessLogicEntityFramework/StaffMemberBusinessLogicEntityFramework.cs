@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,8 +30,9 @@ namespace TH.BusinessLogicEntityFramework
 
         public Domain.User.StaffMember LoginStaffMember(string username, string password)
         {
+            var encryptedPassword = BasicEncryptDecryptUtilities.Encrypt(password);
             var user = _unitOfWork.GetAll<StaffMember>().SingleOrDefault(sm =>
-                sm.Username == username && password == BasicEncryptDecryptUtilities.Encrypt(password));
+                sm.Username == username && sm.Password == encryptedPassword);
             
             return user == null ? null : new Domain.User.StaffMember
             {
@@ -67,7 +69,7 @@ namespace TH.BusinessLogicEntityFramework
                     UserId = Guid.NewGuid(),
                     DateCreated = DateTime.Now,
                     Username = domainStaffMember.Username,
-                    Password = domainStaffMember.Password,
+                    Password = BasicEncryptDecryptUtilities.Encrypt(domainStaffMember.Password),
                     LastLoggedIn = domainStaffMember.LastLoggedIn
                 };
             }
