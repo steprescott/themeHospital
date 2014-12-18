@@ -127,6 +127,7 @@
     <Content Include="Fonts\Optimum-Roman.ttf" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Images\cursor.png" />
+    <Content Include="Images\logoSmall.png" />
     <Content Include="Images\NavIcons\Consultant.gif" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -148,9 +149,11 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReceptionistController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\AddPatientViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -159,6 +162,7 @@
     <Content Include="packages.config" />
     <Content Include="Views\Receptionist\Index.cshtml" />
     <Content Include="Views\Receptionist\AddPatient.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -168,6 +172,20 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TH.Container\TH.Container.csproj">
+      <Project>{33C3D93D-B17F-4342-944C-F6A8F2E0217A}</Project>
+      <Name>TH.Container</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TH.Domain\TH.Domain.csproj">
+      <Project>{3AE08C0A-9CAA-411C-87B2-8CC7A5D13708}</Project>
+      <Name>TH.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TH.Interfaces\TH.Interfaces.csproj">
+      <Project>{6030569B-643F-4E9E-B454-BB45F4CD6084}</Project>
+      <Name>TH.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

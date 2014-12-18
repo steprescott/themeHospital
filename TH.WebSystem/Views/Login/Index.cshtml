@@ -1,0 +1,16 @@
+﻿@model TH.WebSystem.Models.LoginModel
+
+<div class="container">
+    <img src="~/Images/logoSmall.png" class="loginImage" />
+    <div class="loginHeader"><h1>Theme Hospital - Staff login portal</h1></div>
+    <div class="loginForm">
+        @using (Html.BeginForm("AttemptLogin", "Login", FormMethod.Post))
+        {
+            @Html.LabelFor(lm => lm.Username)
+            @Html.TextBoxFor(lm => lm.Username)
+            @Html.LabelFor(lm => lm.Password)
+            @Html.PasswordFor(lm => lm.Password)
+            <input type="submit" value="Log In" class="loginButton">
+        }
+    </div>
+</div>

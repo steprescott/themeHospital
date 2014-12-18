@@ -1,3 +1,59 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+
+    CSS Reset
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+    blockquote:before, blockquote:after,
+    q:before, q:after {
+        content: '';
+        content: none;
+    }
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
 @font-face {
     font-family: THTitle;
     src: url(../Fonts/Frutiger-Ultra-Black.ttf);
@@ -43,13 +99,28 @@ h4 {
 	font-size: 18px;
 	margin: 5px 0;
 }
+html {
+    background-color: #3cacc8;
+    cursor:url(../Images/cursor.png), auto;
+}
+
+* {
+    box-sizing: border-box;
+}
 
 body {
-	background-color: #3cacc8;
 	color: WHITE;
 	font-family: THBody;
 	text-shadow: 1px 1px BLACK;
-	cursor:url(../Images/cursor.png), auto;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+    padding: 5px;
+    background-color: #005d79;
 }
 
 li {
@@ -62,11 +133,13 @@ li {
 }
 
 input[type=text],
-input[type=text]:focus {
+input[type=text]:focus,
+input[type=password],
+input[type=password]:focus {
 	height: 30px;
 	width: 100%;
 	padding: 10px;
-	margin: 5px;
+	margin: 5px 0;
 
 	background-color: #38a6c7;
 
@@ -175,7 +248,6 @@ input[type=radio] {
 	padding:0; 
 	border:0;
 }
-}
 
 input[type=radio] + label {
 	padding-left:28px;
@@ -192,19 +264,6 @@ input[type=radio] + label {
 
 input[type=radio]:checked + label {
 	background-position: 0 -23px;
-	padding-left: 35px;
-}
-
-label
-{
-	background-image:url(http://csscheckbox.com/checkboxes/u/csscheckbox_518741041bc790369444170522a80b50.png);
-	background-repeat: no-repeat;
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
 	padding-left: 35px;
 }
 
@@ -253,6 +312,28 @@ li,
 	margin-bottom: 5px;
 	background-color: #3cacc8;
 	border : 2px solid WHITE;
+}
+
+.loginImage {
+    display: block;
+    margin: 30px auto;
+    width: 280px;
+}
+
+.loginHeader {
+    width: 100%;
+    margin: 30px 0;
+    text-align: center;
+}
+
+.loginForm {
+    width: 280px;
+    margin: 30px auto 60px auto;
+    overflow: hidden;
+}
+
+.loginButton {
+    float: right;
 }
 
 .menu{
