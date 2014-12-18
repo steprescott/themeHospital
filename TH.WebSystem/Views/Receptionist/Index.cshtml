@@ -1,0 +1,25 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "title";
+}
+
+<h2>title</h2>
+
+<ul class="menu">
+    <li>
+        @Html.ActionLink("Add Patient", "AddPatient", "Receptionist")
+    </li>
+    <li>
+        @Html.ActionLink("Search Patient", "AddPatient", "Receptionist")
+    </li>
+    <li>
+        @Html.ActionLink("Ward waiting list", "AddPatient", "Receptionist")
+    </li>
+    <li>
+        @Html.ActionLink("Ward waiting list", "AddPatient", "Receptionist")
+    </li>
+    <li>
+        @Html.ActionLink("Process Dismissal", "AddPatient", "Receptionist")
+    </li>
+</ul>
