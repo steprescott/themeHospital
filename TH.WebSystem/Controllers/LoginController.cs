@@ -9,7 +9,7 @@ using TH.WebSystem.Models;
 
 namespace TH.WebSystem.Controllers
 {
-    public class LoginController : Controller
+    public class LoginController : BaseController
     {
         // GET: Login
         public ActionResult Index()
@@ -19,12 +19,10 @@ namespace TH.WebSystem.Controllers
 
         public bool AttemptLogin(LoginModel loginModel)
         {
-            var username = loginModel.Username;
-            var password = loginModel.Password;
-
             var staffMemberBusinessLogic = ThemeHospitalContainer.GetInstance<IStaffMemberBusinessLogic>();
             var staffMember = staffMemberBusinessLogic.LoginStaffMember(loginModel.Username, loginModel.Password);
-            return staffMember != null ? true : false;
+
+            return staffMember != null;
         }
     }
 }

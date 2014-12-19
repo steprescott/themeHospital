@@ -7,7 +7,7 @@ using TH.WebSystem.Models;
 
 namespace TH.WebSystem.Controllers
 {
-    public class ReceptionistController : Controller
+    public class ReceptionistController : AuthorisedBaseController
     {
         public ActionResult Index()
         {
