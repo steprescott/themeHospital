@@ -1,4 +1,5 @@
 ﻿@using System.Web.Optimization
+@using TH.WebSystem.Providers
 
 <!DOCTYPE html>
 <html>
@@ -10,15 +11,25 @@
         @Styles.Render("~/Content/css")
     </head>
     <body>
-        <div class="">
-        
-        </div>
+        <header>
+            Theme Hospital - Welcome
+            @if (ThemeHospitalMembershipProvider.IsLoggedIn())
+            {
+                @ThemeHospitalMembershipProvider.GetCurrentUser().Firstname
+            }
+            else
+            {
+                @Html.Raw("Test")
+            }
+        </header>
+
         <div class="content">
             @RenderBody()
-            <footer>
-                <p>&copy; @DateTime.Now.Year - Theme Hospital</p>
-            </footer>
         </div>
+
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Theme Hospital</p>
+        </footer>
 
         @Scripts.Render("~/bundles/jquery")
         @RenderSection("scripts", required: false)

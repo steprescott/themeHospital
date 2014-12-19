@@ -35,8 +35,6 @@ namespace TH.WebSystem.Controllers
                 {
                     RedirectToAction("Index", "JuniorDoctor");
                 }
-                //Redirect somewhere here, no-where to go yet
-                //RedirectToAction();
             }
             return false;
         }

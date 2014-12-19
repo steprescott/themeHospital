@@ -115,6 +115,17 @@ body {
     text-shadow: 1px 1px BLACK;
 }
 
+header {
+    width: 100%;
+    height: 50px;
+    background-color: #005d79;
+    margin-bottom: 15px;
+    padding-top: 10px;
+    font-size: 26px;
+    font-weight: bold;
+    padding-left: 10px;
+}
+
 footer {
     position: fixed;
     bottom: 0;
@@ -174,7 +185,7 @@ textarea {
     cursor: url(../Images/cursor.png), auto;
 }
 
-input[type=submit] {
+input[type=submit], .menu li {
     padding: 10px 10px;
     background: #00a27d;
     border: 2px solid #00a27d;
@@ -184,7 +195,7 @@ input[type=submit] {
     cursor: url(../Images/cursor.png), auto;
 }
 
-    input[type=submit]:hover {
+    input[type=submit]:hover, .menu li:hover {
         background: #06ba91;
     }
 
@@ -266,17 +277,25 @@ ul {
     -webkit-padding-start: 0px;
 }
 
-li:hover {
+/*li:hover {
     background-color: #ab2d07;
     box-shadow: inset 5px 5px 5px 0 #862428, inset -5px -5px 5px #c7553c;
+}*/
+
+.text-danger {
+    color: #b22222;
+    font-weight: bold;
+}
+
+.content {
+    width: 960px;
+    margin: 0 auto;
 }
 
 .container {
-    width: 1000px;
     margin: auto;
 }
 
-li,
 .box {
     border-style: solid;
     border-color: #005475;
@@ -333,4 +352,15 @@ li,
     .menu li {
         display: block;
         margin-bottom: 10px;
+        width: 150px;
     }
+        
+        .menu li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+.form-horizontal {
+
+}
