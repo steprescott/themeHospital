@@ -23,6 +23,18 @@ namespace TH.WebSystem.Controllers
             
             if (result == LoginResult.Success)
             {
+                if (System.Web.HttpContext.Current.User.IsInRole("Receptionist"))
+                {
+                    RedirectToAction("Index", "Receptionist");
+                }
+                else if (System.Web.HttpContext.Current.User.IsInRole("Consultant"))
+                {
+                    RedirectToAction("Index", "Consultant");
+                }
+                else if (System.Web.HttpContext.Current.User.IsInRole("Junior Doctor"))
+                {
+                    RedirectToAction("Index", "JuniorDoctor");
+                }
                 //Redirect somewhere here, no-where to go yet
                 //RedirectToAction();
             }

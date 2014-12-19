@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
 using TH.Domain.Enums;
@@ -35,6 +36,10 @@ namespace TH.WebSystem.Providers
             if (result != null)
             {
                 User = result;
+
+                var userIdentity = new GenericIdentity(result.Username);
+                HttpContext.Current.User = new GenericPrincipal(userIdentity, new[] { "Receptionist" });
+
                 FormsAuthentication.SetAuthCookie(username, false);
 
                 return LoginResult.Success;
