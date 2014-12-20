@@ -8,9 +8,9 @@ using TH.UnitOfWorkEntityFramework;
 
 namespace TH.BusinessLogicEntityFramework.Resolvers
 {
-    public class DomainAddressResolver : ValueResolver<List<Address>, List<Domain.Address>>
+    public class DomainAddressResolver : ValueResolver<HashSet<Address>, List<Domain.Address>>
     {
-        protected override List<Domain.Address> ResolveCore(List<Address> source)
+        protected override List<Domain.Address> ResolveCore(HashSet<Address> source)
         {
             return source.Select(a => new Domain.Address
             {

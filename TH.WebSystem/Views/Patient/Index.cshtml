@@ -1,0 +1,21 @@
+﻿@model List<TH.Domain.User.Patient>
+
+<h2>View Patients</h2>
+
+<table>
+    <tr>
+        <th>Firstname</th>
+        <th>Surname</th>
+        <th></th>
+    </tr>
+    @foreach (var patient in Model)
+    {
+        <tr>
+            <td>@patient.Firstname</td>
+            <td>@patient.LastName</td>
+            <td>
+                @Html.ActionLink("View", "Details", "Patient", new { patientId = patient.UserId })
+            </td>
+        </tr>
+    }
+</table>
