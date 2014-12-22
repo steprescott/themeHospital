@@ -5,6 +5,7 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
 using TH.Domain.Enums;
+using TH.Domain.Other;
 using TH.Domain.User;
 using TH.WebSystem.Services;
 
@@ -12,9 +13,9 @@ namespace TH.WebSystem.Providers
 {
     public static class ThemeHospitalMembershipProvider
     {
-        private static StaffMember User
+        private static ApplicationUser User
         {
-            get { return (StaffMember)HttpContext.Current.Session["User"]; }
+            get { return (ApplicationUser)HttpContext.Current.Session["User"]; }
             set { HttpContext.Current.Session["User"] = value; }
         }
 
@@ -24,21 +25,21 @@ namespace TH.WebSystem.Providers
             get { return _securityService ?? (_securityService = new SecurityService()); }
         }
 
-        public static StaffMember GetCurrentUser()
+        public static ApplicationUser GetCurrentUser()
         {
             return User;
         }
 
         public static LoginResult LoginCurrrentUser(string username, string password)
         {
-            var result = SecurityService.LoginServiceBusinessLogic.LoginUser(username, password);
+            var result = SecurityService.LoginServiceBusinessLogic.LoginStaffMember(username, password);
 
             if (result != null)
             {
                 User = result;
 
                 var userIdentity = new GenericIdentity(result.Username);
-                HttpContext.Current.User = new GenericPrincipal(userIdentity, new[] { "Receptionist" });
+                HttpContext.Current.User = new GenericPrincipal(userIdentity, new[] { result.StaffType.ToString() });
 
                 FormsAuthentication.SetAuthCookie(username, false);
 

@@ -1,14 +1,13 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TH.Domain.User;
 using TH.EncryptionUtilities;
 using TH.Interfaces;
-using TH.UnitOfWorkEntityFramework;
-using Patient = TH.UnitOfWorkEntityFramework.Patient;
+using TH.ReflectiveMapper;
+using Consultant = TH.UnitOfWorkEntityFramework.Consultant;
+using Doctor = TH.UnitOfWorkEntityFramework.Doctor;
+using Receptionist = TH.UnitOfWorkEntityFramework.Receptionist;
+using Skill = TH.UnitOfWorkEntityFramework.Skill;
 using StaffMember = TH.UnitOfWorkEntityFramework.StaffMember;
 
 namespace TH.BusinessLogicEntityFramework
@@ -22,45 +21,111 @@ namespace TH.BusinessLogicEntityFramework
             _unitOfWork = unitOfWork;
         }
 
-        public bool ValidateStaffMember(string username, string password)
+        public bool InsertOrUpdateConsultant(Domain.User.Consultant domainConsultant)
         {
-            return _unitOfWork.GetAll<Domain.User.StaffMember>().Any(sm =>
-                sm.Username == username && password == BasicEncryptDecryptUtilities.Encrypt(password));
-        }
+            //Create or update the initial the base of staff member
+            var staffMember = CreateOrUpdateStaffMemberObject(domainConsultant);
 
-        public Domain.User.StaffMember LoginStaffMember(string username, string password)
-        {
-            var encryptedPassword = BasicEncryptDecryptUtilities.Encrypt(password);
-            var user = _unitOfWork.GetAll<StaffMember>().SingleOrDefault(sm =>
-                sm.Username == username && sm.Password == encryptedPassword);
+            //Make the staff member into its appropriate type
+            var consultant = ReflectiveMapperService.ConvertItem<StaffMember, Consultant>(staffMember);
+
+            //Set up specific parts of the consultant
+            consultant.Skills = domainConsultant.Skills.Select(s => new Skill
+            {
+                SkillId = Guid.NewGuid(),
+                Name = s.Name
+            }).ToList();
+
+            consultant.Team.TeamId = domainConsultant.Team.TeamId;
             
-            return user == null ? null : new Domain.User.StaffMember
+            //Attempt to create or update the staff member
+            try
             {
-                UserId = user.UserId,
-                Firstname = user.FirstName,
-                LastName = user.LastName,
-                Username = user.Username
-            };
-        }
+                if (!StaffMemberExists(consultant.UserId))
+                {
+                    _unitOfWork.Insert(consultant);
+                }
+                else
+                {
+                    _unitOfWork.Update(consultant);
+                }
 
-        public bool ChangePassword(string username, string oldPassword, string newNassword)
-        {
-            if (ValidateStaffMember(username, oldPassword))
-            {
-                var user = _unitOfWork.GetAll<StaffMember>().Single(sm =>
-                    sm.Username == username && oldPassword == BasicEncryptDecryptUtilities.Encrypt(oldPassword));
-
-                user.Password = BasicEncryptDecryptUtilities.Encrypt(newNassword);
-                _unitOfWork.Update(user);
+                _unitOfWork.SaveChanges();
 
                 return true;
             }
-            return false;
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
-        public bool InsertOrUpdateStaffMember(Domain.User.StaffMember domainStaffMember)
+        public bool InsertOrUpdateDoctor(Domain.User.Doctor domainDoctor)
         {
-            StaffMember staffMember = _unitOfWork.GetById<StaffMember>(domainStaffMember.UserId);
+            //Create or update the initial the base of staff member
+            var staffMember = CreateOrUpdateStaffMemberObject(domainDoctor);
+
+            //Make the staff member into its appropriate type
+            var doctor = ReflectiveMapperService.ConvertItem<StaffMember, Doctor>(staffMember);
+
+            //Set up specific parts of the consultant
+            doctor.Team.TeamId = doctor.Team.TeamId;
+
+            //Attempt to create or update the staff member
+            try
+            {
+                if (!StaffMemberExists(doctor.UserId))
+                {
+                    _unitOfWork.Insert(doctor);
+                }
+                else
+                {
+                    _unitOfWork.Update(doctor);
+                }
+
+                _unitOfWork.SaveChanges();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool InsertOrUpdateReceptionist(Domain.User.Receptionist domainReceptionist)
+        {
+            //Create or update the initial the base of staff member
+            var staffMember = CreateOrUpdateStaffMemberObject(domainReceptionist);
+
+            //Make the staff member into its appropriate type
+            var receptionist = ReflectiveMapperService.ConvertItem<StaffMember, Receptionist>(staffMember);
+
+            //Attempt to create or update the staff member
+            try
+            {
+                if (!StaffMemberExists(receptionist.UserId))
+                {
+                    _unitOfWork.Insert(receptionist);
+                }
+                else
+                {
+                    _unitOfWork.Update(receptionist);
+                }
+
+                _unitOfWork.SaveChanges();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        private StaffMember CreateOrUpdateStaffMemberObject(Domain.User.StaffMember domainStaffMember)
+        {
+            var staffMember = _unitOfWork.GetById<StaffMember>(domainStaffMember.UserId);
 
             if (staffMember == null)
             {
@@ -81,18 +146,7 @@ namespace TH.BusinessLogicEntityFramework
             staffMember.ContactNumber = domainStaffMember.ContactNumber;
             staffMember.Gender = domainStaffMember.Gender;
 
-            try
-            {
-                _unitOfWork.Insert(staffMember);
-                _unitOfWork.SaveChanges();
-
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-            
+            return staffMember;
         }
 
         public bool DeleteStaffMember(Domain.User.StaffMember domainStaffMember)
@@ -104,7 +158,7 @@ namespace TH.BusinessLogicEntityFramework
         {
             try
             {
-                StaffMember staffMember = _unitOfWork.GetById<StaffMember>(userId);
+                var staffMember = _unitOfWork.GetById<StaffMember>(userId);
 
                 if (staffMember != null)
                 {
@@ -112,15 +166,17 @@ namespace TH.BusinessLogicEntityFramework
                     _unitOfWork.SaveChanges();
                     return true;
                 }
-                else
-                {
-                    return false;
-                }
+                return false;
             }
             catch (Exception)
             {
                 return false;
             }
+        }
+
+        private bool StaffMemberExists(Guid userId)
+        {
+            return _unitOfWork.GetAll<StaffMember>().Any(s => s.UserId == userId);
         }
     }
 }
