@@ -13,19 +13,40 @@ namespace TH.TestApplication
     {
         static void Main(string[] args)
         {
-            var patientBusinessLogic = ThemeHospitalContainer.GetInstance<IPatientBusinessLogic>();
-            var staffMemberBusinessLogic = ThemeHospitalContainer.GetInstance<IStaffMemberBusinessLogic>();
+            Console.WriteLine("--- Starting... :D");
 
-            patientBusinessLogic.InsertOrUpdatePatient(new Patient 
+            //Add me some patients
+            AddPatient("Ste", "Prescott");
+
+            //Add me some consultants
+            AddConsultantUser("Jonny", "Booker", "Consultant1", "Password");
+            AddConsultantUser("Joe", "Fletcher", "Consultant2", "Password");
+
+            //Add me some doctors
+            AddDoctorUser("Tom", "Windowson", "Doctor1", "Password");
+            AddDoctorUser("Noah", "Knudsen", "Doctor2", "Password");
+            AddDoctorUser("Joel", "Thiruchelvan", "Doctor3", "Password");
+
+            //Add me some receptionists
+            AddReceptionistUser("Dowdy", "Receptionist", "Receptionist1", "Password");
+
+            Console.WriteLine("--- Done :D");
+            Console.ReadKey();
+        }
+
+        private static void AddPatient(string firstname, string surname)
+        {
+            var patientBusinessLogic = ThemeHospitalContainer.GetInstance<IPatientBusinessLogic>();
+
+            patientBusinessLogic.InsertOrUpdatePatient(new Patient
             {
-                UserId = new Guid("11a9a41f-67eb-4c18-9db2-58f57a396caa"),
-                Firstname = "Ste",
-                OtherNames = "Christopher",
-                LastName = "Prescott",
+                Firstname = firstname,
+                OtherNames = string.Empty,
+                LastName = surname,
                 DateOfBirth = Convert.ToDateTime("27/05/1991"),
                 ContactNumber = "01234567890",
                 Gender = "Male",
-                Addresses = new List<Address>()
+                Addresses = new List<Address>
                 {
                     new Address{
                         AddressLine1 = "1 Lion Works",
@@ -40,14 +61,17 @@ namespace TH.TestApplication
                 EmergencyContactName = "Jonny",
                 EmergencyContactNumber = "01141234567"
             });
+        }
 
+        private static void AddConsultantUser(string firstname, string surname, string username, string password)
+        {
+            var staffMemberBusinessLogic = ThemeHospitalContainer.GetInstance<IStaffMemberBusinessLogic>();
 
             staffMemberBusinessLogic.InsertOrUpdateConsultant(new Consultant
             {
-                UserId = new Guid("22a9a41f-67eb-4c18-9db2-58f57a396cbb"),
-                Firstname = "Staff",
-                OtherNames = "Member",
-                LastName = "1",
+                Firstname = firstname,
+                OtherNames = string.Empty,
+                LastName = surname,
                 DateOfBirth = Convert.ToDateTime("01/01/1991"),
                 ContactNumber = "01234567890",
                 Gender = "Male",
@@ -60,30 +84,77 @@ namespace TH.TestApplication
                         City = "City",
                         PostCode = "Post code",
                         IsCurrentAddress = true
-                    },
-                    new Address{
-                        AddressLine1 = "Old address line 1",
-                        AddressLine2 = "Old address line 2",
-                        AddressLine3 = "Old address line 3",
-                        City = "Old city",
-                        PostCode = "Old post code",
-                        IsCurrentAddress = false
                     }
                 },
 
                 LastLoggedIn = DateTime.Now,
-                Username = "staffMember1",
-                Password = "password",
+                Username = username,
+                Password = password,
                 Skills = new List<Skill>
                 {
-                    new Skill { Name = "C# Master" }
+                    new Skill { Name = "God" }
                 }
             });
+        }
 
-            //Console.WriteLine(patientBusinessLogic.GetAllPatients().Any());
-            //Console.WriteLine(patientBusinessLogic.GetPatientWithId(new Guid("11a9a41f-67eb-4c18-9db2-58f57a396caa")).Firstname);
-            //Console.WriteLine(staffMemberBusinessLogic.LoginStaffMember("staffMember1", "password").Firstname);
-            Console.ReadKey();
+        private static void AddDoctorUser(string firstname, string surname, string username, string password)
+        {
+            var staffMemberBusinessLogic = ThemeHospitalContainer.GetInstance<IStaffMemberBusinessLogic>();
+
+            staffMemberBusinessLogic.InsertOrUpdateDoctor(new Doctor
+            {
+                Firstname = firstname,
+                OtherNames = string.Empty,
+                LastName = surname,
+                DateOfBirth = Convert.ToDateTime("01/01/1991"),
+                ContactNumber = "01234567890",
+                Gender = "Male",
+                Addresses = new List<Address>
+                {
+                    new Address{
+                        AddressLine1 = "Address line 1",
+                        AddressLine2 = "Address line 2",
+                        AddressLine3 = "Address line 3",
+                        City = "City",
+                        PostCode = "Post code",
+                        IsCurrentAddress = true
+                    }
+                },
+
+                LastLoggedIn = DateTime.Now,
+                Username = username,
+                Password = password
+            });
+        }
+        
+        private static void AddReceptionistUser(string firstname, string surname, string username, string password)
+        {
+            var staffMemberBusinessLogic = ThemeHospitalContainer.GetInstance<IStaffMemberBusinessLogic>();
+
+            staffMemberBusinessLogic.InsertOrUpdateReceptionist(new Receptionist
+            {
+                Firstname = firstname,
+                OtherNames = string.Empty,
+                LastName = surname,
+                DateOfBirth = Convert.ToDateTime("01/01/1991"),
+                ContactNumber = "01234567890",
+                Gender = "Male",
+                Addresses = new List<Address>
+                {
+                    new Address{
+                        AddressLine1 = "Address line 1",
+                        AddressLine2 = "Address line 2",
+                        AddressLine3 = "Address line 3",
+                        City = "City",
+                        PostCode = "Post code",
+                        IsCurrentAddress = true
+                    }
+                },
+
+                LastLoggedIn = DateTime.Now,
+                Username = username,
+                Password = password
+            });
         }
     }
 }

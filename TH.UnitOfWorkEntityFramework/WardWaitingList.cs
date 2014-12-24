@@ -16,12 +16,12 @@ namespace TH.UnitOfWorkEntityFramework
     {
         public WardWaitingList()
         {
-            this.Patients = new HashSet<Patient>();
+            this.Patients = new List<Patient>();
         }
     
         public System.Guid WardWaitingListId { get; set; }
     
         public virtual Ward Ward { get; set; }
-        public virtual ICollection<Patient> Patients { get; set; }
+        public virtual List<Patient> Patients { get; set; }
     }
 }

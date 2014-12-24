@@ -14,9 +14,24 @@ namespace TH.WebSystem.Services
             get { return ThemeHospitalContainer.GetInstance<IPatientBusinessLogic>(); }
         }
 
+        public IConsultantBusinessLogic ConsultantBusinessLogic
+        {
+            get { return ThemeHospitalContainer.GetInstance<IConsultantBusinessLogic>(); }
+        }
+
+        public IDoctorBusinessLogic DoctorBusinessLogic
+        {
+            get { return ThemeHospitalContainer.GetInstance<IDoctorBusinessLogic>(); }
+        }
+
         public IStaffMemberBusinessLogic StaffMemberBusinessLogic
         {
             get { return ThemeHospitalContainer.GetInstance<IStaffMemberBusinessLogic>(); }
+        }
+
+        public ITeamBusinessLogic TeamBusinessLogic
+        {
+            get { return ThemeHospitalContainer.GetInstance<ITeamBusinessLogic>(); }
         }
     }
 }

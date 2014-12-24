@@ -9,5 +9,10 @@ namespace TH.Domain.User
     {
         public Team Team { get; set; }
         public IList<Skill> Skills { get; set; }
+
+        public Consultant()
+        {
+            Skills = new List<Skill>();
+        }
     }
 }

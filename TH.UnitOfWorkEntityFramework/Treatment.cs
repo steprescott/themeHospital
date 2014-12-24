@@ -16,7 +16,7 @@ namespace TH.UnitOfWorkEntityFramework
     {
         public Treatment()
         {
-            this.Notes = new HashSet<Note>();
+            this.Notes = new List<Note>();
         }
     
         public System.Guid TreatmentId { get; set; }
@@ -25,6 +25,6 @@ namespace TH.UnitOfWorkEntityFramework
         public virtual StaffMember RecordedBy { get; set; }
         public virtual StaffMember AdministeredBy { get; set; }
         public virtual Visit Visit { get; set; }
-        public virtual ICollection<Note> Notes { get; set; }
+        public virtual List<Note> Notes { get; set; }
     }
 }

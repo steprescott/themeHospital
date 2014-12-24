@@ -16,15 +16,15 @@ namespace TH.UnitOfWorkEntityFramework
     {
         public Patient()
         {
-            this.Visits = new HashSet<Visit>();
-            this.Notes = new HashSet<Note>();
+            this.Visits = new List<Visit>();
+            this.Notes = new List<Note>();
         }
     
         public string EmergencyContactName { get; set; }
         public string EmergencyContactNumber { get; set; }
     
-        public virtual ICollection<Visit> Visits { get; set; }
+        public virtual List<Visit> Visits { get; set; }
         public virtual WardWaitingList WardWaitingList { get; set; }
-        public virtual ICollection<Note> Notes { get; set; }
+        public virtual List<Note> Notes { get; set; }
     }
 }

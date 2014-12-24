@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TH.Domain.User;
 
 namespace TH.Domain.Other
 {
     public class Team
     {
         public Guid TeamId { get; set; }
+
+        public Consultant Consultant { get; set; }
+
+        public IEnumerable<Doctor> Doctors { get; set; }
     }
 }

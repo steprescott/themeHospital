@@ -1,0 +1,28 @@
+﻿@model TH.Domain.Other.Team
+
+@{
+    Layout = null;
+}
+
+<h1>Your Team</h1>
+
+@if (Model.Doctors.Any())
+{ 
+    <table>
+        <tr>
+            <th>Firstname</th>
+            <th>Surname</th>
+            <th></th>
+        </tr>
+        @foreach (var doctor in Model.Doctors)
+        {
+            <tr>
+                <td>@doctor.Firstname</td>
+                <td>@doctor.LastName</td>
+                <td>
+                    @Html.ActionLink("Remove", "RemoveDoctor", new { doctorId = doctor.UserId, teamId = Model.TeamId })
+                </td>
+            </tr>
+        }
+    </table>
+}

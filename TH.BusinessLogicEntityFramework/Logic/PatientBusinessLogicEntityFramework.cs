@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
-using TH.BusinessLogicEntityFramework.Resolvers;
 using TH.Interfaces;
+using TH.ReflectiveMapper;
 using TH.UnitOfWorkEntityFramework;
 
-namespace TH.BusinessLogicEntityFramework
+namespace TH.BusinessLogicEntityFramework.Logic
 {
     public class PatientBusinessLogicEntityFramework : IPatientBusinessLogic
     {
@@ -15,24 +14,18 @@ namespace TH.BusinessLogicEntityFramework
         public PatientBusinessLogicEntityFramework(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-
-            Mapper.CreateMap<Patient, Domain.User.Patient>()
-                .ForMember(dest => dest.Addresses, opt => opt.ResolveUsing<DomainAddressResolver>().FromMember(src => src.Addresses));
-
-            Mapper.CreateMap<Domain.User.Patient, Patient>()
-                .ForMember(dest => dest.Addresses, opt => opt.ResolveUsing<EntityFrameworkAddressResolver>().FromMember(src => src.Addresses));
         }
 
         public IEnumerable<Domain.User.Patient> GetAllPatients()
         {
             var patients = _unitOfWork.GetAll<Patient>().ToList();
 
-            return patients.Select(p => Mapper.Map<Domain.User.Patient>(p));
+            return patients.Select(p => ReflectiveMapperService.ConvertItem<Patient, Domain.User.Patient>(p));
         }
 
         public Domain.User.Patient GetPatientWithId(Guid userId)
         {
-            return Mapper.Map<Domain.User.Patient>(_unitOfWork.GetById<Patient>(userId));
+            return ReflectiveMapperService.ConvertItem<Patient, Domain.User.Patient>(_unitOfWork.GetById<Patient>(userId));
         }
 
         public bool InsertOrUpdatePatient(Domain.User.Patient domainPatient)
@@ -41,13 +34,13 @@ namespace TH.BusinessLogicEntityFramework
 
             if (patient == null)
             {
-                domainPatient.UserId = domainPatient.UserId == null ? Guid.NewGuid() : domainPatient.UserId;
+                domainPatient.UserId = domainPatient.UserId == Guid.Empty ? Guid.NewGuid() : domainPatient.UserId;
                 domainPatient.DateCreated = DateTime.Now;
             }
 
             try
             {
-                patient = Mapper.Map<Patient>(domainPatient);
+                patient = ReflectiveMapperService.ConvertItem<Domain.User.Patient, Patient>(domainPatient);
 
                 _unitOfWork.Insert(patient);
                 _unitOfWork.SaveChanges();

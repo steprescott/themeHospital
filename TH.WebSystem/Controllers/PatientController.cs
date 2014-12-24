@@ -25,16 +25,16 @@ namespace TH.WebSystem.Controllers
             return View(patients);
         }
 
-        public ActionResult Details(Guid patientId)
+        public ActionResult Details(Guid id)
         {
-            var patient = HospitalService.PatientBusinessLogic.GetPatientWithId(patientId);
+            var patient = HospitalService.PatientBusinessLogic.GetPatientWithId(id);
 
             return View(patient);
         }
 
-        public ActionResult Edit(Guid patientId)
+        public ActionResult Edit(Guid id)
         {
-            var patient = HospitalService.PatientBusinessLogic.GetPatientWithId(patientId);
+            var patient = HospitalService.PatientBusinessLogic.GetPatientWithId(id);
 
             return View(patient);
         }

@@ -7,7 +7,7 @@ using TH.EncryptionUtilities;
 using TH.Interfaces;
 using TH.UnitOfWorkEntityFramework;
 
-namespace TH.BusinessLogicEntityFramework
+namespace TH.BusinessLogicEntityFramework.Logic
 {
     public class LoginServiceBusinessLogicEntityFramework : ILoginServiceBusinessLogic
     {

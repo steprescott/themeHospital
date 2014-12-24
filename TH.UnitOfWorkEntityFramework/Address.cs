@@ -16,7 +16,7 @@ namespace TH.UnitOfWorkEntityFramework
     {
         public Address()
         {
-            this.Users = new HashSet<User>();
+            this.Users = new List<User>();
         }
     
         public System.Guid AddressId { get; set; }
@@ -27,6 +27,6 @@ namespace TH.UnitOfWorkEntityFramework
         public string PostCode { get; set; }
         public bool IsCurrentAddress { get; set; }
     
-        public virtual ICollection<User> Users { get; set; }
+        public virtual List<User> Users { get; set; }
     }
 }

@@ -4,13 +4,9 @@ using System.Linq;
 using TH.EncryptionUtilities;
 using TH.Interfaces;
 using TH.ReflectiveMapper;
-using Consultant = TH.UnitOfWorkEntityFramework.Consultant;
-using Doctor = TH.UnitOfWorkEntityFramework.Doctor;
-using Receptionist = TH.UnitOfWorkEntityFramework.Receptionist;
-using Skill = TH.UnitOfWorkEntityFramework.Skill;
-using StaffMember = TH.UnitOfWorkEntityFramework.StaffMember;
+using TH.UnitOfWorkEntityFramework;
 
-namespace TH.BusinessLogicEntityFramework
+namespace TH.BusinessLogicEntityFramework.Logic
 {
     public class StaffMemberBusinessLogicEntityFramework : IStaffMemberBusinessLogic
     {
@@ -36,7 +32,13 @@ namespace TH.BusinessLogicEntityFramework
                 Name = s.Name
             }).ToList();
 
-            consultant.Team.TeamId = domainConsultant.Team.TeamId;
+            if (consultant.Team == null)
+            {
+                consultant.Team = new Team
+                {
+                    TeamId = Guid.NewGuid()
+                };
+            }
             
             //Attempt to create or update the staff member
             try
@@ -69,7 +71,10 @@ namespace TH.BusinessLogicEntityFramework
             var doctor = ReflectiveMapperService.ConvertItem<StaffMember, Doctor>(staffMember);
 
             //Set up specific parts of the consultant
-            doctor.Team.TeamId = doctor.Team.TeamId;
+            if (doctor.Team != null)
+            {
+                doctor.Team.TeamId = doctor.Team.TeamId;
+            }
 
             //Attempt to create or update the staff member
             try

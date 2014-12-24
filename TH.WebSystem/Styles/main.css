@@ -66,7 +66,7 @@ table {
 }
 
 ::-webkit-scrollbar {
-    width: 30px;
+    width: 20px;
 }
 
 ::-webkit-scrollbar-track {

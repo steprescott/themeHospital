@@ -16,14 +16,14 @@ namespace TH.UnitOfWorkEntityFramework
     {
         public Team()
         {
-            this.Doctors = new HashSet<Doctor>();
-            this.Visits = new HashSet<Visit>();
+            this.Doctors = new List<Doctor>();
+            this.Visits = new List<Visit>();
         }
     
         public System.Guid TeamId { get; set; }
     
-        public virtual ICollection<Doctor> Doctors { get; set; }
+        public virtual List<Doctor> Doctors { get; set; }
         public virtual Consultant Consultant { get; set; }
-        public virtual ICollection<Visit> Visits { get; set; }
+        public virtual List<Visit> Visits { get; set; }
     }
 }

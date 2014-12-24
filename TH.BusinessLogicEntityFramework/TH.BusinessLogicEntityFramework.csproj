@@ -48,12 +48,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LoginServiceBusinessLogicEntityFramework.cs" />
+    <Compile Include="Logic\ConsultantBusinessLogicEntityFramework.cs" />
+    <Compile Include="Logic\DoctorBusinessLogicEntityFramework.cs" />
+    <Compile Include="Logic\LoginServiceBusinessLogicEntityFramework.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PatientBusinessLogicEntityFramework.cs" />
+    <Compile Include="Logic\PatientBusinessLogicEntityFramework.cs" />
     <Compile Include="Resolvers\DomainAddressResolver.cs" />
     <Compile Include="Resolvers\EntityFrameworkAddressResolver.cs" />
-    <Compile Include="StaffMemberBusinessLogicEntityFramework.cs" />
+    <Compile Include="Logic\StaffMemberBusinessLogicEntityFramework.cs" />
+    <Compile Include="Logic\TeamBusinessLogicEntityFramework.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TH.Domain\TH.Domain.csproj">
@@ -80,6 +83,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
