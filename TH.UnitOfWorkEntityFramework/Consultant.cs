@@ -16,11 +16,11 @@ namespace TH.UnitOfWorkEntityFramework
     {
         public Consultant()
         {
-            this.Skills = new List<Skill>();
+            this.Skills = new HashSet<Skill>();
         }
     
     
         public virtual Team Team { get; set; }
-        public virtual List<Skill> Skills { get; set; }
+        public virtual ICollection<Skill> Skills { get; set; }
     }
 }

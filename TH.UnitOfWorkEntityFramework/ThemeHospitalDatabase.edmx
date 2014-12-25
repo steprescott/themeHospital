@@ -706,7 +706,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ThemeHospitalDatabase" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
-        <EntityContainer Name="ThemeHospitalDatabaseContainer" annotation:LazyLoadingEnabled="false">
+        <EntityContainer Name="ThemeHospitalDatabaseContainer" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Users" EntityType="ThemeHospitalDatabase.User" />
           <EntitySet Name="Addresses" EntityType="ThemeHospitalDatabase.Address" />
           <AssociationSet Name="UserAddress" Association="ThemeHospitalDatabase.UserAddress">

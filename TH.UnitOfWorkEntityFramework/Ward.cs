@@ -16,13 +16,13 @@ namespace TH.UnitOfWorkEntityFramework
     {
         public Ward()
         {
-            this.Beds = new List<Bed>();
+            this.Beds = new HashSet<Bed>();
         }
     
         public System.Guid WardId { get; set; }
         public int Number { get; set; }
     
         public virtual WardWaitingList WardWaitingList { get; set; }
-        public virtual List<Bed> Beds { get; set; }
+        public virtual ICollection<Bed> Beds { get; set; }
     }
 }

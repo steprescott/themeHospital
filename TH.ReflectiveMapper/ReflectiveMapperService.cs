@@ -22,8 +22,8 @@ namespace TH.ReflectiveMapper
             where TSource : class 
             where TDestination : class
         {
-            //Make an instance of the class we are converting to
-            var destination = Activator.CreateInstance<TDestination>();
+            //Get an instance of the destination object
+            var destination = GenerateInstanceFromDestinationSource<TDestination>();
 
             //Ensure if there are lists being carried through then ensure source and destination are
             if ((source.IsList() && !destination.IsList() || (!source.IsList() && destination.IsList())))
@@ -35,8 +35,8 @@ namespace TH.ReflectiveMapper
             if (source.IsList() && destination.IsList())
             {
                 //Now we know the types are lists, create a instance of that list to add to
-                var destinationType = typeof(TDestination);
-                var destinationList = Activator.CreateInstance(destinationType);
+                //var destinationType = typeof(TDestination);
+                var destinationList = destination;
 
                 //Cast the source list
                 var sourceList = (IList) source;
@@ -111,7 +111,46 @@ namespace TH.ReflectiveMapper
             }
 
             //Return the final object
-            return destination;
+            return (TDestination) destination;
+        }
+
+        /// <summary>
+        /// Generates an instance of an object from the passed through class
+        /// </summary>
+        /// <typeparam name="TDestination">The object we will be generating an instance for</typeparam>
+        /// <returns>An instantiated object</returns>
+        private static object GenerateInstanceFromDestinationSource<TDestination>()
+        {
+            //A dynamic object which we will use to be able to configure interface collections if there is any
+            dynamic dynamicDestination;
+
+            //First of all determine if the destination is an interface
+            //If not carry on as usual
+            if (typeof(TDestination).IsAbstract)
+            {
+                //First, get what the is collection is made up of
+                Type singularListType = typeof(TDestination).GetGenericArguments().Single();
+
+                //Now get a generic list with no type assigned to it
+                Type listGenericType = typeof(List<>);
+
+                //Now get a list of the singular type we have just determined
+                Type list = listGenericType.MakeGenericType(singularListType);
+
+                //Get the constructor info for the list we are creating so we can invoke it
+                ConstructorInfo constructorInfo = list.GetConstructor(new Type[] { });
+
+                //Set the dynamic destination to the list type of the singular object instance
+                dynamicDestination = constructorInfo.Invoke(new object[] { });
+            }
+            else
+            {
+                //Just create an instance of the TDestination, there is nothing interface related going off here
+                dynamicDestination = Activator.CreateInstance<TDestination>();
+            }
+
+            //Make an instance of the class that we can use that was generated from the above code
+            return (object)dynamicDestination;
         }
 
         /// <summary>

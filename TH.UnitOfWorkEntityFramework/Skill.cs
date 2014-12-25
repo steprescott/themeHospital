@@ -16,12 +16,12 @@ namespace TH.UnitOfWorkEntityFramework
     {
         public Skill()
         {
-            this.Consultants = new List<Consultant>();
+            this.Consultants = new HashSet<Consultant>();
         }
     
         public System.Guid SkillId { get; set; }
         public string Name { get; set; }
     
-        public virtual List<Consultant> Consultants { get; set; }
+        public virtual ICollection<Consultant> Consultants { get; set; }
     }
 }

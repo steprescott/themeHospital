@@ -16,7 +16,7 @@ namespace TH.UnitOfWorkEntityFramework
     {
         public User()
         {
-            this.Addresses = new List<Address>();
+            this.Addresses = new HashSet<Address>();
         }
     
         public System.Guid UserId { get; set; }
@@ -28,6 +28,6 @@ namespace TH.UnitOfWorkEntityFramework
         public System.DateTime DateCreated { get; set; }
         public string Gender { get; set; }
     
-        public virtual List<Address> Addresses { get; set; }
+        public virtual ICollection<Address> Addresses { get; set; }
     }
 }
