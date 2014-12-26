@@ -1,83 +1,99 @@
 ﻿@model TH.Domain.User.Patient
 
-<div>
-    <h4>Patient</h4>
+<h1>Patient Record - @Html.Raw(string.Format("{0} {1}", Model.Firstname, Model.LastName))</h1>
+
+<div class="form-horizontal patient-view">
+    <h4>Patient Details</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.DateCreated)
         </dt>
-    
         <dd>
             @Html.DisplayFor(model => model.DateCreated)
         </dd>
-    
+
         <dt>
             @Html.DisplayNameFor(model => model.Firstname)
         </dt>
-    
         <dd>
             @Html.DisplayFor(model => model.Firstname)
         </dd>
-    
+
         <dt>
             @Html.DisplayNameFor(model => model.OtherNames)
         </dt>
-    
         <dd>
             @Html.DisplayFor(model => model.OtherNames)
         </dd>
-    
+
         <dt>
             @Html.DisplayNameFor(model => model.LastName)
         </dt>
-    
         <dd>
             @Html.DisplayFor(model => model.LastName)
         </dd>
-    
+
         <dt>
             @Html.DisplayNameFor(model => model.DateOfBirth)
         </dt>
-    
         <dd>
             @Html.DisplayFor(model => model.DateOfBirth)
         </dd>
-    
+
         <dt>
             @Html.DisplayNameFor(model => model.Gender)
         </dt>
-    
         <dd>
             @Html.DisplayFor(model => model.Gender)
         </dd>
-    
+
         <dt>
             @Html.DisplayNameFor(model => model.ContactNumber)
         </dt>
-    
         <dd>
             @Html.DisplayFor(model => model.ContactNumber)
         </dd>
-    
+
         <dt>
             @Html.DisplayNameFor(model => model.EmergencyContactName)
         </dt>
-    
         <dd>
             @Html.DisplayFor(model => model.EmergencyContactName)
         </dd>
-    
+
         <dt>
             @Html.DisplayNameFor(model => model.EmergencyContactNumber)
         </dt>
-    
         <dd>
             @Html.DisplayFor(model => model.EmergencyContactNumber)
         </dd>
-    
+
+        <h4>Addresses</h4>
+
+        @foreach (var address in Model.Addresses)
+        {
+            <dd>
+                @Html.DisplayFor(model => address.AddressLine1)
+            </dd>
+            <dd>
+                @Html.DisplayFor(model => address.AddressLine2)
+            </dd>
+            <dd>
+                @Html.DisplayFor(model => address.AddressLine3)
+            </dd>
+            <dd>
+                @Html.DisplayFor(model => address.City)
+            </dd>
+            <dd>
+                @Html.DisplayFor(model => address.PostCode)
+            </dd>
+        }
+        
+        <h4>Visits</h4>
     </dl>
 </div>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { patientId = Model.UserId }) |
     @Html.ActionLink("Back to List", "Index")

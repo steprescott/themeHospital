@@ -373,5 +373,11 @@ ul {
         }
 
 .form-horizontal {
+    margin: 20px 0;
+}
 
+/* View Patient */
+.patient-view dt {
+    margin-top: 5px;
+    font-weight: bold;
 }
