@@ -27,6 +27,10 @@ namespace TH.WebSystem.Providers
 
         public static ApplicationUser GetCurrentUser()
         {
+            if (User == null)
+            {
+                LogoutCurrentUser();
+            }
             return User;
         }
 

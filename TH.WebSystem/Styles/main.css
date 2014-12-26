@@ -83,6 +83,7 @@ table {
 
 h1 {
     font-family: THTitle;
+    margin: 10px 0 5px 0;
 }
 
 h2 {
@@ -185,7 +186,7 @@ textarea {
     cursor: url(../Images/cursor.png), auto;
 }
 
-input[type=submit], .menu li {
+input[type=submit], .menu li, .button {
     padding: 10px 10px;
     background: #00a27d;
     border: 2px solid #00a27d;
@@ -195,9 +196,15 @@ input[type=submit], .menu li {
     cursor: url(../Images/cursor.png), auto;
 }
 
-    input[type=submit]:hover, .menu li:hover {
+    input[type=submit]:hover, .menu li:hover, .button:hover {
         background: #06ba91;
     }
+
+.button {
+    cursor: auto;
+    text-decoration: none;
+    display: inline-block;
+}
 
 ::-webkit-input-placeholder {
     color: LIGHTGREY;
@@ -285,6 +292,10 @@ ul {
 .text-danger {
     color: #b22222;
     font-weight: bold;
+}
+
+.empty {
+    margin: 10px 0;
 }
 
 .content {

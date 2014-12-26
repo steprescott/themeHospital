@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -26,33 +25,32 @@ namespace TH.ReflectiveMapper
             var destination = GenerateInstanceFromDestinationSource<TDestination>();
 
             //Ensure if there are lists being carried through then ensure source and destination are
-            if ((source.IsList() && !destination.IsList() || (!source.IsList() && destination.IsList())))
+            if ((source.IsCollection() && !destination.IsCollection() || (!source.IsCollection() && destination.IsCollection())))
             {
                 throw new Exception("Cannot convert a list type to a none list type");
             }
 
             //Otherwise proceed with main code
-            if (source.IsList() && destination.IsList())
+            if (source.IsCollection() && destination.IsCollection())
             {
                 //Now we know the types are lists, create a instance of that list to add to
-                //var destinationType = typeof(TDestination);
-                var destinationList = destination;
+                dynamic destinationList = destination;
 
                 //Cast the source list
-                var sourceList = (IList) source;
+                dynamic sourceList = source;
 
-                //Iterate though each item
+                //Iterate though each item, all collections inherit off of an enumerator so should be able to foreach through them
                 foreach (var item in sourceList)
                 {
                     //Get each type for source and destination
-                    Type destinationListSingleType = destinationList.GetType().GetGenericArguments().Single();
-                    Type sourceListSingleType = sourceList.GetType().GetGenericArguments().Single();
+                    Type destinationListSingleType = destinationList.GetType().GetGenericArguments()[0];
+                    Type sourceListSingleType = sourceList.GetType().GetGenericArguments()[0];
 
                     //Invoke the method passing through the object we are converting from
                     var result = InvokeGenericMethodRecursion(sourceListSingleType, destinationListSingleType, item);
 
                     //Add the item into the list we created for the destination items
-                    ((IList)destinationList).Add(result);
+                    destinationList.Add(result);
                 }
 
                 //Return the list made
@@ -84,7 +82,7 @@ namespace TH.ReflectiveMapper
                     //If the type is a system type, just map it directly
                     if (sourceTypeIsSystemType != null)
                     {
-                        if (sourcePropertyValue.IsList())
+                        if (sourcePropertyValue.IsCollection())
                         {
                             //Call recursively to get the result
                             var list = InvokeGenericMethodRecursion(sourcePropertyValue.GetType(), matchedDestinationProperty.PropertyType, sourcePropertyValue);
@@ -204,10 +202,37 @@ namespace TH.ReflectiveMapper
         /// </summary>
         /// <param name="potentialListObject">The object to be checked</param>
         /// <returns>A Boolean indicating if the object is of type list</returns>
-        private static bool IsList(this object potentialListObject)
+        private static bool IsCollection(this object potentialListObject)
         {
+            //Get the type of the object
             var originalType = potentialListObject.GetType();
-            return originalType.IsGenericType && originalType.GetGenericTypeDefinition() == typeof(List<>);
+
+            //Determine if the type os of type collection or enumerable
+            var collectionType = Array.Exists(originalType.GetInterfaces(), IsGenericCollectionType);
+            var enumerableType = Array.Exists(originalType.GetInterfaces(), IsGenericEnumerableType);
+
+            //Technically a string is a collection so ensure the object isn't a string
+            return (collectionType || enumerableType) && !(potentialListObject is string);
+        }
+
+        /// <summary>
+        /// Determine if type is of type Collection
+        /// </summary>
+        /// <param name="type">The type we are checking</param>
+        /// <returns>Boolean indicating if the type is of collection</returns>
+        private static bool IsGenericCollectionType(Type type)
+        {
+            return type.IsGenericType && (typeof(ICollection<>) == type.GetGenericTypeDefinition());
+        }
+
+        /// <summary>
+        /// Determine if type is of type Enumerable
+        /// </summary>
+        /// <param name="type">The type we are checking</param>
+        /// <returns>Boolean indicating if the type is of enumerable</returns>
+        private static bool IsGenericEnumerableType(Type type)
+        {
+            return type.IsGenericType && (typeof(IEnumerable<>) == type.GetGenericTypeDefinition());
         }
     }
 }

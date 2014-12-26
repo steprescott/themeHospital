@@ -38,6 +38,34 @@ namespace TH.BusinessLogicEntityFramework.Logic
             return null;
         }
 
+        public bool AddDoctorToConsultantTeam(Guid consultantId, Guid doctorId)
+        {
+            var consultant = _unitOfWork.GetById<Consultant>(consultantId);
+
+            if (consultant != null && consultant.Team != null)
+            {
+                var doctorToAdd = _unitOfWork.GetById<Doctor>(doctorId);
+
+                if (doctorToAdd != null)
+                {
+                    var consultantTeam = consultant.Team;
+                    consultantTeam.Doctors.Add(doctorToAdd);
+
+                    try
+                    {
+                        _unitOfWork.Update(consultantTeam);
+                        _unitOfWork.SaveChanges();
+                        return true;
+                    }
+                    catch (Exception exception)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return false;
+        }
+
         public bool RemoveDoctorFromConsultantTeam(Guid consultantId, Guid doctorId)
         {
             var consultant = _unitOfWork.GetById<Consultant>(consultantId);

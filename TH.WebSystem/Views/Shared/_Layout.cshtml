@@ -12,14 +12,10 @@
     </head>
     <body>
         <header>
-            Theme Hospital - Welcome
+            Theme Hospital
             @if (ThemeHospitalMembershipProvider.IsLoggedIn())
             {
-                @ThemeHospitalMembershipProvider.GetCurrentUser().Firstname
-            }
-            else
-            {
-                @Html.Raw("Test")
+                @Html.Raw(string.Format(" - Welcome {0}", @ThemeHospitalMembershipProvider.GetCurrentUser().Firstname))
             }
         </header>
 

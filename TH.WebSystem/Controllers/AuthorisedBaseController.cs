@@ -8,7 +8,7 @@ using TH.WebSystem.Services;
 namespace TH.WebSystem.Controllers
 {
     //NOTE(JB): Temporarily turned off so can navigate around but will need to put back in shortly
-    //[Authorize]
+    [Authorize]
     public class AuthorisedBaseController : Controller
     {
         private HospitalService _hospitalService;

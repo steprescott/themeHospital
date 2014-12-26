@@ -11,6 +11,11 @@ namespace TH.Domain.Other
 
         public Consultant Consultant { get; set; }
 
-        public IEnumerable<Doctor> Doctors { get; set; }
+        public HashSet<Doctor> Doctors { get; set; }
+
+        public Team()
+        {
+            Doctors = new HashSet<Doctor>();
+        }
     }
 }

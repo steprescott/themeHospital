@@ -1,10 +1,15 @@
 ﻿@model TH.WebSystem.Models.LoginModel
 
+@{
+    ViewBag.Title = "Login";
+}           
+
+
 <div class="container">
     <img src="~/Images/logoSmall.png" class="loginImage" />
     <div class="loginHeader"><h1>Theme Hospital - Staff login portal</h1></div>
     <div class="loginForm">
-        @using (Html.BeginForm("AttemptLogin", "Login", FormMethod.Post))
+        @using (Html.BeginForm("AttemptLogin", "Home", FormMethod.Post))
         {
             @Html.LabelFor(lm => lm.Username)
             @Html.TextBoxFor(lm => lm.Username)

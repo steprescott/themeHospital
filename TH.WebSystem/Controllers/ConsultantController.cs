@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 using TH.WebSystem.Providers;
@@ -30,7 +31,15 @@ namespace TH.WebSystem.Controllers
             return View(availableDoctors);
         }
 
-        [HttpPost]
+        public ActionResult AddToTeam(Guid doctorId)
+        {
+            var consultantId = ThemeHospitalMembershipProvider.GetCurrentUser().UserId;
+
+            HospitalService.ConsultantBusinessLogic.AddDoctorToConsultantTeam(consultantId, doctorId);
+
+            return RedirectToAction("AddDoctor");
+        }
+
         public ActionResult RemoveDoctor(Guid doctorId)
         {
             var consultantId = ThemeHospitalMembershipProvider.GetCurrentUser().UserId;

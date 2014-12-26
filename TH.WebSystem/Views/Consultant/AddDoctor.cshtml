@@ -1,23 +1,23 @@
-﻿@model TH.Domain.Other.Team
+﻿@model List<TH.Domain.User.Doctor>
 
 @Html.ActionLink("Back to Dashboard", "Index", "Consultant", new { @class = "button" })
-<h1>Your Team</h1>
+<h1>Available doctors for your team</h1>
 
-@if (Model.Doctors.Any())
-{ 
+@if (Model.Any())
+{
     <table>
         <tr>
             <th>Firstname</th>
             <th>Surname</th>
             <th></th>
         </tr>
-        @foreach (var doctor in Model.Doctors)
+        @foreach (var doctor in Model)
         {
             <tr>
                 <td>@doctor.Firstname</td>
                 <td>@doctor.LastName</td>
                 <td>
-                    @Html.ActionLink("Remove", "RemoveDoctor", new { doctorId = doctor.UserId, teamId = Model.TeamId })
+                    @Html.ActionLink("Add", "AddToTeam", new { doctorId = doctor.UserId })
                 </td>
             </tr>
         }
@@ -25,7 +25,5 @@
 }
 else
 {
-    <div class="empty">
-        @Html.Raw("No Doctors on your team")
-    </div>
+    @Html.Raw("No Doctors available")
 }

@@ -18,9 +18,9 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
         public List<Domain.User.Doctor> GetAvailableDoctors()
         {
-            var doctors = _unitOfWork.GetAll<Doctor>();
+            var doctors = _unitOfWork.GetAll<Doctor>().ToList();
 
-            doctors = doctors.Where(d => d.Team == null);
+            doctors = doctors.Where(d => d.Team == null).ToList();
 
             return doctors.Select(d => ReflectiveMapperService.ConvertItem<Doctor, Domain.User.Doctor>(d))
                 .ToList();

@@ -17,7 +17,7 @@ namespace TH.WebSystem.Controllers
             return View();
         }
 
-        public bool AttemptLogin(LoginModel loginModel)
+        public ActionResult AttemptLogin(LoginModel loginModel)
         {
             var result = ThemeHospitalMembershipProvider.LoginCurrrentUser(loginModel.Username, loginModel.Password);
             
@@ -25,18 +25,19 @@ namespace TH.WebSystem.Controllers
             {
                 if (System.Web.HttpContext.Current.User.IsInRole(StaffType.Receptionist.ToString()))
                 {
-                    RedirectToAction("Index", "Receptionist");
+                    return RedirectToAction("Index", "Receptionist");
                 }
                 else if (System.Web.HttpContext.Current.User.IsInRole(StaffType.Consultant.ToString()))
                 {
-                    RedirectToAction("Index", "Consultant");
+                    return RedirectToAction("Index", "Consultant");
                 }
-                else if (System.Web.HttpContext.Current.User.IsInRole(StaffType.Doctor.ToString()))
+                else
                 {
-                    RedirectToAction("Index", "JuniorDoctor");
+                    return RedirectToAction("Index", "Doctor");
                 }
             }
-            return false;
+
+            return RedirectToAction("Index");
         }
     }
 }
