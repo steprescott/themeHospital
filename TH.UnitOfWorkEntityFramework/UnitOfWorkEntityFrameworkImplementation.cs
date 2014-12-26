@@ -42,6 +42,11 @@ namespace TH.UnitOfWorkEntityFramework
             return _mscDatabaseContainer.Set<T>();
         }
 
+        public IQueryable<T2> GetInheritedSubTypeObjects<T, T2>() where T : class where T2 : class
+        {
+            return _mscDatabaseContainer.Set<T>().OfType<T2>();
+        }
+
         public bool HasBeenModified<T>(T entity) where T : class
         {
             return _mscDatabaseContainer.Entry(entity).State == EntityState.Modified;

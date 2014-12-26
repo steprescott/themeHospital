@@ -57,10 +57,13 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
         private StaffType GetRoleForUserId(Guid userId)
         {
-            var consultant = _unitOfWork.GetById<Consultant>(userId);
+            var consultant = _unitOfWork.GetInheritedSubTypeObjects<StaffMember, Consultant>()
+                                        .SingleOrDefault(c => c.UserId == userId);
+
             if (consultant == null)
             {
-                var doctor = _unitOfWork.GetById<Doctor>(userId);
+                var doctor = _unitOfWork.GetInheritedSubTypeObjects<StaffMember, Doctor>()
+                                        .SingleOrDefault(c => c.UserId == userId);
 
                 if (doctor == null)
                 {

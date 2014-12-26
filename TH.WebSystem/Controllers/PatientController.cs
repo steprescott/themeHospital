@@ -9,18 +9,9 @@ namespace TH.WebSystem.Controllers
 {
     public class PatientController : AuthorisedBaseController
     {
-        // GET: Patient
         public ActionResult Index()
         {
             var patients = HospitalService.PatientBusinessLogic.GetAllPatients().ToList();
-
-            patients = Enumerable.Range(0, 10).Select(p => new Patient
-            {
-                UserId = Guid.NewGuid(),
-                Firstname = "Test",
-                LastName = "name",
-                ContactNumber = "2456456456",
-            }).ToList();
 
             return View(patients);
         }
@@ -37,6 +28,13 @@ namespace TH.WebSystem.Controllers
             var patient = HospitalService.PatientBusinessLogic.GetPatientWithId(id);
 
             return View(patient);
+        }
+
+        public ActionResult Edit(Patient patient)
+        {
+            HospitalService.PatientBusinessLogic.InsertOrUpdatePatient(patient);
+
+            return RedirectToAction("Details", new { id = patient.UserId });
         }
     }
 }

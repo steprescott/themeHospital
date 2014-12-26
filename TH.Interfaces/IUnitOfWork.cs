@@ -14,6 +14,8 @@ namespace TH.Interfaces
 
         IQueryable<T> GetAll<T>() where T : class;
 
+        IQueryable<T2> GetInheritedSubTypeObjects<T, T2>() where T : class where T2 : class;
+
         bool HasBeenModified<T>(T entity) where T : class;
 
         void Update<T>(T entity) where T : class;

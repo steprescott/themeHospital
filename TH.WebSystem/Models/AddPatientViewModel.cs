@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Runtime.ExceptionServices;
 using System.Web;
 
 namespace TH.WebSystem.Models
@@ -13,7 +12,6 @@ namespace TH.WebSystem.Models
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
-        [Required]
         [Display(Name = "Other Names")]
         public string OtherNames { get; set; }
 
@@ -43,5 +41,14 @@ namespace TH.WebSystem.Models
         [Display(Name = "Contact Number")]
         [DataType(DataType.PhoneNumber, ErrorMessage = "Invalid Number")]
         public string EmergencyContactNumber { get; set; }
+
+        [Required]
+        [Display(Name = "Address")]
+        public AddressModel Address { get; set; }
+
+        public AddPatientViewModel()
+        {
+            Address = new AddressModel();
+        }
     }
 }
