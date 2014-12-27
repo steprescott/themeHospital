@@ -178,6 +178,8 @@
     <Content Include="Views\Consultant\ViewTeam.cshtml" />
     <Content Include="Views\Consultant\AddDoctor.cshtml" />
     <Content Include="Views\Receptionist\AddPatient.cshtml" />
+    <Content Include="Views\Patient\SearchPatient.cshtml" />
+    <Content Include="Views\Shared\_PatientList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

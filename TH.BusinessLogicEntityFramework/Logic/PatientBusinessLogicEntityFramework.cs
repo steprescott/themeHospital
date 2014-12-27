@@ -80,5 +80,31 @@ namespace TH.BusinessLogicEntityFramework.Logic
                 return false;
             }
         }
+
+        public List<Domain.User.Patient> SearchPatient(string searchText)
+        {
+
+            var matchedPatients = new List<Patient>();
+            searchText = searchText.ToLower();
+
+            var patients = _unitOfWork.GetAll<Patient>();
+
+            foreach (var patient in patients)
+            {
+                if (patient.FirstName.ToLower().Contains(searchText))
+                {
+                    matchedPatients.Add(patient);
+                }
+                else if (patient.LastName.ToLower().Contains(searchText))
+                {
+                    matchedPatients.Add(patient);
+                }
+                else if (patient.FullName.ToLower().Contains(searchText))
+                {
+                    matchedPatients.Add(patient);
+                }
+            }
+            return matchedPatients.Select(p => ReflectiveMapperService.ConvertItem<Patient, Domain.User.Patient>(p)).ToList();
+        }
     }
 }
