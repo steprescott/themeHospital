@@ -12,5 +12,9 @@ namespace TH.Interfaces
         bool CreateOrUpdateOperation(Operation operation);
 
         bool DeleteOperationWithId(Guid operationId);
+
+        List<Operation> GetAllOperations();
+
+        Operation GetOperationById(Guid id);
     }
 }

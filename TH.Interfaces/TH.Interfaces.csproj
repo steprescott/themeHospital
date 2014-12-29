@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IConsultantBusinessLogic.cs" />
+    <Compile Include="ICourseOfMedicine.cs" />
     <Compile Include="IDoctorBusinessLogic.cs" />
     <Compile Include="ILoginServiceBusinessLogic.cs">
       <SubType>Code</SubType>
@@ -48,6 +49,7 @@
     <Compile Include="IMedicineBusinessLogic.cs" />
     <Compile Include="INotesBusinessLogic.cs" />
     <Compile Include="IOperationBusinessLogic.cs" />
+    <Compile Include="IProcedureBusinessLogic.cs" />
     <Compile Include="ITreatmentBusinessLogic.cs" />
     <Compile Include="IStaffMemberBusinessLogic.cs" />
     <Compile Include="ITeamBusinessLogic.cs" />

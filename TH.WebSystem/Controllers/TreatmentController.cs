@@ -20,7 +20,7 @@ namespace TH.WebSystem.Controllers
 
         public ActionResult Create()
         {
-            var operations = HospitalService.TreatmentBusinessLogic.GetAllOperations();
+            var operations = HospitalService.OperationBusinessLogic.GetAllOperations();
 
             return View(new CreateTreatmentViewModel()
             {
@@ -48,7 +48,7 @@ namespace TH.WebSystem.Controllers
                 },
             };
 
-            HospitalService.TreatmentBusinessLogic.CreateProcedure(procedure);
+            HospitalService.ProcedureBusinessLogic.CreateProcedure(procedure);
 
             return View("Create");
         }
