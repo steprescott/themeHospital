@@ -36,5 +36,18 @@ namespace TH.WebSystem.Controllers
 
             return RedirectToAction("Details", new { id = patient.UserId });
         }
+
+        [HttpPost]
+        public ActionResult SearchPatient(string patient)
+        {
+            var matchedPateints = HospitalService.PatientBusinessLogic.SearchPatient(patient);
+            return PartialView("_PatientList", matchedPateints);
+        }
+
+        [HttpGet]
+        public ActionResult SearchPatient()
+        {
+            return View();
+        }
     }
 }

@@ -75,6 +75,7 @@
     <Compile Include="Operation.cs">
       <DependentUpon>ThemeHospitalDatabase.tt</DependentUpon>
     </Compile>
+    <Compile Include="Partials\Patient.cs" />
     <Compile Include="Partials\User.cs" />
     <Compile Include="Patient.cs">
       <DependentUpon>ThemeHospitalDatabase.tt</DependentUpon>

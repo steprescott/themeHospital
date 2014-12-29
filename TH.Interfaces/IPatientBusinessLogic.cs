@@ -12,5 +12,6 @@ namespace TH.Interfaces
         bool InsertOrUpdatePatient(Domain.User.Patient domainPatient);
         bool DeletePatientWithId(Guid userId);
         bool DeletePatient(Domain.User.Patient domainPatient);
+        List<Domain.User.Patient> SearchPatient(string searchText);
     }
 }

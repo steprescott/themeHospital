@@ -155,14 +155,12 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Controllers\ReceptionistController.cs" />
-    <Compile Include="Controllers\TreatmentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AddressModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\AddPatientViewModel.cs" />
-    <Compile Include="Models\NewTreatmentViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ThemeHospitalMembershipProvider.cs" />
     <Compile Include="Services\SecurityService.cs" />
@@ -180,7 +178,8 @@
     <Content Include="Views\Consultant\ViewTeam.cshtml" />
     <Content Include="Views\Consultant\AddDoctor.cshtml" />
     <Content Include="Views\Receptionist\AddPatient.cshtml" />
-    <Content Include="Views\Treatment\NewTreatment.cshtml" />
+    <Content Include="Views\Patient\SearchPatient.cshtml" />
+    <Content Include="Views\Shared\_PatientList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

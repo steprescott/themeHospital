@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "SearchPatient";
+}
+
+<h2>SearchPatient</h2>
+
+<input type="text" id="searchPatient" onkeyup="searchClick()" />
+<input type="button" id="searchButton" value="Search" class="button" />
+
+<div id="Results"></div>
+
+<script type="text/javascript">
+    function searchClick() {
+        var searchText = $("#searchPatient").val();
+
+        if (searchText === "") {
+
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "/Patient/SearchPatient",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({
+                    patient: searchText,
+                }),
+
+                success: function (data) {
+                    $("#Results").html(data);
+                },
+            });
+        }
+    }
+</script>
