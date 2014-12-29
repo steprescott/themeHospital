@@ -381,3 +381,18 @@ ul {
     margin-top: 5px;
     font-weight: bold;
 }
+
+.navigation {
+    margin-left: 25px;
+    overflow: hidden;
+    display: inline-block;
+    width: 500px;
+}
+
+.navigation a {
+    font-size: 14px;
+    color: #fff;
+    vertical-align: middle;
+    float: left;
+    width: 100px;
+}

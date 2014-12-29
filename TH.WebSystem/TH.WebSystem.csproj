@@ -158,6 +158,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Classes\ActionFilters\ThemeHospitalAuthorisationAttribute.cs" />
     <Compile Include="Models\AddressModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\AddPatientViewModel.cs" />
@@ -180,6 +181,7 @@
     <Content Include="Views\Receptionist\AddPatient.cshtml" />
     <Content Include="Views\Patient\SearchPatient.cshtml" />
     <Content Include="Views\Shared\_PatientList.cshtml" />
+    <Content Include="Views\Shared\_DashboardLink.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -9,7 +9,7 @@
     <img src="~/Images/logoSmall.png" class="loginImage" />
     <div class="loginHeader"><h1>Theme Hospital - Staff login portal</h1></div>
     <div class="loginForm">
-        @using (Html.BeginForm("AttemptLogin", "Home", FormMethod.Post))
+        @using (Html.BeginForm("Login", "Home", FormMethod.Post))
         {
             @Html.LabelFor(lm => lm.Username)
             @Html.TextBoxFor(lm => lm.Username)
