@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TH.Domain.Other;
 
 namespace TH.Domain.User
@@ -16,7 +14,7 @@ namespace TH.Domain.User
 
         public Guid UserId { get; set; }
 
-        public System.DateTime DateCreated { get; set; }
+        public DateTime DateCreated { get; set; }
 
         public string Firstname { get; set; }
 
@@ -31,5 +29,13 @@ namespace TH.Domain.User
         public string ContactNumber { get; set; }
 
         public List<Address> Addresses { get; set; } 
+
+        public string FullName
+        {
+            get
+            {
+                return string.Format("{0} {1}", Firstname, LastName);
+            }
+        }
     }
 }

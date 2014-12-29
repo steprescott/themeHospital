@@ -39,5 +39,12 @@ namespace TH.BusinessLogicEntityFramework.Logic
             }
             return null;
         }
+
+        public List<Domain.Other.Team> GetAll()
+        {
+            var teams = _unitOfWork.GetAll<Team>().ToList();
+
+            return teams.Select(t => ReflectiveMapperService.ConvertItem<Team, Domain.Other.Team>(t)).ToList();
+        }
     }
 }

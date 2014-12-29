@@ -238,7 +238,7 @@
     </Key>
     <Property Name="VisitId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="AdmittedDate" Type="datetime" Nullable="false" />
-    <Property Name="ReleaseDate" Type="datetime" Nullable="false" />
+    <Property Name="ReleaseDate" Type="datetime" Nullable="true" />
     <Property Name="Patient_UserId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Bed_BedId" Type="uniqueidentifier" Nullable="true" />
   </EntityType>
@@ -926,7 +926,7 @@
           <NavigationProperty Name="Patient" Relationship="ThemeHospitalDatabase.PatientVisit" FromRole="Visit" ToRole="Patient" />
           <NavigationProperty Name="Bed" Relationship="ThemeHospitalDatabase.VisitBed" FromRole="Visit" ToRole="Bed" />
           <Property Name="AdmittedDate" Type="DateTime" Nullable="false" />
-          <Property Name="ReleaseDate" Type="DateTime" Nullable="false" />
+          <Property Name="ReleaseDate" Type="DateTime" Nullable="true" />
           <NavigationProperty Name="Teams" Relationship="ThemeHospitalDatabase.VisitTeam" FromRole="Visit" ToRole="Team" />
           <NavigationProperty Name="Treatments" Relationship="ThemeHospitalDatabase.TreatmentVisit" FromRole="Visit" ToRole="Treatment" />
           <NavigationProperty Name="Notes" Relationship="ThemeHospitalDatabase.VisitNote" FromRole="Visit" ToRole="Note" />

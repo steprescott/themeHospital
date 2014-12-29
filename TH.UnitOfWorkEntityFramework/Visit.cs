@@ -23,7 +23,7 @@ namespace TH.UnitOfWorkEntityFramework
     
         public System.Guid VisitId { get; set; }
         public System.DateTime AdmittedDate { get; set; }
-        public System.DateTime ReleaseDate { get; set; }
+        public Nullable<System.DateTime> ReleaseDate { get; set; }
     
         public virtual Patient Patient { get; set; }
         public virtual Bed Bed { get; set; }

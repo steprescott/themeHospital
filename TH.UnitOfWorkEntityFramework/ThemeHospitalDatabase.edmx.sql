@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/29/2014 17:40:16
--- Generated from EDMX file: C:\Users\steprescott\Documents\Visual Studio 2013\Projects\Theme Hospital\TH.UnitOfWorkEntityFramework\ThemeHospitalDatabase.edmx
+-- Date Created: 12/29/2014 21:14:07
+-- Generated from EDMX file: C:\Users\Jonathan\Source\Repos\themeHospital\TH.UnitOfWorkEntityFramework\ThemeHospitalDatabase.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -272,7 +272,7 @@ GO
 CREATE TABLE [dbo].[Visits] (
     [VisitId] uniqueidentifier  NOT NULL,
     [AdmittedDate] datetime  NOT NULL,
-    [ReleaseDate] datetime  NOT NULL,
+    [ReleaseDate] datetime  NULL,
     [Patient_UserId] uniqueidentifier  NOT NULL,
     [Bed_BedId] uniqueidentifier  NULL
 );

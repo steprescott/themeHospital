@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TH.Domain.Other;
 using TH.Domain.User;
 
 namespace TH.Interfaces
 {
     public interface IPatientBusinessLogic
     {
-        Domain.User.Patient GetPatientWithId(Guid userId);
+        Patient GetPatientWithId(Guid userId);
         IEnumerable<Patient> GetAllPatients();
-        bool InsertOrUpdatePatient(Domain.User.Patient domainPatient);
+        bool InsertOrUpdatePatient(Patient domainPatient);
         bool DeletePatientWithId(Guid userId);
-        bool DeletePatient(Domain.User.Patient domainPatient);
-        List<Domain.User.Patient> SearchPatient(string searchText);
+        bool DeletePatient(Patient domainPatient);
+        List<Patient> SearchPatient(string searchText);
+        bool IsOpenVisitForPatient(Guid patientId);
+        bool AdmitPatient(Guid patientId, Guid teamId);
+        Visit GetCurrentVisitForPatientId(Guid patientId);
     }
 }

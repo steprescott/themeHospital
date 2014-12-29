@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Web;
-using Antlr.Runtime.Tree;
 using TH.Domain.Treatments;
 using TH.Domain.User;
 

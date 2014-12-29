@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TH.Domain.User;
+using TH.WebSystem.Models;
 
 namespace TH.WebSystem.Controllers
 {
@@ -19,8 +20,13 @@ namespace TH.WebSystem.Controllers
         public ActionResult Details(Guid id)
         {
             var patient = HospitalService.PatientBusinessLogic.GetPatientWithId(id);
+            var patientHasOpenVisit = HospitalService.PatientBusinessLogic.IsOpenVisitForPatient(id);
 
-            return View(patient);
+            return View(new PatientDetailsModel
+            {
+                Patient = patient,
+                HasOpenVisit = patientHasOpenVisit
+            });
         }
 
         public ActionResult Edit(Guid id)
@@ -37,6 +43,12 @@ namespace TH.WebSystem.Controllers
             return RedirectToAction("Details", new { id = patient.UserId });
         }
 
+        [HttpGet]
+        public ActionResult SearchPatient()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult SearchPatient(string patient)
         {
@@ -45,9 +57,24 @@ namespace TH.WebSystem.Controllers
         }
 
         [HttpGet]
-        public ActionResult SearchPatient()
+        public ActionResult Admit(Guid id)
         {
-            return View();
+            var teams = HospitalService.TeamBusinessLogic.GetAll();
+            var visit = HospitalService.PatientBusinessLogic.GetCurrentVisitForPatientId(id);
+            
+            return View(new AdmissionModel
+            {
+                PatientId = id,
+                Teams = teams
+            });
+        }
+
+        [HttpPost]
+        public ActionResult Admit(AdmissionModel admissionModel)
+        {
+            HospitalService.PatientBusinessLogic.AdmitPatient(admissionModel.PatientId, admissionModel.TeamId);
+
+            return RedirectToAction("Details", new { id = admissionModel.PatientId });
         }
     }
 }
