@@ -44,6 +44,7 @@
     <Compile Include="ILoginServiceBusinessLogic.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ITreatmentBusinessLogic.cs" />
     <Compile Include="IStaffMemberBusinessLogic.cs" />
     <Compile Include="ITeamBusinessLogic.cs" />
     <Compile Include="IUnitOfWork.cs" />

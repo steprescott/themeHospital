@@ -39,15 +39,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Address.cs" />
+    <Compile Include="Other\Address.cs" />
     <Compile Include="Enums\LoginResult.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Enums\StaffType.cs" />
     <Compile Include="Enums\UserType.cs" />
     <Compile Include="Other\ApplicationUser.cs" />
+    <Compile Include="Treatment\Operation.cs" />
     <Compile Include="Other\Skill.cs" />
     <Compile Include="Other\Team.cs" />
+    <Compile Include="Treatment\Procedure.cs" />
+    <Compile Include="Treatment\Treatment.cs" />
     <Compile Include="User\Consultant.cs" />
     <Compile Include="User\Doctor.cs" />
     <Compile Include="User\Patient.cs" />

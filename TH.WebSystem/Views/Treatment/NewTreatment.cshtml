@@ -1,0 +1,31 @@
+﻿@model TH.WebSystem.Models.NewTreatmentViewModel
+
+<div>
+    <div id="wizard">
+        <button>Add new Procedure</button>
+        <button>Add new Course of Medicine</button>
+    </div>
+    <div>
+        @using (Html.BeginForm("NewProcedure", "Treatment", FormMethod.Post))
+        {
+            @Html.LabelFor(model => model.Operations)
+            @Html.DropDownListFor(model => model.SelectedOperationId, new SelectList(Model.Operations, "OperationId", "Name", null))
+            @Html.LabelFor(model => model.ScheduledDate)
+            @Html.TextBoxFor(model => model.ScheduledDate)
+            @Html.LabelFor(model => model.DateAdministered)
+            @Html.TextBoxFor(model => model.DateAdministered)
+            <input type="submit" value="Create" class="button">
+        }
+    </div>
+
+    @*@using (Html.BeginForm("NewCourseOfMedicine", "Treatment", FormMethod.Post))
+    {
+        @Html.LabelFor(model => model.Operations)
+        @Html.DropDownListFor(model => model.SelectedOperationId, new SelectList(Model.Operations, "OperationId", "Name", null))
+        @Html.LabelFor(model => model.DateAdministered)
+        @Html.TextBoxFor(model => model.DateAdministered)
+        <input type="submit" value="Create" class="button">
+    }*@
+
+    <div></div>
+</div>

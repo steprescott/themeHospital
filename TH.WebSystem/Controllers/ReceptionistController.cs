@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TH.Domain;
+using TH.Domain.Other;
 using TH.Domain.User;
 using TH.WebSystem.Models;
 
