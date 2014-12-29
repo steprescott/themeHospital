@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using TH.Domain.Treatment;
+using TH.Domain.Treatments;
 
 namespace TH.Interfaces
 {
@@ -14,6 +14,6 @@ namespace TH.Interfaces
 
         Operation GetOperationById(Guid id);
 
-        bool InsertProcedure(Domain.Treatment.Procedure procedure);
+        bool CreateProcedure(Procedure procedure);
     }
 }

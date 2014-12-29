@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -46,11 +47,14 @@
     <Compile Include="Enums\StaffType.cs" />
     <Compile Include="Enums\UserType.cs" />
     <Compile Include="Other\ApplicationUser.cs" />
-    <Compile Include="Treatment\Operation.cs" />
+    <Compile Include="Other\Note.cs" />
+    <Compile Include="Treatments\CourseOfMedicine.cs" />
+    <Compile Include="Treatments\Medicine.cs" />
+    <Compile Include="Treatments\Operation.cs" />
     <Compile Include="Other\Skill.cs" />
     <Compile Include="Other\Team.cs" />
-    <Compile Include="Treatment\Procedure.cs" />
-    <Compile Include="Treatment\Treatment.cs" />
+    <Compile Include="Treatments\Procedure.cs" />
+    <Compile Include="Treatments\Treatment.cs" />
     <Compile Include="User\Consultant.cs" />
     <Compile Include="User\Doctor.cs" />
     <Compile Include="User\Patient.cs" />

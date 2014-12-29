@@ -19,26 +19,26 @@ namespace TH.BusinessLogicEntityFramework.Logic
             _unitOfWork = unitOfWork;
         }
 
-        public List<Domain.Treatment.Operation> GetAllOperations()
+        public List<Domain.Treatments.Operation> GetAllOperations()
         {
             var operations = _unitOfWork.GetAll<Operation>().ToList().OrderBy(o => o.Name);
-            return operations.Select(ReflectiveMapperService.ConvertItem<Operation, Domain.Treatment.Operation>).ToList();
+            return operations.Select(ReflectiveMapperService.ConvertItem<Operation, Domain.Treatments.Operation>).ToList();
         }
 
-        public Domain.Treatment.Operation GetOperationById(Guid id)
+        public Domain.Treatments.Operation GetOperationById(Guid id)
         {
             Operation operation = _unitOfWork.GetById<Operation>(id);
-            return ReflectiveMapperService.ConvertItem<Operation, Domain.Treatment.Operation>(operation);
+            return ReflectiveMapperService.ConvertItem<Operation, Domain.Treatments.Operation>(operation);
         }
 
 
-        public bool InsertProcedure(Domain.Treatment.Procedure procedure)
+        public bool CreateProcedure(Domain.Treatments.Procedure procedure)
         {
             try
             {
-                Procedure efProcedure = ReflectiveMapperService.ConvertItem<Domain.Treatment.Procedure, Procedure>(procedure);
-                _unitOfWork.Insert(efProcedure);
-                _unitOfWork.SaveChanges();
+                Procedure efObject = ReflectiveMapperService.ConvertItem<Domain.Treatments.Procedure, Procedure>(procedure);
+                _unitOfWork.Insert(efObject);
+                _unitOfWork.SaveChanges(); 
                 return true;
             }
             catch (Exception)

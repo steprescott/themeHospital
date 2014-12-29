@@ -26,7 +26,6 @@
     <EntitySet Name="Users_Consultant" EntityType="ThemeHospitalDatabase.Store.Users_Consultant" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users_Receptionist" EntityType="ThemeHospitalDatabase.Store.Users_Receptionist" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserAddress" EntityType="ThemeHospitalDatabase.Store.UserAddress" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="CauseOfMedicineMedicine" EntityType="ThemeHospitalDatabase.Store.CauseOfMedicineMedicine" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="VisitTeam" EntityType="ThemeHospitalDatabase.Store.VisitTeam" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ConsultantSkill" EntityType="ThemeHospitalDatabase.Store.ConsultantSkill" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_UserAddress_User" Association="ThemeHospitalDatabase.Store.FK_UserAddress_User">
@@ -37,13 +36,9 @@
       <End Role="Address" EntitySet="Addresses" />
       <End Role="UserAddress" EntitySet="UserAddress" />
     </AssociationSet>
-    <AssociationSet Name="FK_CauseOfMedicineMedicine_CauseOfMedicine" Association="ThemeHospitalDatabase.Store.FK_CauseOfMedicineMedicine_CauseOfMedicine">
+    <AssociationSet Name="CauseOfMedicineMedicine" Association="ThemeHospitalDatabase.Store.CauseOfMedicineMedicine">
       <End Role="CauseOfMedicine" EntitySet="Treatments_CourseOfMedicine" />
-      <End Role="CauseOfMedicineMedicine" EntitySet="CauseOfMedicineMedicine" />
-    </AssociationSet>
-    <AssociationSet Name="FK_CauseOfMedicineMedicine_Medicine" Association="ThemeHospitalDatabase.Store.FK_CauseOfMedicineMedicine_Medicine">
       <End Role="Medicine" EntitySet="Medicines" />
-      <End Role="CauseOfMedicineMedicine" EntitySet="CauseOfMedicineMedicine" />
     </AssociationSet>
     <AssociationSet Name="ProcedureOperation" Association="ThemeHospitalDatabase.Store.ProcedureOperation">
       <End Role="Procedure" EntitySet="Treatments_Procedure" />
@@ -258,10 +253,11 @@
     <Key>
       <PropertyRef Name="TreatmentId" />
     </Key>
-    <Property Name="StartDate" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="EndDate" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="StartDate" Type="datetime" Nullable="false" />
+    <Property Name="EndDate" Type="datetime" Nullable="false" />
     <Property Name="Instructions" Type="nvarchar(max)" Nullable="false" />
     <Property Name="TreatmentId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Medicine_MedicineId" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
   <EntityType Name="Treatments_Procedure">
     <Key>
@@ -316,14 +312,6 @@
     <Property Name="Users_UserId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Addresses_AddressId" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
-  <EntityType Name="CauseOfMedicineMedicine">
-    <Key>
-      <PropertyRef Name="CourseOfMedicine_TreatmentId" />
-      <PropertyRef Name="Medicines_MedicineId" />
-    </Key>
-    <Property Name="CourseOfMedicine_TreatmentId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Medicines_MedicineId" Type="uniqueidentifier" Nullable="false" />
-  </EntityType>
   <EntityType Name="VisitTeam">
     <Key>
       <PropertyRef Name="Visits_VisitId" />
@@ -340,6 +328,18 @@
     <Property Name="Consultants_UserId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Skills_SkillId" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
+  <Association Name="CauseOfMedicineMedicine">
+    <End Role="CauseOfMedicine" Type="ThemeHospitalDatabase.Store.Treatments_CourseOfMedicine" Multiplicity="*" />
+    <End Role="Medicine" Type="ThemeHospitalDatabase.Store.Medicines" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Medicine">
+        <PropertyRef Name="MedicineId" />
+      </Principal>
+      <Dependent Role="CauseOfMedicine">
+        <PropertyRef Name="Medicine_MedicineId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="ProcedureOperation">
     <End Role="Procedure" Type="ThemeHospitalDatabase.Store.Treatments_Procedure" Multiplicity="*" />
     <End Role="Operation" Type="ThemeHospitalDatabase.Store.Operations" Multiplicity="1" />
@@ -529,30 +529,6 @@
       </Principal>
       <Dependent Role="UserAddress">
         <PropertyRef Name="Addresses_AddressId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CauseOfMedicineMedicine_CauseOfMedicine">
-    <End Role="CauseOfMedicine" Type="ThemeHospitalDatabase.Store.Treatments_CourseOfMedicine" Multiplicity="1" />
-    <End Role="CauseOfMedicineMedicine" Type="ThemeHospitalDatabase.Store.CauseOfMedicineMedicine" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CauseOfMedicine">
-        <PropertyRef Name="TreatmentId" />
-      </Principal>
-      <Dependent Role="CauseOfMedicineMedicine">
-        <PropertyRef Name="CourseOfMedicine_TreatmentId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CauseOfMedicineMedicine_Medicine">
-    <End Role="CauseOfMedicineMedicine" Type="ThemeHospitalDatabase.Store.CauseOfMedicineMedicine" Multiplicity="*" />
-    <End Role="Medicine" Type="ThemeHospitalDatabase.Store.Medicines" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Medicine">
-        <PropertyRef Name="MedicineId" />
-      </Principal>
-      <Dependent Role="CauseOfMedicineMedicine">
-        <PropertyRef Name="Medicines_MedicineId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -862,9 +838,9 @@
           <Property Name="DateAdministered" Type="DateTime" Nullable="false" />
         </EntityType>
         <EntityType Name="CourseOfMedicine" BaseType="ThemeHospitalDatabase.Treatment" >
-          <NavigationProperty Name="Medicines" Relationship="ThemeHospitalDatabase.CauseOfMedicineMedicine" FromRole="CauseOfMedicine" ToRole="Medicine" />
-          <Property Name="StartDate" Type="String" Nullable="false" />
-          <Property Name="EndDate" Type="String" Nullable="false" />
+          <NavigationProperty Name="Medicine" Relationship="ThemeHospitalDatabase.CauseOfMedicineMedicine" FromRole="CauseOfMedicine" ToRole="Medicine" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" />
           <Property Name="Instructions" Type="String" Nullable="false" />
         </EntityType>
         <EntityType Name="Medicine">
@@ -872,25 +848,25 @@
             <PropertyRef Name="MedicineId" />
           </Key>
           <Property Name="MedicineId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <NavigationProperty Name="CourseOfMedicine" Relationship="ThemeHospitalDatabase.CauseOfMedicineMedicine" FromRole="Medicine" ToRole="CauseOfMedicine" />
+          <NavigationProperty Name="CourseOfMedicines" Relationship="ThemeHospitalDatabase.CauseOfMedicineMedicine" FromRole="Medicine" ToRole="CauseOfMedicine" />
           <Property Name="Name" Type="String" Nullable="false" />
           <Property Name="Description" Type="String" Nullable="false" />
         </EntityType>
         <Association Name="CauseOfMedicineMedicine">
           <End Type="ThemeHospitalDatabase.CourseOfMedicine" Role="CauseOfMedicine" Multiplicity="*" />
-          <End Type="ThemeHospitalDatabase.Medicine" Role="Medicine" Multiplicity="*" />
+          <End Type="ThemeHospitalDatabase.Medicine" Role="Medicine" Multiplicity="1" />
         </Association>
         <EntityType Name="Operation">
           <Key>
             <PropertyRef Name="OperationId" />
           </Key>
           <Property Name="OperationId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <NavigationProperty Name="Procedure" Relationship="ThemeHospitalDatabase.ProcedureOperation" FromRole="Operation" ToRole="Procedure" />
+          <NavigationProperty Name="Procedures" Relationship="ThemeHospitalDatabase.ProcedureOperation" FromRole="Operation" ToRole="Procedure" />
           <Property Name="Name" Type="String" Nullable="false" />
           <Property Name="Description" Type="String" Nullable="false" />
         </EntityType>
         <Association Name="ProcedureOperation">
-          <End Type="ThemeHospitalDatabase.Procedure" Role="Procedure" Multiplicity="0..1" />
+          <End Type="ThemeHospitalDatabase.Procedure" Role="Procedure" Multiplicity="*" />
           <End Type="ThemeHospitalDatabase.Operation" Role="Operation" Multiplicity="1" />
         </Association>
         <EntityType Name="StaffMember" BaseType="ThemeHospitalDatabase.User" >
@@ -1186,12 +1162,12 @@
         <ScalarProperty Name="AddressId" ColumnName="Addresses_AddressId" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="CauseOfMedicineMedicine" TypeName="ThemeHospitalDatabase.CauseOfMedicineMedicine" StoreEntitySet="CauseOfMedicineMedicine">
-      <EndProperty Name="CauseOfMedicine">
-        <ScalarProperty Name="TreatmentId" ColumnName="CourseOfMedicine_TreatmentId" />
-      </EndProperty>
+    <AssociationSetMapping Name="CauseOfMedicineMedicine" TypeName="ThemeHospitalDatabase.CauseOfMedicineMedicine" StoreEntitySet="Treatments_CourseOfMedicine">
       <EndProperty Name="Medicine">
-        <ScalarProperty Name="MedicineId" ColumnName="Medicines_MedicineId" />
+        <ScalarProperty Name="MedicineId" ColumnName="Medicine_MedicineId" />
+      </EndProperty>
+      <EndProperty Name="CauseOfMedicine">
+        <ScalarProperty Name="TreatmentId" ColumnName="TreatmentId" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="ProcedureOperation" TypeName="ThemeHospitalDatabase.ProcedureOperation" StoreEntitySet="Treatments_Procedure">

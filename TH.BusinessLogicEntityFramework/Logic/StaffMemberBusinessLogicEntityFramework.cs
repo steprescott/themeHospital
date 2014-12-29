@@ -17,7 +17,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
             _unitOfWork = unitOfWork;
         }
 
-        public bool InsertOrUpdateConsultant(Domain.User.Consultant domainConsultant)
+        public bool CreateOrUpdateConsultant(Domain.User.Consultant domainConsultant)
         {
             //Create or update the initial the base of staff member
             var staffMember = CreateOrUpdateStaffMemberObject(domainConsultant);
@@ -62,7 +62,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
             }
         }
 
-        public bool InsertOrUpdateDoctor(Domain.User.Doctor domainDoctor)
+        public bool CreateOrUpdateDoctor(Domain.User.Doctor domainDoctor)
         {
             //Create or update the initial the base of staff member
             var staffMember = CreateOrUpdateStaffMemberObject(domainDoctor);
@@ -98,7 +98,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
             }
         }
 
-        public bool InsertOrUpdateReceptionist(Domain.User.Receptionist domainReceptionist)
+        public bool CreateOrUpdateReceptionist(Domain.User.Receptionist domainReceptionist)
         {
             //Create or update the initial the base of staff member
             var staffMember = CreateOrUpdateStaffMemberObject(domainReceptionist);

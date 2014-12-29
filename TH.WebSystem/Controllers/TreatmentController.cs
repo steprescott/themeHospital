@@ -4,7 +4,8 @@ using System.Data.Entity.Migrations.Model;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using TH.Domain.Treatment;
+using TH.Domain.Other;
+using TH.Domain.Treatments;
 using TH.WebSystem.Models;
 
 namespace TH.WebSystem.Controllers
@@ -17,32 +18,43 @@ namespace TH.WebSystem.Controllers
             return View();
         }
 
-        public ActionResult NewTreatment()
+        public ActionResult Create()
         {
             var operations = HospitalService.TreatmentBusinessLogic.GetAllOperations();
-            return View(new NewTreatmentViewModel() { 
+
+            return View(new CreateTreatmentViewModel()
+            {
                 Operations = operations
             });
         }
 
         [HttpPost]
-        public ActionResult NewProcedure(NewTreatmentViewModel model) 
+        public ActionResult CreateProcedure(CreateTreatmentViewModel model)
         {
-            var opertation = HospitalService.TreatmentBusinessLogic.GetOperationById(model.SelectedOperationId);
-            var procedure = new Domain.Treatment.Procedure() {
+            var procedure = new Procedure()
+            {
                 TreatmentId = Guid.NewGuid(),
                 ScheduledDate = model.ScheduledDate,
                 DateAdministered = model.DateAdministered,
-                Operation = opertation
+                OperationId = model.SelectedOperationId,
+                Notes = new List<Note>
+                {
+                     new Note
+                    {
+                        NoteId = Guid.NewGuid(),
+                        Content = model.NoteContent,
+                        DateCreated = DateTime.Now,
+                    }
+                },
             };
 
-            HospitalService.TreatmentBusinessLogic.InsertProcedure(procedure);
+            HospitalService.TreatmentBusinessLogic.CreateProcedure(procedure);
 
-            return View("Index");
+            return View("Create");
         }
 
         [HttpPost]
-        public ActionResult NewCourseOfMedicine(NewTreatmentViewModel model)
+        public ActionResult CreateCourseOfMedicine(CreateTreatmentViewModel model)
         {
             return View();
         }

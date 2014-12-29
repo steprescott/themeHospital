@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Web;
-using TH.Domain.Treatment;
+using Antlr.Runtime.Tree;
+using TH.Domain.Treatments;
+using TH.Domain.User;
 
 namespace TH.WebSystem.Models
 {
-    public class NewTreatmentViewModel
+    public class CreateTreatmentViewModel
     {
         public List<Operation> Operations { get; set; }
 
@@ -18,5 +21,11 @@ namespace TH.WebSystem.Models
 
         [DataType(DataType.DateTime)]
         public DateTime DateAdministered { get; set; }
+
+        public String NoteContent { get; set; }
+
+        public StaffMember RecordedBy { get; set; }
+
+        public StaffMember AdministeredBy { get; set; }
     }
 }
