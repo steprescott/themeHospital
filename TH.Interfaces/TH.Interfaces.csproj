@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -44,6 +45,10 @@
     <Compile Include="ILoginServiceBusinessLogic.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="IMedicineBusinessLogic.cs" />
+    <Compile Include="INotesBusinessLogic.cs" />
+    <Compile Include="IOperationBusinessLogic.cs" />
+    <Compile Include="ITreatmentBusinessLogic.cs" />
     <Compile Include="IStaffMemberBusinessLogic.cs" />
     <Compile Include="ITeamBusinessLogic.cs" />
     <Compile Include="IUnitOfWork.cs" />

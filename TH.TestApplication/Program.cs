@@ -4,6 +4,7 @@ using System.Linq;
 using TH.Container;
 using TH.Domain;
 using TH.Domain.Other;
+using TH.Domain.Treatments;
 using TH.Domain.User;
 using TH.Interfaces;
 
@@ -29,6 +30,16 @@ namespace TH.TestApplication
 
             //Add me some receptionists
             AddReceptionistUser("Dowdy", "Receptionist", "Receptionist1", "Password");
+
+            //Add me some operations
+            AddOperation("d63f6ef7-594b-43e4-8523-105edefb93cd", "Vasectomy", "Vasectomy works by stopping sperm from getting into a man’s semen. This means that when a man ejaculates, the semen has no sperm and a woman’s egg cannot be fertilised.");
+            AddOperation("fb321465-ee68-4674-b121-63a6af500c23", "Lumbar puncture", "A lumbar puncture is a medical procedure where a needle is inserted into the lower part of the spine to look for evidence of conditions affecting the brain, spinal cord or other parts of the nervous system.");
+            AddOperation("7f368361-5bf8-4b38-9adc-65fbe0f6a2be", "Heart transplant", "A heart transplant is an operation to replace a damaged or failing heart with a healthy human heart from a donor who has recently died.");
+
+            //Add me some medicine
+            AddMedicine("60357f04-4a2b-4b10-b7a4-11244f94d591", "Morphine", "Morphine is used to treat moderate to severe pain. Short-acting formulations are taken as needed for pain.");
+            AddMedicine("325ff7d3-e84b-489b-b81e-d0f191d6ebd8", "Paracetamol", "Paracetamol is a painkilling (analgesic) medicine available over-the-counter without a prescription.");
+            AddMedicine("06dc300f-136a-45f8-8d28-b3769ebf570f", "Codeine", "Codeine is an opioid pain medication. An opioid is sometimes called a narcotic. Codeine is used to treat mild to moderately severe pain.");
 
             Console.WriteLine("--- Done :D");
             Console.ReadKey();
@@ -67,7 +78,7 @@ namespace TH.TestApplication
         {
             var staffMemberBusinessLogic = ThemeHospitalContainer.GetInstance<IStaffMemberBusinessLogic>();
 
-            staffMemberBusinessLogic.InsertOrUpdateConsultant(new Consultant
+            staffMemberBusinessLogic.CreateOrUpdateConsultant(new Consultant
             {
                 Firstname = firstname,
                 OtherNames = string.Empty,
@@ -101,7 +112,7 @@ namespace TH.TestApplication
         {
             var staffMemberBusinessLogic = ThemeHospitalContainer.GetInstance<IStaffMemberBusinessLogic>();
 
-            staffMemberBusinessLogic.InsertOrUpdateDoctor(new Doctor
+            staffMemberBusinessLogic.CreateOrUpdateDoctor(new Doctor
             {
                 Firstname = firstname,
                 OtherNames = string.Empty,
@@ -131,7 +142,7 @@ namespace TH.TestApplication
         {
             var staffMemberBusinessLogic = ThemeHospitalContainer.GetInstance<IStaffMemberBusinessLogic>();
 
-            staffMemberBusinessLogic.InsertOrUpdateReceptionist(new Receptionist
+            staffMemberBusinessLogic.CreateOrUpdateReceptionist(new Receptionist
             {
                 Firstname = firstname,
                 OtherNames = string.Empty,
@@ -154,6 +165,29 @@ namespace TH.TestApplication
                 LastLoggedIn = DateTime.Now,
                 Username = username,
                 Password = password
+            });
+        }
+
+        private static void AddOperation(string operationId, string name, string decription)
+        {
+            var operationBusinessLogic = ThemeHospitalContainer.GetInstance<IOperationBusinessLogic>();
+
+            operationBusinessLogic.CreateOrUpdateOperation(new Operation {
+                OperationId = Guid.Parse(operationId),
+                Name = name,
+                Description = decription
+            });
+        }
+
+        private static void AddMedicine(string medicineId, string name, string decription)
+        {
+            var medicineBusinessLogic = ThemeHospitalContainer.GetInstance<IMedicineBusinessLogic>();
+
+            medicineBusinessLogic.CreateOrUpdateMedicine(new Medicine
+            {
+                MedicineId = Guid.Parse(medicineId),
+                Name = name,
+                Description = decription
             });
         }
     }

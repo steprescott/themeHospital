@@ -33,5 +33,15 @@ namespace TH.WebSystem.Services
         {
             get { return ThemeHospitalContainer.GetInstance<ITeamBusinessLogic>(); }
         }
+
+        public ITreatmentBusinessLogic TreatmentBusinessLogic
+        {
+            get { return ThemeHospitalContainer.GetInstance<ITreatmentBusinessLogic>(); }
+        }
+
+        public INotesBusinessLogic NotesBusinessLogic
+        {
+            get { return ThemeHospitalContainer.GetInstance<INotesBusinessLogic>(); }
+        }
     }
 }

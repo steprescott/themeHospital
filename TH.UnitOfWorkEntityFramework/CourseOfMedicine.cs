@@ -14,15 +14,10 @@ namespace TH.UnitOfWorkEntityFramework
     
     public partial class CourseOfMedicine : Treatment
     {
-        public CourseOfMedicine()
-        {
-            this.Medicines = new HashSet<Medicine>();
-        }
-    
-        public string StartDate { get; set; }
-        public string EndDate { get; set; }
+        public System.DateTime StartDate { get; set; }
+        public System.DateTime EndDate { get; set; }
         public string Instructions { get; set; }
     
-        public virtual ICollection<Medicine> Medicines { get; set; }
+        public virtual Medicine Medicine { get; set; }
     }
 }
