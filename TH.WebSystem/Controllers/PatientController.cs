@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TH.Domain.User;
+using TH.WebSystem.Models;
 
 namespace TH.WebSystem.Controllers
 {
@@ -44,10 +45,20 @@ namespace TH.WebSystem.Controllers
             return PartialView("_PatientList", matchedPateints);
         }
 
-        [HttpGet]
         public ActionResult SearchPatient()
         {
             return View();
+        }
+
+        public ActionResult Menu()
+        {
+            return View();
+        }
+
+        public ActionResult DisplayWards()
+        {
+            var wards = HospitalService.WardBusinessLogic.GetAllWards().OrderBy(ward => ward.Number).ToList();
+            return View(new DisplayWardsViewModel { Wards = wards});
         }
     }
 }

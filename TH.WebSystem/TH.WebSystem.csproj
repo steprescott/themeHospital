@@ -159,6 +159,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AddressModel.cs" />
+    <Compile Include="Models\DisplayWardsViewModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\AddPatientViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -180,6 +181,8 @@
     <Content Include="Views\Receptionist\AddPatient.cshtml" />
     <Content Include="Views\Patient\SearchPatient.cshtml" />
     <Content Include="Views\Shared\_PatientList.cshtml" />
+    <Content Include="Views\Patient\Menu.cshtml" />
+    <Content Include="Views\Patient\DisplayWards.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

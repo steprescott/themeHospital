@@ -24,6 +24,11 @@ namespace TH.ReflectiveMapper
             //Get an instance of the destination object
             var destination = GenerateInstanceFromDestinationSource<TDestination>();
 
+            if (source == null)
+            {
+                return null;
+            }
+
             //Ensure if there are lists being carried through then ensure source and destination are
             if ((source.IsCollection() && !destination.IsCollection() || (!source.IsCollection() && destination.IsCollection())))
             {

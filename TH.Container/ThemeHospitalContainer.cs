@@ -34,6 +34,8 @@ namespace TH.Container
             _unityContainer.RegisterType<IConsultantBusinessLogic, ConsultantBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
             _unityContainer.RegisterType<IDoctorBusinessLogic, DoctorBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
             _unityContainer.RegisterType<ITeamBusinessLogic, TeamBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
+            _unityContainer.RegisterType<IWardBusinessLogic, WardBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
+            _unityContainer.RegisterType<IBedBusinessLogic, BedBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
 
             _unityContainer.RegisterType<IUnitOfWork, UnitOfWorkEntityFrameworkImplementation>(new ContainerControlledLifetimeManager());
         }

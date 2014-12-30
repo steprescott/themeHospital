@@ -48,6 +48,8 @@
     <Compile Include="Other\ApplicationUser.cs" />
     <Compile Include="Other\Skill.cs" />
     <Compile Include="Other\Team.cs" />
+    <Compile Include="Other\Bed.cs" />
+    <Compile Include="Other\Ward.cs" />
     <Compile Include="User\Consultant.cs" />
     <Compile Include="User\Doctor.cs" />
     <Compile Include="User\Patient.cs" />

@@ -5,7 +5,6 @@
 <h2>SearchPatient</h2>
 
 <input type="text" id="searchPatient" onkeyup="searchClick()" />
-<input type="button" id="searchButton" value="Search" class="button" />
 
 <div id="Results"></div>
 
@@ -14,7 +13,7 @@
         var searchText = $("#searchPatient").val();
 
         if (searchText === "") {
-
+            $("#Results").html("");
         } else {
             $.ajax({
                 type: "POST",

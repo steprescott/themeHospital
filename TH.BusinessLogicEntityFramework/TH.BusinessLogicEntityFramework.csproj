@@ -48,9 +48,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logic\BedBusinessLogicEntityFramework.cs" />
     <Compile Include="Logic\ConsultantBusinessLogicEntityFramework.cs" />
     <Compile Include="Logic\DoctorBusinessLogicEntityFramework.cs" />
     <Compile Include="Logic\LoginServiceBusinessLogicEntityFramework.cs" />
+    <Compile Include="Logic\WardBusinessLogicEntityFramework.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Logic\PatientBusinessLogicEntityFramework.cs" />
     <Compile Include="Resolvers\DomainAddressResolver.cs" />
