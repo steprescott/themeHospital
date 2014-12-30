@@ -60,7 +60,6 @@ namespace TH.WebSystem.Controllers
         public ActionResult Admit(Guid id)
         {
             var teams = HospitalService.TeamBusinessLogic.GetAll();
-            var visit = HospitalService.PatientBusinessLogic.GetCurrentVisitForPatientId(id);
             
             return View(new AdmissionModel
             {
@@ -72,7 +71,9 @@ namespace TH.WebSystem.Controllers
         [HttpPost]
         public ActionResult Admit(AdmissionModel admissionModel)
         {
-            return View();
+            HospitalService.PatientBusinessLogic.AdmitPatient(admissionModel.PatientId, admissionModel.TeamId);
+
+            return RedirectToAction("Details", new { id = admissionModel.PatientId });
         }
 
         public ActionResult Menu()
