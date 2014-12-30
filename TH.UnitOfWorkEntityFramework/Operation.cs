@@ -14,10 +14,15 @@ namespace TH.UnitOfWorkEntityFramework
     
     public partial class Operation
     {
+        public Operation()
+        {
+            this.Procedures = new HashSet<Procedure>();
+        }
+    
         public System.Guid OperationId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
     
-        public virtual Procedure Procedure { get; set; }
+        public virtual ICollection<Procedure> Procedures { get; set; }
     }
 }

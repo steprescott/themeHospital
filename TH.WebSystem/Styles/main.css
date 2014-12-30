@@ -186,7 +186,7 @@ textarea {
     cursor: url(../Images/cursor.png), auto;
 }
 
-input[type=submit], .menu li, .button {
+input[type=submit], .menu li, button, .button {
     padding: 10px 10px;
     background: #00a27d;
     border: 2px solid #00a27d;
@@ -196,7 +196,7 @@ input[type=submit], .menu li, .button {
     cursor: url(../Images/cursor.png), auto;
 }
 
-    input[type=submit]:hover, .menu li:hover, .button:hover {
+    input[type=submit]:hover, .menu li:hover, button:hover, .button:hover {
         background: #06ba91;
     }
 
@@ -380,4 +380,19 @@ ul {
 .patient-view dt {
     margin-top: 5px;
     font-weight: bold;
+}
+
+.navigation {
+    margin-left: 25px;
+    overflow: hidden;
+    display: inline-block;
+    width: 500px;
+}
+
+.navigation a {
+    font-size: 14px;
+    color: #fff;
+    vertical-align: middle;
+    float: left;
+    width: 100px;
 }

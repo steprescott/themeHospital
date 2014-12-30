@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using TH.Interfaces;
 using TH.ReflectiveMapper;
@@ -83,7 +84,6 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
         public List<Domain.User.Patient> SearchPatient(string searchText)
         {
-
             var matchedPatients = new List<Patient>();
             searchText = searchText.ToLower();
 
@@ -99,12 +99,76 @@ namespace TH.BusinessLogicEntityFramework.Logic
                 {
                     matchedPatients.Add(patient);
                 }
-                else if (patient.FullName.ToLower().Contains(searchText))
+                else if (patient.FullName().ToLower().Contains(searchText))
                 {
                     matchedPatients.Add(patient);
                 }
             }
             return matchedPatients.Select(p => ReflectiveMapperService.ConvertItem<Patient, Domain.User.Patient>(p)).ToList();
+        }
+
+        public Domain.Other.Visit GetCurrentVisitForPatientId(Guid patientId)
+        {
+            var patient = _unitOfWork.GetById<Patient>(patientId);
+
+            if (patient != null)
+            {
+                var visit = patient.Visits.SingleOrDefault(v => v.ReleaseDate == null);
+
+                if (visit != null)
+                {
+                    return ReflectiveMapperService.ConvertItem<Visit, Domain.Other.Visit>(visit);
+                }
+            }
+            return null;
+        }
+
+        public bool IsOpenVisitForPatient(Guid patientId)
+        {
+            var patient = _unitOfWork.GetById<Patient>(patientId);
+
+            if (patient != null)
+            {
+                return patient.Visits.Any(v => v.ReleaseDate == null);
+            }
+            return false;
+        }
+
+        public bool AdmitPatient(Guid patientId, Guid teamId)
+        {
+            var patient = _unitOfWork.GetById<Patient>(patientId);
+            var team = _unitOfWork.GetById<Team>(teamId);
+
+            if (patient != null && team != null)
+            {
+                if (patient.Visits.All(v => v.ReleaseDate != null))
+                {
+                    var visit = new Visit
+                    {
+                        VisitId = Guid.NewGuid(),
+                        Patient = patient,
+                        Teams = new Collection<Team>
+                        {
+                            team
+                        },
+                        AdmittedDate = DateTime.Now,
+                        ReleaseDate = null
+                    };
+
+                    try
+                    {
+                        _unitOfWork.Insert(visit);
+                        _unitOfWork.SaveChanges();
+
+                        return true; ;
+                    }
+                    catch (Exception exception)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return false;
         }
     }
 }

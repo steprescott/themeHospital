@@ -16,7 +16,13 @@
             @if (ThemeHospitalMembershipProvider.IsLoggedIn())
             {
                 @Html.Raw(string.Format(" - Welcome {0}", @ThemeHospitalMembershipProvider.GetCurrentUser().Firstname))
+
+                <div class="navigation">
+                    @Html.Partial("_DashboardLink")
+                    @Html.ActionLink("Log out", "Logout", "Home", null, new { @class = "log-out" })
+                </div>
             }
+
         </header>
 
         <div class="content">

@@ -16,13 +16,13 @@ namespace TH.UnitOfWorkEntityFramework
     {
         public Medicine()
         {
-            this.CourseOfMedicine = new HashSet<CourseOfMedicine>();
+            this.CourseOfMedicines = new HashSet<CourseOfMedicine>();
         }
     
         public System.Guid MedicineId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
     
-        public virtual ICollection<CourseOfMedicine> CourseOfMedicine { get; set; }
+        public virtual ICollection<CourseOfMedicine> CourseOfMedicines { get; set; }
     }
 }

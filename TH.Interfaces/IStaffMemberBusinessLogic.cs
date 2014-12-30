@@ -7,9 +7,9 @@ namespace TH.Interfaces
 {
     public interface IStaffMemberBusinessLogic
     {
-        bool InsertOrUpdateConsultant(Consultant domainConsultant);
-        bool InsertOrUpdateDoctor(Doctor domainConsultant);
-        bool InsertOrUpdateReceptionist(Receptionist domainReceptionist);
+        bool CreateOrUpdateConsultant(Consultant domainConsultant);
+        bool CreateOrUpdateDoctor(Doctor domainConsultant);
+        bool CreateOrUpdateReceptionist(Receptionist domainReceptionist);
 
         bool DeleteStaffMemberWithId(Guid userId);
         bool DeleteStaffMember(StaffMember domainStaffMember);

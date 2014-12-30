@@ -27,6 +27,8 @@ namespace TH.Container
         {
             _unityContainer = new UnityContainer();
 
+            _unityContainer.RegisterType<IUnitOfWork, UnitOfWorkEntityFrameworkImplementation>(new ContainerControlledLifetimeManager());
+
             _unityContainer.RegisterType<ILoginServiceBusinessLogic, LoginServiceBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
 
             _unityContainer.RegisterType<IPatientBusinessLogic, PatientBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
@@ -37,7 +39,12 @@ namespace TH.Container
             _unityContainer.RegisterType<IWardBusinessLogic, WardBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
             _unityContainer.RegisterType<IBedBusinessLogic, BedBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
 
-            _unityContainer.RegisterType<IUnitOfWork, UnitOfWorkEntityFrameworkImplementation>(new ContainerControlledLifetimeManager());
+            _unityContainer.RegisterType<IOperationBusinessLogic, OperationBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
+            _unityContainer.RegisterType<IProcedureBusinessLogic, ProcedureBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
+            _unityContainer.RegisterType<IMedicineBusinessLogic, MedicineBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
+            _unityContainer.RegisterType<ICourseOfMedicine, CourseOfMedicineBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
+
+            _unityContainer.RegisterType<INotesBusinessLogic, NotesBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
         }
     }
 }

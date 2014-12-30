@@ -1,0 +1,13 @@
+﻿@model TH.WebSystem.Models.AdmissionModel
+
+<h1>Admit Patient</h1>
+
+@using (Html.BeginForm("Admit", "Patient", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.PatientId)
+
+    @Html.LabelFor(model => model.Teams)
+    @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "TeamId", "Consultant.FullName", null))
+
+    <input type="submit" value="Admit" class="button">
+}

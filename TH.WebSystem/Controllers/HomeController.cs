@@ -17,7 +17,7 @@ namespace TH.WebSystem.Controllers
             return View();
         }
 
-        public ActionResult AttemptLogin(LoginModel loginModel)
+        public ActionResult Login(LoginModel loginModel)
         {
             var result = ThemeHospitalMembershipProvider.LoginCurrrentUser(loginModel.Username, loginModel.Password);
             
@@ -37,6 +37,12 @@ namespace TH.WebSystem.Controllers
                 }
             }
 
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Logout()
+        {
+            ThemeHospitalMembershipProvider.LogoutCurrentUser();
             return RedirectToAction("Index");
         }
     }

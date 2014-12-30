@@ -6,7 +6,6 @@ using System.Web;
 using System.Web.Security;
 using TH.Domain.Enums;
 using TH.Domain.Other;
-using TH.Domain.User;
 using TH.WebSystem.Services;
 
 namespace TH.WebSystem.Providers
@@ -27,11 +26,13 @@ namespace TH.WebSystem.Providers
 
         public static ApplicationUser GetCurrentUser()
         {
-            if (User == null)
-            {
-                LogoutCurrentUser();
-            }
             return User;
+        }
+
+        public static StaffType GetUserRole()
+        {
+            var user = GetCurrentUser();
+            return user.StaffType;
         }
 
         public static LoginResult LoginCurrrentUser(string username, string password)

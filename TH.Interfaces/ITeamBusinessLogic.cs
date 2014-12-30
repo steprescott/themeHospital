@@ -8,5 +8,6 @@ namespace TH.Interfaces
     {
         Domain.Other.Team GetTeamForDoctorId(Guid doctorId);
         List<Domain.User.Doctor> GetTeamMembersForConsultant(Guid consultantId);
+        List<Domain.Other.Team> GetAll();
     }
 }

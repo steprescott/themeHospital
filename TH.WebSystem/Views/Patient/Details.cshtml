@@ -1,77 +1,82 @@
-﻿@model TH.Domain.User.Patient
+﻿@model TH.WebSystem.Models.PatientDetailsModel
 
-<h1>Patient Record - @Html.Raw(string.Format("{0} {1}", Model.Firstname, Model.LastName))</h1>
+<h1>Patient Record - @Html.Raw(string.Format("{0} {1}", Model.Patient.Firstname, Model.Patient.LastName))</h1>
+
+@if (!Model.HasOpenVisit)
+{
+    @Html.ActionLink("Admit", "Admit", "Patient", new { id = Model.Patient.UserId }, null)
+}
 
 <div class="form-horizontal patient-view">
     <h4>Patient Details</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.DateCreated)
+            @Html.DisplayNameFor(model => Model.Patient.DateCreated)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.DateCreated)
+            @Html.DisplayFor(model => Model.Patient.DateCreated)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Firstname)
+            @Html.DisplayNameFor(model => Model.Patient.Firstname)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Firstname)
+            @Html.DisplayFor(model => Model.Patient.Firstname)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.OtherNames)
+            @Html.DisplayNameFor(model => Model.Patient.OtherNames)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.OtherNames)
+            @Html.DisplayFor(model => Model.Patient.OtherNames)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => Model.Patient.LastName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.LastName)
+            @Html.DisplayFor(model => Model.Patient.LastName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DateOfBirth)
+            @Html.DisplayNameFor(model => Model.Patient.DateOfBirth)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.DateOfBirth)
+            @Html.DisplayFor(model => Model.Patient.DateOfBirth)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Gender)
+            @Html.DisplayNameFor(model => Model.Patient.Gender)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Gender)
+            @Html.DisplayFor(model => Model.Patient.Gender)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ContactNumber)
+            @Html.DisplayNameFor(model => Model.Patient.ContactNumber)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ContactNumber)
+            @Html.DisplayFor(model => Model.Patient.ContactNumber)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.EmergencyContactName)
+            @Html.DisplayNameFor(model => Model.Patient.EmergencyContactName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.EmergencyContactName)
+            @Html.DisplayFor(model => Model.Patient.EmergencyContactName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.EmergencyContactNumber)
+            @Html.DisplayNameFor(model => Model.Patient.EmergencyContactNumber)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.EmergencyContactNumber)
+            @Html.DisplayFor(model => Model.Patient.EmergencyContactNumber)
         </dd>
 
         <h4>Addresses</h4>
 
-        @foreach (var address in Model.Addresses)
+        @foreach (var address in Model.Patient.Addresses)
         {
             <dd>
                 @Html.DisplayFor(model => address.AddressLine1)
@@ -95,6 +100,6 @@
 </div>
 
 <p>
-    @Html.ActionLink("Edit", "Edit", new { patientId = Model.UserId }) |
+    @Html.ActionLink("Edit", "Edit", new { patientId = Model.Patient.UserId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

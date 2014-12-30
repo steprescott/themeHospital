@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -75,7 +76,6 @@
     <Compile Include="Operation.cs">
       <DependentUpon>ThemeHospitalDatabase.tt</DependentUpon>
     </Compile>
-    <Compile Include="Partials\Patient.cs" />
     <Compile Include="Partials\User.cs" />
     <Compile Include="Patient.cs">
       <DependentUpon>ThemeHospitalDatabase.tt</DependentUpon>

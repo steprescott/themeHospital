@@ -30,6 +30,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -155,13 +156,18 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Controllers\ReceptionistController.cs" />
+    <Compile Include="Controllers\TreatmentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Classes\ActionFilters\ThemeHospitalAuthorisationAttribute.cs" />
     <Compile Include="Models\AddressModel.cs" />
+    <Compile Include="Models\AdmissionModel.cs" />
     <Compile Include="Models\DisplayWardsViewModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\AddPatientViewModel.cs" />
+    <Compile Include="Models\CreateTreatmentViewModel.cs" />
+    <Compile Include="Models\PatientDetailsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ThemeHospitalMembershipProvider.cs" />
     <Compile Include="Services\SecurityService.cs" />
@@ -183,6 +189,9 @@
     <Content Include="Views\Shared\_PatientList.cshtml" />
     <Content Include="Views\Patient\Menu.cshtml" />
     <Content Include="Views\Patient\DisplayWards.cshtml" />
+    <Content Include="Views\Shared\_DashboardLink.cshtml" />
+    <Content Include="Views\Treatment\Create.cshtml" />
+    <Content Include="Views\Patient\Admit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

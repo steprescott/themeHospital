@@ -75,40 +75,45 @@ namespace TH.ReflectiveMapper
                 //Get the property out of the source value
                 var sourcePropertyValue = sourceProperty.GetValue(source, null);
 
-                //If there is one then set it, otherwise just fall through without setting
-                if (source.PropertyAndValueIsValid(sourceProperty, matchedDestinationProperty))
-                {
-                    //Determine if system type
-                    var sourceTypeIsSystemType = Type.GetType(matchedDestinationProperty.PropertyType.FullName);
-
-                    //Get the setter of the destination property
-                    var setMethod = matchedDestinationProperty.GetSetMethod();
-
-                    //If the type is a system type, just map it directly
-                    if (sourceTypeIsSystemType != null)
+                //If the type is nullable then don't bother setting it
+                //If its not null the result of GetUnderlyingType then that means that it is nullable
+                if (Nullable.GetUnderlyingType(sourceProperty.GetType()) == null && (matchedDestinationProperty != null && Nullable.GetUnderlyingType(matchedDestinationProperty.GetType()) == null))
+                { 
+                    //If there is one then set it, otherwise just fall through without setting
+                    if (source.PropertyAndValueIsValid(sourceProperty, matchedDestinationProperty))
                     {
-                        if (sourcePropertyValue.IsCollection())
+                        //Determine if system type
+                        var sourceTypeIsSystemType = Type.GetType(matchedDestinationProperty.PropertyType.FullName);
+
+                        //Get the setter of the destination property
+                        var setMethod = matchedDestinationProperty.GetSetMethod();
+
+                        //If the type is a system type, just map it directly
+                        if (sourceTypeIsSystemType != null)
                         {
-                            //Call recursively to get the result
-                            var list = InvokeGenericMethodRecursion(sourcePropertyValue.GetType(), matchedDestinationProperty.PropertyType, sourcePropertyValue);
+                            if (sourcePropertyValue.IsCollection())
+                            {
+                                //Call recursively to get the result
+                                var list = InvokeGenericMethodRecursion(sourcePropertyValue.GetType(), matchedDestinationProperty.PropertyType, sourcePropertyValue);
 
-                            //Invoke the method passing through the object we are converting from
-                            sourcePropertyValue = list;
+                                //Invoke the method passing through the object we are converting from
+                                sourcePropertyValue = list;
+                            }
+
+                            //Set the destination to the value of the source
+                            setMethod.Invoke(destination, new[] { sourcePropertyValue });
                         }
+                        else
+                        {
+                            //Get an instance of what the object we are converted from should become
+                            var subDestintationProperty = Activator.CreateInstance(matchedDestinationProperty.PropertyType);
 
-                        //Set the destination to the value of the source
-                        setMethod.Invoke(destination, new[] { sourcePropertyValue });
-                    }
-                    else
-                    {
-                        //Get an instance of what the object we are converted from should become
-                        var subDestintationProperty = Activator.CreateInstance(matchedDestinationProperty.PropertyType);
+                            //Call recursively to get the result
+                            var genericRecursionResult = InvokeGenericMethodRecursion(sourcePropertyValue.GetType(), subDestintationProperty.GetType(), sourcePropertyValue);
 
-                        //Call recursively to get the result
-                        var genericRecursionResult = InvokeGenericMethodRecursion(sourcePropertyValue.GetType(), subDestintationProperty.GetType(), sourcePropertyValue);
-
-                        //Set the destination to the value of the source
-                        setMethod.Invoke(destination, new[] { genericRecursionResult });
+                            //Set the destination to the value of the source
+                            setMethod.Invoke(destination, new[] { genericRecursionResult });
+                        }
                     }
                 }
             }

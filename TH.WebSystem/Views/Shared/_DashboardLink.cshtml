@@ -1,0 +1,13 @@
+﻿@using TH.Domain.Enums
+@if (HttpContext.Current.User.IsInRole(StaffType.Consultant.ToString()))
+{
+    @Html.ActionLink("Dashboard", "Index", "Consultant", null, null)
+}
+else if (HttpContext.Current.User.IsInRole(StaffType.Doctor.ToString()))
+{
+    @Html.ActionLink("Dashboard", "Index", "Doctor", null, null)
+}
+else if (HttpContext.Current.User.IsInRole(StaffType.Receptionist.ToString()))
+{
+    @Html.ActionLink("Dashboard", "Index", "Receptionist", null, null)
+}
