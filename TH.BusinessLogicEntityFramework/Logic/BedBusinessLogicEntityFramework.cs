@@ -18,7 +18,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
         public bool CreateOrUpdateBed(Domain.Other.Bed bed)
         {
             var efBed = _unitOfWork.GetById<Bed>(bed.BedId);
-            var efWard = _unitOfWork.GetById<Ward>(bed.Ward.WardId);
+            var efWard = _unitOfWork.GetById<Ward>(bed.WardId);
 
             if (efWard != null)
             {
@@ -38,7 +38,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
                     else
                     {
                         efBed.Number = bed.Number;
-                        efBed.Ward = ReflectiveMapperService.ConvertItem<Domain.Other.Ward, Ward>(bed.Ward);
+                        efBed.Ward = ReflectiveMapperService.ConvertItem<Domain.Other.Ward, Ward>(GetWardForBed(bed));
                         _unitOfWork.Update(efBed);
                     }
 
@@ -69,6 +69,11 @@ namespace TH.BusinessLogicEntityFramework.Logic
             {
                 return false;
             }
+        }
+
+        public Domain.Other.Ward GetWardForBed(Domain.Other.Bed bed)
+        {
+            return ReflectiveMapperService.ConvertItem<Ward, Domain.Other.Ward>(_unitOfWork.GetById<Ward>(bed.WardId));
         }
     }
 }

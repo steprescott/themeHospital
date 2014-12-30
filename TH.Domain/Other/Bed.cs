@@ -10,6 +10,6 @@ namespace TH.Domain.Other
     {
         public Guid BedId { get; set; }
         public int Number { get; set; }
-        public Ward Ward { get; set; }
+        public Guid WardId { get; set; }
     }
 }
