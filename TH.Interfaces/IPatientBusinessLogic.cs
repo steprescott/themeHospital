@@ -14,8 +14,9 @@ namespace TH.Interfaces
         bool DeletePatientWithId(Guid userId);
         bool DeletePatient(Patient domainPatient);
         List<Patient> SearchPatient(string searchText);
-        bool IsOpenVisitForPatient(Guid patientId);
+        bool PatientHasOpenVisit(Guid patientId);
         bool AdmitPatient(Guid patientId, Guid teamId);
         Visit GetCurrentVisitForPatientId(Guid patientId);
+        bool DismissPatient(Guid patientId);
     }
 }

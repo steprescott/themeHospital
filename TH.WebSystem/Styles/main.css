@@ -396,3 +396,7 @@ ul {
     float: left;
     width: 100px;
 }
+
+.center-text {
+    text-align: center;
+}

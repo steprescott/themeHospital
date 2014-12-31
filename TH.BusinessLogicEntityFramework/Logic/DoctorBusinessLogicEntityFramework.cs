@@ -9,7 +9,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
 {
     public class DoctorBusinessLogicEntityFramework : IDoctorBusinessLogic
     {
-        private IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         public DoctorBusinessLogicEntityFramework(IUnitOfWork unitOfWork)
         {
@@ -20,7 +20,9 @@ namespace TH.BusinessLogicEntityFramework.Logic
         {
             var doctors = _unitOfWork.GetAll<Doctor>().ToList();
 
-            doctors = doctors.Where(d => d.Team == null).ToList();
+            //If the doctor isn't associated with a team and they the doctor isn't associated with an ongoing patient visit
+            //then they are free to be part of another team
+            doctors = doctors.Where(d => d.Team == null || d.Team.Visits.All(v => v.ReleaseDate == null)).ToList();
 
             return doctors.Select(d => ReflectiveMapperService.ConvertItem<Doctor, Domain.User.Doctor>(d))
                 .ToList();

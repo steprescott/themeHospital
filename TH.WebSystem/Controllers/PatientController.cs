@@ -20,7 +20,7 @@ namespace TH.WebSystem.Controllers
         public ActionResult Details(Guid id)
         {
             var patient = HospitalService.PatientBusinessLogic.GetPatientWithId(id);
-            var patientHasOpenVisit = HospitalService.PatientBusinessLogic.IsOpenVisitForPatient(id);
+            var patientHasOpenVisit = HospitalService.PatientBusinessLogic.PatientHasOpenVisit(id);
 
             return View(new PatientDetailsModel
             {
@@ -74,6 +74,23 @@ namespace TH.WebSystem.Controllers
             HospitalService.PatientBusinessLogic.AdmitPatient(admissionModel.PatientId, admissionModel.TeamId);
 
             return RedirectToAction("Details", new { id = admissionModel.PatientId });
+        }
+
+        [HttpGet]
+        public ActionResult Dismiss(Guid id)
+        {
+            return View(new DismissModel
+            {
+                PatientId = id,
+                Patient = HospitalService.PatientBusinessLogic.GetPatientWithId(id)
+            });
+        }
+
+        [HttpPost]
+        public ActionResult Dismiss(DismissModel dismissModel)
+        {
+            HospitalService.PatientBusinessLogic.DismissPatient(dismissModel.PatientId);
+            return RedirectToAction("Details", new { id = dismissModel.PatientId });
         }
 
         public ActionResult Menu()

@@ -1,0 +1,18 @@
+﻿@model TH.WebSystem.Models.DismissModel
+
+@{
+    ViewBag.Title = "Dismiss Patient";
+}
+
+<h1>Dismiss Patient - @Html.Raw(Model.Patient.FullName)</h1>
+
+<div class="center-text">
+    <p>To continue with the dismissal of the patient please click the button below.</p>
+    <p>The release date will be recorded as @DateTime.Now.ToString()</p>
+
+    @using (Html.BeginForm("Dismiss", "Patient", FormMethod.Post))
+    {
+        @Html.HiddenFor(m => m.PatientId)
+        <input value="Dismiss" onclick="return confirm('Are you totally serial?');" class="button" type="submit" />
+    }
+</div>

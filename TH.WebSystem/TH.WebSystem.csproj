@@ -163,6 +163,7 @@
     <Compile Include="Classes\ActionFilters\ThemeHospitalAuthorisationAttribute.cs" />
     <Compile Include="Models\AddressModel.cs" />
     <Compile Include="Models\AdmissionModel.cs" />
+    <Compile Include="Models\DismissModel.cs" />
     <Compile Include="Models\DisplayWardsViewModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\AddPatientViewModel.cs" />
@@ -192,6 +193,7 @@
     <Content Include="Views\Shared\_DashboardLink.cshtml" />
     <Content Include="Views\Treatment\Create.cshtml" />
     <Content Include="Views\Patient\Admit.cshtml" />
+    <Content Include="Views\Patient\Dismiss.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
