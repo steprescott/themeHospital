@@ -93,7 +93,7 @@ namespace TH.WebSystem.Controllers
 
         public ActionResult Options(Guid id)
         {
-            var currentVisit = HospitalService.PatientBusinessLogic.GetCurrentVisitForPatientId(id);
+            var currentVisit = HospitalService.VisitBusinessLogic.GetCurrentVisitForPatientId(id);
 
             return View(new PatientOptionsViewModel
             {

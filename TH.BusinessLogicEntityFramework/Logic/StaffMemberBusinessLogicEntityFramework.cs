@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TH.BusinessLogicEntityFramework.Utilities;
 using TH.EncryptionUtilities;
 using TH.Interfaces;
 using TH.UnitOfWorkEntityFramework;
@@ -22,7 +23,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
             var staffMember = CreateOrUpdateStaffMemberObject(domainConsultant);
 
             //Make the staff member into its appropriate type
-            var consultant = ReflectiveMapperService.ConvertItem<StaffMember, Consultant>(staffMember);
+            var consultant = StaffUtilities.ConvertStaffMemberToConsultant(staffMember);
 
             //Set up specific parts of the consultant
             consultant.Skills = domainConsultant.Skills.Select(s => new Skill
@@ -63,7 +64,9 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
         public Domain.User.StaffMember GetStaffMemberWithId(Guid userId)
         {
-            return ReflectiveMapperService.ConvertItem<StaffMember, Domain.User.StaffMember>(_unitOfWork.GetById<StaffMember>(userId));
+            var staffMember = _unitOfWork.GetById<StaffMember>(userId);
+
+            return ConvertToDomain(staffMember);
         }
 
         public bool CreateOrUpdateDoctor(Domain.User.Doctor domainDoctor)
@@ -72,7 +75,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
             var staffMember = CreateOrUpdateStaffMemberObject(domainDoctor);
 
             //Make the staff member into its appropriate type
-            var doctor = ReflectiveMapperService.ConvertItem<StaffMember, Doctor>(staffMember);
+            var doctor = StaffUtilities.ConvertStaffMemberToDoctor(staffMember);
 
             //Set up specific parts of the consultant
             if (doctor.Team != null)
@@ -108,7 +111,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
             var staffMember = CreateOrUpdateStaffMemberObject(domainReceptionist);
 
             //Make the staff member into its appropriate type
-            var receptionist = ReflectiveMapperService.ConvertItem<StaffMember, Receptionist>(staffMember);
+            var receptionist = StaffUtilities.ConvertStaffMemberToReceptionist(staffMember);
 
             //Attempt to create or update the staff member
             try
@@ -126,7 +129,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception exception)
             {
                 return false;
             }
@@ -177,10 +180,44 @@ namespace TH.BusinessLogicEntityFramework.Logic
                 }
                 return false;
             }
-            catch (Exception)
+            catch (Exception exception)
             {
                 return false;
             }
+        }
+
+        public StaffMember ConvertToEntityFramework(Domain.User.StaffMember staffMember)
+        {
+            return new StaffMember
+            {
+                UserId = staffMember.UserId,
+                FirstName = staffMember.Firstname,
+                LastName = staffMember.LastName,
+                OtherNames = staffMember.OtherNames,
+                DateCreated = staffMember.DateCreated,
+                DateOfBirth = staffMember.DateOfBirth,
+                ContactNumber = staffMember.ContactNumber,
+                Gender = staffMember.Gender,
+                Username = staffMember.Username,
+                LastLoggedIn = staffMember.LastLoggedIn
+            };
+        }
+
+        public static Domain.User.StaffMember ConvertToDomain(StaffMember staffMember)
+        {
+            return new Domain.User.StaffMember
+            {
+                UserId = staffMember.UserId,
+                Firstname = staffMember.FirstName,
+                LastName = staffMember.LastName,
+                OtherNames = staffMember.OtherNames,
+                DateCreated = staffMember.DateCreated,
+                DateOfBirth = staffMember.DateOfBirth,
+                ContactNumber = staffMember.ContactNumber,
+                Gender = staffMember.Gender,
+                Username = staffMember.Username,
+                LastLoggedIn = staffMember.LastLoggedIn
+            };
         }
 
         private bool StaffMemberExists(Guid userId)

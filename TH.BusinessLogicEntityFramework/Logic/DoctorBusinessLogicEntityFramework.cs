@@ -23,8 +23,23 @@ namespace TH.BusinessLogicEntityFramework.Logic
             //then they are free to be part of another team
             doctors = doctors.Where(d => d.Team == null || d.Team.Visits.All(v => v.ReleaseDate == null)).ToList();
 
-            return doctors.Select(d => ReflectiveMapperService.ConvertItem<Doctor, Domain.User.Doctor>(d))
-                .ToList();
+            return doctors.Select(d => ConvertToDomain(d)).ToList();
+        }
+
+        public static Doctor ConvertToEntityFramework(Domain.User.Doctor doctor)
+        {
+            return new Doctor
+            {
+
+            };
+        }
+
+        public static Domain.User.Doctor ConvertToDomain(Doctor doctor)
+        {
+            return new Domain.User.Doctor
+            {
+
+            };
         }
     }
 }

@@ -9,8 +9,8 @@ namespace TH.Interfaces
 {
     public interface IVisitBusinessLogic
     {
-        Visit GetVisitWithId(Guid id);
-
-        List<Domain.User.StaffMember> MedicalStaffForVisitWithId(Guid id);
+        Visit GetVisitWithId(Guid visitId);
+        List<Domain.User.StaffMember> MedicalStaffForVisitByVisitId(Guid visitId);
+        Visit GetCurrentVisitForPatientId(Guid patientId);
     }
 }

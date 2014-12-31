@@ -30,9 +30,10 @@ namespace TH.BusinessLogicEntityFramework.Logic
             }
         }
 
-        private Procedure ConvertToEntityFramework(Domain.Treatments.Procedure procedure)
+        public static Procedure ConvertToEntityFramework(Domain.Treatments.Procedure procedure)
         {
-            return new Procedure { 
+            return new Procedure 
+            { 
                 TreatmentId = procedure.TreatmentId,
                 OperationId = procedure.OperationId,
                 ScheduledDate = procedure.ScheduledDate,
@@ -43,7 +44,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
             };
         }
 
-        private Domain.Treatments.Procedure ConvertToDomain(Procedure procedure)
+        public static Domain.Treatments.Procedure ConvertToDomain(Procedure procedure)
         {
             return new Domain.Treatments.Procedure
             {

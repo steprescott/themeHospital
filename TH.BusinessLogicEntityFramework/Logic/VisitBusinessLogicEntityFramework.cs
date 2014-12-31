@@ -4,7 +4,7 @@ using System.Linq;
 using TH.Interfaces;
 using TH.UnitOfWorkEntityFramework;
 
-namespace TH.BusinessLogicEntityFramework
+namespace TH.BusinessLogicEntityFramework.Logic
 {
     public class VisitBusinessLogicEntityFramework : IVisitBusinessLogic
     {
@@ -15,21 +15,67 @@ namespace TH.BusinessLogicEntityFramework
             _unitOfWork = unitOfWork;
         }
 
-        public Domain.Other.Visit GetVisitWithId(Guid id)
+        public Domain.Other.Visit GetVisitWithId(Guid visitId)
         {
-            return ReflectiveMapperService.ConvertItem<Visit, Domain.Other.Visit>(_unitOfWork.GetById<Visit>(id));
+            var visit = _unitOfWork.GetById<Visit>(visitId);
+
+            return ConvertToDomain(visit);
         }
 
-        public List<Domain.User.StaffMember> MedicalStaffForVisitWithId(Guid id)
+        public List<Domain.User.StaffMember> MedicalStaffForVisitByVisitId(Guid visitId)
         {
-            var visit = GetVisitWithId(id);
-            var efVisit = ReflectiveMapperService.ConvertItem<Domain.Other.Visit, Visit>(visit);
-            List<StaffMember> doctors = efVisit.Teams.SelectMany(t => t.Doctors).Select(d => d as StaffMember).ToList();
-            List<StaffMember> consultants = efVisit.Teams.Select(t => t.Consultant).Select(c => c as StaffMember).ToList();
+            var visit = _unitOfWork.GetById<Visit>(visitId);
 
-            var medicalStaff = doctors.Concat(consultants);
-            var efMedicalStaff = ReflectiveMapperService.ConvertItem<List<StaffMember>, List<Domain.User.StaffMember>>(medicalStaff.ToList());
-            return efMedicalStaff;
+            if (visit != null)
+            {
+                List<StaffMember> doctors = visit.Teams.SelectMany(t => t.Doctors).Select(d => d as StaffMember).ToList();
+                List<StaffMember> consultants = visit.Teams.Select(t => t.Consultant).Select(c => c as StaffMember).ToList();
+
+                return doctors.Concat(consultants).Select(ms => StaffMemberBusinessLogicEntityFramework.ConvertToDomain(ms)).ToList();
+            }
+            return new List<Domain.User.StaffMember>();
+        }
+
+        public Domain.Other.Visit GetCurrentVisitForPatientId(Guid patientId)
+        {
+            var patient = _unitOfWork.GetById<Patient>(patientId);
+
+            if (patient != null)
+            {
+                var visit = patient.Visits.SingleOrDefault(v => v.ReleaseDate == null);
+
+                if (visit != null)
+                {
+                    return ConvertToDomain(visit);
+                }
+            }
+            return null;
+        }
+
+        public Visit ConvertToEntityFramework(Domain.Other.Visit visit)
+        {
+            return new Visit
+            {
+                VisitId = visit.VisitId,
+                AdmittedDate = visit.AdmittedDate,
+                ReleaseDate = visit.ReleaseDate,
+                BedId = visit.Bed.BedId,
+                PatientUserId = visit.Patient.UserId
+            };
+        }
+
+        public Domain.Other.Visit ConvertToDomain(Visit visit)
+        {
+            return new Domain.Other.Visit
+            {
+                VisitId = visit.VisitId,
+                AdmittedDate = visit.AdmittedDate,
+                ReleaseDate = visit.ReleaseDate,
+
+                //NEEDS WORK
+                //Bed = visit.Bed,
+                Patient = PatientBusinessLogicEntityFramework.ConvertToDomain(visit.Patient)
+            };
         }
     }
 }

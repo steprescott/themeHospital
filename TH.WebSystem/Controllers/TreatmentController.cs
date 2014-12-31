@@ -19,7 +19,7 @@ namespace TH.WebSystem.Controllers
 
         public ActionResult Create(Guid id)
         {
-            var medicalStaffForPatient = HospitalService.VisitBusinessLogic.MedicalStaffForVisitWithId(id);
+            var medicalStaffForPatient = HospitalService.VisitBusinessLogic.MedicalStaffForVisitByVisitId(id);
             var operations = HospitalService.OperationBusinessLogic.GetAllOperations();
 
             return View(new CreateTreatmentViewModel()

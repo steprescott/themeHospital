@@ -20,12 +20,14 @@ namespace TH.BusinessLogicEntityFramework.Logic
         {
             var patients = _unitOfWork.GetAll<Patient>().ToList();
 
-            return patients.Select(p => ReflectiveMapperService.ConvertItem<Patient, Domain.User.Patient>(p));
+            return patients.Select(p => ConvertToDomain(p));
         }
 
         public Domain.User.Patient GetPatientWithId(Guid userId)
         {
-            return ReflectiveMapperService.ConvertItem<Patient, Domain.User.Patient>(_unitOfWork.GetById<Patient>(userId));
+            var patient = _unitOfWork.GetById<Patient>(userId);
+
+            return ConvertToDomain(patient);
         }
 
         public bool InsertOrUpdatePatient(Domain.User.Patient domainPatient)
@@ -40,7 +42,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
             try
             {
-                patient = ReflectiveMapperService.ConvertItem<Domain.User.Patient, Patient>(domainPatient);
+                patient = ConvertToEntityFramework(domainPatient);
 
                 _unitOfWork.Insert(patient);
                 _unitOfWork.SaveChanges();
@@ -100,24 +102,9 @@ namespace TH.BusinessLogicEntityFramework.Logic
                     matchedPatients.Add(patient);
                 }
             }
-            return matchedPatients.Select(p => ReflectiveMapperService.ConvertItem<Patient, Domain.User.Patient>(p)).ToList();
+            return matchedPatients.Select(p => ConvertToDomain(p)).ToList();
         }
 
-        public Domain.Other.Visit GetCurrentVisitForPatientId(Guid patientId)
-        {
-            var patient = _unitOfWork.GetById<Patient>(patientId);
-
-            if (patient != null)
-            {
-                var visit = patient.Visits.SingleOrDefault(v => v.ReleaseDate == null);
-
-                if (visit != null)
-                {
-                    return ReflectiveMapperService.ConvertItem<Visit, Domain.Other.Visit>(visit);
-                }
-            }
-            return null;
-        }
 
         public bool PatientHasOpenVisit(Guid patientId)
         {
@@ -189,6 +176,60 @@ namespace TH.BusinessLogicEntityFramework.Logic
                 }
             }
             return false;
+        }
+
+        public static Patient ConvertToEntityFramework(Domain.User.Patient patient)
+        {
+            return new Patient
+            {
+                UserId = patient.UserId,
+                FirstName = patient.Firstname,
+                LastName = patient.LastName,
+                OtherNames = patient.OtherNames,
+                DateCreated = patient.DateCreated,
+                DateOfBirth = patient.DateOfBirth,
+                ContactNumber = patient.ContactNumber,
+                EmergencyContactName = patient.EmergencyContactName,
+                EmergencyContactNumber = patient.EmergencyContactNumber,
+                Gender = patient.Gender,
+                Addresses = patient.Addresses.Select(a => new Address
+                {
+                    AddressId = a.AddressId,
+                    AddressLine1 = a.AddressLine1,
+                    AddressLine2 = a.AddressLine2,
+                    AddressLine3 = a.AddressLine3,
+                    City = a.City,
+                    PostCode = a.PostCode,
+                    IsCurrentAddress = a.IsCurrentAddress
+                }).ToList()
+            };
+        }
+
+        public static Domain.User.Patient ConvertToDomain(Patient patient)
+        {
+            return new Domain.User.Patient
+            {
+                UserId = patient.UserId,
+                Firstname = patient.FirstName,
+                LastName = patient.LastName,
+                OtherNames = patient.OtherNames,
+                DateCreated = patient.DateCreated,
+                DateOfBirth = patient.DateOfBirth,
+                ContactNumber = patient.ContactNumber,
+                EmergencyContactName = patient.EmergencyContactName,
+                EmergencyContactNumber = patient.EmergencyContactNumber,
+                Gender = patient.Gender,
+                Addresses = patient.Addresses.Select(a => new Domain.Other.Address
+                {
+                    AddressId = a.AddressId,
+                    AddressLine1 = a.AddressLine1,
+                    AddressLine2 = a.AddressLine2,
+                    AddressLine3 = a.AddressLine3,
+                    City = a.City,
+                    PostCode = a.PostCode,
+                    IsCurrentAddress = a.IsCurrentAddress
+                }).ToList()
+            };
         }
     }
 }

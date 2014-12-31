@@ -27,17 +27,18 @@ namespace TH.BusinessLogicEntityFramework.Logic
                     {
                         efBed = new Bed
                         {
-                            BedId = bed.BedId != Guid.Empty ? bed.BedId : Guid.NewGuid()
+                            BedId = bed.BedId != Guid.Empty ? bed.BedId : Guid.NewGuid(),
+                            Number = bed.Number,
+                            Ward = efWard
                         };
 
-                        efBed.Number = bed.Number;
-                        efBed.Ward = efWard;
                         _unitOfWork.Insert(efBed);
                     }
                     else
                     {
                         efBed.Number = bed.Number;
-                        efBed.Ward = ReflectiveMapperService.ConvertItem<Domain.Other.Ward, Ward>(GetWardForBed(bed));
+                        efBed.Ward = _unitOfWork.GetById<Ward>(bed.WardId);
+
                         _unitOfWork.Update(efBed);
                     }
 
@@ -55,24 +56,47 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
         public bool AssignBedToWard(Domain.Other.Bed bed, Domain.Other.Ward ward)
         {
-            ward.Beds.Add(bed);
-
             try
             {
-                var efWard = ReflectiveMapperService.ConvertItem<Domain.Other.Ward, Ward>(ward);
-                _unitOfWork.Update(efWard);
-                _unitOfWork.SaveChanges();
-                return true;
+                var efWard = _unitOfWork.GetById<Ward>(ward.WardId);
+                var efBed = _unitOfWork.GetById<Bed>(bed.BedId);
+
+                if (efWard != null && efBed != null)
+                {
+                    efWard.Beds.Add(efBed);
+
+                    _unitOfWork.Update(efWard);
+                    _unitOfWork.SaveChanges();
+
+                    return true;
+                }
             }
             catch (Exception exception)
             {
                 return false;
             }
+
+            return false;
         }
 
-        public Domain.Other.Ward GetWardForBed(Domain.Other.Bed bed)
+        public static Bed ConvertToEntityFramework(Domain.Other.Bed bed)
         {
-            return ReflectiveMapperService.ConvertItem<Ward, Domain.Other.Ward>(_unitOfWork.GetById<Ward>(bed.WardId));
+            return new Bed
+            {
+                BedId = bed.BedId,
+                WardId = bed.WardId,
+                Number = bed.Number
+            };
+        }
+
+        public static Domain.Other.Bed ConvertToDomain(Bed bed)
+        {
+            return new Domain.Other.Bed
+            {
+                BedId = bed.BedId,
+                WardId = bed.WardId,
+                Number = bed.Number,
+            };
         }
     }
 }

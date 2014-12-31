@@ -21,14 +21,15 @@ namespace TH.BusinessLogicEntityFramework.Logic
         {
             var wards = _unitOfWork.GetAll<Ward>().ToList();
 
-            return wards.Select(ReflectiveMapperService.ConvertItem<Ward, Domain.Other.Ward>).ToList();
+            return wards.Select(w => ConvertToDomain(w)).ToList();
         }
 
         public bool CreateOrUpdateWard(Domain.Other.Ward ward)
         {
-            var efWard = _unitOfWork.GetById<Ward>(ward.WardId);
             try
             {
+                var efWard = _unitOfWork.GetById<Ward>(ward.WardId);
+
                 if (efWard == null)
                 {
                     efWard = new Ward
@@ -37,7 +38,6 @@ namespace TH.BusinessLogicEntityFramework.Logic
                     };
 
                     efWard.Number = ward.Number;
-                    efWard.Beds = ReflectiveMapperService.ConvertItem<List<Domain.Other.Bed>, List<Bed>>(ward.Beds);
                     efWard.WardWaitingList = new WardWaitingList
                     {
                         WardWaitingListId = Guid.NewGuid()
@@ -48,8 +48,6 @@ namespace TH.BusinessLogicEntityFramework.Logic
                 else
                 {
                     efWard.Number = ward.Number;
-                    efWard.Beds = ReflectiveMapperService.ConvertItem<List<Domain.Other.Bed>, List<Bed>>(ward.Beds);
-
                     _unitOfWork.Update(efWard);
                 }
 
@@ -65,7 +63,35 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
         public Domain.Other.Ward GetWardWithId(Guid id)
         {
-            return ReflectiveMapperService.ConvertItem<Ward, Domain.Other.Ward>(_unitOfWork.GetById<Ward>(id));
+            var ward = _unitOfWork.GetById<Ward>(id);
+
+            return ConvertToDomain(ward);
+        }
+
+        public Domain.Other.Ward GetWardForBed(Domain.Other.Bed bed)
+        {
+            var ward = _unitOfWork.GetById<Ward>(bed.WardId);
+
+            return ConvertToDomain(ward);
+        }
+
+        public static Ward ConvertToEntityFramework(Domain.Other.Ward ward)
+        {
+            return new Ward
+            {
+                WardId = ward.WardId,
+                Number = ward.Number,
+
+            };
+        }
+
+        public static Domain.Other.Ward ConvertToDomain(Ward ward)
+        {
+            return new Domain.Other.Ward
+            {
+                WardId = ward.WardId,
+                Number = ward.Number
+            };
         }
     }
 }

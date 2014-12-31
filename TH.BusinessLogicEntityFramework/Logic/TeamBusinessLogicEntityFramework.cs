@@ -21,7 +21,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
             if (doctor != null && doctor.Team != null)
             {
-                return ReflectiveMapperService.ConvertItem<Team, Domain.Other.Team>(doctor.Team);
+                return ConvertToDomain(doctor.Team);
             }
             return null;
         }
@@ -33,7 +33,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
             if (consultant != null)
             {
                 return consultant.Team.Doctors
-                    .Select(d => ReflectiveMapperService.ConvertItem<Doctor, Domain.User.Doctor>(d))
+                    .Select(d => DoctorBusinessLogicEntityFramework.ConvertToDomain(d))
                     .ToList();
             }
             return null;
@@ -43,7 +43,23 @@ namespace TH.BusinessLogicEntityFramework.Logic
         {
             var teams = _unitOfWork.GetAll<Team>().ToList();
 
-            return teams.Select(t => ReflectiveMapperService.ConvertItem<Team, Domain.Other.Team>(t)).ToList();
+            return teams.Select(t => ConvertToDomain(t)).ToList();
+        }
+
+        public static Procedure ConvertToEntityFramework(Domain.Other.Team procedure)
+        {
+            return new Procedure
+            {
+
+            };
+        }
+
+        public static Domain.Other.Team ConvertToDomain(Team procedure)
+        {
+            return new Domain.Other.Team
+            {
+
+            };
         }
     }
 }

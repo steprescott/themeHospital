@@ -21,7 +21,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
             if (doctor != null && doctor.Team != null && doctor.Team.Consultant != null)
             {
-                return ReflectiveMapperService.ConvertItem<Consultant, Domain.User.Consultant>(doctor.Team.Consultant);
+                return ConvertToDomain(doctor.Team.Consultant);
             }
             return null;
         }
@@ -32,7 +32,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
             if (consultant != null)
             {
-                return ReflectiveMapperService.ConvertItem<Team, Domain.Other.Team>(consultant.Team);
+                return TeamBusinessLogicEntityFramework.ConvertToDomain(consultant.Team);
             }
             return null;
         }
@@ -91,6 +91,60 @@ namespace TH.BusinessLogicEntityFramework.Logic
                 }
             }
             return false;
+        }
+
+        public static Consultant ConvertToEntityFramework(Domain.User.Consultant consultant)
+        {
+            return new Consultant
+            {
+                UserId = consultant.UserId,
+                FirstName = consultant.Firstname,
+                LastName = consultant.LastName,
+                OtherNames = consultant.OtherNames,
+                DateCreated = consultant.DateCreated,
+                DateOfBirth = consultant.DateOfBirth,
+                ContactNumber = consultant.ContactNumber,
+                Gender = consultant.Gender,
+                Addresses = consultant.Addresses.Select(a => new Address
+                {
+                    AddressId = a.AddressId,
+                    AddressLine1 = a.AddressLine1,
+                    AddressLine2 = a.AddressLine2,
+                    AddressLine3 = a.AddressLine3,
+                    City = a.City,
+                    PostCode = a.PostCode,
+                    IsCurrentAddress = a.IsCurrentAddress
+                }).ToList(),
+                Username = consultant.Username,
+                LastLoggedIn = consultant.LastLoggedIn
+            };
+        }
+
+        public static Domain.User.Consultant ConvertToDomain(Consultant consultant)
+        {
+            return new Domain.User.Consultant
+            {
+                UserId = consultant.UserId,
+                Firstname = consultant.FirstName,
+                LastName = consultant.LastName,
+                OtherNames = consultant.OtherNames,
+                DateCreated = consultant.DateCreated,
+                DateOfBirth = consultant.DateOfBirth,
+                ContactNumber = consultant.ContactNumber,
+                Gender = consultant.Gender,
+                Addresses = consultant.Addresses.Select(a => new Domain.Other.Address
+                {
+                    AddressId = a.AddressId,
+                    AddressLine1 = a.AddressLine1,
+                    AddressLine2 = a.AddressLine2,
+                    AddressLine3 = a.AddressLine3,
+                    City = a.City,
+                    PostCode = a.PostCode,
+                    IsCurrentAddress = a.IsCurrentAddress
+                }).ToList(),
+                Username = consultant.Username,
+                LastLoggedIn = consultant.LastLoggedIn
+            };
         }
     }
 }

@@ -16,7 +16,6 @@ namespace TH.Interfaces
         List<Patient> SearchPatient(string searchText);
         bool PatientHasOpenVisit(Guid patientId);
         bool AdmitPatient(Guid patientId, Guid teamId);
-        Visit GetCurrentVisitForPatientId(Guid patientId);
         bool DismissPatient(Guid patientId);
     }
 }
