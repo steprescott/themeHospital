@@ -19,24 +19,29 @@ namespace TH.BusinessLogicEntityFramework.Logic
         {
             try
             {
-                var efOperation = _unitOfWork.GetById<Operation>(operation.OperationId);
+                var efObject = _unitOfWork.GetById<Operation>(operation.OperationId);
 
-                if (efOperation == null)
+                if (efObject == null)
                 {
-                    efOperation = new Operation
-                    {
-                        OperationId = operation.OperationId != null ? operation.OperationId : Guid.NewGuid()
+                    efObject = new Operation {
+                        OperationId = operation.OperationId != Guid.Empty ? operation.OperationId : Guid.NewGuid(),
+                        Name = operation.Name,
+                        Description = operation.Description
                     };
 
-                    _unitOfWork.Insert(efOperation);
+                    _unitOfWork.Insert(efObject);
+                }
+                else
+                {
+                    efObject.Name = operation.Name;
+                    efObject.Description = operation.Description;
+                    _unitOfWork.Update(efObject);
                 }
 
-                efOperation.Name = operation.Name;
-                efOperation.Description = operation.Description;
                 _unitOfWork.SaveChanges();
                 return true;
             }
-            catch (Exception)
+            catch (Exception exception)
             {
                 return false;
             }
@@ -47,9 +52,10 @@ namespace TH.BusinessLogicEntityFramework.Logic
             try
             {
                 _unitOfWork.Delete(_unitOfWork.GetById<Operation>(operationId));
+                _unitOfWork.SaveChanges();
                 return true;
             }
-            catch (Exception)
+            catch (Exception exception)
             {
                 return false;
             }
@@ -58,13 +64,35 @@ namespace TH.BusinessLogicEntityFramework.Logic
         public List<Domain.Treatments.Operation> GetAllOperations()
         {
             var operations = _unitOfWork.GetAll<Operation>().ToList().OrderBy(o => o.Name);
-            return operations.Select(ReflectiveMapperService.ConvertItem<Operation, Domain.Treatments.Operation>).ToList();
+            return operations.Select(o => ConvertToDomain(o)).ToList();
         }
 
         public Domain.Treatments.Operation GetOperationById(Guid id)
         {
             Operation operation = _unitOfWork.GetById<Operation>(id);
-            return ReflectiveMapperService.ConvertItem<Operation, Domain.Treatments.Operation>(operation);
+            return ConvertToDomain(operation);
+        }
+
+        public static Operation ConvertToEntityFramework(Domain.Treatments.Operation operation)
+        {
+            return new Operation
+            {
+                OperationId = operation.OperationId,
+                Name = operation.Name,
+                Description = operation.Description,
+                Procedures = operation.Procedures.Select(p => ProcedureBusinessLogicEntityFramework.ConvertToEntityFramework(p)).ToList()
+            };
+        }
+
+        public static Domain.Treatments.Operation ConvertToDomain(Operation operation)
+        {
+            return new Domain.Treatments.Operation
+            {
+                OperationId = operation.OperationId,
+                Name = operation.Name,
+                Description = operation.Description,
+                Procedures = operation.Procedures.Select(p => ProcedureBusinessLogicEntityFramework.ConvertToDomain(p)).ToList()
+            };
         }
     }
 }
