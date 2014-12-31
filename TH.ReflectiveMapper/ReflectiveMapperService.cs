@@ -10,20 +10,6 @@ namespace TH.ReflectiveMapper
     /// </summary>
     public static class ReflectiveMapperService
     {
-        private class StackOverflowCheck
-        {
-            public Type Type { get; set; }
-            public int Counter { get; set; }
-
-            public StackOverflowCheck(Type type)
-            {
-                Type = type;
-                Counter = 0;
-            }
-        }
-
-        private static List<StackOverflowCheck> recursiveStackOverflowChecks = new List<StackOverflowCheck>();
-
         /// <summary>
         /// Converts objects from a source type to a destination type
         /// </summary>
@@ -31,14 +17,16 @@ namespace TH.ReflectiveMapper
         /// <typeparam name="TDestination">The type to convert to</typeparam>
         /// <param name="source">An instantiated object in which to convert from</param>
         /// <returns>The result of the conversion</returns>
-        public static TDestination ConvertItem<TSource, TDestination>(TSource source) 
-            where TSource : class 
+        public static TDestination ConvertItem<TSource, TDestination>(TSource source, int nestedLevels = 3)
+            where TSource : class
             where TDestination : class
         {
-            if (source == null || recursiveStackOverflowChecks.Any(soc => soc.Counter > 5))
+            if (source == null || nestedLevels == 0)
             {
-                //return null;
+                return null;
             }
+
+            nestedLevels -= 1;
 
             //Get an instance of the destination object
             var destination = GenerateInstanceFromDestinationSource<TDestination>();
@@ -66,14 +54,14 @@ namespace TH.ReflectiveMapper
                     Type sourceListSingleType = sourceList.GetType().GetGenericArguments()[0];
 
                     //Invoke the method passing through the object we are converting from
-                    var result = InvokeGenericMethodRecursion(sourceListSingleType, destinationListSingleType, item);
+                    var result = InvokeGenericMethodRecursion(sourceListSingleType, destinationListSingleType, item, nestedLevels);
 
                     //Add the item into the list we created for the destination items
                     destinationList.Add(result);
                 }
 
                 //Return the list made
-                return (TDestination) destinationList;
+                return (TDestination)destinationList;
             }
 
             //Get the properties of the source and the destination
@@ -92,7 +80,7 @@ namespace TH.ReflectiveMapper
                 //If the type is nullable then don't bother setting it
                 //If its not null the result of GetUnderlyingType then that means that it is nullable
                 if (Nullable.GetUnderlyingType(sourceProperty.GetType()) == null && (matchedDestinationProperty != null && Nullable.GetUnderlyingType(matchedDestinationProperty.GetType()) == null))
-                { 
+                {
                     //If there is one then set it, otherwise just fall through without setting
                     if (source.PropertyAndValueIsValid(sourceProperty, matchedDestinationProperty))
                     {
@@ -108,7 +96,7 @@ namespace TH.ReflectiveMapper
                             if (sourcePropertyValue.IsCollection())
                             {
                                 //Call recursively to get the result
-                                var list = InvokeGenericMethodRecursion(sourcePropertyValue.GetType(), matchedDestinationProperty.PropertyType, sourcePropertyValue);
+                                var list = InvokeGenericMethodRecursion(sourcePropertyValue.GetType(), matchedDestinationProperty.PropertyType, sourcePropertyValue, nestedLevels);
 
                                 //Invoke the method passing through the object we are converting from
                                 sourcePropertyValue = list;
@@ -123,7 +111,7 @@ namespace TH.ReflectiveMapper
                             var subDestintationProperty = Activator.CreateInstance(matchedDestinationProperty.PropertyType);
 
                             //Call recursively to get the result
-                            var genericRecursionResult = InvokeGenericMethodRecursion(sourcePropertyValue.GetType(), subDestintationProperty.GetType(), sourcePropertyValue);
+                            var genericRecursionResult = InvokeGenericMethodRecursion(sourcePropertyValue.GetType(), subDestintationProperty.GetType(), sourcePropertyValue, nestedLevels);
 
                             //Set the destination to the value of the source
                             setMethod.Invoke(destination, new[] { genericRecursionResult });
@@ -133,7 +121,7 @@ namespace TH.ReflectiveMapper
             }
 
             //Return the final object
-            return (TDestination) destination;
+            return (TDestination)destination;
         }
 
         /// <summary>
@@ -182,7 +170,7 @@ namespace TH.ReflectiveMapper
         /// <param name="destinationType">The type we are converting to</param>
         /// <param name="sourcePropertyValue">The value of the source</param>
         /// <returns>The converted destination object</returns>
-        private static object InvokeGenericMethodRecursion(Type sourceType, Type destinationType, object sourcePropertyValue)
+        private static object InvokeGenericMethodRecursion(Type sourceType, Type destinationType, object sourcePropertyValue, int nestedLevels)
         {
             //Get the method info for the recursion to take place
             MethodInfo method = typeof(ReflectiveMapperService).GetMethod("ConvertItem");
@@ -190,36 +178,8 @@ namespace TH.ReflectiveMapper
             //Generate the Generic parameters
             MethodInfo generic = method.MakeGenericMethod(sourceType, destinationType);
 
-            //var test = recursiveStackOverflowChecks.SingleOrDefault(soc => soc.Type == sourceType);
-            //if (test == null)
-            //{
-            //    recursiveStackOverflowChecks.Add(new StackOverflowCheck(sourceType));
-            //}
-            //else
-            //{
-            //    recursiveStackOverflowChecks.Remove(test);
-            //    test.Counter = test.Counter++;
-            //    recursiveStackOverflowChecks.Add(test);
-            //}
-
-            //Invoke the method passing through the object we are converting from
-            return generic.Invoke(null, new[] { sourcePropertyValue });
+            return generic.Invoke(null, new[] { sourcePropertyValue, nestedLevels });
         }
-
-        //private static IEnumerable<PropertyInfo> RecursivelyGetProperties(object sourcePropertyValue)
-        //{
-        //    var properties = sourcePropertyValue.GetType().GetProperties();
-
-        //    foreach (var propertyInfo in properties)
-        //    {
-        //        object propValue = propertyInfo.GetValue(sourcePropertyValue, null);
-        //        if (propertyInfo.PropertyType.Assembly == sourcePropertyValue.GetType().Assembly)
-        //        {
-        //            yield return RecursivelyGetProperties(propValue).AsEnumerable();
-        //        }
-        //        return 
-        //    }
-        //}
 
         /// <summary>
         /// Gets a property by name if it exists in a array of property info's

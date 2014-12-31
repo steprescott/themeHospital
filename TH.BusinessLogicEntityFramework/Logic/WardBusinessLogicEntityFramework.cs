@@ -23,7 +23,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
         {
             var wards = _unitOfWork.GetAll<Ward>().ToList();
 
-            return wards.Select(ReflectiveMapperService.ConvertItem<Ward, Domain.Other.Ward>).ToList();
+            return wards.Select(w => ReflectiveMapperService.ConvertItem<Ward, Domain.Other.Ward>(w)).ToList();
         }
 
         public bool CreateOrUpdateWard(Domain.Other.Ward ward)

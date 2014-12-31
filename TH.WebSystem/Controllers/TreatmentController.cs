@@ -29,7 +29,9 @@ namespace TH.WebSystem.Controllers
             {
                 MedicalStaff = medicalStaffForPatient,
                 Operations = operations,
-                VisitId = id
+                VisitId = id,
+                DateAdministered = DateTime.Now,
+                ScheduledDate = DateTime.Now
             });
         }
 

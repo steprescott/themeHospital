@@ -20,7 +20,7 @@ namespace TH.UnitOfWorkEntityFramework
         }
     
     
-        public virtual Team Team { get; set; }
         public virtual ICollection<Skill> Skills { get; set; }
+        public virtual Team Team { get; set; }
     }
 }

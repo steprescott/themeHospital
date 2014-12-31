@@ -17,18 +17,20 @@ namespace TH.UnitOfWorkEntityFramework
         public Visit()
         {
             this.Teams = new HashSet<Team>();
-            this.Notes = new HashSet<Note>();
             this.Treatments = new HashSet<Treatment>();
+            this.Notes = new HashSet<Note>();
         }
     
         public System.Guid VisitId { get; set; }
         public System.DateTime AdmittedDate { get; set; }
         public Nullable<System.DateTime> ReleaseDate { get; set; }
+        public System.Guid PatientUserId { get; set; }
+        public Nullable<System.Guid> BedId { get; set; }
     
+        public virtual ICollection<Team> Teams { get; set; }
+        public virtual ICollection<Treatment> Treatments { get; set; }
         public virtual Patient Patient { get; set; }
         public virtual Bed Bed { get; set; }
-        public virtual ICollection<Team> Teams { get; set; }
         public virtual ICollection<Note> Notes { get; set; }
-        public virtual ICollection<Treatment> Treatments { get; set; }
     }
 }

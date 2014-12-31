@@ -27,7 +27,7 @@ namespace TH.UnitOfWorkEntityFramework
     
         public virtual Visit Visit { get; set; }
         public virtual StaffMember RecordedBy { get; set; }
-        public virtual StaffMember StaffMember { get; set; }
+        public virtual StaffMember AdministeredBy { get; set; }
         public virtual ICollection<Note> Notes { get; set; }
     }
 }

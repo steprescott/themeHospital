@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TH.Interfaces;
 using TH.ReflectiveMapper;
 using TH.UnitOfWorkEntityFramework;
@@ -61,7 +59,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
         public List<Domain.Treatments.Operation> GetAllOperations()
         {
             var operations = _unitOfWork.GetAll<Operation>().ToList().OrderBy(o => o.Name);
-            return operations.Select(ReflectiveMapperService.ConvertItem<Operation, Domain.Treatments.Operation>).ToList();
+            return operations.Select(o => ReflectiveMapperService.ConvertItem<Operation, Domain.Treatments.Operation>(o)).ToList();
         }
 
         public Domain.Treatments.Operation GetOperationById(Guid id)
