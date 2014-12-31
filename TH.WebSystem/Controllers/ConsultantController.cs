@@ -49,5 +49,15 @@ namespace TH.WebSystem.Controllers
 
             return RedirectToAction("ViewTeam");
         }
+
+        public ActionResult ManageTeam()
+        {
+            return View();
+        }
+
+        public ActionResult ViewTreatments()
+        {
+            return View();
+        }
     }
 }

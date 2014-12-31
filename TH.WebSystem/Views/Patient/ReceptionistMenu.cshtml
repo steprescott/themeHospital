@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Menu";
+}
+
+<h2>Patient Options</h2>
+
+<ul class="menu">
+    <li>
+        @Html.ActionLink("View Patient Record", "DisplayWards", "Patient")
+    </li>
+    <li>
+        @Html.ActionLink("Add Notes To Record", "DisplayWards", "Patient")
+    </li>
+    <li>
+        @Html.ActionLink("Assign Patient To Ward", "DisplayWards", "Ward")
+    </li>
+    <li>
+        @Html.ActionLink("Assign Patient To Consultant", "DisplayWards", "Patient")
+    </li>
+    <li>
+        @Html.ActionLink("Arrange Treatment For Patient", "DisplayWards", "Patient")
+    </li>
+    <li>
+        @Html.ActionLink("Record Refusal Of Treatment", "DisplayWards", "Patient")
+    </li>
+</ul>
+

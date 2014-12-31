@@ -1,14 +1,18 @@
-﻿@{
-    ViewBag.Title = "Consultant Dashboard";
+﻿
+@{
+    ViewBag.Title = "Index";
 }
 
-<h2>Consultant Dashboard</h2>
+<h2>Consultant Menu</h2>
 
 <ul class="menu">
     <li>
-        @Html.ActionLink("View Team", "ViewTeam", "Consultant")
+        @Html.ActionLink("View Patients", "ViewTeam", "Consultant")
     </li>
     <li>
-        @Html.ActionLink("Add Doctor to Team", "AddDoctor", "Consultant")
+        @Html.ActionLink("Manage Team", "ManageTeam", "Consultant")
+    </li>
+    <li>
+        @Html.ActionLink("View Upcoming Treatments", "ViewTreatments", "Consultant")
     </li>
 </ul>

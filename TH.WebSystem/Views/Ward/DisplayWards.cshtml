@@ -11,6 +11,9 @@
         <td>
             @Html.DisplayFor(modelItem => ward.Number)
         </td>
+        <td>
+            @Html.Raw(ward.Beds.Count())
+        </td>
     </tr>
 }
 
