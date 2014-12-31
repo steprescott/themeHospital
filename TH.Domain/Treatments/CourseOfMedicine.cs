@@ -9,5 +9,9 @@ namespace TH.Domain.Treatments
 {
     public class CourseOfMedicine : Treatment
     {
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public String Instructions { get; set; }
+        public Guid MedicineId { get; set; }
     }
 }
