@@ -19,7 +19,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
         {
             var visit = _unitOfWork.GetById<Visit>(visitId);
 
-            return ConvertToDomain(visit);
+            return ConvertToDomain(visit, true);
         }
 
         public List<Domain.User.StaffMember> MedicalStaffForVisitByVisitId(Guid visitId)
@@ -31,7 +31,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
                 List<StaffMember> doctors = visit.Teams.SelectMany(t => t.Doctors).Select(d => d as StaffMember).ToList();
                 List<StaffMember> consultants = visit.Teams.Select(t => t.Consultant).Select(c => c as StaffMember).ToList();
 
-                return doctors.Concat(consultants).Select(ms => StaffMemberBusinessLogicEntityFramework.ConvertToDomain(ms)).ToList();
+                return doctors.Concat(consultants).Select(ms => StaffMemberBusinessLogicEntityFramework.ConvertToDomain(ms, true)).ToList();
             }
             return new List<Domain.User.StaffMember>();
         }
@@ -46,36 +46,54 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
                 if (visit != null)
                 {
-                    return ConvertToDomain(visit);
+                    return ConvertToDomain(visit, true);
                 }
             }
             return null;
         }
 
-        public Visit ConvertToEntityFramework(Domain.Other.Visit visit)
+        public static Visit ConvertToEntityFramework(Domain.Other.Visit visit, bool solvedNested = false)
         {
-            return new Visit
+            var obj = new Visit
             {
                 VisitId = visit.VisitId,
                 AdmittedDate = visit.AdmittedDate,
                 ReleaseDate = visit.ReleaseDate,
-                BedId = visit.Bed.BedId,
-                PatientUserId = visit.Patient.UserId
             };
+
+            if (solvedNested)
+            {
+                obj.Patient = PatientBusinessLogicEntityFramework.ConvertToEntityFramework(visit.Patient);
+                obj.Bed = BedBusinessLogicEntityFramework.ConvertToEntityFramework(visit.Bed);
+                //TODO: THIS
+                //obj.Treatments = visit.Treatments.Select(t => Trea)
+                obj.Notes = visit.Notes.Select(n => NotesBusinessLogicEntityFramework.ConvertToEntityFramework(n)).ToList();
+                obj.Teams = visit.Teams.Select(t => TeamBusinessLogicEntityFramework.ConvertToEntityFramework(t)).ToList();
+            }
+
+            return obj;
         }
 
-        public Domain.Other.Visit ConvertToDomain(Visit visit)
+        public static Domain.Other.Visit ConvertToDomain(Visit visit, bool solvedNested = false)
         {
-            return new Domain.Other.Visit
+            var obj = new Domain.Other.Visit
             {
                 VisitId = visit.VisitId,
                 AdmittedDate = visit.AdmittedDate,
                 ReleaseDate = visit.ReleaseDate,
-
-                //NEEDS WORK
-                //Bed = visit.Bed,
-                Patient = PatientBusinessLogicEntityFramework.ConvertToDomain(visit.Patient)
             };
+
+            if (solvedNested)
+            {
+                obj.Patient = PatientBusinessLogicEntityFramework.ConvertToDomain(visit.Patient);
+                obj.Bed = BedBusinessLogicEntityFramework.ConvertToDomain(visit.Bed);
+                //TODO: THIS
+                //obj.Treatments = visit.Treatments.Select(t => Trea)
+                obj.Notes = visit.Notes.Select(n => NotesBusinessLogicEntityFramework.ConvertToDomain(n)).ToList();
+                obj.Teams = visit.Teams.Select(t => TeamBusinessLogicEntityFramework.ConvertToDomain(t)).ToList();
+            }
+
+            return obj;
         }
     }
 }

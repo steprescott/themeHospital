@@ -63,7 +63,7 @@ namespace TH.TestApplication
 
             patientBusinessLogic.InsertOrUpdatePatient(new Patient
             {
-                Firstname = firstname,
+                FirstName = firstname,
                 OtherNames = string.Empty,
                 LastName = surname,
                 DateOfBirth = Convert.ToDateTime("27/05/1991"),
@@ -92,7 +92,7 @@ namespace TH.TestApplication
 
             staffMemberBusinessLogic.CreateOrUpdateConsultant(new Consultant
             {
-                Firstname = firstname,
+                FirstName = firstname,
                 OtherNames = string.Empty,
                 LastName = surname,
                 DateOfBirth = Convert.ToDateTime("01/01/1991"),
@@ -126,7 +126,7 @@ namespace TH.TestApplication
 
             staffMemberBusinessLogic.CreateOrUpdateDoctor(new Doctor
             {
-                Firstname = firstname,
+                FirstName = firstname,
                 OtherNames = string.Empty,
                 LastName = surname,
                 DateOfBirth = Convert.ToDateTime("01/01/1991"),
@@ -156,7 +156,7 @@ namespace TH.TestApplication
 
             staffMemberBusinessLogic.CreateOrUpdateReceptionist(new Receptionist
             {
-                Firstname = firstname,
+                FirstName = firstname,
                 OtherNames = string.Empty,
                 LastName = surname,
                 DateOfBirth = Convert.ToDateTime("01/01/1991"),

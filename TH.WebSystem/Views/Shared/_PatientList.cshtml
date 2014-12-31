@@ -12,7 +12,7 @@
         foreach (var patient in Model)
         {
             <tr>
-                <td>@patient.Firstname</td>
+                <td>@patient.FirstName</td>
                 <td>@patient.LastName</td>
                 <td>
                     @Html.ActionLink("Options", "Options", "Patient", new { id = patient.UserId }, null)

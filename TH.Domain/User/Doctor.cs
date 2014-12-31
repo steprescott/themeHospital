@@ -7,6 +7,6 @@ namespace TH.Domain.User
 {
     public class Doctor : StaffMember
     {
-        public Guid TeamId { get; set; }
+        public Team Team { get; set; }
     }
 }

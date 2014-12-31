@@ -57,7 +57,6 @@
     <Compile Include="Treatments\Procedure.cs" />
     <Compile Include="Treatments\Treatment.cs" />
     <Compile Include="Other\Bed.cs" />
-    <Compile Include="Other\Ward.cs" />
     <Compile Include="User\Consultant.cs" />
     <Compile Include="User\Doctor.cs" />
     <Compile Include="User\Patient.cs" />
@@ -65,6 +64,8 @@
     <Compile Include="User\Receptionist.cs" />
     <Compile Include="User\StaffMember.cs" />
     <Compile Include="User\User.cs" />
+    <Compile Include="Wards\Ward.cs" />
+    <Compile Include="Wards\WardWaitingList.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

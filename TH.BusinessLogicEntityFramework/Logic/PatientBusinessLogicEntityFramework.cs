@@ -178,12 +178,12 @@ namespace TH.BusinessLogicEntityFramework.Logic
             return false;
         }
 
-        public static Patient ConvertToEntityFramework(Domain.User.Patient patient)
+        public static Patient ConvertToEntityFramework(Domain.User.Patient patient, bool solvedNested = false)
         {
             return new Patient
             {
                 UserId = patient.UserId,
-                FirstName = patient.Firstname,
+                FirstName = patient.FirstName,
                 LastName = patient.LastName,
                 OtherNames = patient.OtherNames,
                 DateCreated = patient.DateCreated,
@@ -205,12 +205,12 @@ namespace TH.BusinessLogicEntityFramework.Logic
             };
         }
 
-        public static Domain.User.Patient ConvertToDomain(Patient patient)
+        public static Domain.User.Patient ConvertToDomain(Patient patient, bool solvedNested = false)
         {
             return new Domain.User.Patient
             {
                 UserId = patient.UserId,
-                Firstname = patient.FirstName,
+                FirstName = patient.FirstName,
                 LastName = patient.LastName,
                 OtherNames = patient.OtherNames,
                 DateCreated = patient.DateCreated,

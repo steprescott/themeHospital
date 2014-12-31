@@ -11,7 +11,7 @@
     @foreach (var patient in Model)
     {
         <tr>
-            <td>@patient.Firstname</td>
+            <td>@patient.FirstName</td>
             <td>@patient.LastName</td>
             <td>
                 @Html.ActionLink("View", "Details", new { id = patient.UserId })

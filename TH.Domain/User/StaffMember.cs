@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TH.Domain.Treatments;
 
 namespace TH.Domain.User
 {
@@ -11,5 +12,9 @@ namespace TH.Domain.User
         public string Password { get; set; }
 
         public DateTime LastLoggedIn { get; set; }
+
+        public List<Treatment> Treatments { get; set; }
+
+        public List<Treatment> TreatmentsAssigned { get; set; }
     }
 }

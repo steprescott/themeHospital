@@ -64,35 +64,47 @@ namespace TH.BusinessLogicEntityFramework.Logic
         public List<Domain.Treatments.Operation> GetAllOperations()
         {
             var operations = _unitOfWork.GetAll<Operation>().ToList().OrderBy(o => o.Name);
-            return operations.Select(o => ConvertToDomain(o)).ToList();
+            return operations.Select(o => ConvertToDomain(o, true)).ToList();
         }
 
         public Domain.Treatments.Operation GetOperationById(Guid id)
         {
             Operation operation = _unitOfWork.GetById<Operation>(id);
-            return ConvertToDomain(operation);
+            return ConvertToDomain(operation, true);
         }
 
-        public static Operation ConvertToEntityFramework(Domain.Treatments.Operation operation)
+        public static Operation ConvertToEntityFramework(Domain.Treatments.Operation operation, bool solvedNested = false)
         {
-            return new Operation
+            var obj = new Operation
             {
                 OperationId = operation.OperationId,
                 Name = operation.Name,
                 Description = operation.Description,
-                Procedures = operation.Procedures.Select(p => ProcedureBusinessLogicEntityFramework.ConvertToEntityFramework(p)).ToList()
             };
+
+            if (solvedNested)
+            {
+                obj.Procedures = operation.Procedures.Select(p => ProcedureBusinessLogicEntityFramework.ConvertToEntityFramework(p)).ToList();
+            }
+
+            return obj;
         }
 
-        public static Domain.Treatments.Operation ConvertToDomain(Operation operation)
+        public static Domain.Treatments.Operation ConvertToDomain(Operation operation, bool solvedNested = false)
         {
-            return new Domain.Treatments.Operation
+            var obj = new Domain.Treatments.Operation
             {
                 OperationId = operation.OperationId,
                 Name = operation.Name,
                 Description = operation.Description,
-                Procedures = operation.Procedures.Select(p => ProcedureBusinessLogicEntityFramework.ConvertToDomain(p)).ToList()
             };
+
+            if (solvedNested)
+            {
+                obj.Procedures = operation.Procedures.Select(p => ProcedureBusinessLogicEntityFramework.ConvertToDomain(p)).ToList();
+            }
+
+            return obj;
         }
     }
 }

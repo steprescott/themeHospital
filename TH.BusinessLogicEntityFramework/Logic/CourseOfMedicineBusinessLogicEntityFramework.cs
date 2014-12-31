@@ -19,7 +19,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
         {
             try
             {
-                CourseOfMedicine efObject = ConvertToEntityFramework(courseOfMedicine);
+                CourseOfMedicine efObject = ConvertToEntityFramework(courseOfMedicine, true);
                 _unitOfWork.Insert(efObject);
                 _unitOfWork.SaveChanges();
                 return true;
@@ -30,9 +30,9 @@ namespace TH.BusinessLogicEntityFramework.Logic
             }
         }
 
-        public static CourseOfMedicine ConvertToEntityFramework(Domain.Treatments.CourseOfMedicine courseOfMedicine)
+        public static CourseOfMedicine ConvertToEntityFramework(Domain.Treatments.CourseOfMedicine courseOfMedicine, bool solvedNested = false)
         {
-            return new CourseOfMedicine
+            var obj = new CourseOfMedicine
             {
                 TreatmentId = courseOfMedicine.TreatmentId,
                 MedicineId = courseOfMedicine.MedicineId,
@@ -44,11 +44,18 @@ namespace TH.BusinessLogicEntityFramework.Logic
                 EndDate = courseOfMedicine.EndDate,
                 Instructions = courseOfMedicine.Instructions
             };
+
+            if (solvedNested)
+            {
+                obj.Medicine = MedicineBusinessLogicEntityFramework.ConvertToEntityFramework(courseOfMedicine.Medicine);
+            }
+
+            return obj;
         }
 
-        public static Domain.Treatments.CourseOfMedicine ConvertToDomain(CourseOfMedicine courseOfMedicine)
+        public static Domain.Treatments.CourseOfMedicine ConvertToDomain(CourseOfMedicine courseOfMedicine, bool solvedNested = false)
         {
-            return new Domain.Treatments.CourseOfMedicine
+            var obj = new Domain.Treatments.CourseOfMedicine
             {
                 TreatmentId = courseOfMedicine.TreatmentId,
                 MedicineId = courseOfMedicine.MedicineId,
@@ -60,6 +67,13 @@ namespace TH.BusinessLogicEntityFramework.Logic
                 EndDate = courseOfMedicine.EndDate,
                 Instructions = courseOfMedicine.Instructions
             };
+
+            if (solvedNested)
+            {
+                obj.Medicine = MedicineBusinessLogicEntityFramework.ConvertToDomain(courseOfMedicine.Medicine);
+            }
+
+            return obj;
         }
     }
 }

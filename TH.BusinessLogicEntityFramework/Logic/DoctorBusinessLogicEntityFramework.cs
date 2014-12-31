@@ -23,23 +23,55 @@ namespace TH.BusinessLogicEntityFramework.Logic
             //then they are free to be part of another team
             doctors = doctors.Where(d => d.Team == null || d.Team.Visits.All(v => v.ReleaseDate == null)).ToList();
 
-            return doctors.Select(d => ConvertToDomain(d)).ToList();
+            return doctors.Select(d => ConvertToDomain(d, true)).ToList();
         }
 
-        public static Doctor ConvertToEntityFramework(Domain.User.Doctor doctor)
+        public static Doctor ConvertToEntityFramework(Domain.User.Doctor doctor, bool solvedNested = false)
         {
-            return new Doctor
+            var obj = new Doctor
             {
-
+                UserId = doctor.UserId,
+                FirstName = doctor.FirstName,
+                LastName = doctor.LastName,
+                OtherNames = doctor.OtherNames,
+                DateCreated = doctor.DateCreated,
+                DateOfBirth = doctor.DateOfBirth,
+                ContactNumber = doctor.ContactNumber,
+                Gender = doctor.Gender,
+                Username = doctor.Username,
+                LastLoggedIn = doctor.LastLoggedIn,
             };
+
+            if (solvedNested)
+            {
+                obj.Team = TeamBusinessLogicEntityFramework.ConvertToEntityFramework(doctor.Team);
+            }
+
+            return obj;
         }
 
-        public static Domain.User.Doctor ConvertToDomain(Doctor doctor)
+        public static Domain.User.Doctor ConvertToDomain(Doctor doctor, bool solvedNested = false)
         {
-            return new Domain.User.Doctor
+            var obj = new Domain.User.Doctor
             {
-
+                UserId = doctor.UserId,
+                FirstName = doctor.FirstName,
+                LastName = doctor.LastName,
+                OtherNames = doctor.OtherNames,
+                DateCreated = doctor.DateCreated,
+                DateOfBirth = doctor.DateOfBirth,
+                ContactNumber = doctor.ContactNumber,
+                Gender = doctor.Gender,
+                Username = doctor.Username,
+                LastLoggedIn = doctor.LastLoggedIn,
             };
+
+            if (solvedNested)
+            {
+                obj.Team = TeamBusinessLogicEntityFramework.ConvertToDomain(doctor.Team);
+            }
+
+            return obj;
         }
     }
 }

@@ -19,7 +19,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
         {
             try
             {
-                Procedure efObject = ConvertToEntityFramework(procedure);
+                Procedure efObject = ConvertToEntityFramework(procedure, true);
                 _unitOfWork.Insert(efObject); 
                 _unitOfWork.SaveChanges();
                 return true;
@@ -30,23 +30,30 @@ namespace TH.BusinessLogicEntityFramework.Logic
             }
         }
 
-        public static Procedure ConvertToEntityFramework(Domain.Treatments.Procedure procedure)
+        public static Procedure ConvertToEntityFramework(Domain.Treatments.Procedure procedure, bool solvedNested = false)
         {
-            return new Procedure 
-            { 
+            var obj = new Procedure
+            {
                 TreatmentId = procedure.TreatmentId,
                 OperationId = procedure.OperationId,
                 ScheduledDate = procedure.ScheduledDate,
                 VisitId = procedure.VisitId,
                 RecordedByUserId = procedure.RecordedByUserId,
                 AdministeredByUserId = procedure.AdministeredByUserId,
-                DateAdministered = procedure.DateAdministered,
+                DateAdministered = procedure.DateAdministered,,
             };
+
+            if (solvedNested)
+            {
+                obj.Operation = OperationBusinessLogicEntityFramework.ConvertToEntityFramework(procedure.Operation);
+            }
+
+            return obj;
         }
 
-        public static Domain.Treatments.Procedure ConvertToDomain(Procedure procedure)
+        public static Domain.Treatments.Procedure ConvertToDomain(Procedure procedure, bool solvedNested = false)
         {
-            return new Domain.Treatments.Procedure
+            var obj = new Domain.Treatments.Procedure
             {
                 TreatmentId = procedure.TreatmentId,
                 OperationId = procedure.OperationId,
@@ -55,7 +62,14 @@ namespace TH.BusinessLogicEntityFramework.Logic
                 RecordedByUserId = procedure.RecordedByUserId,
                 AdministeredByUserId = procedure.AdministeredByUserId,
                 DateAdministered = procedure.DateAdministered,
-            }; 
+            };
+
+            if (solvedNested)
+            {
+                obj.Operation = OperationBusinessLogicEntityFramework.ConvertToDomain(procedure.Operation);
+            }
+
+            return obj;
         }
     }
 }

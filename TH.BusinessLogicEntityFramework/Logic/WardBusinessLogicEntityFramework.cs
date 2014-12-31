@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using TH.Interfaces;
 using TH.UnitOfWorkEntityFramework;
-using Bed = TH.UnitOfWorkEntityFramework.Bed;
 using Ward = TH.UnitOfWorkEntityFramework.Ward;
 
 namespace TH.BusinessLogicEntityFramework.Logic
@@ -21,7 +20,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
         {
             var wards = _unitOfWork.GetAll<Ward>().ToList();
 
-            return wards.Select(w => ConvertToDomain(w)).ToList();
+            return wards.Select(w => ConvertToDomain(w, true)).ToList();
         }
 
         public bool CreateOrUpdateWard(Domain.Wards.Ward ward)
@@ -65,33 +64,46 @@ namespace TH.BusinessLogicEntityFramework.Logic
         {
             var ward = _unitOfWork.GetById<Ward>(id);
 
-            return ConvertToDomain(ward);
+            return ConvertToDomain(ward, true);
         }
 
-        public Domain.Other.Ward GetWardForBed(Domain.Other.Bed bed)
+        public Domain.Wards.Ward GetWardForBed(Domain.Other.Bed bed)
         {
-            var ward = _unitOfWork.GetById<Ward>(bed.WardId);
+            var ward = _unitOfWork.GetById<Ward>(bed.Ward.WardId);
 
-            return ConvertToDomain(ward);
+            return ConvertToDomain(ward, true);
         }
 
-        public static Ward ConvertToEntityFramework(Domain.Other.Ward ward)
+        public static Ward ConvertToEntityFramework(Domain.Wards.Ward ward, bool solvedNested = false)
         {
-            return new Ward
+            var obj = new Ward
             {
                 WardId = ward.WardId,
                 Number = ward.Number,
-
             };
+
+            if (solvedNested)
+            {
+                obj.Beds = ward.Beds.Select(b => BedBusinessLogicEntityFramework.ConvertToEntityFramework(b)).ToList();
+            }
+
+            return obj;
         }
 
-        public static Domain.Other.Ward ConvertToDomain(Ward ward)
+        public static Domain.Wards.Ward ConvertToDomain(Ward ward, bool solvedNested = false)
         {
-            return new Domain.Other.Ward
+            var obj = new Domain.Wards.Ward
             {
                 WardId = ward.WardId,
-                Number = ward.Number
+                Number = ward.Number,
             };
+
+            if (solvedNested)
+            {
+                obj.Beds = ward.Beds.Select(b => BedBusinessLogicEntityFramework.ConvertToDomain(b)).ToList();
+            }
+
+            return obj;
         }
     }
 }

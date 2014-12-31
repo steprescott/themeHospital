@@ -16,7 +16,7 @@ namespace TH.Domain.User
 
         public DateTime DateCreated { get; set; }
 
-        public string Firstname { get; set; }
+        public string FirstName { get; set; }
 
         public string OtherNames { get; set; }
 
@@ -34,7 +34,7 @@ namespace TH.Domain.User
         {
             get
             {
-                return string.Format("{0} {1}", Firstname, LastName);
+                return string.Format("{0} {1}", FirstName, LastName);
             }
         }
     }

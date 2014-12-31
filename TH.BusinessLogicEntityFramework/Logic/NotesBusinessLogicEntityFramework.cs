@@ -19,7 +19,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
         {
             try
             {
-                var efObject = ConvertToEntityFramework(note);
+                var efObject = ConvertToEntityFramework(note, true);
                 _unitOfWork.Insert(efObject);
                 _unitOfWork.SaveChanges();
                 return true;
@@ -30,9 +30,9 @@ namespace TH.BusinessLogicEntityFramework.Logic
             }
         }
 
-        private Note ConvertToEntityFramework(Domain.Other.Note note)
+        public static Note ConvertToEntityFramework(Domain.Other.Note note, bool solvedNested = false)
         {
-            return new Note
+            var obj = new Note
             {
                 NoteId = note.NoteId,
                 Content = note.Content,
@@ -41,11 +41,21 @@ namespace TH.BusinessLogicEntityFramework.Logic
                 PatientUserId = note.PatientId,
                 VisitId = note.VisitId
             };
+
+            if (solvedNested)
+            {
+                //TODO : This
+                //obj.Treatment = 
+                obj.Patient = PatientBusinessLogicEntityFramework.ConvertToEntityFramework(note.Patient);
+                obj.Visit = VisitBusinessLogicEntityFramework.ConvertToEntityFramework(note.Visit);
+            }
+
+            return obj;
         }
 
-        private Domain.Other.Note ConvertToDomain(Note note)
+        public static Domain.Other.Note ConvertToDomain(Note note, bool solvedNested = false)
         {
-            return new Domain.Other.Note
+            var obj = new Domain.Other.Note
             {
                 NoteId = note.NoteId,
                 Content = note.Content,
@@ -54,6 +64,15 @@ namespace TH.BusinessLogicEntityFramework.Logic
                 PatientId = note.PatientUserId,
                 VisitId = note.VisitId
             };
+
+            if (solvedNested)
+            {
+                //obj.Treatment = 
+                obj.Patient = PatientBusinessLogicEntityFramework.ConvertToDomain(note.Patient);
+                obj.Visit = VisitBusinessLogicEntityFramework.ConvertToDomain(note.Visit);
+            }
+
+            return obj;
         }
     }
 }

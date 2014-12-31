@@ -13,5 +13,6 @@ namespace TH.Domain.Treatments
         public DateTime EndDate { get; set; }
         public String Instructions { get; set; }
         public Guid MedicineId { get; set; }
+        public Medicine Medicine { get; set; }
     }
 }

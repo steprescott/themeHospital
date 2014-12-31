@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logic\AddressBusinessLogicEntityFramework.cs" />
     <Compile Include="Logic\BedBusinessLogicEntityFramework.cs" />
     <Compile Include="Logic\ConsultantBusinessLogicEntityFramework.cs" />
     <Compile Include="Logic\CourseOfMedicineBusinessLogicEntityFramework.cs" />

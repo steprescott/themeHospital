@@ -151,7 +151,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
                 };
             }
 
-            staffMember.FirstName = domainStaffMember.Firstname;
+            staffMember.FirstName = domainStaffMember.FirstName;
             staffMember.OtherNames = domainStaffMember.OtherNames;
             staffMember.LastName = domainStaffMember.LastName;
             staffMember.DateOfBirth = domainStaffMember.DateOfBirth;
@@ -186,12 +186,12 @@ namespace TH.BusinessLogicEntityFramework.Logic
             }
         }
 
-        public StaffMember ConvertToEntityFramework(Domain.User.StaffMember staffMember)
+        public StaffMember ConvertToEntityFramework(Domain.User.StaffMember staffMember, bool solvedNested = false)
         {
-            return new StaffMember
+            var obj = new StaffMember
             {
                 UserId = staffMember.UserId,
-                FirstName = staffMember.Firstname,
+                FirstName = staffMember.FirstName,
                 LastName = staffMember.LastName,
                 OtherNames = staffMember.OtherNames,
                 DateCreated = staffMember.DateCreated,
@@ -201,14 +201,23 @@ namespace TH.BusinessLogicEntityFramework.Logic
                 Username = staffMember.Username,
                 LastLoggedIn = staffMember.LastLoggedIn
             };
+
+            if (solvedNested)
+            {
+                //TODO : This
+                //obj.Treatments = ConsultantBusinessLogicEntityFramework.ConvertToEntityFramework(staffMember.Treatments);
+                //obj.TreatmentsAssigned = ConsultantBusinessLogicEntityFramework.ConvertToEntityFramework(staffMember.TreatmentsAssigned);
+            }
+
+            return obj;
         }
 
-        public static Domain.User.StaffMember ConvertToDomain(StaffMember staffMember)
+        public static Domain.User.StaffMember ConvertToDomain(StaffMember staffMember, bool solvedNested = false)
         {
-            return new Domain.User.StaffMember
+            var obj = new StaffMember
             {
                 UserId = staffMember.UserId,
-                Firstname = staffMember.FirstName,
+                FirstName = staffMember.FirstName,
                 LastName = staffMember.LastName,
                 OtherNames = staffMember.OtherNames,
                 DateCreated = staffMember.DateCreated,
@@ -218,6 +227,15 @@ namespace TH.BusinessLogicEntityFramework.Logic
                 Username = staffMember.Username,
                 LastLoggedIn = staffMember.LastLoggedIn
             };
+
+            if (solvedNested)
+            {
+                //TODO : This
+                //obj.Treatments = ConsultantBusinessLogicEntityFramework.ConvertToDomain(staffMember.Treatments);
+                //obj.TreatmentsAssigned = ConsultantBusinessLogicEntityFramework.ConvertToDomain(staffMember.TreatmentsAssigned);
+            }
+
+            return obj;
         }
 
         private bool StaffMemberExists(Guid userId)

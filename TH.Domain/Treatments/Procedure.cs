@@ -11,5 +11,7 @@ namespace TH.Domain.Treatments
         public DateTime DateAdministered { get; set; }
 
         public Guid OperationId { get; set; }
+
+        public Operation Operation { get; set; }
     }
 }

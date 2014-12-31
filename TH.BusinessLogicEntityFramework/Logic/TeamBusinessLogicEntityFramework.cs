@@ -43,23 +43,37 @@ namespace TH.BusinessLogicEntityFramework.Logic
         {
             var teams = _unitOfWork.GetAll<Team>().ToList();
 
-            return teams.Select(t => ConvertToDomain(t)).ToList();
+            return teams.Select(t => ConvertToDomain(t, true)).ToList();
         }
 
-        public static Procedure ConvertToEntityFramework(Domain.Other.Team procedure)
+        public static Team ConvertToEntityFramework(Domain.Other.Team team, bool solvedNested = false)
         {
-            return new Procedure
+            var obj = new Team
             {
-
+                TeamId = team.TeamId,
             };
+
+            if (solvedNested)
+            {
+                obj.Consultant = ConsultantBusinessLogicEntityFramework.ConvertToEntityFramework(team.Consultant);
+            }
+
+            return obj;
         }
 
-        public static Domain.Other.Team ConvertToDomain(Team procedure)
+        public static Domain.Other.Team ConvertToDomain(Team team, bool solvedNested = false)
         {
-            return new Domain.Other.Team
+            var obj = new Domain.Other.Team
             {
-
+                TeamId = team.TeamId,
             };
+
+            if (solvedNested)
+            {
+                obj.Consultant = ConsultantBusinessLogicEntityFramework.ConvertToDomain(team.Consultant);
+            }
+
+            return obj;
         }
     }
 }

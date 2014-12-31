@@ -1,6 +1,6 @@
 ﻿@model TH.WebSystem.Models.PatientDetailsModel
 
-<h1>Patient Record - @Html.Raw(string.Format("{0} {1}", Model.Patient.Firstname, Model.Patient.LastName))</h1>
+<h1>Patient Record - @Html.Raw(string.Format("{0} {1}", Model.Patient.FirstName, Model.Patient.LastName))</h1>
 
 <div class="form-horizontal patient-view">
     <h4>Patient Details</h4>
@@ -14,10 +14,10 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => Model.Patient.Firstname)
+            @Html.DisplayNameFor(model => Model.Patient.FirstName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => Model.Patient.Firstname)
+            @Html.DisplayFor(model => Model.Patient.FirstName)
         </dd>
 
         <dt>

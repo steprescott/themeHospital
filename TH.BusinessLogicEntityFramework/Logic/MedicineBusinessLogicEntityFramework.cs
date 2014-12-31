@@ -62,26 +62,38 @@ namespace TH.BusinessLogicEntityFramework.Logic
             }
         }
 
-        public static Medicine ConvertToEntityFramework(Domain.Treatments.Medicine medicine)
+        public static Medicine ConvertToEntityFramework(Domain.Treatments.Medicine medicine, bool solvedNested = false)
         {
-            return new Medicine
+            var obj = new Medicine
             {
                 MedicineId = medicine.MedicineId,
                 Name = medicine.Name,
                 Description = medicine.Description,
-                CourseOfMedicines = medicine.CourseOfMedicines.Select(i => CourseOfMedicineBusinessLogicEntityFramework.ConvertToEntityFramework(i)).ToList()
             };
+
+            if (solvedNested)
+            {
+                obj.CourseOfMedicines = medicine.CourseOfMedicines.Select(i => CourseOfMedicineBusinessLogicEntityFramework.ConvertToEntityFramework(i)).ToList();
+            }
+
+            return obj;
         }
 
-        public static Domain.Treatments.Medicine ConvertToDomain(Medicine medicine)
+        public static Domain.Treatments.Medicine ConvertToDomain(Medicine medicine, bool solvedNested = false)
         {
-            return new Domain.Treatments.Medicine
+            var obj = new Domain.Treatments.Medicine
             {
                 MedicineId = medicine.MedicineId,
                 Name = medicine.Name,
                 Description = medicine.Description,
-                CourseOfMedicines = medicine.CourseOfMedicines.Select(i => CourseOfMedicineBusinessLogicEntityFramework.ConvertToEntityFramework(i)).ToList()
             };
+
+            if (solvedNested)
+            {
+                obj.CourseOfMedicines = medicine.CourseOfMedicines.Select(i => CourseOfMedicineBusinessLogicEntityFramework.ConvertToDomain(i)).ToList();
+            }
+
+            return obj;
         }
     }
 }

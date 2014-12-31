@@ -14,10 +14,11 @@ namespace TH.BusinessLogicEntityFramework.Logic
         {
             _unitOfWork = unitOfWork;
         }
+
         public bool CreateOrUpdateBed(Domain.Other.Bed bed)
         {
             var efBed = _unitOfWork.GetById<Bed>(bed.BedId);
-            var efWard = _unitOfWork.GetById<Ward>(bed.WardId);
+            var efWard = _unitOfWork.GetById<Ward>(bed.Ward.WardId);
 
             if (efWard != null)
             {
@@ -37,7 +38,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
                     else
                     {
                         efBed.Number = bed.Number;
-                        efBed.Ward = _unitOfWork.GetById<Ward>(bed.WardId);
+                        efBed.Ward = _unitOfWork.GetById<Ward>(bed.Ward.WardId);
 
                         _unitOfWork.Update(efBed);
                     }
@@ -79,24 +80,38 @@ namespace TH.BusinessLogicEntityFramework.Logic
             return false;
         }
 
-        public static Bed ConvertToEntityFramework(Domain.Other.Bed bed)
+        public static Bed ConvertToEntityFramework(Domain.Other.Bed bed, bool solvedNested = false)
         {
-            return new Bed
+            var obj = new Bed
             {
                 BedId = bed.BedId,
-                WardId = bed.WardId,
-                Number = bed.Number
-            };
-        }
-
-        public static Domain.Other.Bed ConvertToDomain(Bed bed)
-        {
-            return new Domain.Other.Bed
-            {
-                BedId = bed.BedId,
-                WardId = bed.WardId,
                 Number = bed.Number,
             };
+
+            if (solvedNested)
+            {
+                obj.Ward = WardBusinessLogicEntityFramework.ConvertToEntityFramework(bed.Ward);
+                obj.Visits = bed.Visits.Select(v => VisitBusinessLogicEntityFramework.ConvertToEntityFramework(v)).ToList();
+            }
+
+            return obj;
+        }
+
+        public static Domain.Other.Bed ConvertToDomain(Bed bed, bool solvedNested = false)
+        {
+            var obj = new Domain.Other.Bed
+            {
+                BedId = bed.BedId,
+                Number = bed.Number,
+            };
+
+            if (solvedNested)
+            {
+                obj.Ward = WardBusinessLogicEntityFramework.ConvertToDomain(bed.Ward);
+                obj.Visits = bed.Visits.Select(v => VisitBusinessLogicEntityFramework.ConvertToDomain(v)).ToList();
+            }
+
+            return obj;
         }
     }
 }

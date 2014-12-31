@@ -93,12 +93,12 @@ namespace TH.BusinessLogicEntityFramework.Logic
             return false;
         }
 
-        public static Consultant ConvertToEntityFramework(Domain.User.Consultant consultant)
+        public static Consultant ConvertToEntityFramework(Domain.User.Consultant consultant, bool solvedNested = false)
         {
             return new Consultant
             {
                 UserId = consultant.UserId,
-                FirstName = consultant.Firstname,
+                FirstName = consultant.FirstName,
                 LastName = consultant.LastName,
                 OtherNames = consultant.OtherNames,
                 DateCreated = consultant.DateCreated,
@@ -120,12 +120,12 @@ namespace TH.BusinessLogicEntityFramework.Logic
             };
         }
 
-        public static Domain.User.Consultant ConvertToDomain(Consultant consultant)
+        public static Domain.User.Consultant ConvertToDomain(Consultant consultant, bool solvedNested = false)
         {
             return new Domain.User.Consultant
             {
                 UserId = consultant.UserId,
-                Firstname = consultant.FirstName,
+                FirstName = consultant.FirstName,
                 LastName = consultant.LastName,
                 OtherNames = consultant.OtherNames,
                 DateCreated = consultant.DateCreated,

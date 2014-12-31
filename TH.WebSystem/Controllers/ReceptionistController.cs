@@ -28,7 +28,7 @@ namespace TH.WebSystem.Controllers
         {
             HospitalService.PatientBusinessLogic.InsertOrUpdatePatient(new Patient
             {
-                Firstname = patient.FirstName,
+                FirstName = patient.FirstName,
                 OtherNames = patient.OtherNames,
                 LastName = patient.LastName,
                 DateOfBirth = patient.DateOfBirth,

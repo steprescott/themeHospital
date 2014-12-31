@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAddressBusinessLogic.cs" />
     <Compile Include="IBedBusinessLogic.cs" />
     <Compile Include="IConsultantBusinessLogic.cs" />
     <Compile Include="IConvert.cs" />
