@@ -23,11 +23,11 @@ namespace TH.BusinessLogicEntityFramework.Logic
             try
             {
                 Procedure efObject = ReflectiveMapperService.ConvertItem<Domain.Treatments.Procedure, Procedure>(procedure);
-                _unitOfWork.Insert(efObject);
+                _unitOfWork.Insert(efObject); 
                 _unitOfWork.SaveChanges();
                 return true;
             }
-            catch (Exception)
+            catch (Exception exception)
             {
                 return false;
             }

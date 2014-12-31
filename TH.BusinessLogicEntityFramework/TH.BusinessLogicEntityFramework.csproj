@@ -63,6 +63,7 @@
     <Compile Include="Logic\PatientBusinessLogicEntityFramework.cs" />
     <Compile Include="Logic\StaffMemberBusinessLogicEntityFramework.cs" />
     <Compile Include="Logic\TeamBusinessLogicEntityFramework.cs" />
+    <Compile Include="Logic\VisitBusinessLogicEntityFramework.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TH.Domain\TH.Domain.csproj">

@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/30/2014 21:42:34
--- Generated from EDMX file: D:\Documents\Uni\TH\TH.UnitOfWorkEntityFramework\ThemeHospitalDatabase.edmx
+-- Date Created: 12/31/2014 01:53:44
+-- Generated from EDMX file: C:\Users\steprescott\Documents\Visual Studio 2013\Projects\Theme Hospital\TH.UnitOfWorkEntityFramework\ThemeHospitalDatabase.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -38,12 +38,6 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_WardWaitingListPatient]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Users_Patient] DROP CONSTRAINT [FK_WardWaitingListPatient];
 GO
-IF OBJECT_ID(N'[dbo].[FK_TreatmentStaffMemeber]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Treatments] DROP CONSTRAINT [FK_TreatmentStaffMemeber];
-GO
-IF OBJECT_ID(N'[dbo].[FK_TreatmentStaffMemeber1]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Treatments] DROP CONSTRAINT [FK_TreatmentStaffMemeber1];
-GO
 IF OBJECT_ID(N'[dbo].[FK_PatientNote]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Notes] DROP CONSTRAINT [FK_PatientNote];
 GO
@@ -59,17 +53,11 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_VisitTeam_Team]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[VisitTeam] DROP CONSTRAINT [FK_VisitTeam_Team];
 GO
-IF OBJECT_ID(N'[dbo].[FK_TreatmentVisit]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Treatments] DROP CONSTRAINT [FK_TreatmentVisit];
-GO
 IF OBJECT_ID(N'[dbo].[FK_ConsultantSkill_Consultant]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ConsultantSkill] DROP CONSTRAINT [FK_ConsultantSkill_Consultant];
 GO
 IF OBJECT_ID(N'[dbo].[FK_ConsultantSkill_Skill]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ConsultantSkill] DROP CONSTRAINT [FK_ConsultantSkill_Skill];
-GO
-IF OBJECT_ID(N'[dbo].[FK_TreatmentNote]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Notes] DROP CONSTRAINT [FK_TreatmentNote];
 GO
 IF OBJECT_ID(N'[dbo].[FK_VisitNote]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Notes] DROP CONSTRAINT [FK_VisitNote];
@@ -79,6 +67,18 @@ IF OBJECT_ID(N'[dbo].[FK_WardBed]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_CourseOfMedicineMedicine]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Treatments_CourseOfMedicine] DROP CONSTRAINT [FK_CourseOfMedicineMedicine];
+GO
+IF OBJECT_ID(N'[dbo].[FK_VisitTreatment]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Treatments] DROP CONSTRAINT [FK_VisitTreatment];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TreatmentRecordedBy]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Treatments] DROP CONSTRAINT [FK_TreatmentRecordedBy];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TreatmentAdministeredBy]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Treatments] DROP CONSTRAINT [FK_TreatmentAdministeredBy];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TreatmentNote]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Notes] DROP CONSTRAINT [FK_TreatmentNote];
 GO
 IF OBJECT_ID(N'[dbo].[FK_Procedure_inherits_Treatment]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Treatments_Procedure] DROP CONSTRAINT [FK_Procedure_inherits_Treatment];
@@ -213,9 +213,9 @@ GO
 CREATE TABLE [dbo].[Treatments] (
     [TreatmentId] uniqueidentifier  NOT NULL,
     [ScheduledDate] datetime  NOT NULL,
-    [RecordedBy_UserId] uniqueidentifier  NOT NULL,
-    [AdministeredBy_UserId] uniqueidentifier  NOT NULL,
-    [Visit_VisitId] uniqueidentifier  NOT NULL
+    [VisitId] uniqueidentifier  NOT NULL,
+    [RecordedByUserId] uniqueidentifier  NOT NULL,
+    [AdministeredByUserId] uniqueidentifier  NOT NULL
 );
 GO
 
@@ -255,9 +255,9 @@ CREATE TABLE [dbo].[Notes] (
     [NoteId] uniqueidentifier  NOT NULL,
     [Content] nvarchar(max)  NOT NULL,
     [DateCreated] datetime  NOT NULL,
+    [TreatmentTreatmentId] uniqueidentifier  NULL,
     [Patient_UserId] uniqueidentifier  NULL,
-    [Treatment_TreatmentId] uniqueidentifier  NOT NULL,
-    [Visit_VisitId] uniqueidentifier  NOT NULL
+    [Visit_VisitId] uniqueidentifier  NULL
 );
 GO
 
@@ -282,14 +282,6 @@ GO
 CREATE TABLE [dbo].[Skills] (
     [SkillId] uniqueidentifier  NOT NULL,
     [Name] nvarchar(max)  NOT NULL
-);
-GO
-
--- Creating table 'Treatments_Procedure'
-CREATE TABLE [dbo].[Treatments_Procedure] (
-    [DateAdministered] datetime  NOT NULL,
-    [TreatmentId] uniqueidentifier  NOT NULL,
-    [Operation_OperationId] uniqueidentifier  NOT NULL
 );
 GO
 
@@ -331,6 +323,14 @@ CREATE TABLE [dbo].[Treatments_CourseOfMedicine] (
     [Instructions] nvarchar(max)  NOT NULL,
     [TreatmentId] uniqueidentifier  NOT NULL,
     [Medicine_MedicineId] uniqueidentifier  NOT NULL
+);
+GO
+
+-- Creating table 'Treatments_Procedure'
+CREATE TABLE [dbo].[Treatments_Procedure] (
+    [DateAdministered] datetime  NOT NULL,
+    [OperationId] uniqueidentifier  NOT NULL,
+    [TreatmentId] uniqueidentifier  NOT NULL
 );
 GO
 
@@ -437,12 +437,6 @@ ADD CONSTRAINT [PK_Skills]
     PRIMARY KEY CLUSTERED ([SkillId] ASC);
 GO
 
--- Creating primary key on [TreatmentId] in table 'Treatments_Procedure'
-ALTER TABLE [dbo].[Treatments_Procedure]
-ADD CONSTRAINT [PK_Treatments_Procedure]
-    PRIMARY KEY CLUSTERED ([TreatmentId] ASC);
-GO
-
 -- Creating primary key on [UserId] in table 'Users_Patient'
 ALTER TABLE [dbo].[Users_Patient]
 ADD CONSTRAINT [PK_Users_Patient]
@@ -470,6 +464,12 @@ GO
 -- Creating primary key on [TreatmentId] in table 'Treatments_CourseOfMedicine'
 ALTER TABLE [dbo].[Treatments_CourseOfMedicine]
 ADD CONSTRAINT [PK_Treatments_CourseOfMedicine]
+    PRIMARY KEY CLUSTERED ([TreatmentId] ASC);
+GO
+
+-- Creating primary key on [TreatmentId] in table 'Treatments_Procedure'
+ALTER TABLE [dbo].[Treatments_Procedure]
+ADD CONSTRAINT [PK_Treatments_Procedure]
     PRIMARY KEY CLUSTERED ([TreatmentId] ASC);
 GO
 
@@ -523,21 +523,6 @@ GO
 CREATE INDEX [IX_FK_UserAddress_Address]
 ON [dbo].[UserAddress]
     ([Addresses_AddressId]);
-GO
-
--- Creating foreign key on [Operation_OperationId] in table 'Treatments_Procedure'
-ALTER TABLE [dbo].[Treatments_Procedure]
-ADD CONSTRAINT [FK_ProcedureOperation]
-    FOREIGN KEY ([Operation_OperationId])
-    REFERENCES [dbo].[Operations]
-        ([OperationId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_ProcedureOperation'
-CREATE INDEX [IX_FK_ProcedureOperation]
-ON [dbo].[Treatments_Procedure]
-    ([Operation_OperationId]);
 GO
 
 -- Creating foreign key on [Ward_WardId] in table 'WardWaitingLists'
@@ -598,36 +583,6 @@ GO
 CREATE INDEX [IX_FK_WardWaitingListPatient]
 ON [dbo].[Users_Patient]
     ([WardWaitingList_WardWaitingListId]);
-GO
-
--- Creating foreign key on [RecordedBy_UserId] in table 'Treatments'
-ALTER TABLE [dbo].[Treatments]
-ADD CONSTRAINT [FK_TreatmentStaffMemeber]
-    FOREIGN KEY ([RecordedBy_UserId])
-    REFERENCES [dbo].[Users_StaffMember]
-        ([UserId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_TreatmentStaffMemeber'
-CREATE INDEX [IX_FK_TreatmentStaffMemeber]
-ON [dbo].[Treatments]
-    ([RecordedBy_UserId]);
-GO
-
--- Creating foreign key on [AdministeredBy_UserId] in table 'Treatments'
-ALTER TABLE [dbo].[Treatments]
-ADD CONSTRAINT [FK_TreatmentStaffMemeber1]
-    FOREIGN KEY ([AdministeredBy_UserId])
-    REFERENCES [dbo].[Users_StaffMember]
-        ([UserId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_TreatmentStaffMemeber1'
-CREATE INDEX [IX_FK_TreatmentStaffMemeber1]
-ON [dbo].[Treatments]
-    ([AdministeredBy_UserId]);
 GO
 
 -- Creating foreign key on [Patient_UserId] in table 'Notes'
@@ -699,21 +654,6 @@ ON [dbo].[VisitTeam]
     ([Teams_TeamId]);
 GO
 
--- Creating foreign key on [Visit_VisitId] in table 'Treatments'
-ALTER TABLE [dbo].[Treatments]
-ADD CONSTRAINT [FK_TreatmentVisit]
-    FOREIGN KEY ([Visit_VisitId])
-    REFERENCES [dbo].[Visits]
-        ([VisitId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_TreatmentVisit'
-CREATE INDEX [IX_FK_TreatmentVisit]
-ON [dbo].[Treatments]
-    ([Visit_VisitId]);
-GO
-
 -- Creating foreign key on [Consultants_UserId] in table 'ConsultantSkill'
 ALTER TABLE [dbo].[ConsultantSkill]
 ADD CONSTRAINT [FK_ConsultantSkill_Consultant]
@@ -736,21 +676,6 @@ GO
 CREATE INDEX [IX_FK_ConsultantSkill_Skill]
 ON [dbo].[ConsultantSkill]
     ([Skills_SkillId]);
-GO
-
--- Creating foreign key on [Treatment_TreatmentId] in table 'Notes'
-ALTER TABLE [dbo].[Notes]
-ADD CONSTRAINT [FK_TreatmentNote]
-    FOREIGN KEY ([Treatment_TreatmentId])
-    REFERENCES [dbo].[Treatments]
-        ([TreatmentId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_TreatmentNote'
-CREATE INDEX [IX_FK_TreatmentNote]
-ON [dbo].[Notes]
-    ([Treatment_TreatmentId]);
 GO
 
 -- Creating foreign key on [Visit_VisitId] in table 'Notes'
@@ -798,13 +723,79 @@ ON [dbo].[Treatments_CourseOfMedicine]
     ([Medicine_MedicineId]);
 GO
 
--- Creating foreign key on [TreatmentId] in table 'Treatments_Procedure'
-ALTER TABLE [dbo].[Treatments_Procedure]
-ADD CONSTRAINT [FK_Procedure_inherits_Treatment]
-    FOREIGN KEY ([TreatmentId])
+-- Creating foreign key on [VisitId] in table 'Treatments'
+ALTER TABLE [dbo].[Treatments]
+ADD CONSTRAINT [FK_VisitTreatment]
+    FOREIGN KEY ([VisitId])
+    REFERENCES [dbo].[Visits]
+        ([VisitId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_VisitTreatment'
+CREATE INDEX [IX_FK_VisitTreatment]
+ON [dbo].[Treatments]
+    ([VisitId]);
+GO
+
+-- Creating foreign key on [RecordedByUserId] in table 'Treatments'
+ALTER TABLE [dbo].[Treatments]
+ADD CONSTRAINT [FK_TreatmentRecordedBy]
+    FOREIGN KEY ([RecordedByUserId])
+    REFERENCES [dbo].[Users_StaffMember]
+        ([UserId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_TreatmentRecordedBy'
+CREATE INDEX [IX_FK_TreatmentRecordedBy]
+ON [dbo].[Treatments]
+    ([RecordedByUserId]);
+GO
+
+-- Creating foreign key on [AdministeredByUserId] in table 'Treatments'
+ALTER TABLE [dbo].[Treatments]
+ADD CONSTRAINT [FK_TreatmentAdministeredBy]
+    FOREIGN KEY ([AdministeredByUserId])
+    REFERENCES [dbo].[Users_StaffMember]
+        ([UserId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_TreatmentAdministeredBy'
+CREATE INDEX [IX_FK_TreatmentAdministeredBy]
+ON [dbo].[Treatments]
+    ([AdministeredByUserId]);
+GO
+
+-- Creating foreign key on [TreatmentTreatmentId] in table 'Notes'
+ALTER TABLE [dbo].[Notes]
+ADD CONSTRAINT [FK_TreatmentNote]
+    FOREIGN KEY ([TreatmentTreatmentId])
     REFERENCES [dbo].[Treatments]
         ([TreatmentId])
-    ON DELETE CASCADE ON UPDATE NO ACTION;
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_TreatmentNote'
+CREATE INDEX [IX_FK_TreatmentNote]
+ON [dbo].[Notes]
+    ([TreatmentTreatmentId]);
+GO
+
+-- Creating foreign key on [OperationId] in table 'Treatments_Procedure'
+ALTER TABLE [dbo].[Treatments_Procedure]
+ADD CONSTRAINT [FK_ProcedureOperation]
+    FOREIGN KEY ([OperationId])
+    REFERENCES [dbo].[Operations]
+        ([OperationId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ProcedureOperation'
+CREATE INDEX [IX_FK_ProcedureOperation]
+ON [dbo].[Treatments_Procedure]
+    ([OperationId]);
 GO
 
 -- Creating foreign key on [UserId] in table 'Users_Patient'
@@ -846,6 +837,15 @@ GO
 -- Creating foreign key on [TreatmentId] in table 'Treatments_CourseOfMedicine'
 ALTER TABLE [dbo].[Treatments_CourseOfMedicine]
 ADD CONSTRAINT [FK_CourseOfMedicine_inherits_Treatment]
+    FOREIGN KEY ([TreatmentId])
+    REFERENCES [dbo].[Treatments]
+        ([TreatmentId])
+    ON DELETE CASCADE ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [TreatmentId] in table 'Treatments_Procedure'
+ALTER TABLE [dbo].[Treatments_Procedure]
+ADD CONSTRAINT [FK_Procedure_inherits_Treatment]
     FOREIGN KEY ([TreatmentId])
     REFERENCES [dbo].[Treatments]
         ([TreatmentId])

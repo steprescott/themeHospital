@@ -10,7 +10,11 @@ namespace TH.WebSystem.Models
 {
     public class CreateTreatmentViewModel
     {
+        public List<StaffMember> MedicalStaff { get; set; }
+
         public List<Operation> Operations { get; set; }
+
+        public Guid VisitId { get; set; }
 
         public Guid SelectedOperationId { get; set; }
 
@@ -22,8 +26,6 @@ namespace TH.WebSystem.Models
 
         public String NoteContent { get; set; }
 
-        public StaffMember RecordedBy { get; set; }
-
-        public StaffMember AdministeredBy { get; set; }
+        public Guid AdministeredByStaffMemberId { get; set; }
     }
 }

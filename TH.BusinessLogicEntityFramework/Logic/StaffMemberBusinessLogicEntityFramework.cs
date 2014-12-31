@@ -62,6 +62,11 @@ namespace TH.BusinessLogicEntityFramework.Logic
             }
         }
 
+        public Domain.User.StaffMember GetStaffMemberWithId(Guid userId)
+        {
+            return ReflectiveMapperService.ConvertItem<StaffMember, Domain.User.StaffMember>(_unitOfWork.GetById<StaffMember>(userId));
+        }
+
         public bool CreateOrUpdateDoctor(Domain.User.Doctor domainDoctor)
         {
             //Create or update the initial the base of staff member

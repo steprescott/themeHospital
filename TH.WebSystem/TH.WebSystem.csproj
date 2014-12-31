@@ -168,6 +168,7 @@
     <Compile Include="Models\AddPatientViewModel.cs" />
     <Compile Include="Models\CreateTreatmentViewModel.cs" />
     <Compile Include="Models\PatientDetailsModel.cs" />
+    <Compile Include="Models\PatientOptionsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ThemeHospitalMembershipProvider.cs" />
     <Compile Include="Services\SecurityService.cs" />
@@ -185,9 +186,9 @@
     <Content Include="Views\Consultant\ViewTeam.cshtml" />
     <Content Include="Views\Consultant\AddDoctor.cshtml" />
     <Content Include="Views\Receptionist\AddPatient.cshtml" />
-    <Content Include="Views\Patient\SearchPatient.cshtml" />
+    <Content Include="Views\Patient\Search.cshtml" />
     <Content Include="Views\Shared\_PatientList.cshtml" />
-    <Content Include="Views\Patient\Menu.cshtml" />
+    <Content Include="Views\Patient\Options.cshtml" />
     <Content Include="Views\Patient\DisplayWards.cshtml" />
     <Content Include="Views\Shared\_DashboardLink.cshtml" />
     <Content Include="Views\Treatment\Create.cshtml" />

@@ -15,6 +15,6 @@ namespace TH.Domain.Other
         public DateTime DateCreated { get; set; }
         public Patient Patient { get; set; }
         public Treatment Treatment { get; set; }
-        //public Visit Visit { get; set; }
+        public Visit Visit { get; set; }
     }
 }

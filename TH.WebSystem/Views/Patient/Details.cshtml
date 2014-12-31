@@ -2,11 +2,6 @@
 
 <h1>Patient Record - @Html.Raw(string.Format("{0} {1}", Model.Patient.Firstname, Model.Patient.LastName))</h1>
 
-@if (!Model.HasOpenVisit)
-{
-    @Html.ActionLink("Admit", "Admit", "Patient", new { id = Model.Patient.UserId }, null)
-}
-
 <div class="form-horizontal patient-view">
     <h4>Patient Details</h4>
     <hr />

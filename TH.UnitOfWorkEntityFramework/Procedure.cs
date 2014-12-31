@@ -15,6 +15,7 @@ namespace TH.UnitOfWorkEntityFramework
     public partial class Procedure : Treatment
     {
         public System.DateTime DateAdministered { get; set; }
+        public System.Guid OperationId { get; set; }
     
         public virtual Operation Operation { get; set; }
     }

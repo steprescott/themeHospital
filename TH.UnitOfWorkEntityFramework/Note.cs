@@ -17,9 +17,10 @@ namespace TH.UnitOfWorkEntityFramework
         public System.Guid NoteId { get; set; }
         public string Content { get; set; }
         public System.DateTime DateCreated { get; set; }
+        public Nullable<System.Guid> TreatmentTreatmentId { get; set; }
     
         public virtual Patient Patient { get; set; }
-        public virtual Treatment Treatment { get; set; }
         public virtual Visit Visit { get; set; }
+        public virtual Treatment Treatment { get; set; }
     }
 }

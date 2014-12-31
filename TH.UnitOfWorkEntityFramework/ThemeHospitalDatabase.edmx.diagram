@@ -14,14 +14,13 @@
         <EntityTypeShape EntityType="ThemeHospitalDatabase.Address" Width="2.125" PointX="15.5" PointY="0.5" />
         <AssociationConnector Association="ThemeHospitalDatabase.UserAddress" />
         <EntityTypeShape EntityType="ThemeHospitalDatabase.Team" Width="1.5" PointX="11.625" PointY="8.375" />
-        <EntityTypeShape EntityType="ThemeHospitalDatabase.Treatment" Width="2" PointX="15.625" PointY="9.625" />
+        <EntityTypeShape EntityType="ThemeHospitalDatabase.Treatment" Width="2.625" PointX="15.625" PointY="9.625" />
         <EntityTypeShape EntityType="ThemeHospitalDatabase.Procedure" Width="2.375" PointX="13.875" PointY="12.75" />
         <InheritanceConnector EntityType="ThemeHospitalDatabase.Procedure" />
         <EntityTypeShape EntityType="ThemeHospitalDatabase.CourseOfMedicine" Width="1.75" PointX="16.75" PointY="12.75" />
         <InheritanceConnector EntityType="ThemeHospitalDatabase.CourseOfMedicine" ></InheritanceConnector>
         <EntityTypeShape EntityType="ThemeHospitalDatabase.Medicine" Width="1.75" PointX="16.75" PointY="15" />
         <EntityTypeShape EntityType="ThemeHospitalDatabase.Operation" Width="1.75" PointX="14.25" PointY="15" />
-        <AssociationConnector Association="ThemeHospitalDatabase.ProcedureOperation" />
         <EntityTypeShape EntityType="ThemeHospitalDatabase.StaffMember" Width="2" PointX="12.625" PointY="3.5" />
         <InheritanceConnector EntityType="ThemeHospitalDatabase.StaffMember" />
         <InheritanceConnector EntityType="ThemeHospitalDatabase.Consultant" />
@@ -42,21 +41,21 @@
         <AssociationConnector Association="ThemeHospitalDatabase.VisitBed" ManuallyRouted="false" >
         </AssociationConnector>
         <AssociationConnector Association="ThemeHospitalDatabase.WardWaitingListPatient" />
-        <AssociationConnector Association="ThemeHospitalDatabase.TreatmentStaffMemeber" ManuallyRouted="false" >
-        </AssociationConnector>
-        <AssociationConnector Association="ThemeHospitalDatabase.TreatmentStaffMemeber1" />
         <AssociationConnector ManuallyRouted="false" Association="ThemeHospitalDatabase.PatientNote">
         </AssociationConnector>
         <AssociationConnector Association="ThemeHospitalDatabase.DoctorTeam" />
         <AssociationConnector Association="ThemeHospitalDatabase.ConsultantTeam" />
         <AssociationConnector Association="ThemeHospitalDatabase.VisitTeam" />
-        <AssociationConnector Association="ThemeHospitalDatabase.TreatmentVisit" ></AssociationConnector>
         <EntityTypeShape EntityType="ThemeHospitalDatabase.Skill" Width="1.5" PointX="13.875" PointY="8.375" />
         <AssociationConnector Association="ThemeHospitalDatabase.ConsultantSkill" />
-        <AssociationConnector Association="ThemeHospitalDatabase.TreatmentNote" ></AssociationConnector>
         <AssociationConnector Association="ThemeHospitalDatabase.VisitNote" />
         <AssociationConnector Association="ThemeHospitalDatabase.WardBed" />
         <AssociationConnector Association="ThemeHospitalDatabase.CourseOfMedicineMedicine" />
+        <AssociationConnector Association="ThemeHospitalDatabase.VisitTreatment" />
+        <AssociationConnector Association="ThemeHospitalDatabase.TreatmentRecordedBy" />
+        <AssociationConnector Association="ThemeHospitalDatabase.TreatmentAdministeredBy" />
+        <AssociationConnector Association="ThemeHospitalDatabase.TreatmentNote" />
+        <AssociationConnector Association="ThemeHospitalDatabase.ProcedureOperation" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

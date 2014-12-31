@@ -17,7 +17,7 @@ namespace TH.UnitOfWorkEntityFramework
         public StaffMember()
         {
             this.TreatmentsAssigned = new HashSet<Treatment>();
-            this.TreatmentsAdministered = new HashSet<Treatment>();
+            this.Treatments = new HashSet<Treatment>();
         }
     
         public string Username { get; set; }
@@ -25,6 +25,6 @@ namespace TH.UnitOfWorkEntityFramework
         public System.DateTime LastLoggedIn { get; set; }
     
         public virtual ICollection<Treatment> TreatmentsAssigned { get; set; }
-        public virtual ICollection<Treatment> TreatmentsAdministered { get; set; }
+        public virtual ICollection<Treatment> Treatments { get; set; }
     }
 }

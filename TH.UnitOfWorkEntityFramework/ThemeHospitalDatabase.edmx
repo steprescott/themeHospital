@@ -18,12 +18,12 @@
     <EntitySet Name="WardWaitingLists" EntityType="ThemeHospitalDatabase.Store.WardWaitingLists" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Visits" EntityType="ThemeHospitalDatabase.Store.Visits" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Skills" EntityType="ThemeHospitalDatabase.Store.Skills" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Treatments_Procedure" EntityType="ThemeHospitalDatabase.Store.Treatments_Procedure" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users_Patient" EntityType="ThemeHospitalDatabase.Store.Users_Patient" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users_StaffMember" EntityType="ThemeHospitalDatabase.Store.Users_StaffMember" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users_Doctor" EntityType="ThemeHospitalDatabase.Store.Users_Doctor" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users_Consultant" EntityType="ThemeHospitalDatabase.Store.Users_Consultant" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Treatments_CourseOfMedicine" EntityType="ThemeHospitalDatabase.Store.Treatments_CourseOfMedicine" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Treatments_Procedure" EntityType="ThemeHospitalDatabase.Store.Treatments_Procedure" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users_Receptionist" EntityType="ThemeHospitalDatabase.Store.Users_Receptionist" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserAddress" EntityType="ThemeHospitalDatabase.Store.UserAddress" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="VisitTeam" EntityType="ThemeHospitalDatabase.Store.VisitTeam" store:Type="Tables" Schema="dbo" />
@@ -35,10 +35,6 @@
     <AssociationSet Name="FK_UserAddress_Address" Association="ThemeHospitalDatabase.Store.FK_UserAddress_Address">
       <End Role="Address" EntitySet="Addresses" />
       <End Role="UserAddress" EntitySet="UserAddress" />
-    </AssociationSet>
-    <AssociationSet Name="ProcedureOperation" Association="ThemeHospitalDatabase.Store.ProcedureOperation">
-      <End Role="Procedure" EntitySet="Treatments_Procedure" />
-      <End Role="Operation" EntitySet="Operations" />
     </AssociationSet>
     <AssociationSet Name="WardWaitingListWard" Association="ThemeHospitalDatabase.Store.WardWaitingListWard">
       <End Role="WardWaitingList" EntitySet="WardWaitingLists" />
@@ -55,14 +51,6 @@
     <AssociationSet Name="WardWaitingListPatient" Association="ThemeHospitalDatabase.Store.WardWaitingListPatient">
       <End Role="WardWaitingList" EntitySet="WardWaitingLists" />
       <End Role="Patient" EntitySet="Users_Patient" />
-    </AssociationSet>
-    <AssociationSet Name="TreatmentStaffMemeber" Association="ThemeHospitalDatabase.Store.TreatmentStaffMemeber">
-      <End Role="Treatment" EntitySet="Treatments" />
-      <End Role="StaffMemeber" EntitySet="Users_StaffMember" />
-    </AssociationSet>
-    <AssociationSet Name="TreatmentStaffMemeber1" Association="ThemeHospitalDatabase.Store.TreatmentStaffMemeber1">
-      <End Role="Treatment" EntitySet="Treatments" />
-      <End Role="StaffMemeber" EntitySet="Users_StaffMember" />
     </AssociationSet>
     <AssociationSet Name="PatientNote" Association="ThemeHospitalDatabase.Store.PatientNote">
       <End Role="Patient" EntitySet="Users_Patient" />
@@ -84,10 +72,6 @@
       <End Role="Team" EntitySet="Teams" />
       <End Role="VisitTeam" EntitySet="VisitTeam" />
     </AssociationSet>
-    <AssociationSet Name="TreatmentVisit" Association="ThemeHospitalDatabase.Store.TreatmentVisit">
-      <End Role="Treatment" EntitySet="Treatments" />
-      <End Role="Visit" EntitySet="Visits" />
-    </AssociationSet>
     <AssociationSet Name="FK_ConsultantSkill_Consultant" Association="ThemeHospitalDatabase.Store.FK_ConsultantSkill_Consultant">
       <End Role="Consultant" EntitySet="Users_Consultant" />
       <End Role="ConsultantSkill" EntitySet="ConsultantSkill" />
@@ -95,10 +79,6 @@
     <AssociationSet Name="FK_ConsultantSkill_Skill" Association="ThemeHospitalDatabase.Store.FK_ConsultantSkill_Skill">
       <End Role="Skill" EntitySet="Skills" />
       <End Role="ConsultantSkill" EntitySet="ConsultantSkill" />
-    </AssociationSet>
-    <AssociationSet Name="TreatmentNote" Association="ThemeHospitalDatabase.Store.TreatmentNote">
-      <End Role="Treatment" EntitySet="Treatments" />
-      <End Role="Note" EntitySet="Notes" />
     </AssociationSet>
     <AssociationSet Name="VisitNote" Association="ThemeHospitalDatabase.Store.VisitNote">
       <End Role="Visit" EntitySet="Visits" />
@@ -112,9 +92,25 @@
       <End Role="CourseOfMedicine" EntitySet="Treatments_CourseOfMedicine" />
       <End Role="Medicine" EntitySet="Medicines" />
     </AssociationSet>
-    <AssociationSet Name="FK_Procedure_inherits_Treatment" Association="ThemeHospitalDatabase.Store.FK_Procedure_inherits_Treatment">
+    <AssociationSet Name="VisitTreatment" Association="ThemeHospitalDatabase.Store.VisitTreatment">
+      <End Role="Visit" EntitySet="Visits" />
       <End Role="Treatment" EntitySet="Treatments" />
+    </AssociationSet>
+    <AssociationSet Name="TreatmentRecordedBy" Association="ThemeHospitalDatabase.Store.TreatmentRecordedBy">
+      <End Role="Treatment" EntitySet="Treatments" />
+      <End Role="StaffMember" EntitySet="Users_StaffMember" />
+    </AssociationSet>
+    <AssociationSet Name="TreatmentAdministeredBy" Association="ThemeHospitalDatabase.Store.TreatmentAdministeredBy">
+      <End Role="Treatment" EntitySet="Treatments" />
+      <End Role="StaffMember" EntitySet="Users_StaffMember" />
+    </AssociationSet>
+    <AssociationSet Name="TreatmentNote" Association="ThemeHospitalDatabase.Store.TreatmentNote">
+      <End Role="Treatment" EntitySet="Treatments" />
+      <End Role="Note" EntitySet="Notes" />
+    </AssociationSet>
+    <AssociationSet Name="ProcedureOperation" Association="ThemeHospitalDatabase.Store.ProcedureOperation">
       <End Role="Procedure" EntitySet="Treatments_Procedure" />
+      <End Role="Operation" EntitySet="Operations" />
     </AssociationSet>
     <AssociationSet Name="FK_Patient_inherits_User" Association="ThemeHospitalDatabase.Store.FK_Patient_inherits_User">
       <End Role="User" EntitySet="Users" />
@@ -135,6 +131,10 @@
     <AssociationSet Name="FK_CourseOfMedicine_inherits_Treatment" Association="ThemeHospitalDatabase.Store.FK_CourseOfMedicine_inherits_Treatment">
       <End Role="Treatment" EntitySet="Treatments" />
       <End Role="CourseOfMedicine" EntitySet="Treatments_CourseOfMedicine" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Procedure_inherits_Treatment" Association="ThemeHospitalDatabase.Store.FK_Procedure_inherits_Treatment">
+      <End Role="Treatment" EntitySet="Treatments" />
+      <End Role="Procedure" EntitySet="Treatments_Procedure" />
     </AssociationSet>
     <AssociationSet Name="FK_Receptionist_inherits_StaffMember" Association="ThemeHospitalDatabase.Store.FK_Receptionist_inherits_StaffMember">
       <End Role="StaffMember" EntitySet="Users_StaffMember" />
@@ -179,9 +179,9 @@
     </Key>
     <Property Name="TreatmentId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="ScheduledDate" Type="datetime" Nullable="false" />
-    <Property Name="RecordedBy_UserId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="AdministeredBy_UserId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Visit_VisitId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="VisitId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="RecordedByUserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="AdministeredByUserId" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
   <EntityType Name="Medicines">
     <Key>
@@ -221,9 +221,9 @@
     <Property Name="NoteId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
     <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="TreatmentTreatmentId" Type="uniqueidentifier" Nullable="true" />
     <Property Name="Patient_UserId" Type="uniqueidentifier" Nullable="true" />
-    <Property Name="Treatment_TreatmentId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Visit_VisitId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Visit_VisitId" Type="uniqueidentifier" Nullable="true" />
   </EntityType>
   <EntityType Name="WardWaitingLists">
     <Key>
@@ -248,14 +248,6 @@
     </Key>
     <Property Name="SkillId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Treatments_Procedure">
-    <Key>
-      <PropertyRef Name="TreatmentId" />
-    </Key>
-    <Property Name="DateAdministered" Type="datetime" Nullable="false" />
-    <Property Name="TreatmentId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Operation_OperationId" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
   <EntityType Name="Users_Patient">
     <Key>
@@ -298,6 +290,14 @@
     <Property Name="TreatmentId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Medicine_MedicineId" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
+  <EntityType Name="Treatments_Procedure">
+    <Key>
+      <PropertyRef Name="TreatmentId" />
+    </Key>
+    <Property Name="DateAdministered" Type="datetime" Nullable="false" />
+    <Property Name="OperationId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TreatmentId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
   <EntityType Name="Users_Receptionist">
     <Key>
       <PropertyRef Name="UserId" />
@@ -328,18 +328,6 @@
     <Property Name="Consultants_UserId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Skills_SkillId" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
-  <Association Name="ProcedureOperation">
-    <End Role="Procedure" Type="ThemeHospitalDatabase.Store.Treatments_Procedure" Multiplicity="*" />
-    <End Role="Operation" Type="ThemeHospitalDatabase.Store.Operations" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Operation">
-        <PropertyRef Name="OperationId" />
-      </Principal>
-      <Dependent Role="Procedure">
-        <PropertyRef Name="Operation_OperationId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="WardWaitingListWard">
     <End Role="WardWaitingList" Type="ThemeHospitalDatabase.Store.WardWaitingLists" Multiplicity="*" />
     <End Role="Ward" Type="ThemeHospitalDatabase.Store.Wards" Multiplicity="1" />
@@ -388,30 +376,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="TreatmentStaffMemeber">
-    <End Role="Treatment" Type="ThemeHospitalDatabase.Store.Treatments" Multiplicity="*" />
-    <End Role="StaffMemeber" Type="ThemeHospitalDatabase.Store.Users_StaffMember" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="StaffMemeber">
-        <PropertyRef Name="UserId" />
-      </Principal>
-      <Dependent Role="Treatment">
-        <PropertyRef Name="RecordedBy_UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="TreatmentStaffMemeber1">
-    <End Role="Treatment" Type="ThemeHospitalDatabase.Store.Treatments" Multiplicity="*" />
-    <End Role="StaffMemeber" Type="ThemeHospitalDatabase.Store.Users_StaffMember" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="StaffMemeber">
-        <PropertyRef Name="UserId" />
-      </Principal>
-      <Dependent Role="Treatment">
-        <PropertyRef Name="AdministeredBy_UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="PatientNote">
     <End Role="Patient" Type="ThemeHospitalDatabase.Store.Users_Patient" Multiplicity="0..1" />
     <End Role="Note" Type="ThemeHospitalDatabase.Store.Notes" Multiplicity="*" />
@@ -448,32 +412,8 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="TreatmentVisit">
-    <End Role="Treatment" Type="ThemeHospitalDatabase.Store.Treatments" Multiplicity="*" />
-    <End Role="Visit" Type="ThemeHospitalDatabase.Store.Visits" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Visit">
-        <PropertyRef Name="VisitId" />
-      </Principal>
-      <Dependent Role="Treatment">
-        <PropertyRef Name="Visit_VisitId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="TreatmentNote">
-    <End Role="Treatment" Type="ThemeHospitalDatabase.Store.Treatments" Multiplicity="1" />
-    <End Role="Note" Type="ThemeHospitalDatabase.Store.Notes" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Treatment">
-        <PropertyRef Name="TreatmentId" />
-      </Principal>
-      <Dependent Role="Note">
-        <PropertyRef Name="Treatment_TreatmentId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="VisitNote">
-    <End Role="Visit" Type="ThemeHospitalDatabase.Store.Visits" Multiplicity="1" />
+    <End Role="Visit" Type="ThemeHospitalDatabase.Store.Visits" Multiplicity="0..1" />
     <End Role="Note" Type="ThemeHospitalDatabase.Store.Notes" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Visit">
@@ -505,6 +445,66 @@
       </Principal>
       <Dependent Role="CourseOfMedicine">
         <PropertyRef Name="Medicine_MedicineId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="VisitTreatment">
+    <End Role="Visit" Type="ThemeHospitalDatabase.Store.Visits" Multiplicity="1" />
+    <End Role="Treatment" Type="ThemeHospitalDatabase.Store.Treatments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Visit">
+        <PropertyRef Name="VisitId" />
+      </Principal>
+      <Dependent Role="Treatment">
+        <PropertyRef Name="VisitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TreatmentRecordedBy">
+    <End Role="Treatment" Type="ThemeHospitalDatabase.Store.Treatments" Multiplicity="*" />
+    <End Role="StaffMember" Type="ThemeHospitalDatabase.Store.Users_StaffMember" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="StaffMember">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Treatment">
+        <PropertyRef Name="RecordedByUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TreatmentAdministeredBy">
+    <End Role="Treatment" Type="ThemeHospitalDatabase.Store.Treatments" Multiplicity="*" />
+    <End Role="StaffMember" Type="ThemeHospitalDatabase.Store.Users_StaffMember" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="StaffMember">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Treatment">
+        <PropertyRef Name="AdministeredByUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TreatmentNote">
+    <End Role="Treatment" Type="ThemeHospitalDatabase.Store.Treatments" Multiplicity="0..1" />
+    <End Role="Note" Type="ThemeHospitalDatabase.Store.Notes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Treatment">
+        <PropertyRef Name="TreatmentId" />
+      </Principal>
+      <Dependent Role="Note">
+        <PropertyRef Name="TreatmentTreatmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProcedureOperation">
+    <End Role="Procedure" Type="ThemeHospitalDatabase.Store.Treatments_Procedure" Multiplicity="*" />
+    <End Role="Operation" Type="ThemeHospitalDatabase.Store.Operations" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Operation">
+        <PropertyRef Name="OperationId" />
+      </Principal>
+      <Dependent Role="Procedure">
+        <PropertyRef Name="OperationId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -580,20 +580,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Procedure_inherits_Treatment">
-    <End Role="Treatment" Type="ThemeHospitalDatabase.Store.Treatments" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Procedure" Type="ThemeHospitalDatabase.Store.Treatments_Procedure" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Treatment">
-        <PropertyRef Name="TreatmentId" />
-      </Principal>
-      <Dependent Role="Procedure">
-        <PropertyRef Name="TreatmentId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Patient_inherits_User">
     <End Role="User" Type="ThemeHospitalDatabase.Store.Users" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -664,6 +650,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Procedure_inherits_Treatment">
+    <End Role="Treatment" Type="ThemeHospitalDatabase.Store.Treatments" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Procedure" Type="ThemeHospitalDatabase.Store.Treatments_Procedure" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Treatment">
+        <PropertyRef Name="TreatmentId" />
+      </Principal>
+      <Dependent Role="Procedure">
+        <PropertyRef Name="TreatmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Receptionist_inherits_StaffMember">
     <End Role="StaffMember" Type="ThemeHospitalDatabase.Store.Users_StaffMember" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -693,10 +693,6 @@
           <EntitySet Name="Treatments" EntityType="ThemeHospitalDatabase.Treatment" />
           <EntitySet Name="Medicines" EntityType="ThemeHospitalDatabase.Medicine" />
           <EntitySet Name="Operations" EntityType="ThemeHospitalDatabase.Operation" />
-          <AssociationSet Name="ProcedureOperation" Association="ThemeHospitalDatabase.ProcedureOperation">
-            <End Role="Procedure" EntitySet="Treatments" />
-            <End Role="Operation" EntitySet="Operations" />
-          </AssociationSet>
           <EntitySet Name="Wards" EntityType="ThemeHospitalDatabase.Ward" />
           <EntitySet Name="Beds" EntityType="ThemeHospitalDatabase.Bed" />
           <EntitySet Name="Notes" EntityType="ThemeHospitalDatabase.Note" />
@@ -718,14 +714,6 @@
             <End Role="WardWaitingList" EntitySet="WardWaitingLists" />
             <End Role="Patient" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="TreatmentStaffMemeber" Association="ThemeHospitalDatabase.TreatmentStaffMemeber">
-            <End Role="Treatment" EntitySet="Treatments" />
-            <End Role="StaffMemeber" EntitySet="Users" />
-          </AssociationSet>
-          <AssociationSet Name="TreatmentStaffMemeber1" Association="ThemeHospitalDatabase.TreatmentStaffMemeber1">
-            <End Role="Treatment" EntitySet="Treatments" />
-            <End Role="StaffMemeber" EntitySet="Users" />
-          </AssociationSet>
           <AssociationSet Name="PatientNote" Association="ThemeHospitalDatabase.PatientNote">
             <End EntitySet="Users" Role="Patient" />
             <End EntitySet="Notes" Role="Note" />
@@ -742,18 +730,10 @@
             <End Role="Visit" EntitySet="Visits" />
             <End Role="Team" EntitySet="Teams" />
           </AssociationSet>
-          <AssociationSet Name="TreatmentVisit" Association="ThemeHospitalDatabase.TreatmentVisit">
-            <End Role="Treatment" EntitySet="Treatments" />
-            <End Role="Visit" EntitySet="Visits" />
-          </AssociationSet>
           <EntitySet Name="Skills" EntityType="ThemeHospitalDatabase.Skill" />
           <AssociationSet Name="ConsultantSkill" Association="ThemeHospitalDatabase.ConsultantSkill">
             <End EntitySet="Users" Role="Consultant" />
             <End EntitySet="Skills" Role="Skill" />
-          </AssociationSet>
-          <AssociationSet Name="TreatmentNote" Association="ThemeHospitalDatabase.TreatmentNote">
-            <End Role="Treatment" EntitySet="Treatments" />
-            <End Role="Note" EntitySet="Notes" />
           </AssociationSet>
           <AssociationSet Name="VisitNote" Association="ThemeHospitalDatabase.VisitNote">
             <End Role="Visit" EntitySet="Visits" />
@@ -766,6 +746,26 @@
           <AssociationSet Name="CourseOfMedicineMedicine" Association="ThemeHospitalDatabase.CourseOfMedicineMedicine">
             <End Role="CourseOfMedicine" EntitySet="Treatments" />
             <End Role="Medicine" EntitySet="Medicines" />
+          </AssociationSet>
+          <AssociationSet Name="VisitTreatment" Association="ThemeHospitalDatabase.VisitTreatment">
+            <End Role="Visit" EntitySet="Visits" />
+            <End Role="Treatment" EntitySet="Treatments" />
+          </AssociationSet>
+          <AssociationSet Name="TreatmentRecordedBy" Association="ThemeHospitalDatabase.TreatmentRecordedBy">
+            <End Role="Treatment" EntitySet="Treatments" />
+            <End Role="StaffMember" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="TreatmentAdministeredBy" Association="ThemeHospitalDatabase.TreatmentAdministeredBy">
+            <End Role="Treatment" EntitySet="Treatments" />
+            <End Role="StaffMember" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="TreatmentNote" Association="ThemeHospitalDatabase.TreatmentNote">
+            <End Role="Treatment" EntitySet="Treatments" />
+            <End Role="Note" EntitySet="Notes" />
+          </AssociationSet>
+          <AssociationSet Name="ProcedureOperation" Association="ThemeHospitalDatabase.ProcedureOperation">
+            <End Role="Procedure" EntitySet="Treatments" />
+            <End Role="Operation" EntitySet="Operations" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="User">
@@ -827,15 +827,19 @@
             <PropertyRef Name="TreatmentId" />
           </Key>
           <Property Name="TreatmentId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <NavigationProperty Name="RecordedBy" Relationship="ThemeHospitalDatabase.TreatmentStaffMemeber" FromRole="Treatment" ToRole="StaffMemeber" />
-          <NavigationProperty Name="AdministeredBy" Relationship="ThemeHospitalDatabase.TreatmentStaffMemeber1" FromRole="Treatment" ToRole="StaffMemeber" />
-          <NavigationProperty Name="Visit" Relationship="ThemeHospitalDatabase.TreatmentVisit" FromRole="Treatment" ToRole="Visit" />
           <Property Name="ScheduledDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Visit" Relationship="ThemeHospitalDatabase.VisitTreatment" FromRole="Treatment" ToRole="Visit" />
+          <Property Name="VisitId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="RecordedBy" Relationship="ThemeHospitalDatabase.TreatmentRecordedBy" FromRole="Treatment" ToRole="StaffMember" />
+          <Property Name="RecordedByUserId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="StaffMember" Relationship="ThemeHospitalDatabase.TreatmentAdministeredBy" FromRole="Treatment" ToRole="StaffMember" />
+          <Property Name="AdministeredByUserId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Notes" Relationship="ThemeHospitalDatabase.TreatmentNote" FromRole="Treatment" ToRole="Note" />
         </EntityType>
         <EntityType Name="Procedure" BaseType="ThemeHospitalDatabase.Treatment" >
-          <NavigationProperty Name="Operation" Relationship="ThemeHospitalDatabase.ProcedureOperation" FromRole="Procedure" ToRole="Operation" />
           <Property Name="DateAdministered" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Operation" Relationship="ThemeHospitalDatabase.ProcedureOperation" FromRole="Procedure" ToRole="Operation" />
+          <Property Name="OperationId" Type="Guid" Nullable="false" />
         </EntityType>
         <EntityType Name="CourseOfMedicine" BaseType="ThemeHospitalDatabase.Treatment" >
           <Property Name="StartDate" Type="DateTime" Nullable="false" />
@@ -857,20 +861,16 @@
             <PropertyRef Name="OperationId" />
           </Key>
           <Property Name="OperationId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <NavigationProperty Name="Procedures" Relationship="ThemeHospitalDatabase.ProcedureOperation" FromRole="Operation" ToRole="Procedure" />
           <Property Name="Name" Type="String" Nullable="false" />
           <Property Name="Description" Type="String" Nullable="false" />
+          <NavigationProperty Name="Procedures" Relationship="ThemeHospitalDatabase.ProcedureOperation" FromRole="Operation" ToRole="Procedure" />
         </EntityType>
-        <Association Name="ProcedureOperation">
-          <End Type="ThemeHospitalDatabase.Procedure" Role="Procedure" Multiplicity="*" />
-          <End Type="ThemeHospitalDatabase.Operation" Role="Operation" Multiplicity="1" />
-        </Association>
         <EntityType Name="StaffMember" BaseType="ThemeHospitalDatabase.User" >
           <Property Name="Username" Type="String" Nullable="false" />
           <Property Name="Password" Type="String" Nullable="false" />
-          <NavigationProperty Name="TreatmentsAssigned" Relationship="ThemeHospitalDatabase.TreatmentStaffMemeber" FromRole="StaffMemeber" ToRole="Treatment" />
-          <NavigationProperty Name="TreatmentsAdministered" Relationship="ThemeHospitalDatabase.TreatmentStaffMemeber1" FromRole="StaffMemeber" ToRole="Treatment" />
           <Property Name="LastLoggedIn" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="TreatmentsAssigned" Relationship="ThemeHospitalDatabase.TreatmentRecordedBy" FromRole="StaffMember" ToRole="Treatment" />
+          <NavigationProperty Name="Treatments" Relationship="ThemeHospitalDatabase.TreatmentAdministeredBy" FromRole="StaffMember" ToRole="Treatment" />
         </EntityType>
         <EntityType Name="Receptionist" BaseType="ThemeHospitalDatabase.StaffMember" />
         <EntityType Name="Ward">
@@ -899,8 +899,9 @@
           <NavigationProperty Name="Patient" Relationship="ThemeHospitalDatabase.PatientNote" FromRole="Note" ToRole="Patient" />
           <Property Name="Content" Type="String" Nullable="false" />
           <Property Name="DateCreated" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="Treatment" Relationship="ThemeHospitalDatabase.TreatmentNote" FromRole="Note" ToRole="Treatment" />
           <NavigationProperty Name="Visit" Relationship="ThemeHospitalDatabase.VisitNote" FromRole="Note" ToRole="Visit" />
+          <NavigationProperty Name="Treatment" Relationship="ThemeHospitalDatabase.TreatmentNote" FromRole="Note" ToRole="Treatment" />
+          <Property Name="TreatmentTreatmentId" Type="Guid" Nullable="true" />
         </EntityType>
         <EntityType Name="WardWaitingList">
           <Key>
@@ -924,8 +925,8 @@
           <Property Name="AdmittedDate" Type="DateTime" Nullable="false" />
           <Property Name="ReleaseDate" Type="DateTime" Nullable="true" />
           <NavigationProperty Name="Teams" Relationship="ThemeHospitalDatabase.VisitTeam" FromRole="Visit" ToRole="Team" />
-          <NavigationProperty Name="Treatments" Relationship="ThemeHospitalDatabase.TreatmentVisit" FromRole="Visit" ToRole="Treatment" />
           <NavigationProperty Name="Notes" Relationship="ThemeHospitalDatabase.VisitNote" FromRole="Visit" ToRole="Note" />
+          <NavigationProperty Name="Treatments" Relationship="ThemeHospitalDatabase.VisitTreatment" FromRole="Visit" ToRole="Treatment" />
         </EntityType>
         <Association Name="PatientVisit">
           <End Type="ThemeHospitalDatabase.Patient" Role="Patient" Multiplicity="1" />
@@ -938,14 +939,6 @@
         <Association Name="WardWaitingListPatient">
           <End Type="ThemeHospitalDatabase.WardWaitingList" Role="WardWaitingList" Multiplicity="0..1" />
           <End Type="ThemeHospitalDatabase.Patient" Role="Patient" Multiplicity="*" />
-        </Association>
-        <Association Name="TreatmentStaffMemeber">
-          <End Type="ThemeHospitalDatabase.Treatment" Role="Treatment" Multiplicity="*" />
-          <End Type="ThemeHospitalDatabase.StaffMember" Role="StaffMemeber" Multiplicity="1" />
-        </Association>
-        <Association Name="TreatmentStaffMemeber1">
-          <End Type="ThemeHospitalDatabase.Treatment" Role="Treatment" Multiplicity="*" />
-          <End Type="ThemeHospitalDatabase.StaffMember" Role="StaffMemeber" Multiplicity="1" />
         </Association>
         <Association Name="PatientNote">
           <End Type="ThemeHospitalDatabase.Patient" Multiplicity="0..1" Role="Patient" />
@@ -963,10 +956,6 @@
           <End Type="ThemeHospitalDatabase.Visit" Role="Visit" Multiplicity="*" />
           <End Type="ThemeHospitalDatabase.Team" Role="Team" Multiplicity="*" />
         </Association>
-        <Association Name="TreatmentVisit">
-          <End Type="ThemeHospitalDatabase.Treatment" Role="Treatment" Multiplicity="*" />
-          <End Type="ThemeHospitalDatabase.Visit" Role="Visit" Multiplicity="1" />
-        </Association>
         <EntityType Name="Skill">
           <Key>
             <PropertyRef Name="SkillId" />
@@ -979,12 +968,8 @@
           <End Type="ThemeHospitalDatabase.Consultant" Multiplicity="*" Role="Consultant" />
           <End Type="ThemeHospitalDatabase.Skill" Multiplicity="*" Role="Skill" />
         </Association>
-        <Association Name="TreatmentNote">
-          <End Type="ThemeHospitalDatabase.Treatment" Role="Treatment" Multiplicity="1" />
-          <End Type="ThemeHospitalDatabase.Note" Role="Note" Multiplicity="*" />
-        </Association>
         <Association Name="VisitNote">
-          <End Type="ThemeHospitalDatabase.Visit" Role="Visit" Multiplicity="1" />
+          <End Type="ThemeHospitalDatabase.Visit" Role="Visit" Multiplicity="0..1" />
           <End Type="ThemeHospitalDatabase.Note" Role="Note" Multiplicity="*" />
         </Association>
         <Association Name="WardBed">
@@ -994,6 +979,66 @@
         <Association Name="CourseOfMedicineMedicine">
           <End Type="ThemeHospitalDatabase.CourseOfMedicine" Role="CourseOfMedicine" Multiplicity="*" />
           <End Type="ThemeHospitalDatabase.Medicine" Role="Medicine" Multiplicity="1" />
+        </Association>
+        <Association Name="VisitTreatment">
+          <End Type="ThemeHospitalDatabase.Visit" Role="Visit" Multiplicity="1" />
+          <End Type="ThemeHospitalDatabase.Treatment" Role="Treatment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visit">
+              <PropertyRef Name="VisitId" />
+            </Principal>
+            <Dependent Role="Treatment">
+              <PropertyRef Name="VisitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TreatmentRecordedBy">
+          <End Type="ThemeHospitalDatabase.Treatment" Role="Treatment" Multiplicity="*" />
+          <End Type="ThemeHospitalDatabase.StaffMember" Role="StaffMember" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="StaffMember">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Treatment">
+              <PropertyRef Name="RecordedByUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TreatmentAdministeredBy">
+          <End Type="ThemeHospitalDatabase.Treatment" Role="Treatment" Multiplicity="*" />
+          <End Type="ThemeHospitalDatabase.StaffMember" Role="StaffMember" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="StaffMember">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Treatment">
+              <PropertyRef Name="AdministeredByUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TreatmentNote">
+          <End Type="ThemeHospitalDatabase.Treatment" Role="Treatment" Multiplicity="0..1" />
+          <End Type="ThemeHospitalDatabase.Note" Role="Note" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Treatment">
+              <PropertyRef Name="TreatmentId" />
+            </Principal>
+            <Dependent Role="Note">
+              <PropertyRef Name="TreatmentTreatmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProcedureOperation">
+          <End Type="ThemeHospitalDatabase.Procedure" Role="Procedure" Multiplicity="*" />
+          <End Type="ThemeHospitalDatabase.Operation" Role="Operation" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Operation">
+              <PropertyRef Name="OperationId" />
+            </Principal>
+            <Dependent Role="Procedure">
+              <PropertyRef Name="OperationId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -1070,12 +1115,9 @@
         <MappingFragment StoreEntitySet="Treatments">
           <ScalarProperty Name="TreatmentId" ColumnName="TreatmentId" />
           <ScalarProperty Name="ScheduledDate" ColumnName="ScheduledDate" />
-        </MappingFragment>
-      </EntityTypeMapping>
-      <EntityTypeMapping TypeName="IsTypeOf(ThemeHospitalDatabase.Procedure)">
-        <MappingFragment StoreEntitySet="Treatments_Procedure">
-          <ScalarProperty Name="TreatmentId" ColumnName="TreatmentId" />
-          <ScalarProperty Name="DateAdministered" ColumnName="DateAdministered" />
+          <ScalarProperty Name="VisitId" ColumnName="VisitId" />
+          <ScalarProperty Name="RecordedByUserId" ColumnName="RecordedByUserId" />
+          <ScalarProperty Name="AdministeredByUserId" ColumnName="AdministeredByUserId" />
         </MappingFragment>
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(ThemeHospitalDatabase.CourseOfMedicine)">
@@ -1084,6 +1126,13 @@
           <ScalarProperty Name="StartDate" ColumnName="StartDate" />
           <ScalarProperty Name="EndDate" ColumnName="EndDate" />
           <ScalarProperty Name="Instructions" ColumnName="Instructions" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(ThemeHospitalDatabase.Procedure)">
+        <MappingFragment StoreEntitySet="Treatments_Procedure">
+          <ScalarProperty Name="TreatmentId" ColumnName="TreatmentId" />
+          <ScalarProperty Name="DateAdministered" ColumnName="DateAdministered" />
+          <ScalarProperty Name="OperationId" ColumnName="OperationId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1127,6 +1176,7 @@
           <ScalarProperty Name="NoteId" ColumnName="NoteId" />
           <ScalarProperty Name="Content" ColumnName="Content" />
           <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="TreatmentTreatmentId" ColumnName="TreatmentTreatmentId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1160,14 +1210,6 @@
       </EndProperty>
       <EndProperty Name="Address">
         <ScalarProperty Name="AddressId" ColumnName="Addresses_AddressId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="ProcedureOperation" TypeName="ThemeHospitalDatabase.ProcedureOperation" StoreEntitySet="Treatments_Procedure">
-      <EndProperty Name="Operation">
-        <ScalarProperty Name="OperationId" ColumnName="Operation_OperationId" />
-      </EndProperty>
-      <EndProperty Name="Procedure">
-        <ScalarProperty Name="TreatmentId" ColumnName="TreatmentId" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="WardWaitingListWard" TypeName="ThemeHospitalDatabase.WardWaitingListWard" StoreEntitySet="WardWaitingLists">
@@ -1204,22 +1246,6 @@
       </EndProperty>
       <Condition ColumnName="WardWaitingList_WardWaitingListId" IsNull="false" />
     </AssociationSetMapping>
-    <AssociationSetMapping Name="TreatmentStaffMemeber" TypeName="ThemeHospitalDatabase.TreatmentStaffMemeber" StoreEntitySet="Treatments">
-      <EndProperty Name="StaffMemeber">
-        <ScalarProperty Name="UserId" ColumnName="RecordedBy_UserId" />
-      </EndProperty>
-      <EndProperty Name="Treatment">
-        <ScalarProperty Name="TreatmentId" ColumnName="TreatmentId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="TreatmentStaffMemeber1" TypeName="ThemeHospitalDatabase.TreatmentStaffMemeber1" StoreEntitySet="Treatments">
-      <EndProperty Name="StaffMemeber">
-        <ScalarProperty Name="UserId" ColumnName="AdministeredBy_UserId" />
-      </EndProperty>
-      <EndProperty Name="Treatment">
-        <ScalarProperty Name="TreatmentId" ColumnName="TreatmentId" />
-      </EndProperty>
-    </AssociationSetMapping>
     <AssociationSetMapping Name="PatientNote" TypeName="ThemeHospitalDatabase.PatientNote" StoreEntitySet="Notes">
       <EndProperty Name="Patient">
         <ScalarProperty Name="UserId" ColumnName="Patient_UserId" />
@@ -1254,28 +1280,12 @@
         <ScalarProperty Name="TeamId" ColumnName="Teams_TeamId" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="TreatmentVisit" TypeName="ThemeHospitalDatabase.TreatmentVisit" StoreEntitySet="Treatments">
-      <EndProperty Name="Visit">
-        <ScalarProperty Name="VisitId" ColumnName="Visit_VisitId" />
-      </EndProperty>
-      <EndProperty Name="Treatment">
-        <ScalarProperty Name="TreatmentId" ColumnName="TreatmentId" />
-      </EndProperty>
-    </AssociationSetMapping>
     <AssociationSetMapping Name="ConsultantSkill" TypeName="ThemeHospitalDatabase.ConsultantSkill" StoreEntitySet="ConsultantSkill">
       <EndProperty Name="Consultant">
         <ScalarProperty Name="UserId" ColumnName="Consultants_UserId" />
       </EndProperty>
       <EndProperty Name="Skill">
         <ScalarProperty Name="SkillId" ColumnName="Skills_SkillId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="TreatmentNote" TypeName="ThemeHospitalDatabase.TreatmentNote" StoreEntitySet="Notes">
-      <EndProperty Name="Treatment">
-        <ScalarProperty Name="TreatmentId" ColumnName="Treatment_TreatmentId" />
-      </EndProperty>
-      <EndProperty Name="Note">
-        <ScalarProperty Name="NoteId" ColumnName="NoteId" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="VisitNote" TypeName="ThemeHospitalDatabase.VisitNote" StoreEntitySet="Notes">
@@ -1285,6 +1295,7 @@
       <EndProperty Name="Note">
         <ScalarProperty Name="NoteId" ColumnName="NoteId" />
       </EndProperty>
+      <Condition ColumnName="Visit_VisitId" IsNull="false" />
     </AssociationSetMapping>
     <AssociationSetMapping Name="WardBed" TypeName="ThemeHospitalDatabase.WardBed" StoreEntitySet="Beds">
       <EndProperty Name="Ward">

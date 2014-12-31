@@ -8,6 +8,5 @@ namespace TH.WebSystem.Models
     public class PatientDetailsModel
     {
         public Patient Patient { get; set; }
-        public bool HasOpenVisit { get; set; }
     }
 }

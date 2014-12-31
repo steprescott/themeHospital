@@ -4,9 +4,11 @@ using System.Data.Entity.Migrations.Model;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using TH.Domain.Other;
 using TH.Domain.Treatments;
 using TH.WebSystem.Models;
+using TH.WebSystem.Providers;
 
 namespace TH.WebSystem.Controllers
 {
@@ -18,39 +20,50 @@ namespace TH.WebSystem.Controllers
             return View();
         }
 
-        public ActionResult Create()
+        public ActionResult Create(Guid id)
         {
+            var medicalStaffForPatient = HospitalService.VisitBusinessLogic.MedicalStaffForVisitWithId(id);
             var operations = HospitalService.OperationBusinessLogic.GetAllOperations();
 
             return View(new CreateTreatmentViewModel()
             {
-                Operations = operations
+                MedicalStaff = medicalStaffForPatient,
+                Operations = operations,
+                VisitId = id
             });
         }
 
         [HttpPost]
         public ActionResult CreateProcedure(CreateTreatmentViewModel model)
         {
+            var visit = HospitalService.VisitBusinessLogic.GetVisitWithId(model.VisitId);
+
             var procedure = new Procedure()
             {
                 TreatmentId = Guid.NewGuid(),
+                OperationId = model.SelectedOperationId,
                 ScheduledDate = model.ScheduledDate,
                 DateAdministered = model.DateAdministered,
-                OperationId = model.SelectedOperationId,
-                Notes = new List<Note>
-                {
-                     new Note
-                    {
-                        NoteId = Guid.NewGuid(),
-                        Content = model.NoteContent,
-                        DateCreated = DateTime.Now,
-                    }
-                },
+                RecordedByUserId = model.AdministeredByStaffMemberId,
+                AdministeredByUserId = model.AdministeredByStaffMemberId,
+                VisitId = model.VisitId,
+                Notes = new List<Note>()
             };
+
+            if(!String.IsNullOrEmpty(model.NoteContent))
+            {
+                HospitalService.NotesBusinessLogic.CreateNote(new Note
+                {
+                    NoteId = Guid.NewGuid(),
+                    Content = model.NoteContent,
+                    DateCreated = DateTime.Now,
+                    Treatment = procedure
+                });
+            }
 
             HospitalService.ProcedureBusinessLogic.CreateProcedure(procedure);
 
-            return View("Create");
+            return RedirectToAction("Options", "Patient", new { id = visit.Patient.UserId });
         }
 
         [HttpPost]

@@ -8,8 +8,11 @@
     <div>
         @using (Html.BeginForm("CreateProcedure", "Treatment", FormMethod.Post))
         {
+            @Html.HiddenFor(model => model.VisitId)
             @Html.LabelFor(model => model.Operations)
             @Html.DropDownListFor(model => model.SelectedOperationId, new SelectList(Model.Operations, "OperationId", "Name", null))
+            @Html.LabelFor(model => model.MedicalStaff)
+            @Html.DropDownListFor(model => model.AdministeredByStaffMemberId, new SelectList(Model.MedicalStaff, "UserId", "FullName", null))
             @Html.LabelFor(model => model.ScheduledDate)
             @Html.TextBoxFor(model => model.ScheduledDate)
             @Html.LabelFor(model => model.DateAdministered)

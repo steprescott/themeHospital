@@ -41,15 +41,16 @@ namespace TH.TestApplication
             AddMedicine("325ff7d3-e84b-489b-b81e-d0f191d6ebd8", "Paracetamol", "Paracetamol is a painkilling (analgesic) medicine available over-the-counter without a prescription.");
             AddMedicine("06dc300f-136a-45f8-8d28-b3769ebf570f", "Codeine", "Codeine is an opioid pain medication. An opioid is sometimes called a narcotic. Codeine is used to treat mild to moderately severe pain.");
 
-            //Add me some beds
+            //Add me some wards
             var ward1 = AddWard("AE17AB22-8F9C-11E4-9E1E-7C2C95DB5880", 1);
             var ward2 = AddWard("B5DB3AEA-8F9C-11E4-98FD-7C2C95DB5880", 2);
 
-            var bed1 = AddBed("72311cc9-7e4c-4b73-a403-471601993bf4", 1, ward1);
-            var bed2 = AddBed("b7b03889-bae2-4470-8144-4fcb920b6ad4", 2, ward1);
-            var bed3 = AddBed("4c3f8b04-47eb-4c3e-a895-4efd6f2eb225", 3, ward1);
-            var bed4 = AddBed("f6b2c23f-214c-439a-b8e9-ccd88944f4c7", 1, ward2);
-            var bed5 = AddBed("03f5d5bc-f4bf-43ec-9cb8-8756d0ab1d5d", 2, ward2);
+            //Add me some beds
+            AddBed("72311cc9-7e4c-4b73-a403-471601993bf4", 1, ward1);
+            AddBed("b7b03889-bae2-4470-8144-4fcb920b6ad4", 2, ward1);
+            AddBed("4c3f8b04-47eb-4c3e-a895-4efd6f2eb225", 3, ward1);
+            AddBed("f6b2c23f-214c-439a-b8e9-ccd88944f4c7", 1, ward2);
+            AddBed("03f5d5bc-f4bf-43ec-9cb8-8756d0ab1d5d", 2, ward2);
 
             Console.WriteLine("--- Done :D");
             Console.ReadKey();

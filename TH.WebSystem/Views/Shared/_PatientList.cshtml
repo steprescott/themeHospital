@@ -15,7 +15,7 @@
                 <td>@patient.Firstname</td>
                 <td>@patient.LastName</td>
                 <td>
-                    @Html.ActionLink("Options", "Menu", "Patient", new { id = patient.UserId })
+                    @Html.ActionLink("Options", "Options", "Patient", new { id = patient.UserId }, null)
                 </td>
             </tr>
         }
