@@ -19,24 +19,30 @@ namespace TH.BusinessLogicEntityFramework.Logic
         {
             try
             {
-                var efMedicine = _unitOfWork.GetById<Medicine>(medicine.MedicineId);
+                var efObject = _unitOfWork.GetById<Medicine>(medicine.MedicineId);
 
-                if (efMedicine == null)
+                if (efObject == null)
                 {
-                    efMedicine = new Medicine
+                    efObject = new Medicine
                     {
-                        MedicineId = medicine.MedicineId != null ? medicine.MedicineId : Guid.NewGuid()
+                        MedicineId = medicine.MedicineId != Guid.Empty ? medicine.MedicineId : Guid.NewGuid(),
+                        Name = medicine.Name,
+                        Description = medicine.Description
                     };
 
-                    _unitOfWork.Insert(efMedicine);
+                    _unitOfWork.Insert(efObject);
+                }
+                else
+                {
+                    efObject.Name = medicine.Name;
+                    efObject.Description = medicine.Description;
+                    _unitOfWork.Update(efObject);
                 }
 
-                efMedicine.Name = medicine.Name;
-                efMedicine.Description = medicine.Description;
                 _unitOfWork.SaveChanges();
                 return true;
             }
-            catch (Exception)
+            catch (Exception exception)
             {
                 return false;
             }
@@ -47,12 +53,35 @@ namespace TH.BusinessLogicEntityFramework.Logic
             try
             {
                 _unitOfWork.Delete(_unitOfWork.GetById<Medicine>(medicineId));
+                _unitOfWork.SaveChanges();
                 return true;
             }
-            catch (Exception)
+            catch (Exception exception)
             {
                 return false;
             }
+        }
+
+        public static Medicine ConvertToEntityFramework(Domain.Treatments.Medicine medicine)
+        {
+            return new Medicine
+            {
+                MedicineId = medicine.MedicineId,
+                Name = medicine.Name,
+                Description = medicine.Description,
+                CourseOfMedicines = medicine.CourseOfMedicines.Select(i => CourseOfMedicineBusinessLogicEntityFramework.ConvertToEntityFramework(i)).ToList()
+            };
+        }
+
+        public static Domain.Treatments.Medicine ConvertToDomain(Medicine medicine)
+        {
+            return new Domain.Treatments.Medicine
+            {
+                MedicineId = medicine.MedicineId,
+                Name = medicine.Name,
+                Description = medicine.Description,
+                CourseOfMedicines = medicine.CourseOfMedicines.Select(i => CourseOfMedicineBusinessLogicEntityFramework.ConvertToEntityFramework(i)).ToList()
+            };
         }
     }
 }

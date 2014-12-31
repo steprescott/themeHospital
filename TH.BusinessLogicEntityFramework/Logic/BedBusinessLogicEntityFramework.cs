@@ -54,7 +54,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
             return false;
         }
 
-        public bool AssignBedToWard(Domain.Other.Bed bed, Domain.Other.Ward ward)
+        public bool AssignBedToWard(Domain.Other.Bed bed, Domain.Wards.Ward ward)
         {
             try
             {
@@ -62,14 +62,14 @@ namespace TH.BusinessLogicEntityFramework.Logic
                 var efBed = _unitOfWork.GetById<Bed>(bed.BedId);
 
                 if (efWard != null && efBed != null)
-                {
+            {
                     efWard.Beds.Add(efBed);
 
-                    _unitOfWork.Update(efWard);
-                    _unitOfWork.SaveChanges();
+                _unitOfWork.Update(efWard);
+                _unitOfWork.SaveChanges();
 
-                    return true;
-                }
+                return true;
+            }
             }
             catch (Exception exception)
             {

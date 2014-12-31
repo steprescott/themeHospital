@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TH.Domain.Other;
+using TH.Domain.Wards;
 
 namespace TH.Interfaces
 {
     public interface IWardBusinessLogic
     {
-        List<Domain.Other.Ward> GetAllWards();
+        List<Ward> GetAllWards();
         bool CreateOrUpdateWard(Ward ward);
     }
 }

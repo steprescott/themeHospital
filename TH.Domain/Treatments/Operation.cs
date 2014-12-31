@@ -9,5 +9,6 @@ namespace TH.Domain.Treatments
         public Guid OperationId { get; set; }
         public String Name { get; set; }
         public String Description { get; set; }
+        public List<Procedure> Procedures { get; set; } 
     }
 }

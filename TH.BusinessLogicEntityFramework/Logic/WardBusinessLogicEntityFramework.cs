@@ -17,14 +17,14 @@ namespace TH.BusinessLogicEntityFramework.Logic
             _unitOfWork = unitOfWork;
         }
 
-        public List<Domain.Other.Ward> GetAllWards()
+        public List<Domain.Wards.Ward> GetAllWards()
         {
             var wards = _unitOfWork.GetAll<Ward>().ToList();
 
             return wards.Select(w => ConvertToDomain(w)).ToList();
         }
 
-        public bool CreateOrUpdateWard(Domain.Other.Ward ward)
+        public bool CreateOrUpdateWard(Domain.Wards.Ward ward)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
             }
         }
 
-        public Domain.Other.Ward GetWardWithId(Guid id)
+        public Domain.Wards.Ward GetWardWithId(Guid id)
         {
             var ward = _unitOfWork.GetById<Ward>(id);
 

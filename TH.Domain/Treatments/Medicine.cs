@@ -11,5 +11,6 @@ namespace TH.Domain.Treatments
         public Guid MedicineId { get; set; }
         public String Name { get; set; }
         public String Description { get; set; }
+        public List<Medicine> CourseOfMedicines { get; set; } 
     }
 }
