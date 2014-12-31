@@ -20,10 +20,12 @@ namespace TH.WebSystem.Controllers
         public ActionResult Details(Guid id)
         {
             var patient = HospitalService.PatientBusinessLogic.GetPatientWithId(id);
+            var patientHasOpenVisit = HospitalService.PatientBusinessLogic.PatientHasOpenVisit(id);
 
             return View(new PatientDetailsModel
             {
-                Patient = patient
+                Patient = patient,
+                HasOpenVisit = patientHasOpenVisit
             });
         }
 
@@ -42,13 +44,13 @@ namespace TH.WebSystem.Controllers
         }
 
         [HttpGet]
-        public ActionResult Search()
+        public ActionResult SearchPatient()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Search(string patient)
+        public ActionResult SearchPatient(string patient)
         {
             var matchedPateints = HospitalService.PatientBusinessLogic.SearchPatient(patient);
             return PartialView("_PatientList", matchedPateints);
@@ -58,7 +60,7 @@ namespace TH.WebSystem.Controllers
         public ActionResult Admit(Guid id)
         {
             var teams = HospitalService.TeamBusinessLogic.GetAll();
-
+            
             return View(new AdmissionModel
             {
                 PatientId = id,
@@ -74,21 +76,32 @@ namespace TH.WebSystem.Controllers
             return RedirectToAction("Details", new { id = admissionModel.PatientId });
         }
 
-        public ActionResult Options(Guid id)
+        [HttpGet]
+        public ActionResult Dismiss(Guid id)
         {
-            var currentVisit = HospitalService.PatientBusinessLogic.GetCurrentVisitForPatientId(id);
-
-            return View(new PatientOptionsViewModel
+            return View(new DismissModel
             {
                 PatientId = id,
-                VisitId = currentVisit != null ? currentVisit.VisitId : Guid.Empty
+                Patient = HospitalService.PatientBusinessLogic.GetPatientWithId(id)
             });
+        }
+
+        [HttpPost]
+        public ActionResult Dismiss(DismissModel dismissModel)
+        {
+            HospitalService.PatientBusinessLogic.DismissPatient(dismissModel.PatientId);
+            return RedirectToAction("Details", new { id = dismissModel.PatientId });
+        }
+
+        public ActionResult Menu()
+        {
+            return View();
         }
 
         public ActionResult DisplayWards()
         {
             var wards = HospitalService.WardBusinessLogic.GetAllWards().OrderBy(ward => ward.Number).ToList();
-            return View(new DisplayWardsViewModel { Wards = wards });
+            return View(new DisplayWardsViewModel { Wards = wards});
         }
     }
 }

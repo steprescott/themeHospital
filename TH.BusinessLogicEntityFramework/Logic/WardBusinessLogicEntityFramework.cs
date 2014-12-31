@@ -64,5 +64,10 @@ namespace TH.BusinessLogicEntityFramework.Logic
                 return false;
             }
         }
+
+        public Domain.Other.Ward GetWardWithId(Guid id)
+        {
+            return ReflectiveMapperService.ConvertItem<Ward, Domain.Other.Ward>(_unitOfWork.GetById<Ward>(id));
+        }
     }
 }

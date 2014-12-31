@@ -10,6 +10,20 @@ namespace TH.ReflectiveMapper
     /// </summary>
     public static class ReflectiveMapperService
     {
+        private class StackOverflowCheck
+        {
+            public Type Type { get; set; }
+            public int Counter { get; set; }
+
+            public StackOverflowCheck(Type type)
+            {
+                Type = type;
+                Counter = 0;
+            }
+        }
+
+        private static List<StackOverflowCheck> recursiveStackOverflowChecks = new List<StackOverflowCheck>();
+
         /// <summary>
         /// Converts objects from a source type to a destination type
         /// </summary>
@@ -21,13 +35,13 @@ namespace TH.ReflectiveMapper
             where TSource : class 
             where TDestination : class
         {
+            if (source == null || recursiveStackOverflowChecks.Any(soc => soc.Counter > 5))
+            {
+                //return null;
+            }
+
             //Get an instance of the destination object
             var destination = GenerateInstanceFromDestinationSource<TDestination>();
-
-            if (source == null)
-            {
-                return null;
-            }
 
             //Ensure if there are lists being carried through then ensure source and destination are
             if ((source.IsCollection() && !destination.IsCollection() || (!source.IsCollection() && destination.IsCollection())))
@@ -176,9 +190,36 @@ namespace TH.ReflectiveMapper
             //Generate the Generic parameters
             MethodInfo generic = method.MakeGenericMethod(sourceType, destinationType);
 
+            //var test = recursiveStackOverflowChecks.SingleOrDefault(soc => soc.Type == sourceType);
+            //if (test == null)
+            //{
+            //    recursiveStackOverflowChecks.Add(new StackOverflowCheck(sourceType));
+            //}
+            //else
+            //{
+            //    recursiveStackOverflowChecks.Remove(test);
+            //    test.Counter = test.Counter++;
+            //    recursiveStackOverflowChecks.Add(test);
+            //}
+
             //Invoke the method passing through the object we are converting from
             return generic.Invoke(null, new[] { sourcePropertyValue });
         }
+
+        //private static IEnumerable<PropertyInfo> RecursivelyGetProperties(object sourcePropertyValue)
+        //{
+        //    var properties = sourcePropertyValue.GetType().GetProperties();
+
+        //    foreach (var propertyInfo in properties)
+        //    {
+        //        object propValue = propertyInfo.GetValue(sourcePropertyValue, null);
+        //        if (propertyInfo.PropertyType.Assembly == sourcePropertyValue.GetType().Assembly)
+        //        {
+        //            yield return RecursivelyGetProperties(propValue).AsEnumerable();
+        //        }
+        //        return 
+        //    }
+        //}
 
         /// <summary>
         /// Gets a property by name if it exists in a array of property info's

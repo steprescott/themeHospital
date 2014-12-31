@@ -71,10 +71,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
                     _unitOfWork.SaveChanges();
                     return true;
                 }
-                else
-                {
-                    return false;
-                }
+                return false;
             }
             catch (Exception)
             {
@@ -123,7 +120,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
             return null;
         }
 
-        public bool IsOpenVisitForPatient(Guid patientId)
+        public bool PatientHasOpenVisit(Guid patientId)
         {
             var patient = _unitOfWork.GetById<Patient>(patientId);
 
@@ -166,6 +163,30 @@ namespace TH.BusinessLogicEntityFramework.Logic
                     {
                         return false;
                     }
+                }
+            }
+            return false;
+        }
+
+        public bool DismissPatient(Guid patientId)
+        {
+            var patient = _unitOfWork.GetById<Patient>(patientId);
+
+            if (patient != null && PatientHasOpenVisit(patientId))
+            {
+                var visit = patient.Visits.Single(v => v.ReleaseDate == null);
+                visit.ReleaseDate = DateTime.Now;
+
+                try
+                {
+                    _unitOfWork.Update(visit);
+                    _unitOfWork.SaveChanges();
+
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
                 }
             }
             return false;
