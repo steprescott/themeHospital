@@ -22,9 +22,10 @@ namespace TH.UnitOfWorkEntityFramework
     
         public string EmergencyContactName { get; set; }
         public string EmergencyContactNumber { get; set; }
+        public Nullable<System.Guid> WardWaitingListId { get; set; }
     
         public virtual ICollection<Visit> Visits { get; set; }
-        public virtual WardWaitingList WardWaitingList { get; set; }
         public virtual ICollection<Note> Notes { get; set; }
+        public virtual WardWaitingList WardWaitingList { get; set; }
     }
 }

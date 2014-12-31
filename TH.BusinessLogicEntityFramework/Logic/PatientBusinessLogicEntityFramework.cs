@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using TH.Interfaces;
-using TH.ReflectiveMapper;
 using TH.UnitOfWorkEntityFramework;
 
 namespace TH.BusinessLogicEntityFramework.Logic

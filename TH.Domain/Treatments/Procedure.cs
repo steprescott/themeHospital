@@ -17,6 +17,5 @@ namespace TH.Domain.Treatments
         public Guid RecordedByUserId { get; set; }
 
         public Guid AdministeredByUserId { get; set; }
-
     }
 }

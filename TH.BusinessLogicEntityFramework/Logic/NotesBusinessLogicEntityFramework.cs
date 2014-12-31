@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TH.UnitOfWorkEntityFramework;
 using TH.Interfaces;
-using TH.ReflectiveMapper;
 
 namespace TH.BusinessLogicEntityFramework.Logic
 {
@@ -22,15 +19,41 @@ namespace TH.BusinessLogicEntityFramework.Logic
         {
             try
             {
-                var efObject = ReflectiveMapperService.ConvertItem<Domain.Other.Note, Note>(note);
+                var efObject = ConvertToEntityFramework(note);
                 _unitOfWork.Insert(efObject);
                 _unitOfWork.SaveChanges();
                 return true;
             }
-            catch (Exception)
+            catch (Exception exception)
             {
                 return false;
             }
+        }
+
+        private Note ConvertToEntityFramework(Domain.Other.Note note)
+        {
+            return new Note
+            {
+                NoteId = note.NoteId,
+                Content = note.Content,
+                DateCreated = note.DateCreated,
+                TreatmentId = note.TreatmentId,
+                PatientUserId = note.PatientId,
+                VisitId = note.VisitId
+            };
+        }
+
+        private Domain.Other.Note ConvertToDomain(Note note)
+        {
+            return new Domain.Other.Note
+            {
+                NoteId = note.NoteId,
+                Content = note.Content,
+                DateCreated = note.DateCreated,
+                TreatmentId = note.TreatmentId,
+                PatientId = note.PatientUserId,
+                VisitId = note.VisitId
+            };
         }
     }
 }

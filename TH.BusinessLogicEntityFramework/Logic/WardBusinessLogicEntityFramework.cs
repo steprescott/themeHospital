@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TH.Domain.Other;
 using TH.Interfaces;
-using TH.ReflectiveMapper;
 using TH.UnitOfWorkEntityFramework;
 using Bed = TH.UnitOfWorkEntityFramework.Bed;
 using Ward = TH.UnitOfWorkEntityFramework.Ward;

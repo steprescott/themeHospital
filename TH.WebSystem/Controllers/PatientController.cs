@@ -20,12 +20,10 @@ namespace TH.WebSystem.Controllers
         public ActionResult Details(Guid id)
         {
             var patient = HospitalService.PatientBusinessLogic.GetPatientWithId(id);
-            var patientHasOpenVisit = HospitalService.PatientBusinessLogic.PatientHasOpenVisit(id);
 
             return View(new PatientDetailsModel
             {
-                Patient = patient,
-                HasOpenVisit = patientHasOpenVisit
+                Patient = patient
             });
         }
 
@@ -44,13 +42,13 @@ namespace TH.WebSystem.Controllers
         }
 
         [HttpGet]
-        public ActionResult SearchPatient()
+        public ActionResult Search()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult SearchPatient(string patient)
+        public ActionResult Search(string patient)
         {
             var matchedPateints = HospitalService.PatientBusinessLogic.SearchPatient(patient);
             return PartialView("_PatientList", matchedPateints);
@@ -93,9 +91,15 @@ namespace TH.WebSystem.Controllers
             return RedirectToAction("Details", new { id = dismissModel.PatientId });
         }
 
-        public ActionResult Menu()
+        public ActionResult Options(Guid id)
         {
-            return View();
+            var currentVisit = HospitalService.PatientBusinessLogic.GetCurrentVisitForPatientId(id);
+
+            return View(new PatientOptionsViewModel
+            {
+                PatientId = id,
+                VisitId = currentVisit != null ? currentVisit.VisitId : Guid.Empty
+            });
         }
 
         public ActionResult DisplayWards()

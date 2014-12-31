@@ -186,7 +186,7 @@ namespace TH.TestApplication
             {
                 BedId = Guid.Parse(bedId),
                 Number = bedNumber,
-                Ward = ward
+                WardId = ward.WardId
             };
 
             bedBusinessLogic.CreateOrUpdateBed(bed);

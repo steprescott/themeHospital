@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TH.Interfaces;
-using TH.ReflectiveMapper;
 using TH.UnitOfWorkEntityFramework;
 
 namespace TH.BusinessLogicEntityFramework.Logic
@@ -22,7 +19,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
         {
             try
             {
-                Procedure efObject = ReflectiveMapperService.ConvertItem<Domain.Treatments.Procedure, Procedure>(procedure);
+                Procedure efObject = ConvertToEntityFramework(procedure);
                 _unitOfWork.Insert(efObject); 
                 _unitOfWork.SaveChanges();
                 return true;
@@ -31,6 +28,33 @@ namespace TH.BusinessLogicEntityFramework.Logic
             {
                 return false;
             }
+        }
+
+        private Procedure ConvertToEntityFramework(Domain.Treatments.Procedure procedure)
+        {
+            return new Procedure { 
+                TreatmentId = procedure.TreatmentId,
+                OperationId = procedure.OperationId,
+                ScheduledDate = procedure.ScheduledDate,
+                VisitId = procedure.VisitId,
+                RecordedByUserId = procedure.RecordedByUserId,
+                AdministeredByUserId = procedure.AdministeredByUserId,
+                DateAdministered = procedure.DateAdministered,
+            };
+        }
+
+        private Domain.Treatments.Procedure ConvertToDomain(Procedure procedure)
+        {
+            return new Domain.Treatments.Procedure
+            {
+                TreatmentId = procedure.TreatmentId,
+                OperationId = procedure.OperationId,
+                ScheduledDate = procedure.ScheduledDate,
+                VisitId = procedure.VisitId,
+                RecordedByUserId = procedure.RecordedByUserId,
+                AdministeredByUserId = procedure.AdministeredByUserId,
+                DateAdministered = procedure.DateAdministered,
+            }; 
         }
     }
 }

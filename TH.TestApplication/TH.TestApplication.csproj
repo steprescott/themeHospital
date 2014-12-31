@@ -71,10 +71,6 @@
       <Project>{6030569B-643F-4E9E-B454-BB45F4CD6084}</Project>
       <Name>TH.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TH.ReflectiveMapper\TH.ReflectiveMapper.csproj">
-      <Project>{B4F1DCA3-5411-4D87-B137-578A61AFFDAE}</Project>
-      <Name>TH.ReflectiveMapper</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

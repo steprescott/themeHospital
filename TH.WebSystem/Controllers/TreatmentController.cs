@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Migrations.Model;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using TH.Domain.Other;
 using TH.Domain.Treatments;
 using TH.WebSystem.Models;
-using TH.WebSystem.Providers;
 
 namespace TH.WebSystem.Controllers
 {
@@ -29,7 +26,9 @@ namespace TH.WebSystem.Controllers
             {
                 MedicalStaff = medicalStaffForPatient,
                 Operations = operations,
-                VisitId = id
+                VisitId = id,
+                ScheduledDate = DateTime.Now,
+                DateAdministered = DateTime.Now
             });
         }
 
@@ -50,18 +49,18 @@ namespace TH.WebSystem.Controllers
                 Notes = new List<Note>()
             };
 
-            if(!String.IsNullOrEmpty(model.NoteContent))
+            var result = HospitalService.ProcedureBusinessLogic.CreateProcedure(procedure);
+
+            if(result && !string.IsNullOrEmpty(model.NoteContent))
             {
                 HospitalService.NotesBusinessLogic.CreateNote(new Note
                 {
                     NoteId = Guid.NewGuid(),
                     Content = model.NoteContent,
                     DateCreated = DateTime.Now,
-                    Treatment = procedure
+                    TreatmentId = procedure.TreatmentId
                 });
             }
-
-            HospitalService.ProcedureBusinessLogic.CreateProcedure(procedure);
 
             return RedirectToAction("Options", "Patient", new { id = visit.Patient.UserId });
         }

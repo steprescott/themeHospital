@@ -14,6 +14,7 @@ namespace TH.UnitOfWorkEntityFramework
     
     public partial class Doctor : StaffMember
     {
+        public Nullable<System.Guid> TeamId { get; set; }
     
         public virtual Team Team { get; set; }
     }

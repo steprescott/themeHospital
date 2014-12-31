@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TH.Interfaces;
-using TH.ReflectiveMapper;
 using TH.UnitOfWorkEntityFramework;
 
 namespace TH.BusinessLogicEntityFramework.Logic

@@ -17,6 +17,7 @@ namespace TH.UnitOfWorkEntityFramework
         public System.DateTime StartDate { get; set; }
         public System.DateTime EndDate { get; set; }
         public string Instructions { get; set; }
+        public System.Guid MedicineId { get; set; }
     
         public virtual Medicine Medicine { get; set; }
     }

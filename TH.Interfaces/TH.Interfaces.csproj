@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="IBedBusinessLogic.cs" />
     <Compile Include="IConsultantBusinessLogic.cs" />
+    <Compile Include="IConvert.cs" />
     <Compile Include="ICourseOfMedicine.cs" />
     <Compile Include="IDoctorBusinessLogic.cs" />
     <Compile Include="ILoginServiceBusinessLogic.cs">
