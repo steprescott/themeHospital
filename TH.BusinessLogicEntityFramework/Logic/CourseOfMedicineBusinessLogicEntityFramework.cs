@@ -19,7 +19,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
         {
             try
             {
-                CourseOfMedicine efObject = ReflectiveMapperService.ConvertItem<Domain.Treatments.CourseOfMedicine, CourseOfMedicine>(courseOfMedicine);
+                CourseOfMedicine efObject = ConvertToEntityFramework(courseOfMedicine);
                 _unitOfWork.Insert(efObject);
                 _unitOfWork.SaveChanges();
                 return true;
@@ -28,6 +28,38 @@ namespace TH.BusinessLogicEntityFramework.Logic
             {
                 return false;
             }
+        }
+
+        public static CourseOfMedicine ConvertToEntityFramework(Domain.Treatments.CourseOfMedicine courseOfMedicine)
+        {
+            return new CourseOfMedicine
+            {
+                TreatmentId = courseOfMedicine.TreatmentId,
+                MedicineId = courseOfMedicine.MedicineId,
+                ScheduledDate = courseOfMedicine.ScheduledDate,
+                VisitId = courseOfMedicine.VisitId,
+                RecordedByUserId = courseOfMedicine.RecordedByUserId,
+                AdministeredByUserId = courseOfMedicine.AdministeredByUserId,
+                StartDate = courseOfMedicine.StartDate,
+                EndDate = courseOfMedicine.EndDate,
+                Instructions = courseOfMedicine.Instructions
+            };
+        }
+
+        public static Domain.Treatments.CourseOfMedicine ConvertToDomain(CourseOfMedicine courseOfMedicine)
+        {
+            return new Domain.Treatments.CourseOfMedicine
+            {
+                TreatmentId = courseOfMedicine.TreatmentId,
+                MedicineId = courseOfMedicine.MedicineId,
+                ScheduledDate = courseOfMedicine.ScheduledDate,
+                VisitId = courseOfMedicine.VisitId,
+                RecordedByUserId = courseOfMedicine.RecordedByUserId,
+                AdministeredByUserId = courseOfMedicine.AdministeredByUserId,
+                StartDate = courseOfMedicine.StartDate,
+                EndDate = courseOfMedicine.EndDate,
+                Instructions = courseOfMedicine.Instructions
+            };
         }
     }
 }
