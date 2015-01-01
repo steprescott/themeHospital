@@ -16,6 +16,7 @@ namespace TH.ReflectiveMapper
         /// <typeparam name="TSource">The type to convert from</typeparam>
         /// <typeparam name="TDestination">The type to convert to</typeparam>
         /// <param name="source">An instantiated object in which to convert from</param>
+        /// <param name="nestedLevels">The number of levels the mapping service should work to. Default is 3.</param>
         /// <returns>The result of the conversion</returns>
         public static TDestination ConvertItem<TSource, TDestination>(TSource source, int nestedLevels = 3)
             where TSource : class
