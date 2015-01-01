@@ -22,17 +22,21 @@ namespace TH.WebSystem.Controllers
 
         public ActionResult Create(Guid id)
         {
-            var medicalStaffForPatient = HospitalService.VisitBusinessLogic.MedicalStaffForVisitWithId(id);
+            var visit = HospitalService.VisitBusinessLogic.GetVisitWithId(id);
+            var medicalStaff = HospitalService.VisitBusinessLogic.MedicalStaffForVisitWithId(visit.VisitId);
             var operations = HospitalService.OperationBusinessLogic.GetAllOperations();
+            var medicines = HospitalService.MedicneBusinessLogic.GetAllMedicines();
             var currentUser = ThemeHospitalMembershipProvider.GetCurrentUser();
 
             return View(new CreateTreatmentViewModel()
             {
-                MedicalStaff = medicalStaffForPatient,
+                MedicalStaff = medicalStaff,
                 Operations = operations,
+                Medicines = medicines,
+                PatientFullName = visit.Patient.FullName,
                 VisitId = id,
-                DateAdministered = DateTime.Now,
                 ScheduledDate = DateTime.Now,
+                EndDate = DateTime.Now,
                 RecordedByStaffMemberId = currentUser.UserId
             });
         }
@@ -45,13 +49,13 @@ namespace TH.WebSystem.Controllers
             var procedure = new Procedure()
             {
                 TreatmentId = Guid.NewGuid(),
-                OperationId = model.SelectedOperationId,
                 ScheduledDate = model.ScheduledDate,
-                DateAdministered = model.DateAdministered,
                 RecordedByUserId = model.RecordedByStaffMemberId,
-                AdministeredByUserId = model.AdministeredByStaffMemberId,
+                AssignedToUserId = model.AssignedToStaffMemberId,
                 VisitId = model.VisitId,
-                Notes = new List<Note>()
+                Notes = new List<Note>(),
+
+                OperationId = model.SelectedOperationId
             };
 
             var result = HospitalService.ProcedureBusinessLogic.CreateProcedure(procedure);
@@ -73,7 +77,35 @@ namespace TH.WebSystem.Controllers
         [HttpPost]
         public ActionResult CreateCourseOfMedicine(CreateTreatmentViewModel model)
         {
-            return View();
+            var visit = HospitalService.VisitBusinessLogic.GetVisitWithId(model.VisitId);
+
+            var courseOfMedicine = new CourseOfMedicine {
+                TreatmentId = Guid.NewGuid(),
+                ScheduledDate = model.ScheduledDate,
+                RecordedByUserId = model.RecordedByStaffMemberId,
+                AssignedToUserId = model.AssignedToStaffMemberId,
+                VisitId = model.VisitId,
+                Notes = new List<Note>(),
+
+                EndDate = model.EndDate,
+                Instructions = model.Instructions,
+                MedicineId = model.SelectedMedicineId
+            };
+
+            var result = HospitalService.CourseOfMedicineBusinessLogic.CreateCauseOfMedicne(courseOfMedicine);
+
+            if (result && !String.IsNullOrEmpty(model.NoteContent))
+            {
+                var noteResult = HospitalService.NotesBusinessLogic.CreateNote(new Note
+                {
+                    NoteId = Guid.NewGuid(),
+                    Content = model.NoteContent,
+                    DateCreated = DateTime.Now,
+                    TreatmentId = courseOfMedicine.TreatmentId
+                });
+            }
+
+            return RedirectToAction("Options", "Patient", new { id = visit.Patient.UserId });
         }
     }
 }

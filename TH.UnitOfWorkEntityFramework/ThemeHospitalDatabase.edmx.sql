@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/31/2014 20:08:56
--- Generated from EDMX file: C:\Users\Jonathan\Source\Repos\themeHospital\TH.UnitOfWorkEntityFramework\ThemeHospitalDatabase.edmx
+-- Date Created: 01/01/2015 19:36:10
+-- Generated from EDMX file: C:\Users\steprescott\Documents\Visual Studio 2013\Projects\Theme Hospital\TH.UnitOfWorkEntityFramework\ThemeHospitalDatabase.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -79,6 +79,9 @@ IF OBJECT_ID(N'[dbo].[FK_VisitNote]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_ConsultantTeam]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Teams] DROP CONSTRAINT [FK_ConsultantTeam];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TreatmentStaffMember]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Treatments] DROP CONSTRAINT [FK_TreatmentStaffMember];
 GO
 IF OBJECT_ID(N'[dbo].[FK_StaffMember_inherits_User]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Users_StaffMember] DROP CONSTRAINT [FK_StaffMember_inherits_User];
@@ -215,7 +218,8 @@ CREATE TABLE [dbo].[Treatments] (
     [ScheduledDate] datetime  NOT NULL,
     [VisitId] uniqueidentifier  NOT NULL,
     [RecordedByUserId] uniqueidentifier  NOT NULL,
-    [AdministeredByUserId] uniqueidentifier  NOT NULL
+    [AdministeredByUserId] uniqueidentifier  NULL,
+    [AssignedToUserId] uniqueidentifier  NOT NULL
 );
 GO
 
@@ -302,7 +306,7 @@ GO
 
 -- Creating table 'Treatments_Procedure'
 CREATE TABLE [dbo].[Treatments_Procedure] (
-    [DateAdministered] datetime  NOT NULL,
+    [DateAdministered] datetime  NULL,
     [OperationId] uniqueidentifier  NOT NULL,
     [TreatmentId] uniqueidentifier  NOT NULL
 );
@@ -317,7 +321,6 @@ GO
 
 -- Creating table 'Treatments_CourseOfMedicine'
 CREATE TABLE [dbo].[Treatments_CourseOfMedicine] (
-    [StartDate] datetime  NOT NULL,
     [EndDate] datetime  NOT NULL,
     [Instructions] nvarchar(max)  NOT NULL,
     [MedicineId] uniqueidentifier  NOT NULL,
@@ -796,6 +799,21 @@ GO
 CREATE INDEX [IX_FK_ConsultantTeam]
 ON [dbo].[Teams]
     ([Consultant_UserId]);
+GO
+
+-- Creating foreign key on [AssignedToUserId] in table 'Treatments'
+ALTER TABLE [dbo].[Treatments]
+ADD CONSTRAINT [FK_TreatmentStaffMember]
+    FOREIGN KEY ([AssignedToUserId])
+    REFERENCES [dbo].[Users_StaffMember]
+        ([UserId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_TreatmentStaffMember'
+CREATE INDEX [IX_FK_TreatmentStaffMember]
+ON [dbo].[Treatments]
+    ([AssignedToUserId]);
 GO
 
 -- Creating foreign key on [UserId] in table 'Users_StaffMember'

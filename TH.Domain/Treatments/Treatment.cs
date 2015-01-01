@@ -12,6 +12,14 @@ namespace TH.Domain.Treatments
 
         public DateTime ScheduledDate { get; set; }
 
+        public Guid VisitId { get; set; }
+
+        public Guid RecordedByUserId { get; set; }
+
+        public Guid AssignedToUserId { get; set; }
+
+        public Guid? AdministeredByUserId { get; set; }
+
         public List<Note> Notes { get; set; }
     }
 }

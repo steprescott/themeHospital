@@ -18,26 +18,34 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
         public bool CreateOrUpdateOperation(Domain.Treatments.Operation operation)
         {
+            var efObject = _unitOfWork.GetById<Operation>(operation.OperationId);
+
             try
             {
-                var efOperation = _unitOfWork.GetById<Operation>(operation.OperationId);
-
-                if (efOperation == null)
+                if (efObject == null)
                 {
-                    efOperation = new Operation
+                    efObject = new Operation
                     {
-                        OperationId = operation.OperationId != null ? operation.OperationId : Guid.NewGuid()
+                        OperationId = operation.OperationId != null ? operation.OperationId : Guid.NewGuid(),
+                        Name = operation.Name,
+                        Description = operation.Description,
                     };
 
-                    _unitOfWork.Insert(efOperation);
+                    _unitOfWork.Insert(efObject);
+                }
+                else
+                {
+                    efObject.Name = operation.Name;
+                    efObject.Description = operation.Description;
+
+                    _unitOfWork.Update(efObject);
                 }
 
-                efOperation.Name = operation.Name;
-                efOperation.Description = operation.Description;
                 _unitOfWork.SaveChanges();
                 return true;
+
             }
-            catch (Exception)
+            catch (Exception exception)
             {
                 return false;
             }

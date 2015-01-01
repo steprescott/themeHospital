@@ -23,11 +23,13 @@ namespace TH.UnitOfWorkEntityFramework
         public System.DateTime ScheduledDate { get; set; }
         public System.Guid VisitId { get; set; }
         public System.Guid RecordedByUserId { get; set; }
-        public System.Guid AdministeredByUserId { get; set; }
+        public Nullable<System.Guid> AdministeredByUserId { get; set; }
+        public System.Guid AssignedToUserId { get; set; }
     
         public virtual Visit Visit { get; set; }
         public virtual StaffMember RecordedBy { get; set; }
         public virtual StaffMember AdministeredBy { get; set; }
         public virtual ICollection<Note> Notes { get; set; }
+        public virtual StaffMember AssignedTo { get; set; }
     }
 }
