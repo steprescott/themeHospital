@@ -195,6 +195,8 @@
     <Content Include="Views\Treatment\Create.cshtml" />
     <Content Include="Views\Patient\Admit.cshtml" />
     <Content Include="Views\Patient\Dismiss.cshtml" />
+    <Content Include="Views\Consultant\ManageTeam.cshtml" />
+    <Content Include="Views\Consultant\ViewTreatments.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

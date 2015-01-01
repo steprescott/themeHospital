@@ -57,6 +57,8 @@ namespace TH.WebSystem.Controllers
 
         public ActionResult ViewTreatments()
         {
+
+
             return View();
         }
     }

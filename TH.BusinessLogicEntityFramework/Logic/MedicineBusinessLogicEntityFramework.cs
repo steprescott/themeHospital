@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TH.Interfaces;
+using TH.ReflectiveMapper;
 using TH.UnitOfWorkEntityFramework;
 
 namespace TH.BusinessLogicEntityFramework.Logic
@@ -27,7 +28,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
                 {
                     efMedicine = new Medicine
                     {
-                        MedicineId = medicine.MedicineId != null ? medicine.MedicineId : Guid.NewGuid()
+                        MedicineId = medicine.MedicineId != Guid.Empty ? medicine.MedicineId : Guid.NewGuid()
                     };
 
                     _unitOfWork.Insert(efMedicine);
@@ -42,6 +43,24 @@ namespace TH.BusinessLogicEntityFramework.Logic
             {
                 return false;
             }
+        }
+
+        public List<Domain.Treatments.CourseOfMedicine> GetCoursesOfMedicinesToBeAdministeredByStaffMemberId(Guid userId)
+        {
+            var coursesOfMedicines = _unitOfWork.GetAll<CourseOfMedicine>().ToList();
+
+            coursesOfMedicines = coursesOfMedicines.Where(com => com.AdministeredByUserId == userId).ToList();
+
+            return coursesOfMedicines.Select(com => ReflectiveMapperService.ConvertItem<CourseOfMedicine, Domain.Treatments.CourseOfMedicine>(com)).ToList();
+        }
+
+        public List<Domain.Treatments.CourseOfMedicine> GetCoursesOfMedicinesForTeamId(Guid teamId)
+        {
+            var coursesOfMedicines = _unitOfWork.GetAll<CourseOfMedicine>().ToList();
+
+            coursesOfMedicines = coursesOfMedicines.Where(com => com.AdministeredByUserId == userId).ToList();
+
+            return coursesOfMedicines.Select(com => ReflectiveMapperService.ConvertItem<CourseOfMedicine, Domain.Treatments.CourseOfMedicine>(com)).ToList();
         }
 
         public bool DeleteMedicineWithId(Guid medicineId)
