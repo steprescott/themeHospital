@@ -22,11 +22,14 @@ namespace TH.ReflectiveMapper
             where TSource : class
             where TDestination : class
         {
+            //If the source is null, there is nothing we can do so just return null. 
+            //Or if the amount of nested levels is 0 then do not go any further. This is to prevent a stack overflow situation
             if (source == null || nestedLevels == 0)
             {
                 return null;
             }
 
+            //Decrement the amount of sub properties to populate
             nestedLevels -= 1;
 
             //Get an instance of the destination object
