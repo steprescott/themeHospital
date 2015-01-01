@@ -26,6 +26,8 @@ namespace TH.WebSystem.Models
 
         public String NoteContent { get; set; }
 
+        public Guid RecordedByStaffMemberId { get; set; }
+
         public Guid AdministeredByStaffMemberId { get; set; }
     }
 }

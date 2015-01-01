@@ -24,6 +24,7 @@ namespace TH.WebSystem.Controllers
         {
             var medicalStaffForPatient = HospitalService.VisitBusinessLogic.MedicalStaffForVisitWithId(id);
             var operations = HospitalService.OperationBusinessLogic.GetAllOperations();
+            var currentUser = ThemeHospitalMembershipProvider.GetCurrentUser();
 
             return View(new CreateTreatmentViewModel()
             {
@@ -31,7 +32,8 @@ namespace TH.WebSystem.Controllers
                 Operations = operations,
                 VisitId = id,
                 DateAdministered = DateTime.Now,
-                ScheduledDate = DateTime.Now
+                ScheduledDate = DateTime.Now,
+                RecordedByStaffMemberId = currentUser.UserId
             });
         }
 
@@ -46,7 +48,7 @@ namespace TH.WebSystem.Controllers
                 OperationId = model.SelectedOperationId,
                 ScheduledDate = model.ScheduledDate,
                 DateAdministered = model.DateAdministered,
-                RecordedByUserId = model.AdministeredByStaffMemberId,
+                RecordedByUserId = model.RecordedByStaffMemberId,
                 AdministeredByUserId = model.AdministeredByStaffMemberId,
                 VisitId = model.VisitId,
                 Notes = new List<Note>()

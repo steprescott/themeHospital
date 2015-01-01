@@ -9,6 +9,8 @@
         @using (Html.BeginForm("CreateProcedure", "Treatment", FormMethod.Post))
         {
             @Html.HiddenFor(model => model.VisitId)
+            @Html.HiddenFor(model => model.RecordedByStaffMemberId)
+            
             @Html.LabelFor(model => model.Operations)
             @Html.DropDownListFor(model => model.SelectedOperationId, new SelectList(Model.Operations, "OperationId", "Name", null))
             @Html.LabelFor(model => model.MedicalStaff)
