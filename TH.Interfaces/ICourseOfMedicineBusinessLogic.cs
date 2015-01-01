@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace TH.Interfaces
 {
-    public interface ICourseOfMedicine
+    public interface ICourseOfMedicineBusinessLogic
     {
-
+        bool CreateCauseOfMedicne(Domain.Treatments.CourseOfMedicine courseOfMedicine);
     }
 }

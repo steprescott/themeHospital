@@ -18,6 +18,7 @@ namespace TH.UnitOfWorkEntityFramework
         {
             this.TreatmentsAssigned = new HashSet<Treatment>();
             this.Treatments = new HashSet<Treatment>();
+            this.AssignedTreatments = new HashSet<Treatment>();
         }
     
         public string Username { get; set; }
@@ -26,5 +27,6 @@ namespace TH.UnitOfWorkEntityFramework
     
         public virtual ICollection<Treatment> TreatmentsAssigned { get; set; }
         public virtual ICollection<Treatment> Treatments { get; set; }
+        public virtual ICollection<Treatment> AssignedTreatments { get; set; }
     }
 }

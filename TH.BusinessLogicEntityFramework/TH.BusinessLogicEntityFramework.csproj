@@ -51,7 +51,7 @@
   <ItemGroup>
     <Compile Include="Logic\BedBusinessLogicEntityFramework.cs" />
     <Compile Include="Logic\ConsultantBusinessLogicEntityFramework.cs" />
-    <Compile Include="Logic\CourseOfMedicineBusinessLogicEntityFramework.cs" />
+    <Compile Include="Logic\CourseOfMedicineBusinessLogicBusinessLogicEntityFramework.cs" />
     <Compile Include="Logic\DoctorBusinessLogicEntityFramework.cs" />
     <Compile Include="Logic\LoginServiceBusinessLogicEntityFramework.cs" />
     <Compile Include="Logic\MedicineBusinessLogicEntityFramework.cs" />

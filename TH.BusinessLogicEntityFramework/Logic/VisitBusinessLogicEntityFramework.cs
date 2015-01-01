@@ -35,7 +35,7 @@ namespace TH.BusinessLogicEntityFramework
 
                 var medicalStaff = doctors.Concat(consultants);
                 var domainMedicalStaff = ReflectiveMapperService.ConvertItem<List<StaffMember>, List<Domain.User.StaffMember>>(medicalStaff.ToList());
-                return domainMedicalStaff;
+                return domainMedicalStaff.OrderBy(o => o.Firstname).ToList();
 
             }
             return new List<Domain.User.StaffMember>();

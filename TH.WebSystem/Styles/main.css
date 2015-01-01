@@ -53,16 +53,14 @@ table {
     border-spacing: 0;
 }
 
-
 @font-face {
     font-family: THTitle;
-    src: url(../Fonts/Frutiger-Ultra-Black.ttf);
+    src : url('../Fonts/Frutiger-Ultra-Black.ttf') format('truetype');
 }
 
 @font-face {
     font-family: THBody;
-    src: url(../Fonts/Optimum-Roman.ttf);
-    font-weight: normal;
+    src: url('../Fonts/Optimum-Roman.ttf') format('truetype');
 }
 
 ::-webkit-scrollbar {
@@ -92,6 +90,7 @@ h2 {
 
 h3 {
     font-family: THTitle;
+    margin-bottom: 10px;
 }
 
 h4 {
@@ -136,7 +135,12 @@ footer {
     background-color: #005d79;
 }
 
+a {
+    cursor: url(../Images/cursor.png), auto;
+}
+
 li {
+    font-family: THBody;
     display: inline-block;
     width: 100px;
     padding: 5px 10px;
@@ -188,12 +192,14 @@ textarea {
 
 input[type=submit], .menu li, button, .button {
     padding: 10px 10px;
+    margin: 5px 5px 0 0;
     background: #00a27d;
     border: 2px solid #00a27d;
     border-radius: 5px;
     box-shadow: inset 2px 2px 2px 0 #51e6c4, inset -2px -2px 2px #1b9e80;
     color: WHITE;
     cursor: url(../Images/cursor.png), auto;
+    float:left;
 }
 
     input[type=submit]:hover, .menu li:hover, button:hover, .button:hover {
@@ -227,19 +233,29 @@ table {
     border-collapse: separate;
 }
 
-th {
+td:first-child {
+    text-align: right;
+    vertical-align: top;
+}
+
+.table {
+    border-spacing: 8px;
+    border-collapse: separate;
+}
+
+.table th {
     text-align: left;
 }
 
-tr:first-child:hover {
+.table tr:first-child:hover {
     background-color: #3cacc8;
 }
 
-tr:hover {
+.table tr:hover {
     background-color: #5cd4f3;
 }
 
-td {
+.table td {
     margin: 50px;
     padding: 10px 20px;
     box-shadow: inset 3px 3px 3px 0 #005d79, inset -3px -3px 3px #59d3e3;
@@ -258,23 +274,23 @@ input[type=radio] {
     border: 0;
 }
 
-    input[type=radio] + label {
-        padding-left: 28px;
-        height: 23px;
-        display: inline-block;
-        line-height: 23px;
-        background-repeat: no-repeat;
-        background-position: 0 0;
-        font-size: 23px;
-        vertical-align: middle;
-        cursor: pointer;
-        padding-left: 35px;
-    }
+input[type=radio] + label {
+    padding-left: 28px;
+    height: 23px;
+    display: inline-block;
+    line-height: 23px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    font-size: 23px;
+    vertical-align: middle;
+    cursor: pointer;
+    padding-left: 35px;
+}
 
-    input[type=radio]:checked + label {
-        background-position: 0 -23px;
-        padding-left: 35px;
-    }
+input[type=radio]:checked + label {
+    background-position: 0 -23px;
+    padding-left: 35px;
+}
 
 ul {
     -webkit-margin-before: 0px;
@@ -283,11 +299,6 @@ ul {
     -webkit-margin-end: 0px;
     -webkit-padding-start: 0px;
 }
-
-/*li:hover {
-    background-color: #ab2d07;
-    box-shadow: inset 5px 5px 5px 0 #862428, inset -5px -5px 5px #c7553c;
-}*/
 
 .text-danger {
     color: #b22222;
@@ -305,6 +316,12 @@ ul {
 
 .container {
     margin: auto;
+}
+
+.pageTitle {
+    font-family: THBody;
+    font-size: 18px;
+    margin-bottom: 20px;
 }
 
 .box {
@@ -377,8 +394,8 @@ ul {
 }
 
 /* View Patient */
-.patient-view dt {
-    margin-top: 5px;
+dt {
+    margin: 5px 0;
     font-weight: bold;
 }
 
@@ -399,4 +416,8 @@ ul {
 
 .center-text {
     text-align: center;
+}
+
+.treatmentWizzard {
+    width:400px;
 }

@@ -12,5 +12,9 @@ namespace TH.Interfaces
         bool CreateOrUpdateMedicine(Medicine medicine);
 
         bool DeleteMedicineWithId(Guid medicineId);
+
+        List<Domain.Treatments.Medicine> GetAllMedicines();
+
+        Domain.Treatments.Medicine GetMedicineById(Guid id);
     }
 }

@@ -3,26 +3,35 @@
 <h2>Patient Options</h2>
 
 <ul class="menu">
-    <li>
-        @Html.ActionLink("Admit", "Admit", "Patient", new { id = Model.PatientId }, null)
-    </li>
+    
     <li>
         @Html.ActionLink("View Patient Record", "Details", "Patient")
     </li>
     <li>
         @Html.ActionLink("Add Notes To Record", "Details", "Patient")
     </li>
-    <li>
-        @Html.ActionLink("Assign Patient To Ward", "DisplayWards", "Patient")
-    </li>
-    <li>
-        @Html.ActionLink("Assign Patient To Consultant", "DisplayWards", "Patient")
-    </li>
-    <li>
-        @Html.ActionLink("Arrange Treatment For Patient", "Create", "Treatment", new { id = Model.VisitId }, null)
-    </li>
-    <li>
-        @Html.ActionLink("Record Refusal Of Treatment", "DisplayWards", "Patient")
-    </li>
+
+    @if (Model.VisitId == Guid.Empty)
+    {
+        <li>
+            @Html.ActionLink("Admit", "Admit", "Patient", new { id = Model.PatientId }, null)
+        </li>
+    }
+    else
+    {
+        <li>
+            @Html.ActionLink("Assign Patient To Ward", "DisplayWards", "Patient")
+        </li>
+        <li>
+            @Html.ActionLink("Assign Patient To Consultant", "DisplayWards", "Patient")
+        </li>
+        <li>
+            @Html.ActionLink("Arrange Treatment For Patient", "Create", "Treatment", new { id = Model.VisitId }, null)
+        </li>
+        <li>
+            @Html.ActionLink("Record Refusal Of Treatment", "DisplayWards", "Patient")
+        </li>
+    }
+
 </ul>
 

@@ -112,6 +112,10 @@
       <End Role="Consultant" EntitySet="Users_Consultant" />
       <End Role="Team" EntitySet="Teams" />
     </AssociationSet>
+    <AssociationSet Name="TreatmentStaffMember" Association="ThemeHospitalDatabase.Store.TreatmentStaffMember">
+      <End Role="Treatment" EntitySet="Treatments" />
+      <End Role="StaffMember" EntitySet="Users_StaffMember" />
+    </AssociationSet>
     <AssociationSet Name="FK_StaffMember_inherits_User" Association="ThemeHospitalDatabase.Store.FK_StaffMember_inherits_User">
       <End Role="User" EntitySet="Users" />
       <End Role="StaffMember" EntitySet="Users_StaffMember" />
@@ -181,7 +185,8 @@
     <Property Name="ScheduledDate" Type="datetime" Nullable="false" />
     <Property Name="VisitId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="RecordedByUserId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="AdministeredByUserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="AdministeredByUserId" Type="uniqueidentifier" Nullable="true" />
+    <Property Name="AssignedToUserId" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
   <EntityType Name="Medicines">
     <Key>
@@ -268,7 +273,7 @@
     <Key>
       <PropertyRef Name="TreatmentId" />
     </Key>
-    <Property Name="DateAdministered" Type="datetime" Nullable="false" />
+    <Property Name="DateAdministered" Type="datetime" Nullable="true" />
     <Property Name="OperationId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="TreatmentId" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
@@ -283,7 +288,6 @@
     <Key>
       <PropertyRef Name="TreatmentId" />
     </Key>
-    <Property Name="StartDate" Type="datetime" Nullable="false" />
     <Property Name="EndDate" Type="datetime" Nullable="false" />
     <Property Name="Instructions" Type="nvarchar(max)" Nullable="false" />
     <Property Name="MedicineId" Type="uniqueidentifier" Nullable="false" />
@@ -366,7 +370,7 @@
   </Association>
   <Association Name="TreatmentAdministeredBy">
     <End Role="Treatment" Type="ThemeHospitalDatabase.Store.Treatments" Multiplicity="*" />
-    <End Role="StaffMember" Type="ThemeHospitalDatabase.Store.Users_StaffMember" Multiplicity="1" />
+    <End Role="StaffMember" Type="ThemeHospitalDatabase.Store.Users_StaffMember" Multiplicity="0..1" />
     <ReferentialConstraint>
       <Principal Role="StaffMember">
         <PropertyRef Name="UserId" />
@@ -505,6 +509,18 @@
       </Principal>
       <Dependent Role="Team">
         <PropertyRef Name="Consultant_UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TreatmentStaffMember">
+    <End Role="Treatment" Type="ThemeHospitalDatabase.Store.Treatments" Multiplicity="*" />
+    <End Role="StaffMember" Type="ThemeHospitalDatabase.Store.Users_StaffMember" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="StaffMember">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Treatment">
+        <PropertyRef Name="AssignedToUserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -767,6 +783,10 @@
             <End Role="Consultant" EntitySet="Users" />
             <End Role="Team" EntitySet="Teams" />
           </AssociationSet>
+          <AssociationSet Name="TreatmentStaffMember" Association="ThemeHospitalDatabase.TreatmentStaffMember">
+            <End Role="Treatment" EntitySet="Treatments" />
+            <End Role="StaffMember" EntitySet="Users" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -835,16 +855,17 @@
           <NavigationProperty Name="RecordedBy" Relationship="ThemeHospitalDatabase.TreatmentRecordedBy" FromRole="Treatment" ToRole="StaffMember" />
           <Property Name="RecordedByUserId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="AdministeredBy" Relationship="ThemeHospitalDatabase.TreatmentAdministeredBy" FromRole="Treatment" ToRole="StaffMember" />
-          <Property Name="AdministeredByUserId" Type="Guid" Nullable="false" />
+          <Property Name="AdministeredByUserId" Type="Guid" Nullable="true" />
           <NavigationProperty Name="Notes" Relationship="ThemeHospitalDatabase.TreatmentNote" FromRole="Treatment" ToRole="Note" />
+          <NavigationProperty Name="AssignedTo" Relationship="ThemeHospitalDatabase.TreatmentStaffMember" FromRole="Treatment" ToRole="StaffMember" />
+          <Property Name="AssignedToUserId" Type="Guid" Nullable="false" />
         </EntityType>
         <EntityType Name="Procedure" BaseType="ThemeHospitalDatabase.Treatment" >
-          <Property Name="DateAdministered" Type="DateTime" Nullable="false" />
+          <Property Name="DateAdministered" Type="DateTime" Nullable="true" />
           <NavigationProperty Name="Operation" Relationship="ThemeHospitalDatabase.ProcedureOperation" FromRole="Procedure" ToRole="Operation" />
           <Property Name="OperationId" Type="Guid" Nullable="false" />
         </EntityType>
         <EntityType Name="CourseOfMedicine" BaseType="ThemeHospitalDatabase.Treatment" >
-          <Property Name="StartDate" Type="DateTime" Nullable="false" />
           <Property Name="EndDate" Type="DateTime" Nullable="false" />
           <Property Name="Instructions" Type="String" Nullable="false" />
           <NavigationProperty Name="Medicine" Relationship="ThemeHospitalDatabase.CourseOfMedicineMedicine" FromRole="CourseOfMedicine" ToRole="Medicine" />
@@ -874,6 +895,7 @@
           <Property Name="LastLoggedIn" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="TreatmentsAssigned" Relationship="ThemeHospitalDatabase.TreatmentRecordedBy" FromRole="StaffMember" ToRole="Treatment" />
           <NavigationProperty Name="Treatments" Relationship="ThemeHospitalDatabase.TreatmentAdministeredBy" FromRole="StaffMember" ToRole="Treatment" />
+          <NavigationProperty Name="AssignedTreatments" Relationship="ThemeHospitalDatabase.TreatmentStaffMember" FromRole="StaffMember" ToRole="Treatment" />
         </EntityType>
         <EntityType Name="Receptionist" BaseType="ThemeHospitalDatabase.StaffMember" />
         <EntityType Name="Ward">
@@ -978,7 +1000,7 @@
         </Association>
         <Association Name="TreatmentAdministeredBy">
           <End Type="ThemeHospitalDatabase.Treatment" Role="Treatment" Multiplicity="*" />
-          <End Type="ThemeHospitalDatabase.StaffMember" Role="StaffMember" Multiplicity="1" />
+          <End Type="ThemeHospitalDatabase.StaffMember" Role="StaffMember" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="StaffMember">
               <PropertyRef Name="UserId" />
@@ -1112,6 +1134,18 @@
           <End Type="ThemeHospitalDatabase.Consultant" Role="Consultant" Multiplicity="1" />
           <End Type="ThemeHospitalDatabase.Team" Role="Team" Multiplicity="0..1" />
         </Association>
+        <Association Name="TreatmentStaffMember">
+          <End Type="ThemeHospitalDatabase.Treatment" Role="Treatment" Multiplicity="*" />
+          <End Type="ThemeHospitalDatabase.StaffMember" Role="StaffMember" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="StaffMember">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Treatment">
+              <PropertyRef Name="AssignedToUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1192,6 +1226,7 @@
           <ScalarProperty Name="VisitId" ColumnName="VisitId" />
           <ScalarProperty Name="RecordedByUserId" ColumnName="RecordedByUserId" />
           <ScalarProperty Name="AdministeredByUserId" ColumnName="AdministeredByUserId" />
+          <ScalarProperty Name="AssignedToUserId" ColumnName="AssignedToUserId" />
         </MappingFragment>
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(ThemeHospitalDatabase.Procedure)">
@@ -1204,7 +1239,6 @@
       <EntityTypeMapping TypeName="IsTypeOf(ThemeHospitalDatabase.CourseOfMedicine)">
         <MappingFragment StoreEntitySet="Treatments_CourseOfMedicine">
           <ScalarProperty Name="TreatmentId" ColumnName="TreatmentId" />
-          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
           <ScalarProperty Name="EndDate" ColumnName="EndDate" />
           <ScalarProperty Name="Instructions" ColumnName="Instructions" />
           <ScalarProperty Name="MedicineId" ColumnName="MedicineId" />

@@ -54,6 +54,7 @@
         <AssociationConnector Association="ThemeHospitalDatabase.BedWard" />
         <AssociationConnector Association="ThemeHospitalDatabase.VisitNote" />
         <AssociationConnector Association="ThemeHospitalDatabase.ConsultantTeam" />
+        <AssociationConnector Association="ThemeHospitalDatabase.TreatmentStaffMember" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
