@@ -12,9 +12,12 @@
     <li>
         @Html.ActionLink("Add Notes To Record", "Details", "Patient")
     </li>
-    <li>
-        @Html.ActionLink("Assign Patient To Ward", "DisplayWards", "Patient")
-    </li>
+    @if (Model.CurrentVisit.Bed == null)
+    {
+        <li>
+            @Html.ActionLink("Assign Patient To Ward", "DisplayWards", "Patient", new { patientId = Model.PatientId }, null)
+        </li>
+    }
     <li>
         @Html.ActionLink("Assign Patient To Consultant", "DisplayWards", "Patient")
     </li>

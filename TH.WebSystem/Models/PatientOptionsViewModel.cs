@@ -10,5 +10,6 @@ namespace TH.WebSystem.Models
     {
         public Guid PatientId { get; set; }
         public Guid VisitId { get; set; }
+        public Visit CurrentVisit { get; set; }
     }
 }

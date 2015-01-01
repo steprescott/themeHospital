@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using TH.Domain.User;
 using TH.WebSystem.Models;
 
@@ -102,10 +103,18 @@ namespace TH.WebSystem.Controllers
             });
         }
 
-        public ActionResult DisplayWards()
+        public ActionResult DisplayWards(Guid patientId)
         {
             var wards = HospitalService.WardBusinessLogic.GetAllWards().OrderBy(ward => ward.Number).ToList();
-            return View(new DisplayWardsViewModel { Wards = wards});
+
+            return View(new DisplayWardsViewModel { Wards = wards, PatientId = patientId});
+        }
+
+        public ActionResult AssignBed(Guid bedid, Guid patientid)
+        {
+            HospitalService.BedBusinessLogic.AssignPatientToBed(bedid, patientid);
+
+            return RedirectToAction("Options", new { patientId = patientid });
         }
     }
 }

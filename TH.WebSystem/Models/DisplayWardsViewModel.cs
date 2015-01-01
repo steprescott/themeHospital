@@ -8,6 +8,11 @@ namespace TH.WebSystem.Models
 {
     public class DisplayWardsViewModel
     {
-        public List<Ward> Wards; 
+        public List<Ward> Wards { get; set; }
+        public Guid PatientId { get; set; }
+        public DisplayWardsViewModel()
+        {
+            Wards = new List<Ward>();
+        }
     }
 }
