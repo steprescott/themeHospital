@@ -27,7 +27,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
                 _unitOfWork.SaveChanges();
                 return true;
             }
-            catch (Exception)
+            catch (Exception exception)
             {
                 return false;
             }

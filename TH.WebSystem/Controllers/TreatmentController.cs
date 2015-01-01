@@ -54,18 +54,18 @@ namespace TH.WebSystem.Controllers
                 Notes = new List<Note>()
             };
 
-            if(!String.IsNullOrEmpty(model.NoteContent))
+            var result = HospitalService.ProcedureBusinessLogic.CreateProcedure(procedure);
+
+            if(result && !String.IsNullOrEmpty(model.NoteContent))
             {
-                HospitalService.NotesBusinessLogic.CreateNote(new Note
+                var noteResult = HospitalService.NotesBusinessLogic.CreateNote(new Note
                 {
                     NoteId = Guid.NewGuid(),
                     Content = model.NoteContent,
                     DateCreated = DateTime.Now,
-                    Treatment = procedure
+                    TreatmentId = procedure.TreatmentId
                 });
             }
-
-            HospitalService.ProcedureBusinessLogic.CreateProcedure(procedure);
 
             return RedirectToAction("Options", "Patient", new { id = visit.Patient.UserId });
         }
