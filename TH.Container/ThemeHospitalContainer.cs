@@ -45,7 +45,7 @@ namespace TH.Container
             _unityContainer.RegisterType<IOperationBusinessLogic, OperationBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
             _unityContainer.RegisterType<IProcedureBusinessLogic, ProcedureBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
             _unityContainer.RegisterType<IMedicineBusinessLogic, MedicineBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
-            _unityContainer.RegisterType<ICourseOfMedicineBusinessLogic, CourseOfMedicineBusinessLogicBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
+            _unityContainer.RegisterType<ICourseOfMedicineBusinessLogic, CourseOfMedicineBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
 
             _unityContainer.RegisterType<INotesBusinessLogic, NotesBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
         }

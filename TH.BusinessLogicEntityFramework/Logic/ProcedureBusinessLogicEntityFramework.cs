@@ -33,9 +33,9 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
         public List<Domain.Treatments.Procedure> GetProceduresToBeAdministeredByStaffMemberId(Guid userId)
         {
-            var procedures = _unitOfWork.GetAll<Procedure>();
+            var procedures = _unitOfWork.GetAll<Procedure>().ToList();
 
-            procedures = procedures.Where(com => com.AdministeredByUserId == userId);
+            procedures = procedures.Where(com => com.AdministeredByUserId == userId).ToList();
 
             return procedures.Select(com => ReflectiveMapperService.ConvertItem<Procedure, Domain.Treatments.Procedure>(com))
                 .ToList();

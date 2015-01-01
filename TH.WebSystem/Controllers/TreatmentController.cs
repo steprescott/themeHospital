@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Migrations.Model;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using TH.Domain.Other;
 using TH.Domain.Treatments;
 using TH.WebSystem.Models;

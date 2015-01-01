@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TH.Interfaces;
 using TH.ReflectiveMapper;
 using TH.UnitOfWorkEntityFramework;
 
 namespace TH.BusinessLogicEntityFramework.Logic
 {
-    public class CourseOfMedicineBusinessLogicBusinessLogicEntityFramework : ICourseOfMedicineBusinessLogic
+    public class CourseOfMedicineBusinessLogicEntityFramework : ICourseOfMedicineBusinessLogic
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public CourseOfMedicineBusinessLogicBusinessLogicEntityFramework(IUnitOfWork unitOfWork)
+        public CourseOfMedicineBusinessLogicEntityFramework(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
