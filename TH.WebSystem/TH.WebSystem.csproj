@@ -193,6 +193,7 @@
     <Compile Include="Controllers\ReceptionistController.cs" />
     <Compile Include="Controllers\TreatmentController.cs" />
     <Compile Include="Controllers\VisitController.cs" />
+    <Compile Include="Controllers\WardController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -201,6 +202,7 @@
     <Compile Include="Models\AdmissionModel.cs" />
     <Compile Include="Models\DismissModel.cs" />
     <Compile Include="Models\DisplayWardsViewModel.cs" />
+    <Compile Include="Models\DisplayWardWaitingListViewModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\AddPatientViewModel.cs" />
     <Compile Include="Models\CreateTreatmentViewModel.cs" />

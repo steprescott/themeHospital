@@ -14,5 +14,6 @@ namespace TH.WebSystem.Models
 
         [DisplayName("Current visit")]
         public Visit CurrentVisit { get; set; }
+        public Ward AvailabeBeds { get; set; }
     }
 }
