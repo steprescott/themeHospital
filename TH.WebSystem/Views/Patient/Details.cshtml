@@ -125,6 +125,10 @@ else
             </tr>
         }
     </table>
+    
+    <p>
+        <button>@Html.ActionLink("Create new note", "createNote", new { id = Model.Patient.UserId })</button>
+    </p>
 }
 else
 {

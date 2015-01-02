@@ -22,8 +22,12 @@
             <tr>@Html.DisplayForModel(note.Content)</tr>
         }
     </table>
+    <p>
+        <button>@Html.ActionLink("Create new note", "createNote", new { id = Model.Visit.VisitId })</button>
+    </p>
 }
 else
 {
-    @Html.Raw("No notes for visit");
+    @Html.Raw("No notes for visit. You can create a new one ");
+    @Html.ActionLink("here.", "CreateNote", new { id = Model.Visit.VisitId })
 }
