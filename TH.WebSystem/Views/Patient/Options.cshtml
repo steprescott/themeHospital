@@ -20,14 +20,11 @@
     {
         if (Model.CurrentVisit.Bed == null)
         {
-            if (Model.AvailabeBeds != null)
-            {
-                <li>
-                    @Html.ActionLink("Assign Patient To Ward", "DisplayWards", "Patient", new { id = Model.PatientId }, null)
-                </li>
-            }
+            <li>
+                @Html.ActionLink("Assign Patient To Ward", "AssignToWard", "Ward", new { id = Model.PatientId }, null)
+            </li>
         }
-        
+
         <li>
             @Html.ActionLink("Assign Patient To Consultant", "DisplayWards", "Patient")
         </li>

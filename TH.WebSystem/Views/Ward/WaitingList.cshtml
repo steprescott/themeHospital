@@ -1,5 +1,4 @@
-﻿@using TH.Domain.User
-@model TH.WebSystem.Models.DisplayWardWaitingListViewModel
+﻿@model TH.WebSystem.Models.DisplayWardWaitingListViewModel
 
 @{
     ViewBag.Title = "WaitingList";
@@ -7,24 +6,3 @@
 
 <h2>WaitingList</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th></th>
-    </tr>
-
-@foreach (var patient in Model.Patients.OrderBy(patient.CurrentVisit.AdmittedDate))
-{
-    <tr>
-        <td>
-            @patient.FullName
-        </td>
-        <td>
-            @patient.CurrentVisit.AdmittedDate.ToString()
-        </td>
-    </tr>
-}
-
-</table>

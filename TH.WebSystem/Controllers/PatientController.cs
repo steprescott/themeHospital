@@ -119,14 +119,14 @@ namespace TH.WebSystem.Controllers
         {
             var wards = HospitalService.WardBusinessLogic.GetAllWards().OrderBy(ward => ward.Number).ToList();
 
-            return View(new DisplayWardsViewModel { Wards = wards, PatientId = patientId});
+            return View(new AssignToWardViewModel { Wards = wards, PatientId = patientId});
         }
 
-        public ActionResult AssignBed(Guid bedid, Guid patientid)
+        public ActionResult AssignBed(Guid bedId, Guid patientId)
         {
-            HospitalService.BedBusinessLogic.AssignPatientToBed(bedid, patientid);
+            HospitalService.BedBusinessLogic.AssignPatientToBed(bedId, patientId);
 
-            return RedirectToAction("Options", new { patientId = patientid });
+            return RedirectToAction("Options", new { id = patientId });
         }
 
         public ActionResult CreateNote(Guid id)
