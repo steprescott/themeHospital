@@ -17,19 +17,22 @@ namespace TH.TestApplication
             Console.WriteLine("--- Starting... :D");
 
             //Add me some patients
-            AddPatient("Ste", "Prescott");
+            AddPatient("482D8F08-92BB-11E4-91AE-DD2F340000B1", "Ste", "Prescott");
+            AddPatient("86A9EE66-92BB-11E4-91AE-DD2F340000B1", "Bryan", "Cranston");
+            AddPatient("8C722B7E-92BB-11E4-914F-DD2F340000B1", "Aaron", "Paul");
+            AddPatient("95C7F5A0-92BB-11E4-9237-DD2F340000B1", "Josh", "Smith");
 
             //Add me some consultants
-            AddConsultantUser("Jonny", "Booker", "Consultant1", "Password");
-            AddConsultantUser("Joe", "Fletcher", "Consultant2", "Password");
+            AddConsultantUser("1E02D510-92BD-11E4-B57E-8C7495DB5880", "Jonny", "Booker", "Consultant1", "Password");
+            AddConsultantUser("29AF7012-92BD-11E4-9CD3-8C7495DB5880", "Joe", "Fletcher", "Consultant2", "Password");
 
             //Add me some doctors
-            AddDoctorUser("Tom", "Windowson", "Doctor1", "Password");
-            AddDoctorUser("Noah", "Knudsen", "Doctor2", "Password");
-            AddDoctorUser("Joel", "Thiruchelvan", "Doctor3", "Password");
+            AddDoctorUser("38288E94-92BD-11E4-918E-8C7495DB5880", "Tom", "Windowson", "Doctor1", "Password");
+            AddDoctorUser("3B7C67C8-92BD-11E4-B9DC-8C7495DB5880", "Noah", "Knudsen", "Doctor2", "Password");
+            AddDoctorUser("3FC28B14-92BD-11E4-B7F0-8C7495DB5880", "Joel", "Thiruchelvan", "Doctor3", "Password");
 
             //Add me some receptionists
-            AddReceptionistUser("Dowdy", "Receptionist", "Receptionist1", "Password");
+            AddReceptionistUser("4782DA52-92BD-11E4-82F2-8C7495DB5880", "Dowdy", "Receptionist", "Receptionist1", "Password");
 
             //Add me some operations
             AddOperation("d63f6ef7-594b-43e4-8523-105edefb93cd", "Vasectomy", "Vasectomy works by stopping sperm from getting into a man’s semen. This means that when a man ejaculates, the semen has no sperm and a woman’s egg cannot be fertilised.");
@@ -52,17 +55,22 @@ namespace TH.TestApplication
             AddBed("f6b2c23f-214c-439a-b8e9-ccd88944f4c7", 1, ward2);
             AddBed("03f5d5bc-f4bf-43ec-9cb8-8756d0ab1d5d", 2, ward2);
 
+            //Add some peeps to ward waiting list
+            AddPatientToWardWaitingList(new Guid("AE17AB22-8F9C-11E4-9E1E-7C2C95DB5880"), new Guid("86A9EE66-92BB-11E4-91AE-DD2F340000B1"));
+            AddPatientToWardWaitingList(new Guid("AE17AB22-8F9C-11E4-9E1E-7C2C95DB5880"), new Guid("8C722B7E-92BB-11E4-914F-DD2F340000B1"));
+
             Console.WriteLine("--- Done :D");
             Console.ReadKey();
         }
 
-        private static void AddPatient(string FirstName, string surname)
+        private static void AddPatient(string patientId, string firstName, string surname)
         {
             var patientBusinessLogic = ThemeHospitalContainer.GetInstance<IPatientBusinessLogic>();
 
             patientBusinessLogic.InsertOrUpdatePatient(new Patient
             {
-                FirstName = FirstName,
+                UserId = new Guid(patientId),
+                FirstName = firstName,
                 OtherNames = string.Empty,
                 LastName = surname,
                 DateOfBirth = Convert.ToDateTime("27/05/1991"),
@@ -85,12 +93,13 @@ namespace TH.TestApplication
             });
         }
 
-        private static void AddConsultantUser(string FirstName, string surname, string username, string password)
+        private static void AddConsultantUser(string consultantId, string FirstName, string surname, string username, string password)
         {
             var staffMemberBusinessLogic = ThemeHospitalContainer.GetInstance<IStaffMemberBusinessLogic>();
 
             staffMemberBusinessLogic.CreateOrUpdateConsultant(new Consultant
             {
+                UserId = new Guid(consultantId),
                 FirstName = FirstName,
                 OtherNames = string.Empty,
                 LastName = surname,
@@ -119,12 +128,13 @@ namespace TH.TestApplication
             });
         }
 
-        private static void AddDoctorUser(string FirstName, string surname, string username, string password)
+        private static void AddDoctorUser(string doctorId, string FirstName, string surname, string username, string password)
         {
             var staffMemberBusinessLogic = ThemeHospitalContainer.GetInstance<IStaffMemberBusinessLogic>();
 
             staffMemberBusinessLogic.CreateOrUpdateDoctor(new Doctor
             {
+                UserId = new Guid(doctorId),
                 FirstName = FirstName,
                 OtherNames = string.Empty,
                 LastName = surname,
@@ -149,12 +159,13 @@ namespace TH.TestApplication
             });
         }
         
-        private static void AddReceptionistUser(string FirstName, string surname, string username, string password)
+        private static void AddReceptionistUser(string receptionistId, string FirstName, string surname, string username, string password)
         {
             var staffMemberBusinessLogic = ThemeHospitalContainer.GetInstance<IStaffMemberBusinessLogic>();
 
             staffMemberBusinessLogic.CreateOrUpdateReceptionist(new Receptionist
             {
+                UserId = new Guid(receptionistId),
                 FirstName = FirstName,
                 OtherNames = string.Empty,
                 LastName = surname,
@@ -229,6 +240,13 @@ namespace TH.TestApplication
                 Name = name,
                 Description = decription
             });
+        }
+
+        private static void AddPatientToWardWaitingList(Guid wardId, Guid patientId)
+        {
+            var wardWaitingListBusinessLogic = ThemeHospitalContainer.GetInstance<IWardBusinessLogic>();
+
+            wardWaitingListBusinessLogic.AssignPatientToWardWaitingList(wardId, patientId);
         }
     }
 }
