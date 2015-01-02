@@ -75,10 +75,21 @@ namespace TH.BusinessLogicEntityFramework.Logic
             return ReflectiveMapperService.ConvertItem<List<Bed>, List<Domain.Other.Bed>>(ward.AvailableBeds);
         }
 
-        public bool AssignPatientToWardWaitingList(Domain.Wards.Ward ward, Domain.User.Patient patient)
+        public bool AssignPatientToWardWaitingList(Domain.Wards.WardWaitlingList wardWaitlingList, Domain.User.Patient patient)
         {
-            
-            return false;
+            wardWaitlingList.Patients.Add(patient);
+
+            try
+            {
+                var efWardWaitingList = ReflectiveMapperService.ConvertItem<Domain.Wards.WardWaitlingList, WardWaitingList>(wardWaitlingList);
+                _unitOfWork.Update(efWardWaitingList);
+                _unitOfWork.SaveChanges();
+                return true;
+            }
+            catch (Exception exception)
+            {
+                return false;
+            }
         }
     }
 }
