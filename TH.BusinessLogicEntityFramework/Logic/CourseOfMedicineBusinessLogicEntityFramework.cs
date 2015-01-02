@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TH.Interfaces;
 using TH.ReflectiveMapper;
 using TH.UnitOfWorkEntityFramework;
 
 namespace TH.BusinessLogicEntityFramework.Logic
 {
-    public class CourseOfMedicineBusinessLogicEntityFramework : ICourseOfMedicine
+    public class CourseOfMedicineBusinessLogicEntityFramework : ICourseOfMedicineBusinessLogic
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -27,7 +25,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
                 _unitOfWork.SaveChanges();
                 return true;
             }
-            catch (Exception)
+            catch (Exception exception)
             {
                 return false;
             }

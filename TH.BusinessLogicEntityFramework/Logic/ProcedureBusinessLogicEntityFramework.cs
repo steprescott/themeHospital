@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TH.Interfaces;
 using TH.ReflectiveMapper;
 using TH.UnitOfWorkEntityFramework;
@@ -27,10 +25,20 @@ namespace TH.BusinessLogicEntityFramework.Logic
                 _unitOfWork.SaveChanges();
                 return true;
             }
-            catch (Exception exception)
+             catch (Exception exception)
             {
                 return false;
             }
+        }
+
+        public List<Domain.Treatments.Procedure> GetProceduresToBeAdministeredByStaffMemberId(Guid userId)
+        {
+            var procedures = _unitOfWork.GetAll<Procedure>().ToList();
+
+            procedures = procedures.Where(com => com.AdministeredByUserId == userId).ToList();
+
+            return procedures.Select(com => ReflectiveMapperService.ConvertItem<Procedure, Domain.Treatments.Procedure>(com))
+                .ToList();
         }
     }
 }

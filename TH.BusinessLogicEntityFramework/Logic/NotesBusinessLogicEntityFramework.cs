@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TH.UnitOfWorkEntityFramework;
 using TH.Interfaces;
 using TH.ReflectiveMapper;
@@ -27,7 +25,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
                 _unitOfWork.SaveChanges();
                 return true;
             }
-            catch (Exception)
+            catch (Exception exception)
             {
                 return false;
             }

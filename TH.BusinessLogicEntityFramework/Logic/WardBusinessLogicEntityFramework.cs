@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TH.Domain.Other;
 using TH.Interfaces;
 using TH.ReflectiveMapper;
 using TH.UnitOfWorkEntityFramework;
@@ -34,16 +33,15 @@ namespace TH.BusinessLogicEntityFramework.Logic
                 if (efWard == null)
                 {
                     efWard = new Ward
-                    {
-                        WardId = ward.WardId != Guid.Empty ? ward.WardId : Guid.NewGuid()
-                    };
-
-                    efWard.Number = ward.Number;
-                    efWard.Beds = ReflectiveMapperService.ConvertItem<List<Domain.Other.Bed>, List<Bed>>(ward.Beds);
-                    efWard.WardWaitingList = new WardWaitingList
-                    {
-                        WardWaitingListId = Guid.NewGuid()
-                    };
+                             {
+                                 WardId = ward.WardId != Guid.Empty ? ward.WardId : Guid.NewGuid(),
+                                 Number = ward.Number,
+                                 Beds = ReflectiveMapperService.ConvertItem<List<Domain.Other.Bed>, List<Bed>>(ward.Beds),
+                                 WardWaitingList = new WardWaitingList
+                                                   {
+                                                       WardWaitingListId = Guid.NewGuid()
+                                                   }
+                             };
 
                     _unitOfWork.Insert(efWard);
                 }
@@ -68,6 +66,13 @@ namespace TH.BusinessLogicEntityFramework.Logic
         public Domain.Other.Ward GetWardWithId(Guid id)
         {
             return ReflectiveMapperService.ConvertItem<Ward, Domain.Other.Ward>(_unitOfWork.GetById<Ward>(id));
+        }
+
+        public List<Domain.Other.Bed> AvailableBedsForWardWithId(Guid id)
+        {
+            var ward = _unitOfWork.GetById<Ward>(id);
+
+            return ReflectiveMapperService.ConvertItem<List<Bed>, List<Domain.Other.Bed>>(ward.AvailableBeds);
         }
     }
 }

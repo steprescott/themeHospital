@@ -7,22 +7,25 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>@ViewBag.Title - Theme Hospital</title>
-
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jquery-ui")
+        @RenderSection("scripts", required: false)
         @Styles.Render("~/Content/css")
     </head>
     <body>
         <header>
-            Theme Hospital
-            @if (ThemeHospitalMembershipProvider.IsLoggedIn())
-            {
-                @Html.Raw(string.Format(" - Welcome {0}", @ThemeHospitalMembershipProvider.GetCurrentUser().Firstname))
+            <h2>
+                Theme Hospital
+                @if (ThemeHospitalMembershipProvider.IsLoggedIn())
+                {
+                    @Html.Raw(string.Format(" - Welcome {0}", @ThemeHospitalMembershipProvider.GetCurrentUser().Firstname))
 
-                <div class="navigation">
-                    @Html.Partial("_DashboardLink")
-                    @Html.ActionLink("Log out", "Logout", "Home", null, new { @class = "log-out" })
-                </div>
-            }
-
+                    <div class="navigation">
+                        @Html.Partial("_DashboardLink")
+                        @Html.ActionLink("Log out", "Logout", "Home", null, new { @class = "log-out" })
+                    </div>
+                }
+            </h2>
         </header>
 
         <div class="content">
@@ -32,8 +35,5 @@
         <footer>
             <p>&copy; @DateTime.Now.Year - Theme Hospital</p>
         </footer>
-
-        @Scripts.Render("~/bundles/jquery")
-        @RenderSection("scripts", required: false)
     </body>
 </html>

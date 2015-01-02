@@ -78,6 +78,7 @@
     </Compile>
     <Compile Include="Partials\Patient.cs" />
     <Compile Include="Partials\User.cs" />
+    <Compile Include="Partials\Ward.cs" />
     <Compile Include="Patient.cs">
       <DependentUpon>ThemeHospitalDatabase.tt</DependentUpon>
     </Compile>

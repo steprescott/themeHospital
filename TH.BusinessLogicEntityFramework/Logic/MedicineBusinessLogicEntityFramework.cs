@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TH.Interfaces;
+using TH.ReflectiveMapper;
 using TH.UnitOfWorkEntityFramework;
 
 namespace TH.BusinessLogicEntityFramework.Logic
@@ -19,29 +18,53 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
         public bool CreateOrUpdateMedicine(Domain.Treatments.Medicine medicine)
         {
+            var efObject = _unitOfWork.GetById<Medicine>(medicine.MedicineId);
+
             try
             {
-                var efMedicine = _unitOfWork.GetById<Medicine>(medicine.MedicineId);
-
-                if (efMedicine == null)
+                if (efObject == null)
                 {
-                    efMedicine = new Medicine
+                    efObject = new Medicine
                     {
-                        MedicineId = medicine.MedicineId != null ? medicine.MedicineId : Guid.NewGuid()
+                        MedicineId = medicine.MedicineId != Guid.Empty ? medicine.MedicineId : Guid.NewGuid()
                     };
 
-                    _unitOfWork.Insert(efMedicine);
+                    _unitOfWork.Insert(efObject);
+                }
+                else
+                {
+                    efObject.Name = medicine.Name;
+                    efObject.Description = medicine.Description;
+
+                    _unitOfWork.Update(efObject);
                 }
 
-                efMedicine.Name = medicine.Name;
-                efMedicine.Description = medicine.Description;
                 _unitOfWork.SaveChanges();
                 return true;
+
             }
-            catch (Exception)
+            catch (Exception exception)
             {
                 return false;
             }
+        }
+
+        public List<Domain.Treatments.CourseOfMedicine> GetCoursesOfMedicinesToBeAdministeredByStaffMemberId(Guid userId)
+        {
+            var coursesOfMedicines = _unitOfWork.GetAll<CourseOfMedicine>().ToList();
+
+            coursesOfMedicines = coursesOfMedicines.Where(com => com.AdministeredByUserId == userId).ToList();
+
+            return coursesOfMedicines.Select(com => ReflectiveMapperService.ConvertItem<CourseOfMedicine, Domain.Treatments.CourseOfMedicine>(com)).ToList();
+        }
+
+        public List<Domain.Treatments.CourseOfMedicine> GetCoursesOfMedicinesForTeamId(Guid teamId)
+        {
+            var coursesOfMedicines = _unitOfWork.GetAll<CourseOfMedicine>().ToList();
+
+            //coursesOfMedicines = coursesOfMedicines.Where(com => com.AdministeredByUserId == userId).ToList();
+
+            return coursesOfMedicines.Select(com => ReflectiveMapperService.ConvertItem<CourseOfMedicine, Domain.Treatments.CourseOfMedicine>(com)).ToList();
         }
 
         public bool DeleteMedicineWithId(Guid medicineId)
@@ -55,6 +78,18 @@ namespace TH.BusinessLogicEntityFramework.Logic
             {
                 return false;
             }
+        }
+
+        public List<Domain.Treatments.Medicine> GetAllMedicines()
+        {
+            var medicines = _unitOfWork.GetAll<Medicine>().ToList().OrderBy(o => o.Name);
+            return medicines.Select(o => ReflectiveMapperService.ConvertItem<Medicine, Domain.Treatments.Medicine>(o)).ToList();
+        }
+
+        public Domain.Treatments.Medicine GetMedicineById(Guid id)
+        {
+            Medicine medicine = _unitOfWork.GetById<Medicine>(id);
+            return ReflectiveMapperService.ConvertItem<Medicine, Domain.Treatments.Medicine>(medicine);
         }
     }
 }

@@ -27,7 +27,7 @@
                     @bed.Number
                 </td>
                 <td>
-                    @Html.ActionLink("Assign to bed", "AssignBed", "Patient", new { bedId = bed.BedId, wardId = bed.WardId, patientId = Model.PatientId }, null)
+                    @Html.ActionLink("Assign to bed", "AssignBed", "Patient", new { bedId = bed.BedId, patientId = Model.PatientId }, null)
                 </td>
             </tr>
         }

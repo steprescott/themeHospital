@@ -1,38 +1,127 @@
 ﻿@model TH.WebSystem.Models.CreateTreatmentViewModel
 
+<script type="text/javascript">
+    $(function () {
+
+        $("#Step2_Procedure").hide();
+        $("#Step2_Medicine").hide();
+
+        $("#Procedure_button").click(function () {
+            $("#step1").fadeOut("fast", function () {
+                $("#Step2_Procedure").fadeIn("fast");
+            });
+        });
+
+        $("#Course_of_medicine_button").click(function () {
+            $("#step1").fadeOut("fast", function () {
+                $("#Step2_Medicine").fadeIn("fast");
+            });
+        });
+
+        $("#Back_button_procedure").click(function () {
+            $("#Step2_Procedure").fadeOut("fast", function () {
+                $("#step1").fadeIn("fast");
+            });
+        });
+
+        $("#Back_button_medicine").click(function () {
+            $("#Step2_Medicine").fadeOut("fast", function () {
+                $("#step1").fadeIn("fast");
+            });
+        });
+    });
+
+</script>
+
 <div>
-    <div id="wizard">
-        <button>Procedure</button>
-        <button>Course of Medicine</button>
-    </div>
-    <div>
-        @using (Html.BeginForm("CreateProcedure", "Treatment", FormMethod.Post))
-        {
-            @Html.HiddenFor(model => model.VisitId)
-            @Html.HiddenFor(model => model.RecordedByStaffMemberId)
-            
-            @Html.LabelFor(model => model.Operations)
-            @Html.DropDownListFor(model => model.SelectedOperationId, new SelectList(Model.Operations, "OperationId", "Name", null))
-            @Html.LabelFor(model => model.MedicalStaff)
-            @Html.DropDownListFor(model => model.AdministeredByStaffMemberId, new SelectList(Model.MedicalStaff, "UserId", "FullName", null))
-            @Html.LabelFor(model => model.ScheduledDate)
-            @Html.TextBoxFor(model => model.ScheduledDate)
-            @Html.LabelFor(model => model.DateAdministered)
-            @Html.TextBoxFor(model => model.DateAdministered)
-            @Html.LabelFor(model => model.NoteContent)
-            @Html.TextAreaFor(model => model.NoteContent)
-            <input type="submit" value="Create" class="button">
-        }
-    </div>
+    <div class="pageTitle">You are creating a new treatment for @Html.Raw(Model.PatientFullName)</div>
+    <div class="treatmentWizzard">
+        <div id="step1">
+            <h3>Type of treatment</h3>
+            <div>
+                <button id="Procedure_button">Procedure</button>
+                <button id="Course_of_medicine_button">Course of Medicine</button>
+            </div>
+        </div>
 
-    @*@using (Html.BeginForm("CreateCourseOfMedicine", "Treatment", FormMethod.Post))
-    {
-        @Html.LabelFor(model => model.Operations)
-        @Html.DropDownListFor(model => model.SelectedOperationId, new SelectList(Model.Operations, "OperationId", "Name", null))
-        @Html.LabelFor(model => model.DateAdministered)
-        @Html.TextBoxFor(model => model.DateAdministered)
-        <input type="submit" value="Create" class="button">
-    }*@
+        <div id="Step2_Procedure">
+            <h3>Procedure details</h3>
+            <div>
+                @using (Html.BeginForm("CreateProcedure", "Treatment", FormMethod.Post))
+                {
+                    @Html.HiddenFor(model => model.VisitId)
+                    @Html.HiddenFor(model => model.RecordedByStaffMemberId)
 
-    <div></div>
+                    <table>
+                        <tr>
+                            <td>@Html.LabelFor(model => model.Operations)</td>
+                            <td>@Html.DropDownListFor(model => model.SelectedOperationId, new SelectList(Model.Operations, "OperationId", "Name", null))</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>@Html.LabelFor(model => model.MedicalStaff)</td>
+                            <td>@Html.DropDownListFor(model => model.AssignedToStaffMemberId, new SelectList(Model.MedicalStaff, "UserId", "FullName", null))</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>@Html.LabelFor(model => model.ScheduledDate)</td>
+                            <td>@Html.TextBoxFor(model => model.ScheduledDate)</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>@Html.LabelFor(model => model.NoteContent)</td>
+                            <td>@Html.TextAreaFor(model => model.NoteContent)</td>
+                        </tr>
+                    </table>
+                    <input type="submit" value="Create" class="button">
+                }
+                <button id="Back_button_procedure">Back</button>
+            </div>
+        </div>
+
+        <div id="Step2_Medicine">
+            <h3>Course of Medicine details</h3>
+            <div>
+                @using (Html.BeginForm("CreateCourseOfMedicine", "Treatment", FormMethod.Post))
+                {
+                    @Html.HiddenFor(model => model.VisitId)
+                    @Html.HiddenFor(model => model.RecordedByStaffMemberId)
+                    
+                    <table>
+                        <tr>
+                            <td>@Html.LabelFor(model => model.Medicines)</td>
+                            <td>@Html.DropDownListFor(model => model.SelectedMedicineId, new SelectList(Model.Medicines, "MedicineId", "Name", null))</td>
+                        </tr>
+
+                        <tr>
+                            <td>@Html.LabelFor(model => model.MedicalStaff)</td>
+                            <td>@Html.DropDownListFor(model => model.AssignedToStaffMemberId, new SelectList(Model.MedicalStaff, "UserId", "FullName", null))</td>
+                        </tr>
+
+                        <tr>
+                            <td>Start date</td>
+                            <td>@Html.TextBoxFor(model => model.ScheduledDate)</td>
+                        </tr>
+
+                        <tr>
+                            <td>@Html.LabelFor(model => model.EndDate)</td>
+                            <td>@Html.TextBoxFor(model => model.EndDate)</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>@Html.LabelFor(model => model.Instructions)</td>
+                            <td>@Html.TextAreaFor(model => model.Instructions)</td>
+                        </tr>
+
+                        <tr>
+                            <td>@Html.LabelFor(model => model.NoteContent)</td>
+                            <td>@Html.TextAreaFor(model => model.NoteContent)</td>
+                        </tr>
+                    </table>
+                    <input type="submit" value="Create" class="button">
+                }
+                <button id="Back_button_medicine">Back</button>
+            </div>
+        </div>
+    </div>
 </div>

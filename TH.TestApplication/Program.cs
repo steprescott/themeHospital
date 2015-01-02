@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using TH.Container;
-using TH.Domain;
 using TH.Domain.Other;
 using TH.Domain.Treatments;
 using TH.Domain.User;

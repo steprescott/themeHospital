@@ -99,7 +99,7 @@ namespace TH.WebSystem.Controllers
             return View(new PatientOptionsViewModel
             {
                 PatientId = id,
-                VisitId = currentVisit != null ? currentVisit.VisitId : Guid.Empty
+                CurrentVisit = currentVisit
             });
         }
 

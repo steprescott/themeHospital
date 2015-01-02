@@ -9,7 +9,6 @@ namespace TH.WebSystem.Models
     public class PatientOptionsViewModel
     {
         public Guid PatientId { get; set; }
-        public Guid VisitId { get; set; }
         public Visit CurrentVisit { get; set; }
     }
 }
