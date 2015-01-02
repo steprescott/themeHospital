@@ -16,5 +16,6 @@ namespace TH.Domain.User
 
         public List<Visit> Visits { get; set; }
         public List<Note> Notes { get; set; }
+        public Visit CurrentVisit { get; set; }
     }
 }

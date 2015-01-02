@@ -19,10 +19,9 @@ namespace TH.WebSystem.Controllers
 
         public ActionResult WaitingList()
         {
-            var wards = HospitalService.WardBusinessLogic.GetAllWards().OrderBy(ward => ward.Number).ToList();
             var patients = HospitalService.PatientBusinessLogic.GetAllPatients().ToList();
 
-            return View(new DisplayWardWaitingListViewModel { Wards = wards, Patients = patients });
+            return View(new DisplayWardWaitingListViewModel { Patients = patients });
         }
         public ActionResult WaitingList(Guid patientId)
         {

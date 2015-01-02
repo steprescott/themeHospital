@@ -5,6 +5,7 @@ using TH.Container;
 using TH.Domain.Other;
 using TH.Domain.Treatments;
 using TH.Domain.User;
+using TH.Domain.Wards;
 using TH.Interfaces;
 
 namespace TH.TestApplication
