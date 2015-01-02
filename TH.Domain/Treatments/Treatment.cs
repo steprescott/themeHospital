@@ -26,6 +26,8 @@ namespace TH.Domain.Treatments
 
         public Visit Visit { get; set; }
 
+        public Refusal Refusal { get; set; }
+
         public Treatment()
         {
             Notes = new List<Note>();

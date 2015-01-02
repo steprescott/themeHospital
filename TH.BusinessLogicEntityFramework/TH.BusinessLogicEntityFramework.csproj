@@ -58,6 +58,7 @@
     <Compile Include="Logic\NotesBusinessLogicEntityFramework.cs" />
     <Compile Include="Logic\OperationBusinessLogicEntityFramework.cs" />
     <Compile Include="Logic\ProcedureBusinessLogicEntityFramework.cs" />
+    <Compile Include="Logic\TreatmentBusinessLogicEntityFramework.cs" />
     <Compile Include="Logic\WardBusinessLogicEntityFramework.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Logic\PatientBusinessLogicEntityFramework.cs" />

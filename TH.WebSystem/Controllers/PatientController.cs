@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using TH.Domain.Enums;
 using TH.Domain.Other;
 using TH.Domain.User;
@@ -130,7 +131,8 @@ namespace TH.WebSystem.Controllers
         [HttpPost]
         public ActionResult CreateNote(PatientCreateNoteViewModel model)
         {
-            var result = HospitalService.NotesBusinessLogic.CreateNote(new Note { 
+            var result = HospitalService.NotesBusinessLogic.CreateNote(new Note 
+            { 
                 NoteId = Guid.NewGuid(),
                 DateCreated = DateTime.Now,
                 Content = model.NoteContent,
@@ -138,6 +140,20 @@ namespace TH.WebSystem.Controllers
             });
 
             return RedirectToAction("Details", new { id = model.PatientUserId });
+        }
+
+        public ActionResult RecordRefusal(Guid id)
+        {
+            var patient = HospitalService.PatientBusinessLogic.GetPatientWithId(id);
+            var procedures = HospitalService.ProcedureBusinessLogic.GetProceduresScheduledForPatientId(id);
+            var coursesOfMedicines = HospitalService.CourseOfMedicineBusinessLogic.GetProceduresScheduledForPatientId(id);
+
+            return View(new PatientTreatmentsModel
+            {
+                Patient = patient,
+                Procedures = procedures,
+                CoursesOfMedicines = coursesOfMedicines
+            });
         }
     }
 }

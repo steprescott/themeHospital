@@ -1,0 +1,53 @@
+﻿@model TH.WebSystem.Models.PatientTreatmentsModel
+
+@{
+    ViewBag.Title = "View Patient Treatments";
+}
+
+<h2>View Patient Treatments</h2>
+
+<h4>Assigned Treatments - @Model.Patient.FullName</h4>
+@if (Model.CoursesOfMedicines.Any() || Model.Procedures.Any())
+{
+    <table class="table">
+        <tr>
+            <th>Date</th>
+            <th>Patient</th>
+            <th>Treatment</th>
+            <th>Option</th>
+        </tr>
+        @foreach (var courseOfMedicine in Model.CoursesOfMedicines)
+        {
+            <tr>
+                <td>@courseOfMedicine.ScheduledDate</td>
+                <td>@courseOfMedicine.Visit.Patient.FullName</td>
+                <td>@courseOfMedicine.Medicine.Name</td>
+                <td>
+                    @(courseOfMedicine.Refusal != null ?
+                        Html.Raw("Refused") :
+                        Html.ActionLink("Record Refusal", "RefuseTreatment", "Treatment", new { treatmentId = courseOfMedicine.TreatmentId }, null)
+                    )
+                </td>
+            </tr>
+        }
+        
+        @foreach (var procedure in Model.Procedures)
+        {
+            <tr>
+                <td>@procedure.ScheduledDate</td>
+                <td>@procedure.Visit.Patient.FullName</td>
+                <td>@procedure.Operation.Name</td>
+                <td>
+                    @(procedure.Refusal != null ?
+                        Html.Raw("Refused") :
+                    Html.ActionLink("Record Refusal", "RefuseTreatment", "Treatment", new { treatmentId = procedure.TreatmentId }, null)
+                    )
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+  @Html.Raw("No treatments scheduled")
+}

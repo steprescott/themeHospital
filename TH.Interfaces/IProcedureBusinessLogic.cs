@@ -10,5 +10,6 @@ namespace TH.Interfaces
         bool CreateProcedure(Procedure procedure);
         List<Procedure> GetProceduresToBeAdministeredByStaffMemberId(Guid userId);
         List<Procedure> GetProceduresForTeamByConsultantId(Guid userId);
+        List<Procedure> GetProceduresScheduledForPatientId(Guid patientId);
     }
 }

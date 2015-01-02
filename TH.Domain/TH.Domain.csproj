@@ -48,6 +48,7 @@
     <Compile Include="Enums\UserType.cs" />
     <Compile Include="Other\ApplicationUser.cs" />
     <Compile Include="Other\Note.cs" />
+    <Compile Include="Other\Refusal.cs" />
     <Compile Include="Other\Visit.cs" />
     <Compile Include="Treatments\CourseOfMedicine.cs" />
     <Compile Include="Treatments\Medicine.cs" />

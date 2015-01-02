@@ -1,11 +1,15 @@
 ﻿@model List<TH.Domain.User.Doctor>
 
+@{
+    ViewBag.Title = "Add Doctor";
+}
+
 @Html.ActionLink("Back to Dashboard", "Index", "Consultant", new { @class = "button" })
 <h1>Available doctors for your team</h1>
 
 @if (Model.Any())
 {
-    <table>
+    <table class="table">
         <tr>
             <th>Firstname</th>
             <th>Surname</th>

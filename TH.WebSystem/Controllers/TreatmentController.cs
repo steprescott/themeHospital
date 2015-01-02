@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TH.Domain.Enums;
 using TH.Domain.Other;
 using TH.Domain.Treatments;
 using TH.WebSystem.Models;
@@ -104,6 +105,57 @@ namespace TH.WebSystem.Controllers
             }
 
             return RedirectToAction("Options", "Patient", new { id = visit.Patient.UserId });
+        }
+
+        public ActionResult RefuseTreatment(Guid treatmentId)
+        {
+            var treatmentName = HospitalService.TreatmentBusinessLogic.GetTreatmentName(treatmentId);
+            var treatment = HospitalService.TreatmentBusinessLogic.GetTreatmentById(treatmentId);
+
+            return View(new RefuseTreatmentModel
+            {
+                TreatmentId = treatmentId,
+                TreatmentName = treatmentName,
+                PatientId = treatment.Visit.Patient.UserId,
+                PatientName = treatment.Visit.Patient.FullName
+            });
+        }
+
+        [HttpPost]
+        public ActionResult RefuseTreatment(RefuseTreatmentModel refuseTreatmentModel)
+        {
+            var result = HospitalService.TreatmentBusinessLogic.RecordRefusalOfTreatment(refuseTreatmentModel.TreatmentId,
+                refuseTreatmentModel.RefusalReason);
+
+            return RedirectToAction("Options", "Patient", new { id = refuseTreatmentModel.PatientId });
+        }
+
+        public ActionResult ViewTreatments()
+        {
+            var userId = ThemeHospitalMembershipProvider.GetCurrentUser().UserId;
+
+            var assignedProcedures = HospitalService.ProcedureBusinessLogic.GetProceduresToBeAdministeredByStaffMemberId(userId);
+            var assignedCoursesOfMedicine = HospitalService.CourseOfMedicineBusinessLogic.GetCoursesOfMedicinesToBeAdministeredByStaffMemberId(userId);
+
+            if (ThemeHospitalMembershipProvider.GetUserRole() == StaffType.Consultant)
+            {
+                var teamsAssignedProcedures = HospitalService.ProcedureBusinessLogic.GetProceduresForTeamByConsultantId(userId);
+                var teamsAssignedCoursesOfMedicines = HospitalService.CourseOfMedicineBusinessLogic.GetCoursesOfMedicinesForTeamByConsultantId(userId);
+
+                return View(new ViewTreatmentModel
+                {
+                    CoursesOfMedicines = assignedCoursesOfMedicine,
+                    Procedures = assignedProcedures,
+                    TeamsCourseOfMedicines = teamsAssignedCoursesOfMedicines,
+                    TeamsProcedures = teamsAssignedProcedures
+                });
+            }
+
+            return View(new ViewTreatmentModel
+            {
+                CoursesOfMedicines = assignedCoursesOfMedicine,
+                Procedures = assignedProcedures
+            });
         }
     }
 }

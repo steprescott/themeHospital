@@ -27,7 +27,9 @@ namespace TH.WebSystem.Controllers
 
         public ActionResult AddDoctor()
         {
-            var availableDoctors = HospitalService.DoctorBusinessLogic.GetAvailableDoctors();
+            var consultantId = ThemeHospitalMembershipProvider.GetCurrentUser().UserId;
+
+            var availableDoctors = HospitalService.DoctorBusinessLogic.GetAvailableDoctorsForConsultantsTeam(consultantId);
 
             return View(availableDoctors);
         }
@@ -54,34 +56,6 @@ namespace TH.WebSystem.Controllers
         public ActionResult ManageTeam()
         {
             return View();
-        }
-
-        public ActionResult ViewTreatments()
-        {
-            var userId = ThemeHospitalMembershipProvider.GetCurrentUser().UserId;
-
-            var assignedProcedures = HospitalService.ProcedureBusinessLogic.GetProceduresToBeAdministeredByStaffMemberId(userId);
-            var assignedCoursesOfMedicine = HospitalService.CourseOfMedicineBusinessLogic.GetCoursesOfMedicinesToBeAdministeredByStaffMemberId(userId);
-
-            if (ThemeHospitalMembershipProvider.GetUserRole() == StaffType.Consultant)
-            {
-                var teamsAssignedProcedures = HospitalService.ProcedureBusinessLogic.GetProceduresForTeamByConsultantId(userId);
-                var teamsAssignedCoursesOfMedicines = HospitalService.CourseOfMedicineBusinessLogic.GetCoursesOfMedicinesForTeamByConsultantId(userId);
-
-                return View(new ViewTreatmentModel
-                {
-                    CoursesOfMedicines = assignedCoursesOfMedicine,
-                    Procedures = assignedProcedures,
-                    TeamsCourseOfMedicines = teamsAssignedCoursesOfMedicines,
-                    TeamsProcedures = teamsAssignedProcedures
-                });
-            }
-
-            return View(new ViewTreatmentModel
-            {
-                CoursesOfMedicines = assignedCoursesOfMedicine,
-                Procedures = assignedProcedures
-            });
         }
     }
 }

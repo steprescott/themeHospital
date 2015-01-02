@@ -207,6 +207,8 @@
     <Compile Include="Models\PatientCreateNoteViewModel.cs" />
     <Compile Include="Models\PatientDetailsModel.cs" />
     <Compile Include="Models\PatientOptionsViewModel.cs" />
+    <Compile Include="Models\PatientTreatmentsModel.cs" />
+    <Compile Include="Models\RefuseTreatmentModel.cs" />
     <Compile Include="Models\ViewTreatmentModel.cs" />
     <Compile Include="Models\VisitDetailsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -235,9 +237,12 @@
     <Content Include="Views\Patient\Admit.cshtml" />
     <Content Include="Views\Patient\Dismiss.cshtml" />
     <Content Include="Views\Consultant\ManageTeam.cshtml" />
-    <Content Include="Views\Consultant\ViewTreatments.cshtml" />
+    <Content Include="Views\Treatment\ViewTreatments.cshtml" />
     <Content Include="Views\Visit\Details.cshtml" />
     <Content Include="Views\Patient\CreateNote.cshtml" />
+    <Content Include="Views\Patient\RecordRefusal.cshtml" />
+    <Content Include="Views\Treatment\RefuseTreatment.cshtml" />
+    <Content Include="Views\Doctor\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -247,8 +252,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\AuthorisedBase\" />
-    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TH.Container\TH.Container.csproj">

@@ -49,11 +49,20 @@ namespace TH.BusinessLogicEntityFramework.Logic
                 var consultantTeam = consultant.Team;
                 var coursesOfMedicines = _unitOfWork.GetAll<CourseOfMedicine>().ToList();
 
-                coursesOfMedicines = coursesOfMedicines.Where(com => consultantTeam.Doctors.Select(d => d.UserId).Contains(com.AdministeredByUserId.GetValueOrDefault())).ToList();
+                coursesOfMedicines = coursesOfMedicines.Where(com => consultantTeam.Doctors.Select(d => d.UserId).Contains(com.AssignedToUserId)).ToList();
 
                 return coursesOfMedicines.Select(com => ReflectiveMapperService.ConvertItem<CourseOfMedicine, Domain.Treatments.CourseOfMedicine>(com)).ToList();
             }
             return new List<Domain.Treatments.CourseOfMedicine>();
+        }
+
+        public List<Domain.Treatments.CourseOfMedicine> GetProceduresScheduledForPatientId(Guid patientId)
+        {
+            var courseOfMedicines = _unitOfWork.GetAll<CourseOfMedicine>().ToList();
+
+            courseOfMedicines = courseOfMedicines.Where(p => p.Visit.PatientUserId == patientId).ToList();
+
+            return courseOfMedicines.Select(com => ReflectiveMapperService.ConvertItem<CourseOfMedicine, Domain.Treatments.CourseOfMedicine>(com)).ToList();
         }
     }
 }

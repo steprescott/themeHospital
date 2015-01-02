@@ -199,7 +199,6 @@ input[type=submit], .menu li, button, .button {
     box-shadow: inset 2px 2px 2px 0 #51e6c4, inset -2px -2px 2px #1b9e80;
     color: WHITE;
     cursor: url(../Images/cursor.png), auto;
-    float:left;
 }
 
     input[type=submit]:hover, .menu li:hover, button:hover, .button:hover {

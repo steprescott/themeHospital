@@ -1,11 +1,16 @@
-﻿@model TH.Domain.Other.Team
+﻿@using System.Web.UI.WebControls
+@model TH.Domain.Other.Team
+
+@{
+    ViewBag.Title = "View Team";
+}
 
 @Html.ActionLink("Back to Dashboard", "Index", "Consultant", new { @class = "button" })
 <h1>Your Team</h1>
 
 @if (Model.Doctors.Any())
 { 
-    <table>
+    <table class="table">
         <tr>
             <th>Firstname</th>
             <th>Surname</th>

@@ -1,0 +1,144 @@
+﻿@using TH.Domain.Enums
+@using TH.WebSystem.Providers
+@model TH.WebSystem.Models.ViewTreatmentModel
+
+@{
+    ViewBag.Title = "View Treatments";
+}
+
+<h2>View Treatments</h2>
+
+<h4>My Assigned Treatments</h4>
+@if (Model.CoursesOfMedicines.Any() || Model.Procedures.Any())
+{
+    <table class="table">
+        <tr>
+            <th>Date</th>
+            <th>Patient</th>
+            <th>Treatment</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        @foreach (var courseOfMedicine in Model.CoursesOfMedicines)
+        {
+            <tr>
+                <td>@courseOfMedicine.ScheduledDate</td>
+                <td>@courseOfMedicine.Visit.Patient.FullName</td>
+                <td>@courseOfMedicine.Medicine.Name</td>
+                <td>
+                    @if (courseOfMedicine.AdministeredByUserId == null)
+                    {
+                        @Html.Raw("Awaiting Administration by Staff")
+                    }
+                    else if (courseOfMedicine.Refusal != null)
+                    {
+                        @Html.Raw("Patient Refused")
+                    }
+                    else
+                    {
+                        @Html.Raw("Completed")
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Options", "Options", "Patient", new { id = courseOfMedicine.Visit.Patient.UserId }, null)
+                </td>
+            </tr>
+        }
+        
+        @foreach (var procedure in Model.Procedures)
+        {
+            <tr>
+                <td>@procedure.ScheduledDate</td>
+                <td>@procedure.Visit.Patient.FullName</td>
+                <td>@procedure.Operation.Name</td>
+                <td>
+                    @if (procedure.AdministeredByUserId == null)
+                    {
+                        @Html.Raw("Awaiting Administration by Staff")
+                    }
+                    else if (procedure.Refusal != null)
+                    {
+                        @Html.Raw("Patient Refused")
+                    }
+                    else
+                    {
+                        @Html.Raw("Completed")
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Options", "Options", "Patient", new { id = procedure.Visit.Patient.UserId }, null)
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+  @Html.Raw("No treatments scheduled")
+}
+
+@if (ThemeHospitalMembershipProvider.GetUserRole() == StaffType.Consultant && (Model.TeamsCourseOfMedicines.Any() || Model.TeamsProcedures.Any()))
+{
+    <h4>My Teams arranged Treatments</h4>
+    <table class="table">
+        <tr>
+            <th>Date</th>
+            <th>Patient</th>
+            <th>Assigned To</th>
+            <th>Treatment</th>
+            <th>Status</th>
+        </tr>
+        @foreach (var courseOfMedicine in Model.TeamsCourseOfMedicines)
+        {
+            <tr>
+                <td>@courseOfMedicine.ScheduledDate</td>
+                <td>@courseOfMedicine.Visit.Patient.FullName</td>
+                <td>@courseOfMedicine.AdministeredBy.FullName</td>
+                <td>@courseOfMedicine.Medicine.Name</td>
+                <td>
+                    @if (courseOfMedicine.AdministeredByUserId == null)
+                    {
+                        @Html.Raw("Awaiting Administration by Staff")
+                    }
+                    else if (courseOfMedicine.Refusal != null)
+                    {
+                        @Html.Raw("Patient Refused")
+                    }
+                    else
+                    {
+                        @Html.Raw("Completed")
+                    }
+                </td>
+            </tr>
+        }
+
+        @foreach (var procedure in Model.TeamsProcedures)
+        {
+            <tr>
+                <td>@procedure.ScheduledDate</td>
+                <td>@procedure.Visit.Patient.FullName</td>
+                <td>@procedure.AdministeredBy.FullName</td>
+                <td>@procedure.Operation.Name</td>
+                <td>
+                    @if (procedure.AdministeredByUserId == null)
+                    {
+                        @Html.Raw("Awaiting Administration by Staff")
+                    }
+                    else if (procedure.Refusal != null)
+                    {
+                        @Html.Raw("Patient Refused")
+                    }
+                    else
+                    {
+                        @Html.Raw("Completed")
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <h4>My Teams arranged Treatments</h4>
+    @Html.Raw("No treatments scheduled")
+}

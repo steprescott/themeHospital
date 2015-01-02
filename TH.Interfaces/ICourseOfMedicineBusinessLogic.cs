@@ -10,5 +10,6 @@ namespace TH.Interfaces
         bool CreateCauseOfMedicne(CourseOfMedicine courseOfMedicine);
         List<CourseOfMedicine> GetCoursesOfMedicinesToBeAdministeredByStaffMemberId(Guid userId);
         List<CourseOfMedicine> GetCoursesOfMedicinesForTeamByConsultantId(Guid userId);
+        List<CourseOfMedicine> GetProceduresScheduledForPatientId(Guid patientId);
     }
 }

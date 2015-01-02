@@ -2,24 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using TH.Domain.Treatments;
+using TH.Domain.User;
 
 namespace TH.WebSystem.Models
 {
-    public class ViewTreatmentModel
+    public class PatientTreatmentsModel
     {
         public List<CourseOfMedicine> CoursesOfMedicines { get; set; }
         public List<Procedure> Procedures { get; set; }
+        public Patient Patient { get; set; }
 
-        public List<CourseOfMedicine> TeamsCourseOfMedicines { get; set; }
-        public List<Procedure> TeamsProcedures { get; set; }
-
-        public ViewTreatmentModel()
+        public PatientTreatmentsModel()
         {
             CoursesOfMedicines = new List<CourseOfMedicine>();
             Procedures = new List<Procedure>();
-
-            TeamsCourseOfMedicines = new List<CourseOfMedicine>();
-            TeamsProcedures = new List<Procedure>();
         }
     }
 }
