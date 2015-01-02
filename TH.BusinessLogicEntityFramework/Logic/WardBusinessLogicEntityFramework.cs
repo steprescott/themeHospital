@@ -77,7 +77,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
         public bool AssignPatientToWardWaitingList(Domain.Wards.Ward ward, Domain.User.Patient patient)
         {
-            ward
+            
             return false;
         }
     }

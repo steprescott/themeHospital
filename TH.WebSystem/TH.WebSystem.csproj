@@ -243,6 +243,10 @@
     <Content Include="Views\Visit\CreateNote.cshtml" />
     <Content Include="Views\Ward\DisplayWards.cshtml" />
     <Content Include="Views\Ward\WaitingList.cshtml" />
+    <Content Include="Views\Patient\DisplayWards.cshtml" />
+    <Content Include="Views\Patient\DoctorMenu.cshtml" />
+    <Content Include="Views\Patient\Menu.cshtml" />
+    <Content Include="Views\Patient\ReceptionistMenu.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

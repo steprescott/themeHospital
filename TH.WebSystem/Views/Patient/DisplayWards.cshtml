@@ -1,4 +1,5 @@
 ﻿@using TH.Domain.Other
+@using TH.Domain.Wards
 ﻿@model TH.WebSystem.Models.DisplayWardsViewModel
 
 <h2>Wards</h2>
@@ -21,7 +22,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => ward.Number)
+                    @ward.Number
                 </td>
                 <td>
                     @bed.Number
