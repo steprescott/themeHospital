@@ -107,14 +107,28 @@ namespace TH.WebSystem.Controllers
             return RedirectToAction("Options", "Patient", new { id = visit.Patient.UserId });
         }
 
-        public ActionResult RefuseTreatment(Guid treatmentId)
+        [HttpPost]
+        public ActionResult AdministorProcedure(ProcedureViewModel model)
         {
-            var treatmentName = HospitalService.TreatmentBusinessLogic.GetTreatmentName(treatmentId);
-            var treatment = HospitalService.TreatmentBusinessLogic.GetTreatmentById(treatmentId);
+            var result = HospitalService.ProcedureBusinessLogic.AdministorProcedureWithId(model.TreatmentId, model.AdministeredByUserId);
+            return RedirectToAction("Procedure", new { id = model.TreatmentId });
+        }
+        
+        [HttpPost]
+        public ActionResult AdministorCourseOfMedicine(ProcedureViewModel model)
+        {
+            var result = HospitalService.CourseOfMedicineBusinessLogic.AdministorCourseOfMedicineWithId(model.TreatmentId, model.AdministeredByUserId);
+            return RedirectToAction("CourseOfMedicine", new { id = model.TreatmentId });
+        }
+
+        public ActionResult RefuseTreatment(Guid id)
+        {
+            var treatmentName = HospitalService.TreatmentBusinessLogic.GetTreatmentName(id);
+            var treatment = HospitalService.TreatmentBusinessLogic.GetTreatmentById(id);
 
             return View(new RefuseTreatmentModel
             {
-                TreatmentId = treatmentId,
+                TreatmentId = id,
                 TreatmentName = treatmentName,
                 PatientId = treatment.Visit.Patient.UserId,
                 PatientName = treatment.Visit.Patient.FullName
@@ -155,6 +169,43 @@ namespace TH.WebSystem.Controllers
             {
                 CoursesOfMedicines = assignedCoursesOfMedicine,
                 Procedures = assignedProcedures
+            });
+        }
+
+        public ActionResult Procedure(Guid id)
+        {
+            var procedure = HospitalService.ProcedureBusinessLogic.GetProcedureWithId(id);
+            var recordedBy = HospitalService.StaffMemberBusinessLogic.GetStaffMemberWithId(procedure.RecordedByUserId);
+            var assignedTo = HospitalService.StaffMemberBusinessLogic.GetStaffMemberWithId(procedure.AssignedToUserId);
+            var administoredBy = HospitalService.StaffMemberBusinessLogic.GetStaffMemberWithId(procedure.AdministeredByUserId.GetValueOrDefault());
+            var medicalStaff = HospitalService.VisitBusinessLogic.GetMedicalStaffForVisitWithId(procedure.Visit.VisitId);
+
+            return View(new ProcedureViewModel {
+                Procedure = procedure,
+                RecordedBy = recordedBy,
+                AssignedTo = assignedTo,
+                MedicalStaff = medicalStaff,
+                AdministeredBy = administoredBy,
+                TreatmentId = procedure.TreatmentId
+            });
+        }
+
+        public ActionResult CourseOfMedicine(Guid id)
+        {
+            var courseOfMedicine = HospitalService.CourseOfMedicineBusinessLogic.GetCoursesOfMedicineWithId(id);
+            var recordedBy = HospitalService.StaffMemberBusinessLogic.GetStaffMemberWithId(courseOfMedicine.RecordedByUserId);
+            var assignedTo = HospitalService.StaffMemberBusinessLogic.GetStaffMemberWithId(courseOfMedicine.AssignedToUserId);
+            var administoredBy = HospitalService.StaffMemberBusinessLogic.GetStaffMemberWithId(courseOfMedicine.AdministeredByUserId.GetValueOrDefault());
+            var medicalStaff = HospitalService.VisitBusinessLogic.GetMedicalStaffForVisitWithId(courseOfMedicine.Visit.VisitId);
+
+            return View(new CourseOfMedicineViewModel
+            {
+                CourseOfMedicine = courseOfMedicine,
+                RecordedBy = recordedBy,
+                AssignedTo = assignedTo,
+                MedicalStaff = medicalStaff,
+                AdministeredBy = administoredBy,
+                TreatmentId = courseOfMedicine.TreatmentId
             });
         }
     }

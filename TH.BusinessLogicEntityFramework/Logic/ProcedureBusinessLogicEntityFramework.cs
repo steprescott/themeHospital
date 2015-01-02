@@ -31,6 +31,12 @@ namespace TH.BusinessLogicEntityFramework.Logic
             }
         }
 
+        public Domain.Treatments.Procedure GetProcedureWithId(Guid id)
+        {
+            var procedure = _unitOfWork.GetById<Procedure>(id);
+            return ReflectiveMapperService.ConvertItem<Procedure, Domain.Treatments.Procedure>(procedure);
+        }
+
         public List<Domain.Treatments.Procedure> GetProceduresToBeAdministeredByStaffMemberId(Guid userId)
         {
             var procedures = _unitOfWork.GetAll<Procedure>().ToList();
@@ -64,6 +70,23 @@ namespace TH.BusinessLogicEntityFramework.Logic
             procedures = procedures.Where(p => p.Visit.PatientUserId == patientId).ToList();
 
             return procedures.Select(p => ReflectiveMapperService.ConvertItem<Procedure, Domain.Treatments.Procedure>(p)).ToList();
+        }
+
+        public bool AdministorProcedureWithId(Guid id, Guid administoredByUserId)
+        {
+            try
+            {
+                var efProcedure = _unitOfWork.GetById<Procedure>(id);
+                efProcedure.DateAdministered = DateTime.Now;
+                efProcedure.AdministeredByUserId = administoredByUserId;
+                _unitOfWork.Update(efProcedure);
+                _unitOfWork.SaveChanges();
+                return true;
+            }
+            catch (Exception exception)
+            {
+                return false;
+            }
         }
     }
 }

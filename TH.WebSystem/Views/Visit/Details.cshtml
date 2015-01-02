@@ -1,4 +1,5 @@
-﻿@model TH.WebSystem.Models.VisitDetailsViewModel
+﻿@using TH.Domain.Treatments
+@model TH.WebSystem.Models.VisitDetailsViewModel
 
 <h1>Visit details</h1>
 <hr />
@@ -21,6 +22,83 @@
         <td>@Html.DisplayFor(model => model.Visit.Bed.Number)</td>
     </tr>
 </table>
+
+<h4>Procdures</h4>
+@if (Model.Procedures.Count > 0)
+{
+    <table class="table" width="100%">
+        <tr>
+            <th>Scheduled date</th>
+            <th>Name</th>
+            <th>Administered by</th>
+            <th>Options</th>
+        </tr>
+        @foreach (var procedure in Model.Procedures.OrderBy(o => o.ScheduledDate))
+        {
+            <tr>
+                <td style="width:180px">@procedure.ScheduledDate</td>
+                <td>@procedure.Operation.Name</td>
+                <td>
+                    @if (procedure.Refusal != null)
+                    {
+                        @Html.Raw("Treatment refused.")
+                        @procedure.Refusal.Note.Content
+                    }
+                    else if (procedure.AdministeredBy != null)
+                    {
+                        @procedure.AdministeredBy.FullName
+                    }
+                    else
+                    {
+                        @Html.Raw("Not yet administered")
+                    }
+                    
+                </td>
+                <td>@Html.ActionLink("View", "Procedure", "Treatment", new { id = procedure.TreatmentId }, null)</td>
+            </tr>
+        }
+    </table>
+
+    <p>
+        <button>@Html.ActionLink("Create new treatment", "Create", "Treatment", new { id = Model.Visit.VisitId }, null)</button>
+    </p>
+}
+else
+{
+    @Html.Raw("No procedures for visit. You can create a new treatment ");
+    @Html.ActionLink("here", "Create", "Treatment", new { id = Model.Visit.VisitId }, null)
+}
+
+<h4>Course of medicines</h4>
+@if (Model.CourseOfMedicines.Count > 0)
+{
+    <table class="table" width="100%">
+        <tr>
+            <th>Scheduled date</th>
+            <th>Name</th>
+            <th>Administered by</th>
+            <th>Options</th>
+        </tr>
+        @foreach (var courseOfMedicines in Model.CourseOfMedicines.OrderBy(o => o.ScheduledDate))
+        {
+            <tr>
+                <td style="width:180px">@courseOfMedicines.ScheduledDate</td>
+                <td>@courseOfMedicines.Medicine.Name</td>
+                <td>@if (courseOfMedicines.AdministeredBy != null){@courseOfMedicines.AdministeredBy.FullName}else{@Html.Raw("Not yet administered")}</td>
+                <td>@Html.ActionLink("View", "CourseOfMedicine", "Treatment", new { id = courseOfMedicines.TreatmentId }, null)</td>
+            </tr>
+        }
+    </table>
+
+    <p>
+        <button>@Html.ActionLink("Create new treatment", "Create", "Treatment", new { id = Model.Visit.VisitId }, null)</button>
+    </p>
+}
+else
+{
+    @Html.Raw("No course of medicines for visit. You can create a new treatment ");
+    @Html.ActionLink("here", "Create", "Treatment", new { id = Model.Visit.VisitId }, null)
+}
 
 <h4>Notes</h4>
 @if (Model.Visit.Notes.Count > 0)

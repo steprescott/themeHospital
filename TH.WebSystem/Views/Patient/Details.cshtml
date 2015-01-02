@@ -93,7 +93,7 @@
             <th>Team Consultants</th>
             <th>Options</th>
         </tr>
-        @foreach (var visit in Model.Patient.Visits)
+        @foreach (var visit in Model.Patient.Visits.OrderBy(o => o.AdmittedDate))
         {
             <tr>
                 <td>@Html.DisplayFor(model => visit.AdmittedDate)</td>
@@ -117,7 +117,7 @@ else
             <th>Date created</th>
             <th>Content</th>
         </tr>
-        @foreach (var note in Model.Patient.Notes)
+        @foreach (var note in Model.Patient.Notes.OrderBy(o => o.DateCreated))
         {
             <tr>
                 <td style="width:180px">@Html.DisplayFor(model => note.DateCreated)</td>

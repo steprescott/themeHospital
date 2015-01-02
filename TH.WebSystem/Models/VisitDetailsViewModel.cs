@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using TH.Domain.Other;
+using TH.Domain.Treatments;
+using TH.Domain.User;
 
 namespace TH.WebSystem.Models
 {
@@ -11,5 +13,11 @@ namespace TH.WebSystem.Models
     {
         [DisplayName("Visit")]
         public Visit Visit { get; set; }
+
+        [DisplayName("Procedures")]
+        public List<Procedure> Procedures { get; set; }
+
+        [DisplayName("Course of medicines")]
+        public List<CourseOfMedicine> CourseOfMedicines { get; set; }
     }
 }
