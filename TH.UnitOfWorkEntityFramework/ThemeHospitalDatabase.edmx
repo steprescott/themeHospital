@@ -18,6 +18,7 @@
     <EntitySet Name="WardWaitingLists" EntityType="ThemeHospitalDatabase.Store.WardWaitingLists" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Visits" EntityType="ThemeHospitalDatabase.Store.Visits" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Skills" EntityType="ThemeHospitalDatabase.Store.Skills" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Refusals" EntityType="ThemeHospitalDatabase.Store.Refusals" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users_StaffMember" EntityType="ThemeHospitalDatabase.Store.Users_StaffMember" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users_Consultant" EntityType="ThemeHospitalDatabase.Store.Users_Consultant" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Treatments_Procedure" EntityType="ThemeHospitalDatabase.Store.Treatments_Procedure" store:Type="Tables" Schema="dbo" />
@@ -115,6 +116,14 @@
     <AssociationSet Name="TreatmentStaffMember" Association="ThemeHospitalDatabase.Store.TreatmentStaffMember">
       <End Role="Treatment" EntitySet="Treatments" />
       <End Role="StaffMember" EntitySet="Users_StaffMember" />
+    </AssociationSet>
+    <AssociationSet Name="RefusalNote" Association="ThemeHospitalDatabase.Store.RefusalNote">
+      <End Role="Refusal" EntitySet="Refusals" />
+      <End Role="Note" EntitySet="Notes" />
+    </AssociationSet>
+    <AssociationSet Name="TreatmentRefusal" Association="ThemeHospitalDatabase.Store.TreatmentRefusal">
+      <End Role="Treatment" EntitySet="Treatments" />
+      <End Role="Refusal" EntitySet="Refusals" />
     </AssociationSet>
     <AssociationSet Name="FK_StaffMember_inherits_User" Association="ThemeHospitalDatabase.Store.FK_StaffMember_inherits_User">
       <End Role="User" EntitySet="Users" />
@@ -253,6 +262,14 @@
     </Key>
     <Property Name="SkillId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Refusals">
+    <Key>
+      <PropertyRef Name="RefusalId" />
+    </Key>
+    <Property Name="RefusalId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Note_NoteId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Treatment_TreatmentId" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
   <EntityType Name="Users_StaffMember">
     <Key>
@@ -524,6 +541,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="RefusalNote">
+    <End Role="Refusal" Type="ThemeHospitalDatabase.Store.Refusals" Multiplicity="*" />
+    <End Role="Note" Type="ThemeHospitalDatabase.Store.Notes" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Note">
+        <PropertyRef Name="NoteId" />
+      </Principal>
+      <Dependent Role="Refusal">
+        <PropertyRef Name="Note_NoteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TreatmentRefusal">
+    <End Role="Treatment" Type="ThemeHospitalDatabase.Store.Treatments" Multiplicity="1" />
+    <End Role="Refusal" Type="ThemeHospitalDatabase.Store.Refusals" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Treatment">
+        <PropertyRef Name="TreatmentId" />
+      </Principal>
+      <Dependent Role="Refusal">
+        <PropertyRef Name="Treatment_TreatmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_UserAddress_User">
     <End Role="User" Type="ThemeHospitalDatabase.Store.Users" Multiplicity="1" />
     <End Role="UserAddress" Type="ThemeHospitalDatabase.Store.UserAddress" Multiplicity="*" />
@@ -787,6 +828,15 @@
             <End Role="Treatment" EntitySet="Treatments" />
             <End Role="StaffMember" EntitySet="Users" />
           </AssociationSet>
+          <EntitySet Name="Refusals" EntityType="ThemeHospitalDatabase.Refusal" />
+          <AssociationSet Name="RefusalNote" Association="ThemeHospitalDatabase.RefusalNote">
+            <End Role="Refusal" EntitySet="Refusals" />
+            <End Role="Note" EntitySet="Notes" />
+          </AssociationSet>
+          <AssociationSet Name="TreatmentRefusal" Association="ThemeHospitalDatabase.TreatmentRefusal">
+            <End Role="Treatment" EntitySet="Treatments" />
+            <End Role="Refusal" EntitySet="Refusals" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -859,6 +909,7 @@
           <NavigationProperty Name="Notes" Relationship="ThemeHospitalDatabase.TreatmentNote" FromRole="Treatment" ToRole="Note" />
           <NavigationProperty Name="AssignedTo" Relationship="ThemeHospitalDatabase.TreatmentStaffMember" FromRole="Treatment" ToRole="StaffMember" />
           <Property Name="AssignedToUserId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Refusal" Relationship="ThemeHospitalDatabase.TreatmentRefusal" FromRole="Treatment" ToRole="Refusal" />
         </EntityType>
         <EntityType Name="Procedure" BaseType="ThemeHospitalDatabase.Treatment" >
           <Property Name="DateAdministered" Type="DateTime" Nullable="true" />
@@ -930,6 +981,7 @@
           <Property Name="PatientUserId" Type="Guid" Nullable="true" />
           <NavigationProperty Name="Visit" Relationship="ThemeHospitalDatabase.VisitNote" FromRole="Note" ToRole="Visit" />
           <Property Name="VisitId" Type="Guid" Nullable="true" />
+          <NavigationProperty Name="Refusal" Relationship="ThemeHospitalDatabase.RefusalNote" FromRole="Note" ToRole="Refusal" />
         </EntityType>
         <EntityType Name="WardWaitingList">
           <Key>
@@ -1146,6 +1198,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Refusal">
+          <Key>
+            <PropertyRef Name="RefusalId" />
+          </Key>
+          <Property Name="RefusalId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <NavigationProperty Name="Note" Relationship="ThemeHospitalDatabase.RefusalNote" FromRole="Refusal" ToRole="Note" />
+          <NavigationProperty Name="Treatment" Relationship="ThemeHospitalDatabase.TreatmentRefusal" FromRole="Refusal" ToRole="Treatment" />
+        </EntityType>
+        <Association Name="RefusalNote">
+          <End Type="ThemeHospitalDatabase.Refusal" Role="Refusal" Multiplicity="0..1" />
+          <End Type="ThemeHospitalDatabase.Note" Role="Note" Multiplicity="1" />
+        </Association>
+        <Association Name="TreatmentRefusal">
+          <End Type="ThemeHospitalDatabase.Treatment" Role="Treatment" Multiplicity="1" />
+          <End Type="ThemeHospitalDatabase.Refusal" Role="Refusal" Multiplicity="0..1" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1318,6 +1386,13 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Refusals">
+      <EntityTypeMapping TypeName="IsTypeOf(ThemeHospitalDatabase.Refusal)">
+        <MappingFragment StoreEntitySet="Refusals">
+          <ScalarProperty Name="RefusalId" ColumnName="RefusalId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="UserAddress" TypeName="ThemeHospitalDatabase.UserAddress" StoreEntitySet="UserAddress">
       <EndProperty Name="User">
         <ScalarProperty Name="UserId" ColumnName="Users_UserId" />
@@ -1356,6 +1431,22 @@
       </EndProperty>
       <EndProperty Name="Team">
         <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RefusalNote" TypeName="ThemeHospitalDatabase.RefusalNote" StoreEntitySet="Refusals">
+      <EndProperty Name="Note">
+        <ScalarProperty Name="NoteId" ColumnName="Note_NoteId" />
+      </EndProperty>
+      <EndProperty Name="Refusal">
+        <ScalarProperty Name="RefusalId" ColumnName="RefusalId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TreatmentRefusal" TypeName="ThemeHospitalDatabase.TreatmentRefusal" StoreEntitySet="Refusals">
+      <EndProperty Name="Treatment">
+        <ScalarProperty Name="TreatmentId" ColumnName="Treatment_TreatmentId" />
+      </EndProperty>
+      <EndProperty Name="Refusal">
+        <ScalarProperty Name="RefusalId" ColumnName="RefusalId" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

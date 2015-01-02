@@ -230,7 +230,6 @@
     <Content Include="Views\Patient\Search.cshtml" />
     <Content Include="Views\Shared\_PatientList.cshtml" />
     <Content Include="Views\Patient\Options.cshtml" />
-    <Content Include="Views\Patient\DisplayWards.cshtml" />
     <Content Include="Views\Shared\_DashboardLink.cshtml" />
     <Content Include="Views\Treatment\Create.cshtml" />
     <Content Include="Views\Patient\Admit.cshtml" />

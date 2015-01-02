@@ -15,6 +15,7 @@ namespace TH.Domain.Other
         public List<Team> Teams { get; set; }
         public List<Treatment> Treatments { get; set; }
         public List<Note> Notes { get; set; }
+        public Bed Bed { get; set; }
 
         public Visit()
         {

@@ -1,4 +1,5 @@
-﻿@model TH.WebSystem.Models.PatientOptionsViewModel
+﻿@using TH.Domain.Other
+@model TH.WebSystem.Models.PatientOptionsViewModel
 
 <h2>Patient Options</h2>
 
@@ -11,7 +12,7 @@
         @Html.ActionLink("Add Notes To Record", "Details", "Patient")
     </li>
 
-    @if (Model.VisitId == Guid.Empty)
+    @if (Model.CurrentVisit == null)
     {
         <li>
             @Html.ActionLink("Admit", "Admit", "Patient", new { id = Model.PatientId }, null)
@@ -19,14 +20,17 @@
     }
     else
     {
-        <li>
-            @Html.ActionLink("Assign Patient To Ward", "DisplayWards", "Patient")
-        </li>
+        if (Model.CurrentVisit.Bed == null)
+        {
+            <li>
+                @Html.ActionLink("Assign Patient To Ward", "DisplayWards", "Patient", new { patientId = Model.PatientId }, null)
+            </li>
+        }
         <li>
             @Html.ActionLink("Assign Patient To Consultant", "DisplayWards", "Patient")
         </li>
         <li>
-            @Html.ActionLink("Arrange Treatment For Patient", "Create", "Treatment", new { id = Model.VisitId }, null)
+            @Html.ActionLink("Arrange Treatment For Patient", "Create", "Treatment", new { id = Model.CurrentVisit.VisitId }, null)
         </li>
         <li>
             @Html.ActionLink("Record Refusal Of Treatment", "DisplayWards", "Patient")

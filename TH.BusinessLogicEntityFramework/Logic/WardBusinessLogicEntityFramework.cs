@@ -67,5 +67,12 @@ namespace TH.BusinessLogicEntityFramework.Logic
         {
             return ReflectiveMapperService.ConvertItem<Ward, Domain.Other.Ward>(_unitOfWork.GetById<Ward>(id));
         }
+
+        public List<Domain.Other.Bed> AvailableBedsForWardWithId(Guid id)
+        {
+            var ward = _unitOfWork.GetById<Ward>(id);
+
+            return ReflectiveMapperService.ConvertItem<List<Bed>, List<Domain.Other.Bed>>(ward.AvailableBeds);
+        }
     }
 }

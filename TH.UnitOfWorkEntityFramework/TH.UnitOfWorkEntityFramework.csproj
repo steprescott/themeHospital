@@ -76,7 +76,9 @@
     <Compile Include="Operation.cs">
       <DependentUpon>ThemeHospitalDatabase.tt</DependentUpon>
     </Compile>
+    <Compile Include="Partials\Patient.cs" />
     <Compile Include="Partials\User.cs" />
+    <Compile Include="Partials\Ward.cs" />
     <Compile Include="Patient.cs">
       <DependentUpon>ThemeHospitalDatabase.tt</DependentUpon>
     </Compile>
@@ -84,6 +86,9 @@
       <DependentUpon>ThemeHospitalDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Receptionist.cs">
+      <DependentUpon>ThemeHospitalDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Refusal.cs">
       <DependentUpon>ThemeHospitalDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Skill.cs">
