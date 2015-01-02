@@ -18,14 +18,14 @@ namespace TH.BusinessLogicEntityFramework.Logic
             _unitOfWork = unitOfWork;
         }
 
-        public List<Domain.Other.Ward> GetAllWards()
+        public List<Domain.Wards.Ward> GetAllWards()
         {
             var wards = _unitOfWork.GetAll<Ward>().ToList();
 
-            return wards.Select(w => ReflectiveMapperService.ConvertItem<Ward, Domain.Other.Ward>(w)).ToList();
+            return wards.Select(w => ReflectiveMapperService.ConvertItem<Ward, Domain.Wards.Ward>(w)).ToList();
         }
 
-        public bool CreateOrUpdateWard(Domain.Other.Ward ward)
+        public bool CreateOrUpdateWard(Domain.Wards.Ward ward)
         {
             var efWard = _unitOfWork.GetById<Ward>(ward.WardId);
             try
@@ -63,9 +63,9 @@ namespace TH.BusinessLogicEntityFramework.Logic
             }
         }
 
-        public Domain.Other.Ward GetWardWithId(Guid id)
+        public Domain.Wards.Ward GetWardWithId(Guid id)
         {
-            return ReflectiveMapperService.ConvertItem<Ward, Domain.Other.Ward>(_unitOfWork.GetById<Ward>(id));
+            return ReflectiveMapperService.ConvertItem<Ward, Domain.Wards.Ward>(_unitOfWork.GetById<Ward>(id));
         }
 
         public List<Domain.Other.Bed> AvailableBedsForWardWithId(Guid id)

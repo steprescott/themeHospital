@@ -1,33 +1,50 @@
-﻿@using TH.Domain.Other
-@model TH.WebSystem.Models.VisitDetailsViewModel
+﻿@model TH.WebSystem.Models.VisitDetailsViewModel
 
 <h1>Visit details</h1>
 <hr />
 
 <table>
-    
+    <tr>
+        <td>@Html.LabelFor(model => model.Visit.Patient.FullName)</td>
+        <td>@Html.DisplayFor(model => model.Visit.Patient.FullName)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(model => model.Visit.AdmittedDate)</td>
+        <td>@Html.DisplayFor(model => model.Visit.AdmittedDate)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(model => model.Visit.ReleaseDate)</td>
+        <td>@Html.DisplayFor(model => model.Visit.ReleaseDate)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(model => model.Visit.Bed.Number)</td>
+        <td>@Html.DisplayFor(model => model.Visit.Bed.Number)</td>
+    </tr>
 </table>
 
 <h4>Notes</h4>
 @if (Model.Visit.Notes.Count > 0)
 {
-    <table class="table">
+    <table class="table" width="100%">
         <tr>
             <th>Date created</th>
             <th>Content</th>
         </tr>
-        @foreach (Note note in Model.Visit.Notes)
+        @foreach (var note in Model.Visit.Notes)
         {
-            <tr>@Html.DisplayForModel(note.DateCreated)</tr>
-            <tr>@Html.DisplayForModel(note.Content)</tr>
+            <tr>
+                <td style="width:180px">@Html.DisplayFor(model => note.DateCreated)</td>
+                <td>@Html.DisplayFor(model => note.Content)</td>
+            </tr>
         }
     </table>
+
     <p>
         <button>@Html.ActionLink("Create new note", "createNote", new { id = Model.Visit.VisitId })</button>
     </p>
 }
 else
 {
-    @Html.Raw("No notes for visit. You can create a new one ");
-    @Html.ActionLink("here.", "CreateNote", new { id = Model.Visit.VisitId })
+    @Html.Raw("No notes for patient. You can create a new note ");
+    @Html.ActionLink("here", "createNote", new { id = Model.Visit.VisitId })
 }

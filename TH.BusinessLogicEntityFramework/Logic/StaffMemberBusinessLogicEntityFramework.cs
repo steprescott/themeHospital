@@ -149,7 +149,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
                 };
             }
 
-            staffMember.FirstName = domainStaffMember.Firstname;
+            staffMember.FirstName = domainStaffMember.FirstName;
             staffMember.OtherNames = domainStaffMember.OtherNames;
             staffMember.LastName = domainStaffMember.LastName;
             staffMember.DateOfBirth = domainStaffMember.DateOfBirth;

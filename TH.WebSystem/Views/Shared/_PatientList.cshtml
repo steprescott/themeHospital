@@ -5,14 +5,14 @@
     @if (Model.Count > 0)
     {
         <tr>
-            <th>Firstname</th>
+            <th>FirstName</th>
             <th>Surname</th>
             <th></th>
         </tr>
         foreach (var patient in Model)
         {
             <tr>
-                <td>@patient.Firstname</td>
+                <td>@patient.FirstName</td>
                 <td>@patient.LastName</td>
                 <td>
                     @Html.ActionLink("Options", "Options", "Patient", new { id = patient.UserId }, null)

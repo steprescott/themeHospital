@@ -1,7 +1,7 @@
 ﻿@using TH.Domain.Other
 @model TH.WebSystem.Models.PatientDetailsModel
 
-<h1>Patient Record - @Html.Raw(string.Format("{0} {1}", Model.Patient.Firstname, Model.Patient.LastName))</h1>
+<h1>Patient Record - @Html.Raw(string.Format("{0} {1}", Model.Patient.FirstName, Model.Patient.LastName))</h1>
 <hr />
 
 <table style="float:left; margin: 0 100px 10px 0;">
@@ -11,8 +11,8 @@
     </tr>
 
     <tr>
-        <td>@Html.DisplayNameFor(model => Model.Patient.Firstname)</td>
-        <td>@Html.DisplayFor(model => Model.Patient.Firstname)</td>
+        <td>@Html.DisplayNameFor(model => Model.Patient.FirstName)</td>
+        <td>@Html.DisplayFor(model => Model.Patient.FirstName)</td>
     </tr>
 
     <tr>

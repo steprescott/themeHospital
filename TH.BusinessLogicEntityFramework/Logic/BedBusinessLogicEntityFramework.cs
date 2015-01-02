@@ -48,7 +48,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
                     else
                     {
                         efBed.Number = bed.Number;
-                        efBed.Ward = ReflectiveMapperService.ConvertItem<Domain.Other.Ward, Ward>(GetWardForBed(bed));
+                        efBed.Ward = ReflectiveMapperService.ConvertItem<Domain.Wards.Ward, Ward>(GetWardForBed(bed));
                         _unitOfWork.Update(efBed);
                     }
 
@@ -64,13 +64,13 @@ namespace TH.BusinessLogicEntityFramework.Logic
             return false;
         }
 
-        public bool AssignBedToWard(Domain.Other.Bed bed, Domain.Other.Ward ward)
+        public bool AssignBedToWard(Domain.Other.Bed bed, Domain.Wards.Ward ward)
         {
             ward.Beds.Add(bed);
 
             try
             {
-                var efWard = ReflectiveMapperService.ConvertItem<Domain.Other.Ward, Ward>(ward);
+                var efWard = ReflectiveMapperService.ConvertItem<Domain.Wards.Ward, Ward>(ward);
                 _unitOfWork.Update(efWard);
                 _unitOfWork.SaveChanges();
                 return true;
@@ -81,9 +81,9 @@ namespace TH.BusinessLogicEntityFramework.Logic
             }
         }
 
-        public Domain.Other.Ward GetWardForBed(Domain.Other.Bed bed)
+        public Domain.Wards.Ward GetWardForBed(Domain.Other.Bed bed)
         {
-            return ReflectiveMapperService.ConvertItem<Ward, Domain.Other.Ward>(_unitOfWork.GetById<Ward>(bed.WardId));
+            return ReflectiveMapperService.ConvertItem<Ward, Domain.Wards.Ward>(_unitOfWork.GetById<Ward>(bed.WardId));
         }
 
         public bool AssignPatientToBed(Guid bedid, Guid patientid)
