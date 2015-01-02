@@ -9,6 +9,7 @@ namespace TH.WebSystem.Models
 {
     public class PatientCreateNoteViewModel
     {
+        [DisplayName("Patent ID")]
         public Guid PatientUserId { get; set; }
 
         [DisplayName("Content")]

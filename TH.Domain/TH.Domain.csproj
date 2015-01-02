@@ -56,7 +56,7 @@
     <Compile Include="Other\Team.cs" />
     <Compile Include="Treatments\Procedure.cs" />
     <Compile Include="Treatments\Treatment.cs" />
-    <Compile Include="Other\Bed.cs" />
+    <Compile Include="Wards\Bed.cs" />
     <Compile Include="User\Consultant.cs" />
     <Compile Include="User\Doctor.cs" />
     <Compile Include="User\Patient.cs" />

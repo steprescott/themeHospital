@@ -8,13 +8,10 @@ namespace TH.Domain.User
 {
     public class User
     {
-        public User()
-        {
-            Addresses = new List<Address>();
-        }
-
+        [DisplayName(@"User ID")]
         public Guid UserId { get; set; }
 
+        [DisplayName(@"Date created")]
         public DateTime DateCreated { get; set; }
 
         [DisplayName("First name")]
@@ -45,6 +42,10 @@ namespace TH.Domain.User
             {
                 return string.Format("{0} {1}", FirstName, LastName);
             }
+        }
+        public User()
+        {
+            Addresses = new List<Address>();
         }
     }
 }
