@@ -8,5 +8,7 @@ namespace TH.Interfaces
     public interface IProcedureBusinessLogic
     {
         bool CreateProcedure(Procedure procedure);
+        List<Procedure> GetProceduresToBeAdministeredByStaffMemberId(Guid userId);
+        List<Procedure> GetProceduresForTeamByConsultantId(Guid userId);
     }
 }

@@ -1,24 +1,79 @@
-﻿
+﻿@using TH.Domain.Enums
+@using TH.WebSystem.Providers
+@model TH.WebSystem.Models.ViewTreatmentModel
+
 @{
     ViewBag.Title = "View Treatments";
 }
 
-<h2>ViewTreatments</h2>
+<h2>View Treatments</h2>
 
-<table>
-    <tr>
-        <td>Date</td>
-        <td>Patient</td>
-        <td>Treatment</td>
-    </tr>
-    <tr>
-        <td>11/07/2014</td>
-        <td>James Smith</td>
-        <td>Physiotherapy</td>
-    </tr>
-    <tr>
-        <td>14/07/2014</td>
-        <td>Kimmy Grey</td>
-        <td>Hormone therapy</td>
-    </tr>
-</table>
+<h4>My Assigned Treatments</h4>
+@if (Model.CoursesOfMedicines.Any() || Model.Procedures.Any())
+{
+    <table class="table">
+        <tr>
+            <th>Date</th>
+            <th>Patient</th>
+            <th>Treatment</th>
+        </tr>
+        @foreach (var courseOfMedicine in Model.CoursesOfMedicines)
+        {
+            <tr>
+                <td>@courseOfMedicine.ScheduledDate</td>
+                <td>@courseOfMedicine.Visit.Patient.FullName</td>
+                <td>@courseOfMedicine.Medicine.Name</td>
+            </tr>
+        }
+        
+        @foreach (var procedure in Model.Procedures)
+        {
+            <tr>
+                <td>@procedure.ScheduledDate</td>
+                <td>@procedure.Visit.Patient.FullName</td>
+                <td>@procedure.Operation.Name</td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+  @Html.Raw("No treatments scheduled")
+}
+
+@if (ThemeHospitalMembershipProvider.GetUserRole() == StaffType.Consultant && (Model.TeamsCourseOfMedicines.Any() || Model.TeamsProcedures.Any()))
+{
+    <h4>My Teams arranged Treatments</h4>
+    <table class="table">
+        <tr>
+            <th>Date</th>
+            <th>Patient</th>
+            <th>Assigned To</th>
+            <th>Treatment</th>
+        </tr>
+        @foreach (var courseOfMedicine in Model.TeamsCourseOfMedicines)
+        {
+            <tr>
+                <td>@courseOfMedicine.ScheduledDate</td>
+                <td>@courseOfMedicine.Visit.Patient.FullName</td>
+                <td>@courseOfMedicine.AdministeredBy.FullName</td>
+                <td>@courseOfMedicine.Medicine.Name</td>
+            </tr>
+        }
+
+        @foreach (var procedure in Model.TeamsProcedures)
+        {
+            <tr>
+                <td>@procedure.ScheduledDate</td>
+                <td>@procedure.Visit.Patient.FullName</td>
+                <td>@procedure.AdministeredBy.FullName</td>
+                <td>@procedure.Operation.Name</td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <h4>My Teams arranged Treatments</h4>
+    @Html.Raw("No treatments scheduled")
+}

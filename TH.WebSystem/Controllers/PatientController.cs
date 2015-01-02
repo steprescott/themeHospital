@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TH.Domain.Enums;
 using TH.Domain.User;
 using TH.WebSystem.Models;
+using TH.WebSystem.Providers;
 
 namespace TH.WebSystem.Controllers
 {
@@ -12,9 +14,18 @@ namespace TH.WebSystem.Controllers
     {
         public ActionResult Index()
         {
-            var patients = HospitalService.PatientBusinessLogic.GetAllPatients().ToList();
+            var userId = ThemeHospitalMembershipProvider.GetCurrentUser().UserId;
 
-            return View(patients);
+            if (ThemeHospitalMembershipProvider.GetUserRole() == StaffType.Consultant)
+            {
+                return View(HospitalService.VisitBusinessLogic.GetOpenVisitsForConsultantId(userId));
+            }
+            if (ThemeHospitalMembershipProvider.GetUserRole() == StaffType.Doctor)
+            {
+                return View(HospitalService.VisitBusinessLogic.GetOpenVisitsForDoctorId(userId));
+            }
+
+            return View(HospitalService.VisitBusinessLogic.GetAllPatientsWithOpenVisits());
         }
 
         public ActionResult Details(Guid id)

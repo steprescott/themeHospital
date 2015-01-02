@@ -40,5 +40,21 @@ namespace TH.BusinessLogicEntityFramework.Logic
             return procedures.Select(com => ReflectiveMapperService.ConvertItem<Procedure, Domain.Treatments.Procedure>(com))
                 .ToList();
         }
+
+        public List<Domain.Treatments.Procedure> GetProceduresForTeamByConsultantId(Guid userId)
+        {
+            var consultant = _unitOfWork.GetById<Consultant>(userId);
+
+            if (consultant != null)
+            {
+                var consultantTeam = consultant.Team;
+                var coursesOfMedicines = _unitOfWork.GetAll<Procedure>().ToList();
+
+                coursesOfMedicines = coursesOfMedicines.Where(com => consultantTeam.Doctors.Select(d => d.UserId).Contains(com.AdministeredByUserId.GetValueOrDefault())).ToList();
+
+                return coursesOfMedicines.Select(com => ReflectiveMapperService.ConvertItem<Procedure, Domain.Treatments.Procedure>(com)).ToList();
+            }
+            return new List<Domain.Treatments.Procedure>();
+        }
     }
 }

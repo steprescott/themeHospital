@@ -5,7 +5,7 @@ using TH.Interfaces;
 using TH.ReflectiveMapper;
 using TH.UnitOfWorkEntityFramework;
 
-namespace TH.BusinessLogicEntityFramework
+namespace TH.BusinessLogicEntityFramework.Logic
 {
     public class VisitBusinessLogicEntityFramework : IVisitBusinessLogic
     {
@@ -23,9 +23,9 @@ namespace TH.BusinessLogicEntityFramework
             return ReflectiveMapperService.ConvertItem<Visit, Domain.Other.Visit>(visit);
         }
 
-        public List<Domain.User.StaffMember> MedicalStaffForVisitWithId(Guid id)
+        public List<Domain.User.StaffMember> GetMedicalStaffForVisitWithId(Guid visitId)
         {
-            var visit = _unitOfWork.GetById<Visit>(id);
+            var visit = _unitOfWork.GetById<Visit>(visitId);
             if (visit != null)
             {
                 List<StaffMember> doctors = visit.Teams.SelectMany(t => t.Doctors).Select(d => d as StaffMember).ToList();
@@ -37,6 +37,36 @@ namespace TH.BusinessLogicEntityFramework
 
             }
             return new List<Domain.User.StaffMember>();
+        }
+
+        public List<Domain.Other.Visit> GetAllPatientsWithOpenVisits()
+        {
+            var visits = _unitOfWork.GetAll<Visit>();
+
+            visits = visits.Where(v => v.ReleaseDate == null);
+
+            return visits.ToList().Select(v => ReflectiveMapperService.ConvertItem<Visit, Domain.Other.Visit>(v, 6)).ToList();
+        }
+
+        public List<Domain.Other.Visit> GetOpenVisitsForDoctorId(Guid doctorId)
+        {
+            var visits = _unitOfWork.GetAll<Visit>();
+            
+            visits = visits.Where(v => v.Teams.SelectMany(t => t.Doctors).Select(d => d.UserId).Contains(doctorId));
+
+            visits = visits.Where(v => v.ReleaseDate == null);
+
+            return visits.ToList().Select(v => ReflectiveMapperService.ConvertItem<Visit, Domain.Other.Visit>(v, 6)).ToList();
+        }
+        public List<Domain.Other.Visit> GetOpenVisitsForConsultantId(Guid consultantId)
+        {
+            var visits = _unitOfWork.GetAll<Visit>();
+            
+            visits = visits.Where(v => v.Teams.Select(t => t.Consultant).Select(d => d.UserId).Contains(consultantId));
+
+            visits = visits.Where(v => v.ReleaseDate == null);
+
+            return visits.ToList().Select(v => ReflectiveMapperService.ConvertItem<Visit, Domain.Other.Visit>(v, 6)).ToList();
         }
     }
 }
