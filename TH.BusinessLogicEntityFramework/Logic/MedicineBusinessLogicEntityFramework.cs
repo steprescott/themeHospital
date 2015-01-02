@@ -28,6 +28,8 @@ namespace TH.BusinessLogicEntityFramework.Logic
                     {
                         MedicineId = medicine.MedicineId != Guid.Empty ? medicine.MedicineId : Guid.NewGuid()
                     };
+                    efObject.Name = medicine.Name;
+                    efObject.Description = medicine.Description;
 
                     _unitOfWork.Insert(efObject);
                 }

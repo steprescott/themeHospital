@@ -1,4 +1,5 @@
-﻿@model IEnumerable<TH.WebSystem.Models.DisplayWardWaitingListViewModel>
+﻿@using TH.Domain.User
+@model TH.WebSystem.Models.DisplayWardWaitingListViewModel
 
 @{
     ViewBag.Title = "WaitingList";
@@ -14,12 +15,14 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var patient in Model.Patients.OrderBy(patient.CurrentVisit.AdmittedDate))
+{
     <tr>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @patient.FullName
+        </td>
+        <td>
+            @patient.CurrentVisit.AdmittedDate.ToString()
         </td>
     </tr>
 }

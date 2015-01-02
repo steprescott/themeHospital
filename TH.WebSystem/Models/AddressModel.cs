@@ -8,14 +8,14 @@ namespace TH.WebSystem.Models
     public class AddressModel
     {
         [Required]
-        [Display(Name = "Address Line One")]
+        [Display(Name = "Line One")]
         public string LineOne { get; set; }
 
         [Required]
-        [Display(Name = "Address Line Two")]
+        [Display(Name = "Line Two")]
         public string LineTwo { get; set; }
 
-        [Display(Name = "Address Line Three")]
+        [Display(Name = "Line Three")]
         public string LineThree { get; set; }
 
         [Required]

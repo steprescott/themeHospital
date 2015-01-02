@@ -33,7 +33,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
                 var medicalStaff = doctors.Concat(consultants);
                 var domainMedicalStaff = ReflectiveMapperService.ConvertItem<List<StaffMember>, List<Domain.User.StaffMember>>(medicalStaff.ToList());
-                return domainMedicalStaff.OrderBy(o => o.Firstname).ToList();
+                return domainMedicalStaff.OrderBy(o => o.FirstName).ToList();
 
             }
             return new List<Domain.User.StaffMember>();

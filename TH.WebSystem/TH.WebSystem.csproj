@@ -193,6 +193,7 @@
     <Compile Include="Controllers\ReceptionistController.cs" />
     <Compile Include="Controllers\TreatmentController.cs" />
     <Compile Include="Controllers\VisitController.cs" />
+    <Compile Include="Controllers\WardController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -201,6 +202,7 @@
     <Compile Include="Models\AdmissionModel.cs" />
     <Compile Include="Models\DismissModel.cs" />
     <Compile Include="Models\DisplayWardsViewModel.cs" />
+    <Compile Include="Models\DisplayWardWaitingListViewModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\AddPatientViewModel.cs" />
     <Compile Include="Models\CreateTreatmentViewModel.cs" />
@@ -210,6 +212,7 @@
     <Compile Include="Models\PatientTreatmentsModel.cs" />
     <Compile Include="Models\RefuseTreatmentModel.cs" />
     <Compile Include="Models\ViewTreatmentModel.cs" />
+    <Compile Include="Models\VisitCreateNoteViewModel.cs" />
     <Compile Include="Models\VisitDetailsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ThemeHospitalMembershipProvider.cs" />
@@ -231,7 +234,6 @@
     <Content Include="Views\Patient\Search.cshtml" />
     <Content Include="Views\Shared\_PatientList.cshtml" />
     <Content Include="Views\Patient\Options.cshtml" />
-    <Content Include="Views\Patient\DisplayWards.cshtml" />
     <Content Include="Views\Shared\_DashboardLink.cshtml" />
     <Content Include="Views\Treatment\Create.cshtml" />
     <Content Include="Views\Patient\Admit.cshtml" />
@@ -240,6 +242,15 @@
     <Content Include="Views\Treatment\ViewTreatments.cshtml" />
     <Content Include="Views\Visit\Details.cshtml" />
     <Content Include="Views\Patient\CreateNote.cshtml" />
+    <Content Include="Views\Visit\CreateNote.cshtml" />
+    <Content Include="Views\Ward\DisplayWards.cshtml" />
+    <Content Include="Views\Ward\WaitingList.cshtml" />
+    <Content Include="Views\Patient\DisplayWards.cshtml" />
+    <Content Include="Views\Patient\DoctorMenu.cshtml" />
+    <Content Include="Views\Patient\Menu.cshtml" />
+    <Content Include="Views\Patient\ReceptionistMenu.cshtml" />
+    <Content Include="Views\Ward\Index.cshtml" />
+    <Content Include="Views\Ward\WaitingList.cshtml" />
     <Content Include="Views\Patient\RecordRefusal.cshtml" />
     <Content Include="Views\Treatment\RefuseTreatment.cshtml" />
     <Content Include="Views\Doctor\Index.cshtml" />

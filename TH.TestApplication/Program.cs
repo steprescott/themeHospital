@@ -5,6 +5,7 @@ using TH.Container;
 using TH.Domain.Other;
 using TH.Domain.Treatments;
 using TH.Domain.User;
+using TH.Domain.Wards;
 using TH.Interfaces;
 
 namespace TH.TestApplication
@@ -55,13 +56,13 @@ namespace TH.TestApplication
             Console.ReadKey();
         }
 
-        private static void AddPatient(string firstname, string surname)
+        private static void AddPatient(string FirstName, string surname)
         {
             var patientBusinessLogic = ThemeHospitalContainer.GetInstance<IPatientBusinessLogic>();
 
             patientBusinessLogic.InsertOrUpdatePatient(new Patient
             {
-                Firstname = firstname,
+                FirstName = FirstName,
                 OtherNames = string.Empty,
                 LastName = surname,
                 DateOfBirth = Convert.ToDateTime("27/05/1991"),
@@ -84,13 +85,13 @@ namespace TH.TestApplication
             });
         }
 
-        private static void AddConsultantUser(string firstname, string surname, string username, string password)
+        private static void AddConsultantUser(string FirstName, string surname, string username, string password)
         {
             var staffMemberBusinessLogic = ThemeHospitalContainer.GetInstance<IStaffMemberBusinessLogic>();
 
             staffMemberBusinessLogic.CreateOrUpdateConsultant(new Consultant
             {
-                Firstname = firstname,
+                FirstName = FirstName,
                 OtherNames = string.Empty,
                 LastName = surname,
                 DateOfBirth = Convert.ToDateTime("01/01/1991"),
@@ -118,13 +119,13 @@ namespace TH.TestApplication
             });
         }
 
-        private static void AddDoctorUser(string firstname, string surname, string username, string password)
+        private static void AddDoctorUser(string FirstName, string surname, string username, string password)
         {
             var staffMemberBusinessLogic = ThemeHospitalContainer.GetInstance<IStaffMemberBusinessLogic>();
 
             staffMemberBusinessLogic.CreateOrUpdateDoctor(new Doctor
             {
-                Firstname = firstname,
+                FirstName = FirstName,
                 OtherNames = string.Empty,
                 LastName = surname,
                 DateOfBirth = Convert.ToDateTime("01/01/1991"),
@@ -148,13 +149,13 @@ namespace TH.TestApplication
             });
         }
         
-        private static void AddReceptionistUser(string firstname, string surname, string username, string password)
+        private static void AddReceptionistUser(string FirstName, string surname, string username, string password)
         {
             var staffMemberBusinessLogic = ThemeHospitalContainer.GetInstance<IStaffMemberBusinessLogic>();
 
             staffMemberBusinessLogic.CreateOrUpdateReceptionist(new Receptionist
             {
-                Firstname = firstname,
+                FirstName = FirstName,
                 OtherNames = string.Empty,
                 LastName = surname,
                 DateOfBirth = Convert.ToDateTime("01/01/1991"),

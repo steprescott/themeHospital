@@ -6,10 +6,10 @@ using System.Web;
 
 namespace TH.WebSystem.Models
 {
-    public class PatientCreateNoteViewModel
+    public class VisitCreateNoteViewModel
     {
-        [DisplayName("Patent ID")]
-        public Guid PatientUserId { get; set; }
+        [DisplayName("Visit ID")]
+        public Guid VisitId { get; set; }
 
         [DisplayName("Content")]
         public String NoteContent { get; set; }

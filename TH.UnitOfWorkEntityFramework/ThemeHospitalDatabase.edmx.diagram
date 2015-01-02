@@ -15,9 +15,9 @@
         <AssociationConnector Association="ThemeHospitalDatabase.UserAddress" />
         <EntityTypeShape EntityType="ThemeHospitalDatabase.Team" Width="1.5" PointX="11.875" PointY="8.875" />
         <EntityTypeShape EntityType="ThemeHospitalDatabase.Treatment" Width="2.25" PointX="15.625" PointY="10" />
-        <EntityTypeShape EntityType="ThemeHospitalDatabase.Procedure" Width="2.375" PointX="14.25" PointY="13.75" />
+        <EntityTypeShape EntityType="ThemeHospitalDatabase.Procedure" Width="2.375" PointX="14.25" PointY="14.125" />
         <InheritanceConnector EntityType="ThemeHospitalDatabase.Procedure" />
-        <EntityTypeShape EntityType="ThemeHospitalDatabase.CourseOfMedicine" Width="1.75" PointX="17.125" PointY="13.75" />
+        <EntityTypeShape EntityType="ThemeHospitalDatabase.CourseOfMedicine" Width="1.75" PointX="17.125" PointY="14.125" />
         <InheritanceConnector EntityType="ThemeHospitalDatabase.CourseOfMedicine" ></InheritanceConnector>
         <EntityTypeShape EntityType="ThemeHospitalDatabase.Medicine" Width="1.75" PointX="17.125" PointY="16.5" />
         <EntityTypeShape EntityType="ThemeHospitalDatabase.Operation" Width="1.75" PointX="14.625" PointY="16.5" />
@@ -33,7 +33,7 @@
         </InheritanceConnector>
         <EntityTypeShape EntityType="ThemeHospitalDatabase.Ward" Width="1.5" PointX="4.125" PointY="5.25" />
         <EntityTypeShape EntityType="ThemeHospitalDatabase.Bed" Width="1.625" PointX="6.25" PointY="5.25" />
-        <EntityTypeShape EntityType="ThemeHospitalDatabase.Note" Width="2" PointX="0.625" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="ThemeHospitalDatabase.Note" Width="2" PointX="0.5" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ThemeHospitalDatabase.WardWaitingList" Width="2" PointX="1.5" PointY="5.25" />
         <AssociationConnector Association="ThemeHospitalDatabase.WardWaitingListWard" />
         <EntityTypeShape EntityType="ThemeHospitalDatabase.Visit" Width="2" PointX="6.125" PointY="7.75" />
@@ -43,10 +43,7 @@
         <AssociationConnector Association="ThemeHospitalDatabase.VisitTreatment" />
         <AssociationConnector Association="ThemeHospitalDatabase.TreatmentRecordedBy" />
         <AssociationConnector Association="ThemeHospitalDatabase.TreatmentAdministeredBy" />
-        <AssociationConnector Association="ThemeHospitalDatabase.TreatmentNote" ManuallyRouted="true" >
-          <ConnectorPoint PointX="15.625" PointY="11.98907752172275" />
-          <ConnectorPoint PointX="1.9648480958531329" PointY="11.98907752172275" />
-          <ConnectorPoint PointX="1.9648480958531329" PointY="10.941793619791666" />
+        <AssociationConnector Association="ThemeHospitalDatabase.TreatmentNote" ManuallyRouted="false" >
         </AssociationConnector>
         <AssociationConnector Association="ThemeHospitalDatabase.ProcedureOperation" />
         <AssociationConnector Association="ThemeHospitalDatabase.DoctorTeam" />
@@ -60,10 +57,7 @@
         <AssociationConnector Association="ThemeHospitalDatabase.ConsultantTeam" />
         <AssociationConnector Association="ThemeHospitalDatabase.TreatmentStaffMember" />
         <EntityTypeShape EntityType="ThemeHospitalDatabase.Refusal" Width="1.5" PointX="9.125" PointY="12.25" />
-        <AssociationConnector Association="ThemeHospitalDatabase.RefusalNote" ManuallyRouted="true" >
-          <ConnectorPoint PointX="9.125" PointY="12.951691080729166" />
-          <ConnectorPoint PointX="1.3990475297222247" PointY="12.951691080729166" />
-          <ConnectorPoint PointX="1.3990475297222247" PointY="10.941793619791666" />
+        <AssociationConnector Association="ThemeHospitalDatabase.RefusalNote" ManuallyRouted="false" >
         </AssociationConnector>
         <AssociationConnector Association="ThemeHospitalDatabase.TreatmentRefusal" />
       </Diagram>

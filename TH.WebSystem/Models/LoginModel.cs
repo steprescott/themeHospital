@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -10,12 +11,12 @@ namespace TH.WebSystem.Models
     {
         [Required]
         [DataType(DataType.Text)]
-        [Display(Name = "Username")]
+        [DisplayName("Username")]
         public String Username { get; set; }
 
         [Required]
         [DataType (DataType.Password)]
-        [Display (Name = "Password")]
+        [DisplayName("Password")]
         public String Password { get; set; }
     }
 }

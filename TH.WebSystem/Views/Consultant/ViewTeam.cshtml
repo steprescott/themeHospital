@@ -12,14 +12,14 @@
 { 
     <table class="table">
         <tr>
-            <th>Firstname</th>
+            <th>FirstName</th>
             <th>Surname</th>
             <th></th>
         </tr>
         @foreach (var doctor in Model.Doctors)
         {
             <tr>
-                <td>@doctor.Firstname</td>
+                <td>@doctor.FirstName</td>
                 <td>@doctor.LastName</td>
                 <td>
                     @Html.ActionLink("Remove", "RemoveDoctor", new { doctorId = doctor.UserId, teamId = Model.TeamId })

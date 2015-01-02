@@ -21,7 +21,7 @@ namespace TH.WebSystem.Controllers
             if (ThemeHospitalMembershipProvider.GetUserRole() == StaffType.Consultant)
             {
                 return View(HospitalService.VisitBusinessLogic.GetOpenVisitsForConsultantId(userId));
-            }
+        }
             if (ThemeHospitalMembershipProvider.GetUserRole() == StaffType.Doctor)
             {
                 return View(HospitalService.VisitBusinessLogic.GetOpenVisitsForDoctorId(userId));
@@ -111,14 +111,22 @@ namespace TH.WebSystem.Controllers
             return View(new PatientOptionsViewModel
             {
                 PatientId = id,
-                VisitId = currentVisit != null ? currentVisit.VisitId : Guid.Empty
+                CurrentVisit = currentVisit
             });
         }
 
-        public ActionResult DisplayWards()
+        public ActionResult DisplayWards(Guid patientId)
         {
             var wards = HospitalService.WardBusinessLogic.GetAllWards().OrderBy(ward => ward.Number).ToList();
-            return View(new DisplayWardsViewModel { Wards = wards});
+
+            return View(new DisplayWardsViewModel { Wards = wards, PatientId = patientId});
+        }
+
+        public ActionResult AssignBed(Guid bedid, Guid patientid)
+        {
+            HospitalService.BedBusinessLogic.AssignPatientToBed(bedid, patientid);
+
+            return RedirectToAction("Options", new { patientId = patientid });
         }
 
         public ActionResult CreateNote(Guid id)
