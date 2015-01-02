@@ -14,7 +14,7 @@ namespace TH.Domain.Other
         public Patient Patient { get; set; }
         public Treatment Treatment { get; set; }
         public Visit Visit { get; set; }
-        public Guid? PatientId { get; set; }
+        public Guid? PatientUserId { get; set; }
         public Guid? TreatmentId { get; set; }
         public Guid? VisitId { get; set; }
     }

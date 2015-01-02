@@ -12,7 +12,6 @@ namespace TH.Interfaces
         List<StaffMember> GetMedicalStaffForVisitWithId(Guid visitId);
         List<Visit> GetAllPatientsWithOpenVisits();
         List<Visit> GetOpenVisitsForDoctorId(Guid userId);
-        List<Visit>  GetOpenVisitsForConsultantId(Guid consultantId);
-
+        List<Visit> GetOpenVisitsForConsultantId(Guid consultantId);
     }
 }

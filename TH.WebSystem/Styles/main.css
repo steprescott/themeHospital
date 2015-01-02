@@ -261,6 +261,11 @@ td:first-child {
     box-shadow: inset 3px 3px 3px 0 #005d79, inset -3px -3px 3px #59d3e3;
 }
 
+.table td:first-child {
+    text-align: left;
+    vertical-align: central;
+}
+
 input[type=radio] {
     position: absolute;
     z-index: -1000;
