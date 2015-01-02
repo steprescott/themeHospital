@@ -1,0 +1,9 @@
+﻿@model TH.WebSystem.Models.PatientCreateNoteViewModel
+
+@using (Html.BeginForm("CreateNote", "Patient", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.PatientUserId)
+    @Html.LabelFor(model => model.NoteContent)
+    @Html.TextAreaFor(model => model.NoteContent)
+    <input type="submit" value="Create" class="button">
+}

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TH.Domain.Enums;
+using TH.WebSystem.Models;
 using TH.WebSystem.Providers;
 
 namespace TH.WebSystem.Controllers
@@ -56,9 +58,30 @@ namespace TH.WebSystem.Controllers
 
         public ActionResult ViewTreatments()
         {
+            var userId = ThemeHospitalMembershipProvider.GetCurrentUser().UserId;
 
+            var assignedProcedures = HospitalService.ProcedureBusinessLogic.GetProceduresToBeAdministeredByStaffMemberId(userId);
+            var assignedCoursesOfMedicine = HospitalService.CourseOfMedicineBusinessLogic.GetCoursesOfMedicinesToBeAdministeredByStaffMemberId(userId);
 
-            return View();
+            if (ThemeHospitalMembershipProvider.GetUserRole() == StaffType.Consultant)
+            {
+                var teamsAssignedProcedures = HospitalService.ProcedureBusinessLogic.GetProceduresForTeamByConsultantId(userId);
+                var teamsAssignedCoursesOfMedicines = HospitalService.CourseOfMedicineBusinessLogic.GetCoursesOfMedicinesForTeamByConsultantId(userId);
+
+                return View(new ViewTreatmentModel
+                {
+                    CoursesOfMedicines = assignedCoursesOfMedicine,
+                    Procedures = assignedProcedures,
+                    TeamsCourseOfMedicines = teamsAssignedCoursesOfMedicines,
+                    TeamsProcedures = teamsAssignedProcedures
+                });
+            }
+
+            return View(new ViewTreatmentModel
+            {
+                CoursesOfMedicines = assignedCoursesOfMedicine,
+                Procedures = assignedProcedures
+            });
         }
     }
 }

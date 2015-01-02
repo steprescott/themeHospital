@@ -1,100 +1,133 @@
-﻿@model TH.WebSystem.Models.PatientDetailsModel
+﻿@using TH.Domain.Other
+@model TH.WebSystem.Models.PatientDetailsModel
 
 <h1>Patient Record - @Html.Raw(string.Format("{0} {1}", Model.Patient.Firstname, Model.Patient.LastName))</h1>
+<hr />
 
-<div class="form-horizontal patient-view">
-    <h4>Patient Details</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => Model.Patient.DateCreated)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => Model.Patient.DateCreated)
-        </dd>
+<table style="float:left; margin: 0 100px 10px 0;">
+    <tr>
+        <td>@Html.DisplayNameFor(model => Model.Patient.DateCreated)</td>
+        <td>@Html.DisplayFor(model => Model.Patient.DateCreated)</td>
+    </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => Model.Patient.Firstname)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => Model.Patient.Firstname)
-        </dd>
+    <tr>
+        <td>@Html.DisplayNameFor(model => Model.Patient.Firstname)</td>
+        <td>@Html.DisplayFor(model => Model.Patient.Firstname)</td>
+    </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => Model.Patient.OtherNames)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => Model.Patient.OtherNames)
-        </dd>
+    <tr>
+        <td>@Html.DisplayNameFor(model => Model.Patient.OtherNames)</td>
+        <td>@Html.DisplayFor(model => Model.Patient.OtherNames)</td>
+    </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => Model.Patient.LastName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => Model.Patient.LastName)
-        </dd>
+    <tr>
+        <td>@Html.DisplayNameFor(model => Model.Patient.LastName)</td>
+        <td>@Html.DisplayFor(model => Model.Patient.LastName)</td>
+    </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => Model.Patient.DateOfBirth)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => Model.Patient.DateOfBirth)
-        </dd>
+    <tr>
+        <td>@Html.DisplayNameFor(model => Model.Patient.DateOfBirth)</td>
+        <td>@Html.DisplayFor(model => Model.Patient.DateOfBirth)</td>
+    </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => Model.Patient.Gender)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => Model.Patient.Gender)
-        </dd>
+    <tr>
+        <td>@Html.DisplayNameFor(model => Model.Patient.Gender)</td>
+        <td>@Html.DisplayFor(model => Model.Patient.Gender)</td>
+    </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => Model.Patient.ContactNumber)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => Model.Patient.ContactNumber)
-        </dd>
+    <tr>
+        <td>@Html.DisplayNameFor(model => Model.Patient.ContactNumber)</td>
+        <td>@Html.DisplayFor(model => Model.Patient.ContactNumber)</td>
+    </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => Model.Patient.EmergencyContactName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => Model.Patient.EmergencyContactName)
-        </dd>
+    <tr>
+        <td>@Html.DisplayNameFor(model => Model.Patient.EmergencyContactName)</td>
+        <td>@Html.DisplayFor(model => Model.Patient.EmergencyContactName)</td>
+    </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => Model.Patient.EmergencyContactNumber)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => Model.Patient.EmergencyContactNumber)
-        </dd>
+    <tr>
+        <td>@Html.DisplayNameFor(model => Model.Patient.EmergencyContactNumber)</td>
+        <td>@Html.DisplayFor(model => Model.Patient.EmergencyContactNumber)</td>
+    </tr>
+</table>
 
-        <h4>Addresses</h4>
+<h4 style="margin-top:12px;">Addresses</h4>     
+<table style="border-spacing: 0;">
+    @foreach (var address in Model.Patient.Addresses)
+    {
+        <tr>
+            <td></td>
+            <td>@Html.DisplayFor(model => address.AddressLine1)</td>
+        </tr>
+            
+        <tr>
+            <td></td>   
+            <td>@Html.DisplayFor(model => address.AddressLine2)</td>
+        </tr>
 
-        @foreach (var address in Model.Patient.Addresses)
+        <tr>
+            <td></td>
+            <td>@Html.DisplayFor(model => address.AddressLine3)</td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td>@Html.DisplayFor(model => address.City)</td>
+        </tr>
+            
+        <tr>
+            <td></td>
+            <td>@Html.DisplayFor(model => address.PostCode)</td>
+        </tr>
+        <tr></tr>
+    }
+</table>
+
+<h4 style="clear: both;">Visits</h4>
+@if (Model.Patient.Visits.Count > 0)
+{
+    <table class="table" width="100%">
+        <tr>
+            <th>Admitted Date</th>
+            <th>Release Date</th>
+            <th>Team Consultants</th>
+            <th>Options</th>
+        </tr>
+        @foreach (var visit in Model.Patient.Visits)
         {
-            <dd>
-                @Html.DisplayFor(model => address.AddressLine1)
-            </dd>
-            <dd>
-                @Html.DisplayFor(model => address.AddressLine2)
-            </dd>
-            <dd>
-                @Html.DisplayFor(model => address.AddressLine3)
-            </dd>
-            <dd>
-                @Html.DisplayFor(model => address.City)
-            </dd>
-            <dd>
-                @Html.DisplayFor(model => address.PostCode)
-            </dd>
+            <tr>
+                <td>@Html.DisplayFor(model => visit.AdmittedDate)</td>
+                <td>@if(visit.ReleaseDate != null){@Html.DisplayFor(model => visit.ReleaseDate)}else{@Html.Raw("Not released")}</td>
+                <td>@string.Join(",", visit.Teams.Select(t => t.Consultant.FullName))</td>
+                <td>@Html.ActionLink("Details", "Details", "Visit", new { id = visit.VisitId }, null)</td>
+            </tr>
         }
-        
-        <h4>Visits</h4>
-    </dl>
-</div>
+    </table>
+}
+else
+{
+    @Html.Raw("No visits for patient");
+}
 
-<p>
-    @Html.ActionLink("Edit", "Edit", new { patientId = Model.Patient.UserId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<h4>Notes</h4>
+@if (Model.Patient.Notes.Count > 0)
+{
+    <table class="table" width="100%">
+        <tr>
+            <th>Date created</th>
+            <th>Content</th>
+        </tr>
+        @foreach (var note in Model.Patient.Notes)
+        {
+            <tr>
+                <td style="width:180px">@Html.DisplayFor(model => note.DateCreated)</td>
+                <td>@Html.DisplayFor(model => note.Content)</td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    @Html.Raw("No notes for patient. You can create a new note ");
+    @Html.ActionLink("here", "createNote", new { id = Model.Patient.UserId})
+}

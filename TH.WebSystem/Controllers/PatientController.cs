@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
+using TH.Domain.Enums;
+using TH.Domain.Other;
 using TH.Domain.User;
 using TH.WebSystem.Models;
+using TH.WebSystem.Providers;
 
 namespace TH.WebSystem.Controllers
 {
@@ -13,9 +15,18 @@ namespace TH.WebSystem.Controllers
     {
         public ActionResult Index()
         {
-            var patients = HospitalService.PatientBusinessLogic.GetAllPatients().ToList();
+            var userId = ThemeHospitalMembershipProvider.GetCurrentUser().UserId;
 
-            return View(patients);
+            if (ThemeHospitalMembershipProvider.GetUserRole() == StaffType.Consultant)
+            {
+                return View(HospitalService.VisitBusinessLogic.GetOpenVisitsForConsultantId(userId));
+        }
+            if (ThemeHospitalMembershipProvider.GetUserRole() == StaffType.Doctor)
+            {
+                return View(HospitalService.VisitBusinessLogic.GetOpenVisitsForDoctorId(userId));
+            }
+
+            return View(HospitalService.VisitBusinessLogic.GetAllPatientsWithOpenVisits());
         }
 
         public ActionResult Details(Guid id)
@@ -115,6 +126,26 @@ namespace TH.WebSystem.Controllers
             HospitalService.BedBusinessLogic.AssignPatientToBed(bedid, patientid);
 
             return RedirectToAction("Options", new { patientId = patientid });
+        }
+
+        public ActionResult CreateNote(Guid id)
+        {
+            return View(new PatientCreateNoteViewModel {
+                PatientUserId = id
+            });
+        }
+
+        [HttpPost]
+        public ActionResult CreateNote(PatientCreateNoteViewModel model)
+        {
+            var result = HospitalService.NotesBusinessLogic.CreateNote(new Note { 
+                NoteId = Guid.NewGuid(),
+                DateCreated = DateTime.Now,
+                Content = model.NoteContent,
+                PatientUserId = model.PatientUserId
+            });
+
+            return RedirectToAction("Details", new { id = model.PatientUserId });
         }
     }
 }

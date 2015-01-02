@@ -6,7 +6,7 @@
 <ul class="menu">
     
     <li>
-        @Html.ActionLink("View Patient Record", "Details", "Patient")
+        @Html.ActionLink("View Patient Record", "Details", "Patient", new { id = Model.PatientId }, null)
     </li>
     <li>
         @Html.ActionLink("Add Notes To Record", "Details", "Patient")

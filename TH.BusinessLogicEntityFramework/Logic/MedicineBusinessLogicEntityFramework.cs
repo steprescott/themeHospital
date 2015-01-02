@@ -49,24 +49,6 @@ namespace TH.BusinessLogicEntityFramework.Logic
             }
         }
 
-        public List<Domain.Treatments.CourseOfMedicine> GetCoursesOfMedicinesToBeAdministeredByStaffMemberId(Guid userId)
-        {
-            var coursesOfMedicines = _unitOfWork.GetAll<CourseOfMedicine>().ToList();
-
-            coursesOfMedicines = coursesOfMedicines.Where(com => com.AdministeredByUserId == userId).ToList();
-
-            return coursesOfMedicines.Select(com => ReflectiveMapperService.ConvertItem<CourseOfMedicine, Domain.Treatments.CourseOfMedicine>(com)).ToList();
-        }
-
-        public List<Domain.Treatments.CourseOfMedicine> GetCoursesOfMedicinesForTeamId(Guid teamId)
-        {
-            var coursesOfMedicines = _unitOfWork.GetAll<CourseOfMedicine>().ToList();
-
-            //coursesOfMedicines = coursesOfMedicines.Where(com => com.AdministeredByUserId == userId).ToList();
-
-            return coursesOfMedicines.Select(com => ReflectiveMapperService.ConvertItem<CourseOfMedicine, Domain.Treatments.CourseOfMedicine>(com)).ToList();
-        }
-
         public bool DeleteMedicineWithId(Guid medicineId)
         {
             try

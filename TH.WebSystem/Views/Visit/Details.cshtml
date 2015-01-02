@@ -1,0 +1,29 @@
+﻿@using TH.Domain.Other
+@model TH.WebSystem.Models.VisitDetailsViewModel
+
+<h1>Visit details</h1>
+<hr />
+
+<table>
+    
+</table>
+
+<h4>Notes</h4>
+@if (Model.Visit.Notes.Count > 0)
+{
+    <table class="table">
+        <tr>
+            <th>Date created</th>
+            <th>Content</th>
+        </tr>
+        @foreach (Note note in Model.Visit.Notes)
+        {
+            <tr>@Html.DisplayForModel(note.DateCreated)</tr>
+            <tr>@Html.DisplayForModel(note.Content)</tr>
+        }
+    </table>
+}
+else
+{
+    @Html.Raw("No notes for visit");
+}

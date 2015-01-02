@@ -1,21 +1,30 @@
-﻿@model List<TH.Domain.User.Patient>
+﻿@model List<TH.Domain.Other.Visit>
 
-<h2>View Patients</h2>
+<h2>Current On-going Patients</h2>
 
-<table>
-    <tr>
-        <th>Firstname</th>
-        <th>Surname</th>
-        <th></th>
-    </tr>
-    @foreach (var patient in Model)
-    {
+@if (Model.Any())
+{ 
+    <table class="table">
         <tr>
-            <td>@patient.Firstname</td>
-            <td>@patient.LastName</td>
-            <td>
-                @Html.ActionLink("View", "Details", new { id = patient.UserId })
-            </td>
+            <th>Admitted Date</th>
+            <th>Firstname</th>
+            <th>Surname</th>
+            <th>Consultants</th>
+            <th></th>
         </tr>
-    }
-</table>
+        @foreach (var visit in Model)
+        {
+            <tr>
+                <td>@visit.AdmittedDate</td>
+                <td>@visit.Patient.Firstname</td>
+                <td>@visit.Patient.LastName</td>
+                <td>@string.Join(",", visit.Teams.Select(t => t.Consultant.FullName))</td>
+                <td>@Html.ActionLink("Options", "Options", "Patient", new { id = visit.Patient.UserId }, null)</td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    @Html.Raw("No patients with open visits")
+}

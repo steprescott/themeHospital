@@ -30,5 +30,30 @@ namespace TH.BusinessLogicEntityFramework.Logic
                 return false;
             }
         }
+
+        public List<Domain.Treatments.CourseOfMedicine> GetCoursesOfMedicinesToBeAdministeredByStaffMemberId(Guid userId)
+        {
+            var coursesOfMedicines = _unitOfWork.GetAll<CourseOfMedicine>().ToList();
+
+            coursesOfMedicines = coursesOfMedicines.Where(com => com.AdministeredByUserId == userId).ToList();
+
+            return coursesOfMedicines.Select(com => ReflectiveMapperService.ConvertItem<CourseOfMedicine, Domain.Treatments.CourseOfMedicine>(com)).ToList();
+        }
+
+        public List<Domain.Treatments.CourseOfMedicine> GetCoursesOfMedicinesForTeamByConsultantId(Guid userId)
+        {
+            var consultant = _unitOfWork.GetById<Consultant>(userId);
+
+            if (consultant != null)
+            {
+                var consultantTeam = consultant.Team;
+                var coursesOfMedicines = _unitOfWork.GetAll<CourseOfMedicine>().ToList();
+
+                coursesOfMedicines = coursesOfMedicines.Where(com => consultantTeam.Doctors.Select(d => d.UserId).Contains(com.AdministeredByUserId.GetValueOrDefault())).ToList();
+
+                return coursesOfMedicines.Select(com => ReflectiveMapperService.ConvertItem<CourseOfMedicine, Domain.Treatments.CourseOfMedicine>(com)).ToList();
+            }
+            return new List<Domain.Treatments.CourseOfMedicine>();
+        }
     }
 }

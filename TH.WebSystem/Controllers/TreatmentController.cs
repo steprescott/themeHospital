@@ -21,7 +21,7 @@ namespace TH.WebSystem.Controllers
         public ActionResult Create(Guid id)
         {
             var visit = HospitalService.VisitBusinessLogic.GetVisitWithId(id);
-            var medicalStaff = HospitalService.VisitBusinessLogic.MedicalStaffForVisitWithId(visit.VisitId);
+            var medicalStaff = HospitalService.VisitBusinessLogic.GetMedicalStaffForVisitWithId(visit.VisitId);
             var operations = HospitalService.OperationBusinessLogic.GetAllOperations();
             var medicines = HospitalService.MedicneBusinessLogic.GetAllMedicines();
             var currentUser = ThemeHospitalMembershipProvider.GetCurrentUser();
