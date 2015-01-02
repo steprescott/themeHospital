@@ -12,18 +12,11 @@ namespace TH.UnitOfWorkEntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class Note
+    public partial class Refusal
     {
-        public System.Guid NoteId { get; set; }
-        public string Content { get; set; }
-        public System.DateTime DateCreated { get; set; }
-        public Nullable<System.Guid> TreatmentId { get; set; }
-        public Nullable<System.Guid> PatientUserId { get; set; }
-        public Nullable<System.Guid> VisitId { get; set; }
+        public System.Guid RefusalId { get; set; }
     
+        public virtual Note Note { get; set; }
         public virtual Treatment Treatment { get; set; }
-        public virtual Patient Patient { get; set; }
-        public virtual Visit Visit { get; set; }
-        public virtual Refusal Refusal { get; set; }
     }
 }

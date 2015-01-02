@@ -43,7 +43,11 @@
         <AssociationConnector Association="ThemeHospitalDatabase.VisitTreatment" />
         <AssociationConnector Association="ThemeHospitalDatabase.TreatmentRecordedBy" />
         <AssociationConnector Association="ThemeHospitalDatabase.TreatmentAdministeredBy" />
-        <AssociationConnector Association="ThemeHospitalDatabase.TreatmentNote" />
+        <AssociationConnector Association="ThemeHospitalDatabase.TreatmentNote" ManuallyRouted="true" >
+          <ConnectorPoint PointX="15.625" PointY="11.98907752172275" />
+          <ConnectorPoint PointX="1.9648480958531329" PointY="11.98907752172275" />
+          <ConnectorPoint PointX="1.9648480958531329" PointY="10.941793619791666" />
+        </AssociationConnector>
         <AssociationConnector Association="ThemeHospitalDatabase.ProcedureOperation" />
         <AssociationConnector Association="ThemeHospitalDatabase.DoctorTeam" />
         <AssociationConnector Association="ThemeHospitalDatabase.CourseOfMedicineMedicine" />
@@ -55,6 +59,13 @@
         <AssociationConnector Association="ThemeHospitalDatabase.VisitNote" />
         <AssociationConnector Association="ThemeHospitalDatabase.ConsultantTeam" />
         <AssociationConnector Association="ThemeHospitalDatabase.TreatmentStaffMember" />
+        <EntityTypeShape EntityType="ThemeHospitalDatabase.Refusal" Width="1.5" PointX="9.125" PointY="12.25" />
+        <AssociationConnector Association="ThemeHospitalDatabase.RefusalNote" ManuallyRouted="true" >
+          <ConnectorPoint PointX="9.125" PointY="12.951691080729166" />
+          <ConnectorPoint PointX="1.3990475297222247" PointY="12.951691080729166" />
+          <ConnectorPoint PointX="1.3990475297222247" PointY="10.941793619791666" />
+        </AssociationConnector>
+        <AssociationConnector Association="ThemeHospitalDatabase.TreatmentRefusal" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
