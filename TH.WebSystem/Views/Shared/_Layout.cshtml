@@ -18,7 +18,7 @@
                 Theme Hospital
                 @if (ThemeHospitalMembershipProvider.IsLoggedIn())
                 {
-                    @Html.Raw(string.Format(" - Welcome {0}", @ThemeHospitalMembershipProvider.GetCurrentUser().Firstname))
+                    @Html.Raw(string.Format(" - Welcome {0}", @ThemeHospitalMembershipProvider.GetCurrentUser().FirstName))
 
                     <div class="navigation">
                         @Html.Partial("_DashboardLink")

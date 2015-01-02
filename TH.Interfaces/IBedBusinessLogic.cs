@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TH.Domain.Other;
+using TH.Domain.Wards;
 
 namespace TH.Interfaces
 {

@@ -7,7 +7,7 @@
     <table class="table">
         <tr>
             <th>Admitted Date</th>
-            <th>Firstname</th>
+            <th>FirstName</th>
             <th>Surname</th>
             <th>Consultants</th>
             <th></th>
@@ -16,7 +16,7 @@
         {
             <tr>
                 <td>@visit.AdmittedDate</td>
-                <td>@visit.Patient.Firstname</td>
+                <td>@visit.Patient.FirstName</td>
                 <td>@visit.Patient.LastName</td>
                 <td>@string.Join(",", visit.Teams.Select(t => t.Consultant.FullName))</td>
                 <td>@Html.ActionLink("Options", "Options", "Patient", new { id = visit.Patient.UserId }, null)</td>

@@ -33,7 +33,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
             return user == null ? null : new ApplicationUser
             {
                 UserId = user.UserId,
-                Firstname = user.FirstName,
+                FirstName = user.FirstName,
                 LastName = user.LastName,
                 Username = user.Username,
                 StaffType = GetRoleForUserId(user.UserId)
