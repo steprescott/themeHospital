@@ -24,5 +24,9 @@ namespace TH.WebSystem.Controllers
 
             return View(new DisplayWardWaitingListViewModel { Wards = wards, Patients = patients });
         }
+        public ActionResult WaitingList(Guid patientId)
+        {
+            return View();
+        }
     }
 }

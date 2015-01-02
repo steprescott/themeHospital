@@ -4,7 +4,7 @@
 <h2>Patient Options</h2>
 
 <ul class="menu">
-    
+
     <li>
         @Html.ActionLink("View Patient Record", "Details", "Patient", new { id = Model.PatientId }, null)
     </li>
@@ -22,9 +22,13 @@
     {
         if (Model.CurrentVisit.Bed == null)
         {
-            <li>
-                @Html.ActionLink("Assign Patient To Ward", "DisplayWards", "Patient", new { patientId = Model.PatientId }, null)
-            </li>
+            if (Model.AvailabeBeds != null)
+            {
+                <li>
+                    @Html.ActionLink("Assign Patient To Ward", "DisplayWards", "Patient", new { patientId = Model.PatientId }, null)
+                </li>
+            }
+            @Html.ActionLink("Ward Waiting List", "WaitingList", "Ward", new { patientId = Model.PatientId})
         }
         <li>
             @Html.ActionLink("Assign Patient To Consultant", "DisplayWards", "Patient")
@@ -38,4 +42,6 @@
     }
 
 </ul>
+
+
 
