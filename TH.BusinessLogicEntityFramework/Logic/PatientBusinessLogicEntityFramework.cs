@@ -26,7 +26,8 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
         public Domain.User.Patient GetPatientWithId(Guid userId)
         {
-            return ReflectiveMapperService.ConvertItem<Patient, Domain.User.Patient>(_unitOfWork.GetById<Patient>(userId));
+            var patient = _unitOfWork.GetById<Patient>(userId);
+            return ReflectiveMapperService.ConvertItem<Patient, Domain.User.Patient>(patient, 6);
         }
 
         public bool InsertOrUpdatePatient(Domain.User.Patient domainPatient)

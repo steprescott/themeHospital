@@ -10,5 +10,6 @@ namespace TH.Interfaces
         Visit GetVisitWithId(Guid id);
 
         List<Domain.User.StaffMember> MedicalStaffForVisitWithId(Guid id);
+        List<Domain.User.Consultant> ConsultantsForVisitWithId(Guid id);
     }
 }

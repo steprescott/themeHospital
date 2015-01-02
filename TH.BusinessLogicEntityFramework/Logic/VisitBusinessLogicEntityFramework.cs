@@ -38,5 +38,18 @@ namespace TH.BusinessLogicEntityFramework
             }
             return new List<Domain.User.StaffMember>();
         }
+
+        public List<Domain.User.Consultant> ConsultantsForVisitWithId(Guid id)
+        {
+            var visit = _unitOfWork.GetById<Visit>(id);
+
+            if (visit != null)
+            {
+                List<Consultant> consultants = visit.Teams.Select(t => t.Consultant).ToList();
+                return ReflectiveMapperService.ConvertItem<List<Consultant>, List<Domain.User.Consultant>>(consultants).ToList();
+            }
+
+            return new List<Domain.User.Consultant>();
+        }
     }
 }

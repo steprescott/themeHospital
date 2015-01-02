@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TH.Domain.Other;
 using TH.Domain.User;
 using TH.WebSystem.Models;
 
@@ -106,6 +107,26 @@ namespace TH.WebSystem.Controllers
         {
             var wards = HospitalService.WardBusinessLogic.GetAllWards().OrderBy(ward => ward.Number).ToList();
             return View(new DisplayWardsViewModel { Wards = wards});
+        }
+
+        public ActionResult CreateNote(Guid id)
+        {
+            return View(new PatientCreateNoteViewModel {
+                PatientUserId = id
+            });
+        }
+
+        [HttpPost]
+        public ActionResult CreateNote(PatientCreateNoteViewModel model)
+        {
+            var result = HospitalService.NotesBusinessLogic.CreateNote(new Note { 
+                NoteId = Guid.NewGuid(),
+                DateCreated = DateTime.Now,
+                Content = model.NoteContent,
+                PatientUserId = model.PatientUserId
+            });
+
+            return RedirectToAction("Details", new { id = model.PatientUserId });
         }
     }
 }
