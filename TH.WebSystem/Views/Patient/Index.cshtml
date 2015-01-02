@@ -1,14 +1,15 @@
 ﻿@model List<TH.Domain.Other.Visit>
 
-<h2>Current On-going Patients</h2>
+<h1>Current On-going Patients</h1>
+<hr />
 
 @if (Model.Any())
 { 
-    <table class="table">
+    <table class="table" width="100%">
         <tr>
-            <th>Admitted Date</th>
-            <th>FirstName</th>
-            <th>Surname</th>
+            <th style="width: 200px;">Admitted Date</th>
+            <th>First name</th>
+            <th>Last name</th>
             <th>Consultants</th>
             <th></th>
         </tr>

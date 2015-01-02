@@ -9,8 +9,5 @@ namespace TH.Interfaces
     {
         List<Domain.Wards.Ward> GetAllWards();
         bool CreateOrUpdateWard(Ward ward);
-        bool AssignPatientToWardWaitingList(Domain.Wards.WardWaitlingList wardWaitlingList, Domain.User.Patient patient);
-        Domain.Wards.Ward GetWardWithId(Guid id);
-        List<Domain.Other.Bed> AvailableBedsForWardWithId(Guid id);
     }
 }

@@ -10,10 +10,9 @@ namespace TH.WebSystem.Controllers
 {
     public class WardController : AuthorisedBaseController
     {
-        // GET: Ward
-        public ActionResult DisplayWards()
+        public ActionResult Index()
         {
-            var wards = HospitalService.WardBusinessLogic.GetAllWards().OrderBy(ward => ward.Number).ToList();
+            var wards = HospitalService.WardBusinessLogic.GetAllWards();
             return View(new DisplayWardsViewModel { Wards = wards });
         }
 

@@ -12,8 +12,8 @@ namespace TH.UnitOfWorkEntityFramework
         {
             get
             {
-                return Beds.SelectMany(b => b.Visits).Where(v => v.ReleaseDate == null)
-                    .Select(v => v.Bed).ToList();
+                var takenBeds = Beds.SelectMany(b => b.Visits).Where(v => v.ReleaseDate != null).Select(v => v.Bed).ToList();
+                return Beds.Except(takenBeds).ToList();
             }
         }
     }
