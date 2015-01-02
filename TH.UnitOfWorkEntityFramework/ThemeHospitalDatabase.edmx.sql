@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 01/01/2015 19:36:10
--- Generated from EDMX file: C:\Users\steprescott\Documents\Visual Studio 2013\Projects\Theme Hospital\TH.UnitOfWorkEntityFramework\ThemeHospitalDatabase.edmx
+-- Date Created: 01/02/2015 14:47:41
+-- Generated from EDMX file: C:\Users\Jonathan\Source\Repos\themeHospital\TH.UnitOfWorkEntityFramework\ThemeHospitalDatabase.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -289,6 +289,14 @@ CREATE TABLE [dbo].[Skills] (
 );
 GO
 
+-- Creating table 'Refusals'
+CREATE TABLE [dbo].[Refusals] (
+    [RefusalId] uniqueidentifier  NOT NULL,
+    [Note_NoteId] uniqueidentifier  NOT NULL,
+    [Treatment_TreatmentId] uniqueidentifier  NOT NULL
+);
+GO
+
 -- Creating table 'Users_StaffMember'
 CREATE TABLE [dbo].[Users_StaffMember] (
     [Username] nvarchar(max)  NOT NULL,
@@ -438,6 +446,12 @@ GO
 ALTER TABLE [dbo].[Skills]
 ADD CONSTRAINT [PK_Skills]
     PRIMARY KEY CLUSTERED ([SkillId] ASC);
+GO
+
+-- Creating primary key on [RefusalId] in table 'Refusals'
+ALTER TABLE [dbo].[Refusals]
+ADD CONSTRAINT [PK_Refusals]
+    PRIMARY KEY CLUSTERED ([RefusalId] ASC);
 GO
 
 -- Creating primary key on [UserId] in table 'Users_StaffMember'
@@ -814,6 +828,36 @@ GO
 CREATE INDEX [IX_FK_TreatmentStaffMember]
 ON [dbo].[Treatments]
     ([AssignedToUserId]);
+GO
+
+-- Creating foreign key on [Note_NoteId] in table 'Refusals'
+ALTER TABLE [dbo].[Refusals]
+ADD CONSTRAINT [FK_RefusalNote]
+    FOREIGN KEY ([Note_NoteId])
+    REFERENCES [dbo].[Notes]
+        ([NoteId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_RefusalNote'
+CREATE INDEX [IX_FK_RefusalNote]
+ON [dbo].[Refusals]
+    ([Note_NoteId]);
+GO
+
+-- Creating foreign key on [Treatment_TreatmentId] in table 'Refusals'
+ALTER TABLE [dbo].[Refusals]
+ADD CONSTRAINT [FK_TreatmentRefusal]
+    FOREIGN KEY ([Treatment_TreatmentId])
+    REFERENCES [dbo].[Treatments]
+        ([TreatmentId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_TreatmentRefusal'
+CREATE INDEX [IX_FK_TreatmentRefusal]
+ON [dbo].[Refusals]
+    ([Treatment_TreatmentId]);
 GO
 
 -- Creating foreign key on [UserId] in table 'Users_StaffMember'

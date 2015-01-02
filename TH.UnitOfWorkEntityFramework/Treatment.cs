@@ -31,5 +31,6 @@ namespace TH.UnitOfWorkEntityFramework
         public virtual StaffMember AdministeredBy { get; set; }
         public virtual ICollection<Note> Notes { get; set; }
         public virtual StaffMember AssignedTo { get; set; }
+        public virtual Refusal Refusal { get; set; }
     }
 }
