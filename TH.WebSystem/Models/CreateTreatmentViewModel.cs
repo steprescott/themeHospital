@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -10,6 +11,7 @@ namespace TH.WebSystem.Models
 {
     public class CreateTreatmentViewModel
     {
+        [DisplayName("Patent full name")]
         public String PatientFullName { get; set; }
 
         [Display(Name = "Assigned to")]
@@ -21,10 +23,13 @@ namespace TH.WebSystem.Models
         [Display(Name = "Medicine")]
         public List<Medicine> Medicines { get; set; }
 
+        [DisplayName("Visit ID")]
         public Guid VisitId { get; set; }
 
+        [DisplayName("Recorded by staff member ID")]
         public Guid RecordedByStaffMemberId { get; set; }
 
+        [DisplayName("Assigned to staff member ID")]
         public Guid AssignedToStaffMemberId { get; set; }
 
         [DataType(DataType.DateTime)]
@@ -34,8 +39,10 @@ namespace TH.WebSystem.Models
         [Display(Name = "Note")]
         public String NoteContent { get; set; }
 
+        [DisplayName("Selected operation ID")]
         public Guid SelectedOperationId { get; set; }
 
+        [DisplayName("Selected medicine ID")]
         public Guid SelectedMedicineId { get; set; }
 
         [Display(Name = "End date")]
