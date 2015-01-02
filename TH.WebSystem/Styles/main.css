@@ -137,6 +137,8 @@ footer {
 
 a {
     cursor: url(../Images/cursor.png), auto;
+    color: #fff;
+    font-weight: bold;
 }
 
 li {
@@ -199,10 +201,16 @@ input[type=submit], .menu li, button, .button {
     box-shadow: inset 2px 2px 2px 0 #51e6c4, inset -2px -2px 2px #1b9e80;
     color: WHITE;
     cursor: url(../Images/cursor.png), auto;
+    text-decoration: none;
+    font-weight: bold;
 }
 
     input[type=submit]:hover, .menu li:hover, button:hover, .button:hover {
         background: #06ba91;
+    }
+
+    button a {
+        text-decoration: none;
     }
 
 .button {
@@ -424,4 +432,9 @@ dt {
 
 .treatmentWizzard {
     width:400px;
+}
+
+.refusal-container .button {
+    display: block;
+    margin: 0 auto;
 }

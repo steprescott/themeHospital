@@ -5,7 +5,6 @@ using System.Linq;
 using System.Web;
 using TH.Domain.Other;
 using TH.Domain.Treatments;
-using TH.Domain.User;
 
 namespace TH.WebSystem.Models
 {

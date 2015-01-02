@@ -10,7 +10,7 @@
 
 <h1>Refuse Treatment</h1>
 
-<div class="center-text">
+<div class="center-text refusal-container">
     <h4>Treatment Refusal for - @Model.PatientName - @Model.TreatmentName</h4>
     <p>
         To continue with the refusal of treatment please confirm using the below button.
@@ -18,18 +18,18 @@
     <p>
         You will need to specify a reason for refusal
     </p>
+
+    @using (Html.BeginForm("RefuseTreatment", "Treatment", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.PatientId)
+        @Html.HiddenFor(model => model.TreatmentId)
+
+        @Html.DisplayFor(model => model.RefusalReason)
+        @Html.TextAreaFor(model => model.RefusalReason)
+
+        <input value="Confirm" class="button" type="submit" />
+    }
 </div>
-
-@using(Html.BeginForm("RefuseTreatment", "Treatment", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-    @Html.HiddenFor(model => model.PatientId)
-    @Html.HiddenFor(model => model.TreatmentId)
-    
-    @Html.DisplayFor(model => model.RefusalReason)
-    @Html.TextAreaFor(model => model.RefusalReason)
-
-    <input value="Confrim" onclick="return confirm('Are you sure?');" class="button" type="submit" />
-}

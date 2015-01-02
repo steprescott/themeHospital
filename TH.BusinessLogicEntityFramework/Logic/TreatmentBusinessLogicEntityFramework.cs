@@ -63,6 +63,8 @@ namespace TH.BusinessLogicEntityFramework.Logic
                         Treatment = treatment
                     };
 
+                    treatment.Refusal = refusal;
+
                     _unitOfWork.Update(treatment);
                     _unitOfWork.SaveChanges();
 

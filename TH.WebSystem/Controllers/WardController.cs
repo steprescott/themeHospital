@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TH.WebSystem.Models;
-using TH.WebSystem.Services;
 
 namespace TH.WebSystem.Controllers
 {

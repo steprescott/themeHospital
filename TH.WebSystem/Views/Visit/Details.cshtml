@@ -1,5 +1,8 @@
-﻿@using TH.Domain.Treatments
-@model TH.WebSystem.Models.VisitDetailsViewModel
+﻿@model TH.WebSystem.Models.VisitDetailsViewModel
+
+@{
+    ViewBag.Title = "Visit Details";
+}
 
 <h1>Visit details</h1>
 <hr />
@@ -23,8 +26,8 @@
     </tr>
 </table>
 
-<h4>Procdures</h4>
-@if (Model.Procedures.Count > 0)
+<h4>Procedures</h4>
+@if (Model.Procedures.Any())
 {
     <table class="table" width="100%">
         <tr>
@@ -41,8 +44,7 @@
                 <td>
                     @if (procedure.Refusal != null)
                     {
-                        @Html.Raw("Treatment refused.")
-                        @procedure.Refusal.Note.Content
+                        @Html.Raw("Treatment refused - ")@procedure.Refusal.Note.Content
                     }
                     else if (procedure.AdministeredBy != null)
                     {
@@ -70,7 +72,7 @@ else
 }
 
 <h4>Course of medicines</h4>
-@if (Model.CourseOfMedicines.Count > 0)
+@if (Model.CourseOfMedicines.Any())
 {
     <table class="table" width="100%">
         <tr>

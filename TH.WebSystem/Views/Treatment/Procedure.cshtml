@@ -21,12 +21,12 @@
         <td>@Html.DisplayFor(model => model.AssignedTo.FullName)</td>
     </tr>
     <tr>
-        <td>Administored by</td>
-        <td>@if (Model.AdministeredBy != null){@Html.DisplayFor(model => model.AdministeredBy.FullName)}else{@Html.Raw("Not yet administered")}</td>
+        <td>Administered by</td>
+        <td>@(Model.AdministeredBy != null ? Html.DisplayFor(model => model.AdministeredBy.FullName) : Html.Raw("Not yet administered"))</td>
     </tr>
     <tr>
         <td>@Html.LabelFor(model => model.Procedure.DateAdministered)</td>
-        <td>@if (Model.Procedure.DateAdministered != null){@Html.DisplayFor(model => model.Procedure.DateAdministered)}else{@Html.Raw("Not yet administered")}</td>
+        <td>@(Model.Procedure.DateAdministered != null ? Html.DisplayFor(model => model.Procedure.DateAdministered) : Html.Raw("Not yet administered"))</td>
     </tr>
 </table>
 
@@ -36,12 +36,13 @@
     {
         @Html.HiddenFor(model => model.TreatmentId)
 
-        <tr>
-            <td>Administored by</td>
-            <td>@Html.DropDownListFor(model => model.AdministeredByUserId, new SelectList(Model.MedicalStaff, "UserId", "FullName", null))</td>
-        </tr>
+        @Html.Raw("Administered by")
+        @Html.DropDownListFor(model => model.AdministeredByUserId, new SelectList(Model.MedicalStaff, "UserId", "FullName", null))
+        <br/>
         <input type="submit" value="Administor treatment" class="button">
     }
-
-    <button>@Html.ActionLink("Record refusal of treatment", "RefuseTreatment", "Treatment", new { id = Model.TreatmentId }, null)</button>
+    
+    <button>
+        @Html.ActionLink("Record refusal of treatment", "RefuseTreatment", "Treatment", new { id = Model.TreatmentId }, null)
+    </button>
 }
