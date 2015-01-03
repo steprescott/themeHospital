@@ -152,8 +152,10 @@ namespace TH.WebSystem.Controllers
         public ActionResult RecordRefusal(Guid id)
         {
             var patient = HospitalService.PatientBusinessLogic.GetPatientWithId(id);
-            var procedures = HospitalService.ProcedureBusinessLogic.GetProceduresScheduledForPatientId(id);
-            var coursesOfMedicines = HospitalService.CourseOfMedicineBusinessLogic.GetCourseOfMedicinesScheduledForPatientId(id);
+            var procedures = HospitalService.ProcedureBusinessLogic.GetProceduresScheduledForPatientId(id)
+                .Where(p => p.AdministeredByUserId == null && p.Refusal == null).ToList();
+            var coursesOfMedicines = HospitalService.CourseOfMedicineBusinessLogic.GetCourseOfMedicinesScheduledForPatientId(id)
+                .Where(com => com.AdministeredByUserId == null && com.Refusal == null).ToList();
 
             return View(new PatientTreatmentsModel
             {

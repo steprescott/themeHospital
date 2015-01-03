@@ -1,4 +1,5 @@
-﻿@model TH.WebSystem.Models.CourseOfMedicineViewModel
+﻿@using TH.WebSystem.Providers
+@model TH.WebSystem.Models.CourseOfMedicineViewModel
 
 @{
     ViewBag.Title = "Course of Medicine details";
@@ -39,13 +40,16 @@
 
 @if (!Model.CourseOfMedicine.Visit.ReleaseDate.HasValue && Model.AdministeredBy == null && Model.CourseOfMedicine.Refusal == null)
 {
-    using (Html.BeginForm("AdministorCourseOfMedicine", "Treatment", FormMethod.Post))
+    if (!ThemeHospitalMembershipProvider.IsReceptionist)
     {
-        @Html.HiddenFor(model => model.TreatmentId)
+        using (Html.BeginForm("AdministorCourseOfMedicine", "Treatment", FormMethod.Post))
+        {
+            @Html.HiddenFor(model => model.TreatmentId)
 
-        @Html.Raw("Administered by")
-        @Html.DropDownListFor(model => model.AdministeredByUserId, new SelectList(Model.MedicalStaff, "UserId", "FullName", null))
-        <input type="submit" value="Administor treatment" class="button">
+            @Html.Raw("Administered by")
+            @Html.DropDownListFor(model => model.AdministeredByUserId, new SelectList(Model.MedicalStaff, "UserId", "FullName", null))
+            <input type="submit" value="Administor treatment" class="button">
+        }
     }
 
     <button>@Html.ActionLink("Record refusal of treatment", "RefuseTreatment", "Treatment", new { id = Model.TreatmentId}, null)</button>

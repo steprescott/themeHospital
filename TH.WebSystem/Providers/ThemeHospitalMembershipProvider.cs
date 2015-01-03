@@ -24,6 +24,30 @@ namespace TH.WebSystem.Providers
             get { return _securityService ?? (_securityService = new SecurityService()); }
         }
 
+        public static bool IsReceptionist
+        {
+            get
+            {
+                return GetUserRole() == StaffType.Receptionist;
+            }
+        }
+        
+        public static bool IsConsultant
+        {
+            get
+            {
+                return GetUserRole() == StaffType.Consultant;
+            }
+        }
+
+        public static bool IsDoctor
+        {
+            get
+            {
+                return GetUserRole() == StaffType.Doctor;
+            }
+        }
+
         public static ApplicationUser GetCurrentUser()
         {
             return User;

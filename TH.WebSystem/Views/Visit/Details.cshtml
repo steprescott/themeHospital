@@ -4,7 +4,6 @@
 
 @{
     ViewBag.Title = "Visit Details";
-    var isReceptionist = ThemeHospitalMembershipProvider.GetUserRole() == StaffType.Receptionist;
 }
 
 <h1>Visit details</h1>
@@ -43,7 +42,7 @@
             @foreach (var procedure in Model.Procedures.OrderBy(o => o.ScheduledDate))
             {
                 <tr>
-                    <td style="width:180px">@procedure.ScheduledDate</td>
+                    <td style="width:200px">@procedure.ScheduledDate</td>
                     <td>@procedure.Operation.Name</td>
                     <td>
                         @if (procedure.Refusal != null)
@@ -69,7 +68,7 @@
         @Html.Raw("No procedures for visit. ");
     }
     
-    @if (!isReceptionist && !Model.Visit.ReleaseDate.HasValue)
+    @if (!ThemeHospitalMembershipProvider.IsReceptionist && !Model.Visit.ReleaseDate.HasValue)
     {
         <br />
         <button>
@@ -90,7 +89,7 @@
             @foreach (var courseOfMedicines in Model.CourseOfMedicines.OrderBy(o => o.ScheduledDate))
             {
                 <tr>
-                    <td style="width:180px">@courseOfMedicines.ScheduledDate</td>
+                    <td style="width:200px">@courseOfMedicines.ScheduledDate</td>
                     <td>@courseOfMedicines.Medicine.Name</td>
                     <td>
                         @if (courseOfMedicines.Refusal != null)
@@ -115,7 +114,7 @@
     {
         @Html.Raw("No course of medicines for visit. ");
     }
-    @if (!isReceptionist && !Model.Visit.ReleaseDate.HasValue)
+    @if (!ThemeHospitalMembershipProvider.IsReceptionist && !Model.Visit.ReleaseDate.HasValue)
     { 
         <br />
         <button>@Html.ActionLink("Create new medicine course", "Create", "Treatment", new { id = Model.Visit.VisitId }, null)</button>
@@ -132,7 +131,7 @@
             @foreach (var note in Model.Visit.Notes)
             {
                 <tr>
-                    <td style="width:180px">@Html.DisplayFor(model => note.DateCreated)</td>
+                    <td style="width:200px">@Html.DisplayFor(model => note.DateCreated)</td>
                     <td>@Html.DisplayFor(model => note.Content)</td>
                 </tr>
             }
@@ -140,7 +139,7 @@
     }
     else
     {
-        @Html.Raw("No notes for patient. ");
+        @Html.Raw("No notes for visit. ");
     }
     <br />
     <button>@Html.ActionLink("Create new note", "CreateNote", new { id = Model.Visit.VisitId })</button>

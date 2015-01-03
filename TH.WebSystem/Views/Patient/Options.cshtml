@@ -4,7 +4,6 @@
 
 @{
     ViewBag.Title = "Patient Options";
-    var isReceptionist = ThemeHospitalMembershipProvider.GetUserRole() == StaffType.Receptionist;
 }
 
 <h1>Patient Options</h1>
@@ -15,13 +14,13 @@
         @Html.ActionLink("View Patient Record", "Details", "Patient", new { id = Model.PatientId }, null)
     </li>
 
-    @if (isReceptionist && Model.CurrentVisit == null)
+    @if (ThemeHospitalMembershipProvider.IsReceptionist && Model.CurrentVisit == null)
     {
         <li>
             @Html.ActionLink("Admit", "Admit", "Patient", new { id = Model.PatientId }, null)
         </li>
     }
-    else if (isReceptionist && Model.CurrentVisit != null)
+    else if (ThemeHospitalMembershipProvider.IsReceptionist && Model.CurrentVisit != null)
     {
         <li>
             @Html.ActionLink("Dismiss", "Dismiss", "Patient", new { id = Model.PatientId }, null)
@@ -29,13 +28,13 @@
     }
     else
     {
-        if (Model.CurrentVisit != null && Model.CurrentVisit.Bed == null)
+        if (Model.CurrentVisit != null && Model.CurrentVisit.Bed == null && ThemeHospitalMembershipProvider.IsReceptionist)
         {
             <li>
                 @Html.ActionLink("Assign Patient To Ward", "AssignToWard", "Ward", new { id = Model.PatientId }, null)
             </li>
         }
-        if (!isReceptionist && Model.CurrentVisit != null)
+        if (!ThemeHospitalMembershipProvider.IsReceptionist && Model.CurrentVisit != null)
         {
             <li>
                 @Html.ActionLink("Arrange Treatment For Patient", "Create", "Treatment", new { id = Model.CurrentVisit.VisitId }, null)
