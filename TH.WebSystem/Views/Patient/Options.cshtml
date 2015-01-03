@@ -1,4 +1,6 @@
-﻿@model TH.WebSystem.Models.PatientOptionsViewModel
+﻿@using TH.Domain.Enums
+@using TH.WebSystem.Providers
+@model TH.WebSystem.Models.PatientOptionsViewModel
 
 @{
     ViewBag.Title = "Patient Options";
@@ -34,9 +36,12 @@
                 </li>
             }
         }
-        <li>
-            @Html.ActionLink("Arrange Treatment For Patient", "Create", "Treatment", new { id = Model.CurrentVisit.VisitId }, null)
-        </li>
+        if (ThemeHospitalMembershipProvider.GetUserRole() != StaffType.Receptionist)
+        { 
+            <li>
+                @Html.ActionLink("Arrange Treatment For Patient", "Create", "Treatment", new { id = Model.CurrentVisit.VisitId }, null)
+            </li>
+        }
         <li>
             @Html.ActionLink("Record Refusal Of Treatment", "RecordRefusal", "Patient", new { id = Model.PatientId }, null)
         </li>
