@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TH.UnitOfWorkEntityFramework
 {
@@ -12,8 +10,13 @@ namespace TH.UnitOfWorkEntityFramework
         {
             get
             {
-                var takenBeds = Beds.SelectMany(b => b.Visits).Where(v => v.ReleaseDate != null).Select(v => v.Bed).ToList();
-                return Beds.Except(takenBeds).ToList();
+                var availableBeds = Beds.AsEnumerable();
+
+                availableBeds = availableBeds.Where(b => !b.Visits.Any());
+
+                availableBeds = availableBeds.Where(b => b.Visits.Select(v => v.ReleaseDate) != null);
+
+                return availableBeds.ToList();
             }
         }
     }

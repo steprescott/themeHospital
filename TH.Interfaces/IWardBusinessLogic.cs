@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TH.Domain.User;
 using TH.Domain.Wards;
 
 namespace TH.Interfaces

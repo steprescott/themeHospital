@@ -23,10 +23,18 @@
                 <td>@courseOfMedicine.Visit.Patient.FullName</td>
                 <td>@courseOfMedicine.Medicine.Name</td>
                 <td>
-                    @(courseOfMedicine.Refusal != null ?
-                        Html.Raw("Refused") :
-                        Html.ActionLink("Record Refusal", "RefuseTreatment", "Treatment", new { treatmentId = courseOfMedicine.TreatmentId }, null)
-                    )
+                    @if (courseOfMedicine.Refusal != null)
+                    {
+                        @Html.Raw("Treatment refused - ")@courseOfMedicine.Refusal.Note.Content
+                    }
+                    else if (courseOfMedicine.AdministeredBy != null)
+                    {
+                        @courseOfMedicine.AdministeredBy.FullName
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Record Refusal", "RefuseTreatment", "Treatment", new { id = courseOfMedicine.TreatmentId }, null)
+                    }
                 </td>
             </tr>
         }
@@ -38,10 +46,18 @@
                 <td>@procedure.Visit.Patient.FullName</td>
                 <td>@procedure.Operation.Name</td>
                 <td>
-                    @(procedure.Refusal != null ?
-                        Html.Raw("Refused") :
-                    Html.ActionLink("Record Refusal", "RefuseTreatment", "Treatment", new { treatmentId = procedure.TreatmentId }, null)
-                    )
+                    @if (procedure.Refusal != null)
+                    {
+                        @Html.Raw("Treatment refused - ")@procedure.Refusal.Note.Content
+                    }
+                    else if (procedure.AdministeredBy != null)
+                    {
+                        @procedure.AdministeredBy.FullName
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Record Refusal", "RefuseTreatment", "Treatment", new { id = procedure.TreatmentId }, null)
+                    }
                 </td>
             </tr>
         }

@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using TH.Domain.Other;
 using TH.WebSystem.Models;
-using TH.WebSystem.Services;
 
 namespace TH.WebSystem.Controllers
 {
@@ -14,8 +13,13 @@ namespace TH.WebSystem.Controllers
         public ActionResult Details(Guid id)
         {
             var visit = HospitalService.VisitBusinessLogic.GetVisitWithId(id);
+            var procedures = HospitalService.ProcedureBusinessLogic.GetProceduresScheduledForPatientId(visit.Patient.UserId);
+            var courseOfMedicines = HospitalService.CourseOfMedicineBusinessLogic.GetCourseOfMedicinesScheduledForPatientId(visit.Patient.UserId);
+
             return View(new VisitDetailsViewModel {
-                Visit = visit
+                Visit = visit,
+                Procedures = procedures,
+                CourseOfMedicines = courseOfMedicines
             });
         }
 

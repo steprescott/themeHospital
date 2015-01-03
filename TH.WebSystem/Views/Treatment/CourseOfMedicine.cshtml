@@ -1,0 +1,46 @@
+﻿@model TH.WebSystem.Models.CourseOfMedicineViewModel
+
+<h1>Procedure details</h1>
+<hr />
+
+<table>
+    <tr>
+        <td>@Html.LabelFor(model => model.CourseOfMedicine.ScheduledDate)</td>
+        <td>@Html.DisplayFor(model => model.CourseOfMedicine.ScheduledDate)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(model => model.CourseOfMedicine.Medicine.Name)</td>
+        <td>@Html.DisplayFor(model => model.CourseOfMedicine.Medicine.Name)</td>
+    </tr>
+    <tr>
+        <td>Recorded by</td>
+        <td>@Html.DisplayFor(model => model.RecordedBy.FullName)</td>
+    </tr>
+    <tr>
+        <td>Assigned to</td>
+        <td>@Html.DisplayFor(model => model.AssignedTo.FullName)</td>
+    </tr>
+    <tr>
+        <td>Administored by</td>
+        <td>@if (Model.AdministeredBy != null)
+        {@Html.DisplayFor(model => model.AdministeredBy.FullName)}
+        else
+        {@Html.Raw("Not yet administered")}</td>
+    </tr>
+</table>
+
+@if (Model.AdministeredBy == null)
+{
+    using (Html.BeginForm("AdministorCourseOfMedicine", "Treatment", FormMethod.Post))
+    {
+        @Html.HiddenFor(model => model.TreatmentId)
+
+        <tr>
+            <td>Administored by</td>
+            <td>@Html.DropDownListFor(model => model.AdministeredByUserId, new SelectList(Model.MedicalStaff, "UserId", "FullName", null))</td>
+        </tr>
+        <input type="submit" value="Administor treatment" class="button">
+    }
+
+    <button>@Html.ActionLink("Record refusal of treatment", "RefuseTreatment", "Treatment", new { id = Model.TreatmentId}, null)</button>
+}

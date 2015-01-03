@@ -1,0 +1,48 @@
+﻿@model TH.WebSystem.Models.ProcedureViewModel
+           
+<h1>Procedure details</h1>
+<hr />
+
+<table>
+    <tr>
+        <td>@Html.LabelFor(model => model.Procedure.ScheduledDate)</td>
+        <td>@Html.DisplayFor(model => model.Procedure.ScheduledDate)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(model => model.Procedure.Operation.Name)</td>
+        <td>@Html.DisplayFor(model => model.Procedure.Operation.Name)</td>
+    </tr>
+    <tr>
+        <td>Recorded by</td>
+        <td>@Html.DisplayFor(model => model.RecordedBy.FullName)</td>
+    </tr>
+    <tr>
+        <td>Assigned to</td>
+        <td>@Html.DisplayFor(model => model.AssignedTo.FullName)</td>
+    </tr>
+    <tr>
+        <td>Administered by</td>
+        <td>@(Model.AdministeredBy != null ? Html.DisplayFor(model => model.AdministeredBy.FullName) : Html.Raw("Not yet administered"))</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(model => model.Procedure.DateAdministered)</td>
+        <td>@(Model.Procedure.DateAdministered != null ? Html.DisplayFor(model => model.Procedure.DateAdministered) : Html.Raw("Not yet administered"))</td>
+    </tr>
+</table>
+
+@if(Model.AdministeredBy == null)
+{
+    using (Html.BeginForm("AdministorProcedure", "Treatment", FormMethod.Post))
+    {
+        @Html.HiddenFor(model => model.TreatmentId)
+
+        @Html.Raw("Administered by")
+        @Html.DropDownListFor(model => model.AdministeredByUserId, new SelectList(Model.MedicalStaff, "UserId", "FullName", null))
+        <br/>
+        <input type="submit" value="Administor treatment" class="button">
+    }
+    
+    <button>
+        @Html.ActionLink("Record refusal of treatment", "RefuseTreatment", "Treatment", new { id = Model.TreatmentId }, null)
+    </button>
+}

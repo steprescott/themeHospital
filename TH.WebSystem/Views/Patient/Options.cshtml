@@ -1,5 +1,8 @@
-﻿@using TH.Domain.Other
-@model TH.WebSystem.Models.PatientOptionsViewModel
+﻿@model TH.WebSystem.Models.PatientOptionsViewModel
+
+@{
+    ViewBag.Title = "Patient Options";
+}
 
 <h1>Patient Options</h1>
 <hr />
@@ -18,25 +21,28 @@
     }
     else
     {
+        <li>
+            @Html.ActionLink("Dismiss", "Dismiss", "Patient", new { id = Model.PatientId }, null)
+        </li>
+        <li>
+            @Html.ActionLink("Arrange Treatment For Patient", "Create", "Treatment", new { id = Model.CurrentVisit.VisitId }, null)
+        </li>
         if (Model.CurrentVisit.Bed == null)
         {
             <li>
                 @Html.ActionLink("Assign Patient To Ward", "AssignToWard", "Ward", new { id = Model.PatientId }, null)
             </li>
         }
-
-        <li>
-            @Html.ActionLink("Assign Patient To Consultant", "DisplayWards", "Patient")
-        </li>
-        <li>
-            @Html.ActionLink("Arrange Treatment For Patient", "Create", "Treatment", new { id = Model.CurrentVisit.VisitId }, null)
-        </li>
-        <li>
-            @Html.ActionLink("Record Refusal Of Treatment", "RecordRefusal", "Patient", new { id = Model.PatientId }, null)
-        </li>
     }
 
+    <li>
+        @Html.ActionLink("Record Refusal Of Treatment", "RecordRefusal", "Patient", new { id = Model.PatientId }, null)
+    </li>
 </ul>
+
+
+
+
 
 
 

@@ -26,17 +26,17 @@
                 <td>@courseOfMedicine.Visit.Patient.FullName</td>
                 <td>@courseOfMedicine.Medicine.Name</td>
                 <td>
-                    @if (courseOfMedicine.AdministeredByUserId == null)
+                    @if (courseOfMedicine.Refusal != null)
                     {
-                        @Html.Raw("Awaiting Administration by Staff")
+                        @Html.Raw("Treatment refused - ")@courseOfMedicine.Refusal.Note.Content
                     }
-                    else if (courseOfMedicine.Refusal != null)
+                    else if (courseOfMedicine.AdministeredBy != null)
                     {
-                        @Html.Raw("Patient Refused")
+                        @courseOfMedicine.AdministeredBy.FullName
                     }
                     else
                     {
-                        @Html.Raw("Completed")
+                        @Html.Raw("Not yet administered")
                     }
                 </td>
                 <td>
@@ -52,17 +52,17 @@
                 <td>@procedure.Visit.Patient.FullName</td>
                 <td>@procedure.Operation.Name</td>
                 <td>
-                    @if (procedure.AdministeredByUserId == null)
+                    @if (procedure.Refusal != null)
                     {
-                        @Html.Raw("Awaiting Administration by Staff")
+                        @Html.Raw("Treatment refused - ")@procedure.Refusal.Note.Content
                     }
-                    else if (procedure.Refusal != null)
+                    else if (procedure.AdministeredBy != null)
                     {
-                        @Html.Raw("Patient Refused")
+                        @procedure.AdministeredBy.FullName
                     }
                     else
                     {
-                        @Html.Raw("Completed")
+                        @Html.Raw("Not yet administered")
                     }
                 </td>
                 <td>
@@ -96,17 +96,17 @@ else
                 <td>@courseOfMedicine.AdministeredBy.FullName</td>
                 <td>@courseOfMedicine.Medicine.Name</td>
                 <td>
-                    @if (courseOfMedicine.AdministeredByUserId == null)
+                    @if (courseOfMedicine.Refusal != null)
                     {
-                        @Html.Raw("Awaiting Administration by Staff")
+                        @Html.Raw("Treatment refused - ")@courseOfMedicine.Refusal.Note.Content
                     }
-                    else if (courseOfMedicine.Refusal != null)
+                    else if (courseOfMedicine.AdministeredBy != null)
                     {
-                        @Html.Raw("Patient Refused")
+                        @courseOfMedicine.AdministeredBy.FullName
                     }
                     else
                     {
-                        @Html.Raw("Completed")
+                        @Html.Raw("Not yet administered")
                     }
                 </td>
             </tr>
@@ -120,18 +120,22 @@ else
                 <td>@procedure.AdministeredBy.FullName</td>
                 <td>@procedure.Operation.Name</td>
                 <td>
-                    @if (procedure.AdministeredByUserId == null)
+                    @if (procedure.Refusal != null)
                     {
-                        @Html.Raw("Awaiting Administration by Staff")
+                        @Html.Raw("Treatment refused - ")@procedure.Refusal.Note.Content
+
                     }
-                    else if (procedure.Refusal != null)
+                    else if (procedure.AdministeredBy != null)
                     {
-                        @Html.Raw("Patient Refused")
+                        @procedure.AdministeredBy.FullName
+
                     }
                     else
                     {
-                        @Html.Raw("Completed")
+                        @Html.Raw("Not yet administered")
+
                     }
+
                 </td>
             </tr>
         }

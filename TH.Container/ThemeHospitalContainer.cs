@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Practices.Unity;
-using TH.BusinessLogicEntityFramework;
 using TH.BusinessLogicEntityFramework.Logic;
 using TH.Interfaces;
 using TH.UnitOfWorkEntityFramework;

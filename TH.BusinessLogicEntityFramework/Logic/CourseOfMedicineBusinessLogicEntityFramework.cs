@@ -31,6 +31,12 @@ namespace TH.BusinessLogicEntityFramework.Logic
             }
         }
 
+        public Domain.Treatments.CourseOfMedicine GetCoursesOfMedicineWithId(Guid id)
+        {
+            var coursesOfMedicine = _unitOfWork.GetById<CourseOfMedicine>(id);
+            return ReflectiveMapperService.ConvertItem<CourseOfMedicine, Domain.Treatments.CourseOfMedicine>(coursesOfMedicine);
+        }
+
         public List<Domain.Treatments.CourseOfMedicine> GetCoursesOfMedicinesToBeAdministeredByStaffMemberId(Guid userId)
         {
             var coursesOfMedicines = _unitOfWork.GetAll<CourseOfMedicine>().ToList();
@@ -56,13 +62,29 @@ namespace TH.BusinessLogicEntityFramework.Logic
             return new List<Domain.Treatments.CourseOfMedicine>();
         }
 
-        public List<Domain.Treatments.CourseOfMedicine> GetProceduresScheduledForPatientId(Guid patientId)
+        public List<Domain.Treatments.CourseOfMedicine> GetCourseOfMedicinesScheduledForPatientId(Guid patientId)
         {
             var courseOfMedicines = _unitOfWork.GetAll<CourseOfMedicine>().ToList();
 
             courseOfMedicines = courseOfMedicines.Where(p => p.Visit.PatientUserId == patientId).ToList();
 
             return courseOfMedicines.Select(com => ReflectiveMapperService.ConvertItem<CourseOfMedicine, Domain.Treatments.CourseOfMedicine>(com)).ToList();
+        }
+
+        public bool AdministorCourseOfMedicineWithId(Guid id, Guid administoredByUserId)
+        {
+            try
+            {
+                var efCourseOfMedicines = _unitOfWork.GetById<CourseOfMedicine>(id);
+                efCourseOfMedicines.AdministeredByUserId = administoredByUserId;
+                _unitOfWork.Update(efCourseOfMedicines);
+                _unitOfWork.SaveChanges();
+                return true;
+            }
+            catch (Exception exception)
+            {
+                return false;
+            }
         }
     }
 }

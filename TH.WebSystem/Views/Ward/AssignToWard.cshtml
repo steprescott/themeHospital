@@ -17,7 +17,7 @@
                     Options
                 </th>
             </tr>
-            @foreach (var bed in ward.Beds.OrderBy(b => b.Number))
+            @foreach (var bed in ward.AvailableBeds.OrderBy(b => b.Number))
             {
                 <tr>
                     <td>

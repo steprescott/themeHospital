@@ -200,6 +200,7 @@
     <Compile Include="Classes\ActionFilters\ThemeHospitalAuthorisationAttribute.cs" />
     <Compile Include="Models\AddressModel.cs" />
     <Compile Include="Models\AdmissionModel.cs" />
+    <Compile Include="Models\CourseOfMedicineViewModel.cs" />
     <Compile Include="Models\DismissModel.cs" />
     <Compile Include="Models\AssignToWardViewModel.cs" />
     <Compile Include="Models\DisplayWardWaitingListViewModel.cs" />
@@ -210,6 +211,7 @@
     <Compile Include="Models\PatientDetailsModel.cs" />
     <Compile Include="Models\PatientOptionsViewModel.cs" />
     <Compile Include="Models\PatientTreatmentsModel.cs" />
+    <Compile Include="Models\ProcedureViewModel.cs" />
     <Compile Include="Models\RefuseTreatmentModel.cs" />
     <Compile Include="Models\ViewTreatmentModel.cs" />
     <Compile Include="Models\VisitCreateNoteViewModel.cs" />
@@ -250,6 +252,8 @@
     <Content Include="Views\Patient\RecordRefusal.cshtml" />
     <Content Include="Views\Treatment\RefuseTreatment.cshtml" />
     <Content Include="Views\Doctor\Index.cshtml" />
+    <Content Include="Views\Treatment\Procedure.cshtml" />
+    <Content Include="Views\Treatment\CourseOfMedicine.cshtml" />
     <Content Include="Views\Ward\WaitingList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

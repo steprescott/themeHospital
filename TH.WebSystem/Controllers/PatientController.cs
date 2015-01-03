@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.Ajax.Utilities;
 using TH.Domain.Enums;
 using TH.Domain.Other;
 using TH.Domain.User;
@@ -21,7 +20,7 @@ namespace TH.WebSystem.Controllers
             if (ThemeHospitalMembershipProvider.GetUserRole() == StaffType.Consultant)
             {
                 return View(HospitalService.VisitBusinessLogic.GetOpenVisitsForConsultantId(userId));
-        }
+            }
             if (ThemeHospitalMembershipProvider.GetUserRole() == StaffType.Doctor)
             {
                 return View(HospitalService.VisitBusinessLogic.GetOpenVisitsForDoctorId(userId));
@@ -154,7 +153,7 @@ namespace TH.WebSystem.Controllers
         {
             var patient = HospitalService.PatientBusinessLogic.GetPatientWithId(id);
             var procedures = HospitalService.ProcedureBusinessLogic.GetProceduresScheduledForPatientId(id);
-            var coursesOfMedicines = HospitalService.CourseOfMedicineBusinessLogic.GetProceduresScheduledForPatientId(id);
+            var coursesOfMedicines = HospitalService.CourseOfMedicineBusinessLogic.GetCourseOfMedicinesScheduledForPatientId(id);
 
             return View(new PatientTreatmentsModel
             {

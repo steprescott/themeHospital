@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using TH.Domain.Enums;
-using TH.WebSystem.Models;
 using TH.WebSystem.Providers;
 
 namespace TH.WebSystem.Controllers
