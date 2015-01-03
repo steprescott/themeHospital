@@ -4,6 +4,7 @@ using System.Linq;
 using TH.Interfaces;
 using TH.ReflectiveMapper;
 using TH.UnitOfWorkEntityFramework;
+using Treatment = TH.Domain.Treatments.Treatment;
 
 namespace TH.BusinessLogicEntityFramework.Logic
 {
@@ -16,21 +17,21 @@ namespace TH.BusinessLogicEntityFramework.Logic
             _unitOfWork = unitOfWork;
         }
 
-        public Domain.Treatments.Treatment GetTreatmentById(Guid treatmentId)
+        public Treatment GetTreatmentById(Guid treatmentId)
         {
-            var treatment = _unitOfWork.GetById<Treatment>(treatmentId);
+            var treatment = _unitOfWork.GetById<UnitOfWorkEntityFramework.Treatment>(treatmentId);
 
-            return ReflectiveMapperService.ConvertItem<Treatment, Domain.Treatments.Treatment>(treatment);
+            return ReflectiveMapperService.ConvertItem<UnitOfWorkEntityFramework.Treatment, Treatment>(treatment);
         }
 
         public string GetTreatmentName(Guid treatmentId)
         {
-            var procedure = _unitOfWork.GetInheritedSubTypeObjects<Treatment, Procedure>()
+            var procedure = _unitOfWork.GetInheritedSubTypeObjects<UnitOfWorkEntityFramework.Treatment, Procedure>()
                 .SingleOrDefault(p => p.TreatmentId == treatmentId);
 
             if (procedure == null)
             {
-                var coursesOfMedicine = _unitOfWork.GetInheritedSubTypeObjects<Treatment, CourseOfMedicine>()
+                var coursesOfMedicine = _unitOfWork.GetInheritedSubTypeObjects<UnitOfWorkEntityFramework.Treatment, CourseOfMedicine>()
                     .SingleOrDefault(com => com.TreatmentId == treatmentId);
 
                 if (coursesOfMedicine == null)
@@ -45,7 +46,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
         public bool RecordRefusalOfTreatment(Guid treatmentId, string refusalReason)
         {
-            var treatment = _unitOfWork.GetById<Treatment>(treatmentId);
+            var treatment = _unitOfWork.GetById<UnitOfWorkEntityFramework.Treatment>(treatmentId);
             
             if (treatment != null)
             {

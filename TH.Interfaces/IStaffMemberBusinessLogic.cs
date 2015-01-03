@@ -11,7 +11,7 @@ namespace TH.Interfaces
         bool CreateOrUpdateDoctor(Doctor domainConsultant);
         bool CreateOrUpdateReceptionist(Receptionist domainReceptionist);
 
-        Domain.User.StaffMember GetStaffMemberWithId(Guid userId);
+        StaffMember GetStaffMemberWithId(Guid userId);
 
         bool DeleteStaffMemberWithId(Guid userId);
         bool DeleteStaffMember(StaffMember domainStaffMember);

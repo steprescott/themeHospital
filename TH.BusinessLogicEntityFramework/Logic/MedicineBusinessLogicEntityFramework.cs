@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TH.Interfaces;
 using TH.ReflectiveMapper;
-using TH.UnitOfWorkEntityFramework;
+using Medicine = TH.Domain.Treatments.Medicine;
 
 namespace TH.BusinessLogicEntityFramework.Logic
 {
@@ -16,15 +16,15 @@ namespace TH.BusinessLogicEntityFramework.Logic
             _unitOfWork = unitOfWork;
         }
 
-        public bool CreateOrUpdateMedicine(Domain.Treatments.Medicine medicine)
+        public bool CreateOrUpdateMedicine(Medicine medicine)
         {
-            var efObject = _unitOfWork.GetById<Medicine>(medicine.MedicineId);
+            var efObject = _unitOfWork.GetById<UnitOfWorkEntityFramework.Medicine>(medicine.MedicineId);
 
             try
             {
                 if (efObject == null)
                 {
-                    efObject = new Medicine
+                    efObject = new UnitOfWorkEntityFramework.Medicine
                     {
                         MedicineId = medicine.MedicineId != Guid.Empty ? medicine.MedicineId : Guid.NewGuid()
                     };
@@ -55,7 +55,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
         {
             try
             {
-                _unitOfWork.Delete(_unitOfWork.GetById<Medicine>(medicineId));
+                _unitOfWork.Delete(_unitOfWork.GetById<UnitOfWorkEntityFramework.Medicine>(medicineId));
                 return true;
             }
             catch (Exception)
@@ -64,16 +64,16 @@ namespace TH.BusinessLogicEntityFramework.Logic
             }
         }
 
-        public List<Domain.Treatments.Medicine> GetAllMedicines()
+        public List<Medicine> GetAllMedicines()
         {
-            var medicines = _unitOfWork.GetAll<Medicine>().ToList().OrderBy(o => o.Name);
-            return medicines.Select(o => ReflectiveMapperService.ConvertItem<Medicine, Domain.Treatments.Medicine>(o)).ToList();
+            var medicines = _unitOfWork.GetAll<UnitOfWorkEntityFramework.Medicine>().ToList().OrderBy(o => o.Name);
+            return medicines.Select(o => ReflectiveMapperService.ConvertItem<UnitOfWorkEntityFramework.Medicine, Medicine>(o)).ToList();
         }
 
-        public Domain.Treatments.Medicine GetMedicineById(Guid id)
+        public Medicine GetMedicineById(Guid id)
         {
-            Medicine medicine = _unitOfWork.GetById<Medicine>(id);
-            return ReflectiveMapperService.ConvertItem<Medicine, Domain.Treatments.Medicine>(medicine);
+            UnitOfWorkEntityFramework.Medicine medicine = _unitOfWork.GetById<UnitOfWorkEntityFramework.Medicine>(id);
+            return ReflectiveMapperService.ConvertItem<UnitOfWorkEntityFramework.Medicine, Medicine>(medicine);
         }
     }
 }

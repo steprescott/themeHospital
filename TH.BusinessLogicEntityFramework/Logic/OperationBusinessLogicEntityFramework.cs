@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TH.Interfaces;
 using TH.ReflectiveMapper;
-using TH.UnitOfWorkEntityFramework;
+using Operation = TH.Domain.Treatments.Operation;
 
 namespace TH.BusinessLogicEntityFramework.Logic
 {
@@ -16,15 +16,15 @@ namespace TH.BusinessLogicEntityFramework.Logic
             _unitOfWork = unitOfWork;
         }
 
-        public bool CreateOrUpdateOperation(Domain.Treatments.Operation operation)
+        public bool CreateOrUpdateOperation(Operation operation)
         {
-            var efObject = _unitOfWork.GetById<Operation>(operation.OperationId);
+            var efObject = _unitOfWork.GetById<UnitOfWorkEntityFramework.Operation>(operation.OperationId);
 
             try
             {
                 if (efObject == null)
                 {
-                    efObject = new Operation
+                    efObject = new UnitOfWorkEntityFramework.Operation
                     {
                         OperationId = operation.OperationId != null ? operation.OperationId : Guid.NewGuid(),
                         Name = operation.Name,
@@ -55,7 +55,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
         {
             try
             {
-                _unitOfWork.Delete(_unitOfWork.GetById<Operation>(operationId));
+                _unitOfWork.Delete(_unitOfWork.GetById<UnitOfWorkEntityFramework.Operation>(operationId));
                 return true;
             }
             catch (Exception)
@@ -64,16 +64,16 @@ namespace TH.BusinessLogicEntityFramework.Logic
             }
         }
 
-        public List<Domain.Treatments.Operation> GetAllOperations()
+        public List<Operation> GetAllOperations()
         {
-            var operations = _unitOfWork.GetAll<Operation>().ToList().OrderBy(o => o.Name);
-            return operations.Select(o => ReflectiveMapperService.ConvertItem<Operation, Domain.Treatments.Operation>(o)).ToList();
+            var operations = _unitOfWork.GetAll<UnitOfWorkEntityFramework.Operation>().ToList().OrderBy(o => o.Name);
+            return operations.Select(o => ReflectiveMapperService.ConvertItem<UnitOfWorkEntityFramework.Operation, Operation>(o)).ToList();
         }
 
-        public Domain.Treatments.Operation GetOperationById(Guid id)
+        public Operation GetOperationById(Guid id)
         {
-            Operation operation = _unitOfWork.GetById<Operation>(id);
-            return ReflectiveMapperService.ConvertItem<Operation, Domain.Treatments.Operation>(operation);
+            UnitOfWorkEntityFramework.Operation operation = _unitOfWork.GetById<UnitOfWorkEntityFramework.Operation>(id);
+            return ReflectiveMapperService.ConvertItem<UnitOfWorkEntityFramework.Operation, Operation>(operation);
         }
     }
 }

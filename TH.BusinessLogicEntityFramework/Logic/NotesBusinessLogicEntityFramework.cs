@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TH.UnitOfWorkEntityFramework;
 using TH.Interfaces;
 using TH.ReflectiveMapper;
+using Note = TH.Domain.Other.Note;
 
 namespace TH.BusinessLogicEntityFramework.Logic
 {
@@ -16,11 +16,11 @@ namespace TH.BusinessLogicEntityFramework.Logic
             _unitOfWork = unitOfWork;
         }
 
-        public bool CreateNote(Domain.Other.Note note)
+        public bool CreateNote(Note note)
         {
             try
             {
-                var efObject = ReflectiveMapperService.ConvertItem<Domain.Other.Note, Note>(note);
+                var efObject = ReflectiveMapperService.ConvertItem<Note, UnitOfWorkEntityFramework.Note>(note);
                 _unitOfWork.Insert(efObject);
                 _unitOfWork.SaveChanges();
                 return true;

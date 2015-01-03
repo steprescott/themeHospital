@@ -4,6 +4,7 @@ using System.Linq;
 using TH.Interfaces;
 using TH.ReflectiveMapper;
 using TH.UnitOfWorkEntityFramework;
+using CourseOfMedicine = TH.Domain.Treatments.CourseOfMedicine;
 
 namespace TH.BusinessLogicEntityFramework.Logic
 {
@@ -16,11 +17,11 @@ namespace TH.BusinessLogicEntityFramework.Logic
             _unitOfWork = unitOfWork;
         }
 
-        public bool CreateCauseOfMedicne(Domain.Treatments.CourseOfMedicine courseOfMedicine)
+        public bool CreateCauseOfMedicne(CourseOfMedicine courseOfMedicine)
         {
             try
             {
-                CourseOfMedicine efObject = ReflectiveMapperService.ConvertItem<Domain.Treatments.CourseOfMedicine, CourseOfMedicine>(courseOfMedicine);
+                UnitOfWorkEntityFramework.CourseOfMedicine efObject = ReflectiveMapperService.ConvertItem<CourseOfMedicine, UnitOfWorkEntityFramework.CourseOfMedicine>(courseOfMedicine);
                 _unitOfWork.Insert(efObject);
                 _unitOfWork.SaveChanges();
                 return true;
@@ -31,51 +32,51 @@ namespace TH.BusinessLogicEntityFramework.Logic
             }
         }
 
-        public Domain.Treatments.CourseOfMedicine GetCoursesOfMedicineWithId(Guid id)
+        public CourseOfMedicine GetCoursesOfMedicineWithId(Guid id)
         {
-            var coursesOfMedicine = _unitOfWork.GetById<CourseOfMedicine>(id);
-            return ReflectiveMapperService.ConvertItem<CourseOfMedicine, Domain.Treatments.CourseOfMedicine>(coursesOfMedicine);
+            var coursesOfMedicine = _unitOfWork.GetById<UnitOfWorkEntityFramework.CourseOfMedicine>(id);
+            return ReflectiveMapperService.ConvertItem<UnitOfWorkEntityFramework.CourseOfMedicine, CourseOfMedicine>(coursesOfMedicine);
         }
 
-        public List<Domain.Treatments.CourseOfMedicine> GetCoursesOfMedicinesToBeAdministeredByStaffMemberId(Guid userId)
+        public List<CourseOfMedicine> GetCoursesOfMedicinesToBeAdministeredByStaffMemberId(Guid userId)
         {
-            var coursesOfMedicines = _unitOfWork.GetAll<CourseOfMedicine>().ToList();
+            var coursesOfMedicines = _unitOfWork.GetAll<UnitOfWorkEntityFramework.CourseOfMedicine>().ToList();
 
             coursesOfMedicines = coursesOfMedicines.Where(com => com.AdministeredByUserId == userId).ToList();
 
-            return coursesOfMedicines.Select(com => ReflectiveMapperService.ConvertItem<CourseOfMedicine, Domain.Treatments.CourseOfMedicine>(com)).ToList();
+            return coursesOfMedicines.Select(com => ReflectiveMapperService.ConvertItem<UnitOfWorkEntityFramework.CourseOfMedicine, CourseOfMedicine>(com)).ToList();
         }
 
-        public List<Domain.Treatments.CourseOfMedicine> GetCoursesOfMedicinesForTeamByConsultantId(Guid userId)
+        public List<CourseOfMedicine> GetCoursesOfMedicinesForTeamByConsultantId(Guid userId)
         {
             var consultant = _unitOfWork.GetById<Consultant>(userId);
 
             if (consultant != null)
             {
                 var consultantTeam = consultant.Team;
-                var coursesOfMedicines = _unitOfWork.GetAll<CourseOfMedicine>().ToList();
+                var coursesOfMedicines = _unitOfWork.GetAll<UnitOfWorkEntityFramework.CourseOfMedicine>().ToList();
 
                 coursesOfMedicines = coursesOfMedicines.Where(com => consultantTeam.Doctors.Select(d => d.UserId).Contains(com.AssignedToUserId)).ToList();
 
-                return coursesOfMedicines.Select(com => ReflectiveMapperService.ConvertItem<CourseOfMedicine, Domain.Treatments.CourseOfMedicine>(com)).ToList();
+                return coursesOfMedicines.Select(com => ReflectiveMapperService.ConvertItem<UnitOfWorkEntityFramework.CourseOfMedicine, CourseOfMedicine>(com)).ToList();
             }
-            return new List<Domain.Treatments.CourseOfMedicine>();
+            return new List<CourseOfMedicine>();
         }
 
-        public List<Domain.Treatments.CourseOfMedicine> GetCourseOfMedicinesScheduledForPatientId(Guid patientId)
+        public List<CourseOfMedicine> GetCourseOfMedicinesScheduledForPatientId(Guid patientId)
         {
-            var courseOfMedicines = _unitOfWork.GetAll<CourseOfMedicine>().ToList();
+            var courseOfMedicines = _unitOfWork.GetAll<UnitOfWorkEntityFramework.CourseOfMedicine>().ToList();
 
             courseOfMedicines = courseOfMedicines.Where(p => p.Visit.PatientUserId == patientId).ToList();
 
-            return courseOfMedicines.Select(com => ReflectiveMapperService.ConvertItem<CourseOfMedicine, Domain.Treatments.CourseOfMedicine>(com)).ToList();
+            return courseOfMedicines.Select(com => ReflectiveMapperService.ConvertItem<UnitOfWorkEntityFramework.CourseOfMedicine, CourseOfMedicine>(com)).ToList();
         }
 
         public bool AdministorCourseOfMedicineWithId(Guid id, Guid administoredByUserId)
         {
             try
             {
-                var efCourseOfMedicines = _unitOfWork.GetById<CourseOfMedicine>(id);
+                var efCourseOfMedicines = _unitOfWork.GetById<UnitOfWorkEntityFramework.CourseOfMedicine>(id);
                 efCourseOfMedicines.AdministeredByUserId = administoredByUserId;
                 _unitOfWork.Update(efCourseOfMedicines);
                 _unitOfWork.SaveChanges();

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using TH.Domain.Other;
 
 namespace TH.Domain.Wards
 {

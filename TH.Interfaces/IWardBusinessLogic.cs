@@ -7,10 +7,10 @@ namespace TH.Interfaces
 {
     public interface IWardBusinessLogic
     {
-        List<Domain.Wards.Ward> GetAllWards();
+        List<Ward> GetAllWards();
         bool CreateOrUpdateWard(Ward ward);
         bool AssignPatientToWardWaitingList(Guid wardId, Guid patientId);
-        Domain.Wards.Ward GetWardWithId(Guid id);
+        Ward GetWardWithId(Guid id);
         List<Bed> AvailableBedsForWardWithId(Guid id);
     }
 }

@@ -6,6 +6,7 @@ using TH.Domain.Other;
 using TH.EncryptionUtilities;
 using TH.Interfaces;
 using TH.UnitOfWorkEntityFramework;
+using StaffMember = TH.Domain.User.StaffMember;
 
 namespace TH.BusinessLogicEntityFramework.Logic
 {
@@ -20,14 +21,14 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
         public bool ValidateStaffMember(string username, string password)
         {
-            return _unitOfWork.GetAll<Domain.User.StaffMember>().Any(sm =>
+            return _unitOfWork.GetAll<StaffMember>().Any(sm =>
                 sm.Username == username && password == BasicEncryptDecryptUtilities.Encrypt(password));
         }
 
         public ApplicationUser LoginStaffMember(string username, string password)
         {
             var encryptedPassword = BasicEncryptDecryptUtilities.Encrypt(password);
-            var user = _unitOfWork.GetAll<StaffMember>().SingleOrDefault(sm => sm.Username == username &&
+            var user = _unitOfWork.GetAll<UnitOfWorkEntityFramework.StaffMember>().SingleOrDefault(sm => sm.Username == username &&
                 sm.Password == encryptedPassword);
 
             return user == null ? null : new ApplicationUser
@@ -44,7 +45,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
         {
             if (ValidateStaffMember(username, oldPassword))
             {
-                var user = _unitOfWork.GetAll<StaffMember>().Single(sm =>
+                var user = _unitOfWork.GetAll<UnitOfWorkEntityFramework.StaffMember>().Single(sm =>
                     sm.Username == username && oldPassword == BasicEncryptDecryptUtilities.Encrypt(oldPassword));
 
                 user.Password = BasicEncryptDecryptUtilities.Encrypt(newNassword);
@@ -57,12 +58,12 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
         private StaffType GetRoleForUserId(Guid userId)
         {
-            var consultant = _unitOfWork.GetInheritedSubTypeObjects<StaffMember, Consultant>()
+            var consultant = _unitOfWork.GetInheritedSubTypeObjects<UnitOfWorkEntityFramework.StaffMember, Consultant>()
                                         .SingleOrDefault(c => c.UserId == userId);
 
             if (consultant == null)
             {
-                var doctor = _unitOfWork.GetInheritedSubTypeObjects<StaffMember, Doctor>()
+                var doctor = _unitOfWork.GetInheritedSubTypeObjects<UnitOfWorkEntityFramework.StaffMember, Doctor>()
                                         .SingleOrDefault(c => c.UserId == userId);
 
                 if (doctor == null)

@@ -5,6 +5,8 @@ using System.Linq;
 using TH.Interfaces;
 using TH.ReflectiveMapper;
 using TH.UnitOfWorkEntityFramework;
+using Patient = TH.Domain.User.Patient;
+using Visit = TH.Domain.Other.Visit;
 
 namespace TH.BusinessLogicEntityFramework.Logic
 {
@@ -17,22 +19,22 @@ namespace TH.BusinessLogicEntityFramework.Logic
             _unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<Domain.User.Patient> GetAllPatients()
+        public IEnumerable<Patient> GetAllPatients()
         {
-            var patients = _unitOfWork.GetAll<Patient>().ToList();
+            var patients = _unitOfWork.GetAll<UnitOfWorkEntityFramework.Patient>().ToList();
 
-            return patients.Select(p => ReflectiveMapperService.ConvertItem<Patient, Domain.User.Patient>(p));
+            return patients.Select(p => ReflectiveMapperService.ConvertItem<UnitOfWorkEntityFramework.Patient, Patient>(p));
         }
 
-        public Domain.User.Patient GetPatientWithId(Guid userId)
+        public Patient GetPatientWithId(Guid userId)
         {
-            var patient = _unitOfWork.GetById<Patient>(userId);
-            return ReflectiveMapperService.ConvertItem<Patient, Domain.User.Patient>(patient, 6);
+            var patient = _unitOfWork.GetById<UnitOfWorkEntityFramework.Patient>(userId);
+            return ReflectiveMapperService.ConvertItem<UnitOfWorkEntityFramework.Patient, Patient>(patient, 6);
         }
 
-        public bool InsertOrUpdatePatient(Domain.User.Patient domainPatient)
+        public bool InsertOrUpdatePatient(Patient domainPatient)
         {
-            var patient = _unitOfWork.GetById<Patient>(domainPatient.UserId);
+            var patient = _unitOfWork.GetById<UnitOfWorkEntityFramework.Patient>(domainPatient.UserId);
 
             if (patient == null)
             {
@@ -42,7 +44,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
             try
             {
-                patient = ReflectiveMapperService.ConvertItem<Domain.User.Patient, Patient>(domainPatient);
+                patient = ReflectiveMapperService.ConvertItem<Patient, UnitOfWorkEntityFramework.Patient>(domainPatient);
 
                 _unitOfWork.Insert(patient);
                 _unitOfWork.SaveChanges();
@@ -55,7 +57,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
             }
         }
 
-        public bool DeletePatient(Domain.User.Patient domainPatient)
+        public bool DeletePatient(Patient domainPatient)
         {
             return DeletePatientWithId(domainPatient.UserId);
         }
@@ -64,7 +66,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
         {
             try
             {
-                Patient patient = _unitOfWork.GetById<Patient>(userId);
+                UnitOfWorkEntityFramework.Patient patient = _unitOfWork.GetById<UnitOfWorkEntityFramework.Patient>(userId);
 
                 if (patient != null)
                 {
@@ -80,12 +82,12 @@ namespace TH.BusinessLogicEntityFramework.Logic
             }
         }
 
-        public List<Domain.User.Patient> SearchPatient(string searchText)
+        public List<Patient> SearchPatient(string searchText)
         {
-            var matchedPatients = new List<Patient>();
+            var matchedPatients = new List<UnitOfWorkEntityFramework.Patient>();
             searchText = searchText.ToLower();
 
-            var patients = _unitOfWork.GetAll<Patient>();
+            var patients = _unitOfWork.GetAll<UnitOfWorkEntityFramework.Patient>();
 
             foreach (var patient in patients)
             {
@@ -102,12 +104,12 @@ namespace TH.BusinessLogicEntityFramework.Logic
                     matchedPatients.Add(patient);
                 }
             }
-            return matchedPatients.Select(p => ReflectiveMapperService.ConvertItem<Patient, Domain.User.Patient>(p)).ToList();
+            return matchedPatients.Select(p => ReflectiveMapperService.ConvertItem<UnitOfWorkEntityFramework.Patient, Patient>(p)).ToList();
         }
 
-        public Domain.Other.Visit GetCurrentVisitForPatientId(Guid patientId)
+        public Visit GetCurrentVisitForPatientId(Guid patientId)
         {
-            var patient = _unitOfWork.GetById<Patient>(patientId);
+            var patient = _unitOfWork.GetById<UnitOfWorkEntityFramework.Patient>(patientId);
 
             if (patient != null)
             {
@@ -115,7 +117,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
                 if (visit != null)
                 {
-                    return ReflectiveMapperService.ConvertItem<Visit, Domain.Other.Visit>(visit);
+                    return ReflectiveMapperService.ConvertItem<UnitOfWorkEntityFramework.Visit, Visit>(visit);
                 }
             }
             return null;
@@ -123,7 +125,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
         public bool PatientHasOpenVisit(Guid patientId)
         {
-            var patient = _unitOfWork.GetById<Patient>(patientId);
+            var patient = _unitOfWork.GetById<UnitOfWorkEntityFramework.Patient>(patientId);
 
             if (patient != null)
             {
@@ -134,14 +136,14 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
         public bool AdmitPatient(Guid patientId, Guid teamId)
         {
-            var patient = _unitOfWork.GetById<Patient>(patientId);
+            var patient = _unitOfWork.GetById<UnitOfWorkEntityFramework.Patient>(patientId);
             var team = _unitOfWork.GetById<Team>(teamId);
 
             if (patient != null && team != null)
             {
                 if (patient.Visits.All(v => v.ReleaseDate != null))
                 {
-                    var visit = new Visit
+                    var visit = new UnitOfWorkEntityFramework.Visit
                     {
                         VisitId = Guid.NewGuid(),
                         Patient = patient,
@@ -171,7 +173,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
         public bool DismissPatient(Guid patientId)
         {
-            var patient = _unitOfWork.GetById<Patient>(patientId);
+            var patient = _unitOfWork.GetById<UnitOfWorkEntityFramework.Patient>(patientId);
 
             if (patient != null && PatientHasOpenVisit(patientId))
             {

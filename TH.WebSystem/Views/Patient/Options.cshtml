@@ -1,5 +1,4 @@
-﻿@using TH.Domain.Enums
-@using TH.WebSystem.Providers
+﻿@using TH.WebSystem.Providers
 @model TH.WebSystem.Models.PatientOptionsViewModel
 
 @{
@@ -13,7 +12,12 @@
     <li>
         @Html.ActionLink("View Patient Record", "Details", "Patient", new { id = Model.PatientId }, null)
     </li>
-
+    @if (Model.CurrentVisit != null)
+    {
+        <li>
+            @Html.ActionLink("Current Visit", "Details", "Visit", new { id = Model.CurrentVisit.VisitId }, null)
+        </li>
+    }
     @if (ThemeHospitalMembershipProvider.IsReceptionist && Model.CurrentVisit == null)
     {
         <li>
@@ -28,12 +32,6 @@
     }
     else
     {
-        if (Model.CurrentVisit != null)
-        {
-            <li>
-                @Html.ActionLink("Current Visit", "Details", "Visit", new { id = Model.CurrentVisit.VisitId }, null)
-            </li>
-        }
         if (Model.CurrentVisit != null && Model.CurrentVisit.Bed == null && ThemeHospitalMembershipProvider.IsReceptionist)
         {
             <li>

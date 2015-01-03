@@ -4,6 +4,7 @@ using System.Linq;
 using TH.Interfaces;
 using TH.ReflectiveMapper;
 using TH.UnitOfWorkEntityFramework;
+using Doctor = TH.Domain.User.Doctor;
 
 namespace TH.BusinessLogicEntityFramework.Logic
 {
@@ -16,10 +17,10 @@ namespace TH.BusinessLogicEntityFramework.Logic
             _unitOfWork = unitOfWork;
         }
 
-        public List<Domain.User.Doctor> GetAvailableDoctorsForConsultantsTeam(Guid userId)
+        public List<Doctor> GetAvailableDoctorsForConsultantsTeam(Guid userId)
         {
             var consultant = _unitOfWork.GetById<Consultant>(userId);
-            var doctors = _unitOfWork.GetAll<Doctor>().ToList();
+            var doctors = _unitOfWork.GetAll<UnitOfWorkEntityFramework.Doctor>().ToList();
 
             if (consultant != null && consultant.Team != null)
             {
@@ -31,7 +32,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
             //then they are free to be part of another team
             doctors = doctors.Where(d => d.Team == null || (d.Team != null && d.Team.Visits.All(v => v.ReleaseDate != null))).ToList();
 
-            return doctors.Select(d => ReflectiveMapperService.ConvertItem<Doctor, Domain.User.Doctor>(d))
+            return doctors.Select(d => ReflectiveMapperService.ConvertItem<UnitOfWorkEntityFramework.Doctor, Doctor>(d))
                 .ToList();
         }
     }

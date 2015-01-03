@@ -5,6 +5,10 @@ using TH.EncryptionUtilities;
 using TH.Interfaces;
 using TH.ReflectiveMapper;
 using TH.UnitOfWorkEntityFramework;
+using Consultant = TH.Domain.User.Consultant;
+using Doctor = TH.Domain.User.Doctor;
+using Receptionist = TH.Domain.User.Receptionist;
+using StaffMember = TH.Domain.User.StaffMember;
 
 namespace TH.BusinessLogicEntityFramework.Logic
 {
@@ -17,13 +21,13 @@ namespace TH.BusinessLogicEntityFramework.Logic
             _unitOfWork = unitOfWork;
         }
 
-        public bool CreateOrUpdateConsultant(Domain.User.Consultant domainConsultant)
+        public bool CreateOrUpdateConsultant(Consultant domainConsultant)
         {
             //Create or update the initial the base of staff member
             var staffMember = CreateOrUpdateStaffMemberObject(domainConsultant);
 
             //Make the staff member into its appropriate type
-            var consultant = ReflectiveMapperService.ConvertItem<StaffMember, Consultant>(staffMember);
+            var consultant = ReflectiveMapperService.ConvertItem<UnitOfWorkEntityFramework.StaffMember, UnitOfWorkEntityFramework.Consultant>(staffMember);
 
             //Set up specific parts of the consultant
             consultant.Skills = domainConsultant.Skills.Select(s => new Skill
@@ -62,18 +66,18 @@ namespace TH.BusinessLogicEntityFramework.Logic
             }
         }
 
-        public Domain.User.StaffMember GetStaffMemberWithId(Guid userId)
+        public StaffMember GetStaffMemberWithId(Guid userId)
         {
-            return ReflectiveMapperService.ConvertItem<StaffMember, Domain.User.StaffMember>(_unitOfWork.GetById<StaffMember>(userId));
+            return ReflectiveMapperService.ConvertItem<UnitOfWorkEntityFramework.StaffMember, StaffMember>(_unitOfWork.GetById<UnitOfWorkEntityFramework.StaffMember>(userId));
         }
 
-        public bool CreateOrUpdateDoctor(Domain.User.Doctor domainDoctor)
+        public bool CreateOrUpdateDoctor(Doctor domainDoctor)
         {
             //Create or update the initial the base of staff member
             var staffMember = CreateOrUpdateStaffMemberObject(domainDoctor);
 
             //Make the staff member into its appropriate type
-            var doctor = ReflectiveMapperService.ConvertItem<StaffMember, Doctor>(staffMember);
+            var doctor = ReflectiveMapperService.ConvertItem<UnitOfWorkEntityFramework.StaffMember, UnitOfWorkEntityFramework.Doctor>(staffMember);
 
             //Set up specific parts of the consultant
             if (doctor.Team != null)
@@ -103,13 +107,13 @@ namespace TH.BusinessLogicEntityFramework.Logic
             }
         }
 
-        public bool CreateOrUpdateReceptionist(Domain.User.Receptionist domainReceptionist)
+        public bool CreateOrUpdateReceptionist(Receptionist domainReceptionist)
         {
             //Create or update the initial the base of staff member
             var staffMember = CreateOrUpdateStaffMemberObject(domainReceptionist);
 
             //Make the staff member into its appropriate type
-            var receptionist = ReflectiveMapperService.ConvertItem<StaffMember, Receptionist>(staffMember);
+            var receptionist = ReflectiveMapperService.ConvertItem<UnitOfWorkEntityFramework.StaffMember, UnitOfWorkEntityFramework.Receptionist>(staffMember);
 
             //Attempt to create or update the staff member
             try
@@ -133,13 +137,13 @@ namespace TH.BusinessLogicEntityFramework.Logic
             }
         }
 
-        private StaffMember CreateOrUpdateStaffMemberObject(Domain.User.StaffMember domainStaffMember)
+        private UnitOfWorkEntityFramework.StaffMember CreateOrUpdateStaffMemberObject(StaffMember domainStaffMember)
         {
-            var staffMember = _unitOfWork.GetById<StaffMember>(domainStaffMember.UserId);
+            var staffMember = _unitOfWork.GetById<UnitOfWorkEntityFramework.StaffMember>(domainStaffMember.UserId);
 
             if (staffMember == null)
             {
-                staffMember = new StaffMember
+                staffMember = new UnitOfWorkEntityFramework.StaffMember
                 {
                     UserId = Guid.NewGuid(),
                     DateCreated = DateTime.Now,
@@ -159,7 +163,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
             return staffMember;
         }
 
-        public bool DeleteStaffMember(Domain.User.StaffMember domainStaffMember)
+        public bool DeleteStaffMember(StaffMember domainStaffMember)
         {
             return DeleteStaffMemberWithId(domainStaffMember.UserId);
         }
@@ -168,7 +172,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
         {
             try
             {
-                var staffMember = _unitOfWork.GetById<StaffMember>(userId);
+                var staffMember = _unitOfWork.GetById<UnitOfWorkEntityFramework.StaffMember>(userId);
 
                 if (staffMember != null)
                 {
@@ -186,7 +190,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
         private bool StaffMemberExists(Guid userId)
         {
-            return _unitOfWork.GetAll<StaffMember>().Any(s => s.UserId == userId);
+            return _unitOfWork.GetAll<UnitOfWorkEntityFramework.StaffMember>().Any(s => s.UserId == userId);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace TH.UnitOfWorkEntityFramework
         {
             get
             {
-                var currentVisit = this.Visits.SingleOrDefault(v => v.ReleaseDate == null);
+                var currentVisit = Visits.SingleOrDefault(v => v.ReleaseDate == null);
                 return currentVisit;
             }
         }
