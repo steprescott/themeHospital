@@ -16,17 +16,17 @@ namespace TH.UnitOfWorkEntityFramework
     {
         public StaffMember()
         {
+            this.TreatmentsRecorded = new HashSet<Treatment>();
+            this.TreatmentsAdministered = new HashSet<Treatment>();
             this.TreatmentsAssigned = new HashSet<Treatment>();
-            this.Treatments = new HashSet<Treatment>();
-            this.AssignedTreatments = new HashSet<Treatment>();
         }
     
         public string Username { get; set; }
         public string Password { get; set; }
         public System.DateTime LastLoggedIn { get; set; }
     
+        public virtual ICollection<Treatment> TreatmentsRecorded { get; set; }
+        public virtual ICollection<Treatment> TreatmentsAdministered { get; set; }
         public virtual ICollection<Treatment> TreatmentsAssigned { get; set; }
-        public virtual ICollection<Treatment> Treatments { get; set; }
-        public virtual ICollection<Treatment> AssignedTreatments { get; set; }
     }
 }

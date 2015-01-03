@@ -944,9 +944,9 @@
           <Property Name="Username" Type="String" Nullable="false" />
           <Property Name="Password" Type="String" Nullable="false" />
           <Property Name="LastLoggedIn" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="TreatmentsAssigned" Relationship="ThemeHospitalDatabase.TreatmentRecordedBy" FromRole="StaffMember" ToRole="Treatment" />
-          <NavigationProperty Name="Treatments" Relationship="ThemeHospitalDatabase.TreatmentAdministeredBy" FromRole="StaffMember" ToRole="Treatment" />
-          <NavigationProperty Name="AssignedTreatments" Relationship="ThemeHospitalDatabase.TreatmentStaffMember" FromRole="StaffMember" ToRole="Treatment" />
+          <NavigationProperty Name="TreatmentsRecorded" Relationship="ThemeHospitalDatabase.TreatmentRecordedBy" FromRole="StaffMember" ToRole="Treatment" />
+          <NavigationProperty Name="TreatmentsAdministered" Relationship="ThemeHospitalDatabase.TreatmentAdministeredBy" FromRole="StaffMember" ToRole="Treatment" />
+          <NavigationProperty Name="TreatmentsAssigned" Relationship="ThemeHospitalDatabase.TreatmentStaffMember" FromRole="StaffMember" ToRole="Treatment" />
         </EntityType>
         <EntityType Name="Receptionist" BaseType="ThemeHospitalDatabase.StaffMember" />
         <EntityType Name="Ward">

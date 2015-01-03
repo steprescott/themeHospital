@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5cf1b0a601d647808255335531e84164" Name="Diagram1" ZoomLevel="83" DisplayType="true" >
+      <Diagram DiagramId="5cf1b0a601d647808255335531e84164" Name="Diagram1" ZoomLevel="125" DisplayType="true" >
         <EntityTypeShape EntityType="ThemeHospitalDatabase.User" Width="2" PointX="12.625" PointY="0.5" />
         <EntityTypeShape EntityType="ThemeHospitalDatabase.Patient" Width="2.625" PointX="8.375" PointY="3.875" />
         <InheritanceConnector EntityType="ThemeHospitalDatabase.Patient" ManuallyRouted="false" >

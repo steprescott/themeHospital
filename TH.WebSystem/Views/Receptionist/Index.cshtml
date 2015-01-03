@@ -1,6 +1,4 @@
-﻿@model dynamic
-
-@{
+﻿@{
     ViewBag.Title = "Receptionist Dashboard";
 }
 
@@ -12,15 +10,12 @@
         @Html.ActionLink("Add New Patient", "AddPatient", "Receptionist")
     </li>
     <li>
+        @Html.ActionLink("Search Patients", "Search", "Patient")
+    </li>
+    <li>
         @Html.ActionLink("View Current Patients", "Index", "Patient")
     </li>
     <li>
-        @Html.ActionLink("Search Patient", "Search", "Patient")
-    </li>
-    <li>
         @Html.ActionLink("Wards", "Index", "Ward")
-    </li>
-    <li>
-        @Html.ActionLink("Ward Waiting List", "WaitingList", "Ward")
     </li>
 </ul>
