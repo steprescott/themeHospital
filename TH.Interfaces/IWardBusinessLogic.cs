@@ -11,6 +11,6 @@ namespace TH.Interfaces
         bool CreateOrUpdateWard(Ward ward);
         bool AssignPatientToWardWaitingList(Guid wardId, Guid patientId);
         Domain.Wards.Ward GetWardWithId(Guid id);
-        List<Domain.Other.Bed> AvailableBedsForWardWithId(Guid id);
+        List<Bed> AvailableBedsForWardWithId(Guid id);
     }
 }

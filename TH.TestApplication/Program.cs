@@ -55,10 +55,6 @@ namespace TH.TestApplication
             AddBed("f6b2c23f-214c-439a-b8e9-ccd88944f4c7", 1, ward2);
             AddBed("03f5d5bc-f4bf-43ec-9cb8-8756d0ab1d5d", 2, ward2);
 
-            //Add some peeps to ward waiting list
-            AddPatientToWardWaitingList(new Guid("AE17AB22-8F9C-11E4-9E1E-7C2C95DB5880"), new Guid("86A9EE66-92BB-11E4-91AE-DD2F340000B1"));
-            AddPatientToWardWaitingList(new Guid("AE17AB22-8F9C-11E4-9E1E-7C2C95DB5880"), new Guid("8C722B7E-92BB-11E4-914F-DD2F340000B1"));
-
             Console.WriteLine("--- Done :D");
             Console.ReadKey();
         }

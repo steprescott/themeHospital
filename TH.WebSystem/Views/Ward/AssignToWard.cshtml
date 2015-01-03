@@ -6,8 +6,8 @@
 @foreach (var ward in Model.Wards)
 {
     <h4>Ward @ward.Number</h4>
-    if (ward.AvailableBeds.Any())
-    {
+    if (ward.AvailableBeds.Count > 0)
+        {
         <table class="table">
             <tr>
                 <th>
@@ -17,22 +17,22 @@
                     Options
                 </th>
             </tr>
-            @foreach (var bed in ward.AvailableBeds.OrderBy(b => b.Number))
-            {
-                <tr>
-                    <td>
-                        @bed.Number
-                    </td>
-                    <td>
-                        @Html.ActionLink("Assign to bed", "AssignBed", "Patient", new { bedId = bed.BedId, patientId = Model.PatientId }, null)
-                    </td>
-                </tr>
-            }
+                @foreach (var bed in ward.AvailableBeds.OrderBy(b => b.Number))
+                {
+                    <tr>
+                        <td>
+                            @bed.Number
+                        </td>
+                        <td>
+                            @Html.ActionLink("Assign to bed", "AssignBed", "Patient", new { bedId = bed.BedId, patientId = Model.PatientId }, null)
+                        </td>
+                    </tr>
+                }
         </table>
     }
     else
     {
         <p>There are currently no availbalbe beds for this ward.</p>
-        @Html.ActionLink("Add to ward waiting list", "AddToWaitingList", "Ward", new { wardId = ward.WardId, patientId = Model.PatientId });
+        @Html.ActionLink("Add to ward waiting list", "AddToWaitingList", "Ward", new { wardId = ward.WardId, patientId = Model.PatientId }, null);
     }
 }

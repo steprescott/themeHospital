@@ -10,7 +10,7 @@ namespace TH.Interfaces
     {
         bool CreateOrUpdateBed (Bed bed);
         bool AssignBedToWard(Bed bed, Ward ward);
-        List<Domain.Other.Bed> GetAllBeds();
+        List<Bed> GetAllBeds();
         bool AssignPatientToBed(Guid bedid, Guid patientid);
     }
 }

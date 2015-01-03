@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using TH.Domain.Treatments;
 using TH.Domain.User;
+using TH.Domain.Wards;
 
 namespace TH.Domain.Other
 {

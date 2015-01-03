@@ -18,14 +18,14 @@ namespace TH.BusinessLogicEntityFramework.Logic
             _unitOfWork = unitOfWork;
         }
 
-        public List<Domain.Other.Bed> GetAllBeds()
+        public List<Domain.Wards.Bed> GetAllBeds()
         {
             var beds = _unitOfWork.GetAll<Bed>().ToList();
 
-            return beds.Select(b => ReflectiveMapperService.ConvertItem<Bed, Domain.Other.Bed>(b)).ToList();
+            return beds.Select(b => ReflectiveMapperService.ConvertItem<Bed, Domain.Wards.Bed>(b)).ToList();
         }
 
-        public bool CreateOrUpdateBed(Domain.Other.Bed bed)
+        public bool CreateOrUpdateBed(Domain.Wards.Bed bed)
         {
             var efBed = _unitOfWork.GetById<Bed>(bed.BedId);
             var efWard = _unitOfWork.GetById<Ward>(bed.WardId);
@@ -64,7 +64,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
             return false;
         }
 
-        public bool AssignBedToWard(Domain.Other.Bed bed, Domain.Wards.Ward ward)
+        public bool AssignBedToWard(Domain.Wards.Bed bed, Domain.Wards.Ward ward)
         {
             ward.Beds.Add(bed);
 
@@ -81,7 +81,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
             }
         }
 
-        public Domain.Wards.Ward GetWardForBed(Domain.Other.Bed bed)
+        public Domain.Wards.Ward GetWardForBed(Domain.Wards.Bed bed)
         {
             return ReflectiveMapperService.ConvertItem<Ward, Domain.Wards.Ward>(_unitOfWork.GetById<Ward>(bed.WardId));
         }
@@ -93,11 +93,13 @@ namespace TH.BusinessLogicEntityFramework.Logic
             
             if (bed != null && patient != null)
             {
+                bed.Ward.WardWaitingList.Patients.Remove(patient);
                 var currentVisit = patient.CurrentVisit;
                 currentVisit.BedId = bedid;
 
                 try
                 {
+                    _unitOfWork.Update(bed);
                     _unitOfWork.Update(currentVisit);
                     _unitOfWork.SaveChanges();
 

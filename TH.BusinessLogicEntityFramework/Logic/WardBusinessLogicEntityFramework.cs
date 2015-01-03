@@ -36,7 +36,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
                              {
                                  WardId = ward.WardId != Guid.Empty ? ward.WardId : Guid.NewGuid(),
                                  Number = ward.Number,
-                                 Beds = ReflectiveMapperService.ConvertItem<List<Domain.Other.Bed>, List<Bed>>(ward.Beds),
+                                 Beds = ReflectiveMapperService.ConvertItem<List<Domain.Wards.Bed>, List<Bed>>(ward.Beds),
                                  WardWaitingList = new WardWaitingList
                                                    {
                                                        WardWaitingListId = Guid.NewGuid()
@@ -48,7 +48,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
                 else
                 {
                     efWard.Number = ward.Number;
-                    efWard.Beds = ReflectiveMapperService.ConvertItem<List<Domain.Other.Bed>, List<Bed>>(ward.Beds);
+                    efWard.Beds = ReflectiveMapperService.ConvertItem<List<Domain.Wards.Bed>, List<Bed>>(ward.Beds);
 
                     _unitOfWork.Update(efWard);
                 }
@@ -65,14 +65,16 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
         public Domain.Wards.Ward GetWardWithId(Guid id)
         {
-            return ReflectiveMapperService.ConvertItem<Ward, Domain.Wards.Ward>(_unitOfWork.GetById<Ward>(id));
+            var ward = _unitOfWork.GetById<Ward>(id);
+
+            return ReflectiveMapperService.ConvertItem<Ward, Domain.Wards.Ward>(ward, 6);
         }
 
-        public List<Domain.Other.Bed> AvailableBedsForWardWithId(Guid id)
+        public List<Domain.Wards.Bed> AvailableBedsForWardWithId(Guid id)
         {
             var ward = _unitOfWork.GetById<Ward>(id);
 
-            return ReflectiveMapperService.ConvertItem<List<Bed>, List<Domain.Other.Bed>>(ward.AvailableBeds);
+            return ReflectiveMapperService.ConvertItem<List<Bed>, List<Domain.Wards.Bed>>(ward.AvailableBeds);
         }
 
         public bool AssignPatientToWardWaitingList(Guid wardId, Guid patientId)

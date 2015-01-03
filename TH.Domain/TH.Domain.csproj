@@ -66,7 +66,7 @@
     <Compile Include="User\StaffMember.cs" />
     <Compile Include="User\User.cs" />
     <Compile Include="Wards\Ward.cs" />
-    <Compile Include="Wards\WardWaitlingList.cs" />
+    <Compile Include="Wards\WardWaitingList.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

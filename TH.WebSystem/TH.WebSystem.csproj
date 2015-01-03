@@ -216,6 +216,8 @@
     <Compile Include="Models\ViewTreatmentModel.cs" />
     <Compile Include="Models\VisitCreateNoteViewModel.cs" />
     <Compile Include="Models\VisitDetailsViewModel.cs" />
+    <Compile Include="Models\WardDetailsViewModel.cs" />
+    <Compile Include="Models\WardViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ThemeHospitalMembershipProvider.cs" />
     <Compile Include="Services\SecurityService.cs" />
@@ -254,7 +256,8 @@
     <Content Include="Views\Doctor\Index.cshtml" />
     <Content Include="Views\Treatment\Procedure.cshtml" />
     <Content Include="Views\Treatment\CourseOfMedicine.cshtml" />
-    <Content Include="Views\Ward\WaitingList.cshtml" />
+    <Content Include="Views\Ward\Details.cshtml" />
+    <Content Include="Views\Ward\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

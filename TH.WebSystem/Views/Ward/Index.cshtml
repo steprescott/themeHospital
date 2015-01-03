@@ -1,0 +1,34 @@
+﻿@model TH.WebSystem.Models.WardViewModel
+
+@{
+    ViewBag.Title = "Wards";
+}
+
+<h1>Wards</h1>
+<hr/>
+
+<table class="table">
+    <tr>
+        <th>
+            Ward number
+        </th>
+        <th>
+            Ward capasity
+        </th>
+        <th>
+            Number of available beds
+        </th>
+        <th>
+            Options
+        </th>
+    </tr>
+    @foreach (var ward in Model.Wards)
+    {
+        <tr>
+            <td>@ward.Number</td>
+            <td>@ward.Beds.Count</td>
+            <td>@ward.AvailableBeds.Count</td>
+            <td>@Html.ActionLink("View", "Details", "Ward", new { id = ward.WardId}, null)</td>
+        </tr>
+    }
+</table>

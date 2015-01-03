@@ -10,13 +10,9 @@ namespace TH.UnitOfWorkEntityFramework
         {
             get
             {
-                var availableBeds = Beds.AsEnumerable();
-
-                availableBeds = availableBeds.Where(b => !b.Visits.Any());
-
-                availableBeds = availableBeds.Where(b => b.Visits.Select(v => v.ReleaseDate) != null);
-
-                return availableBeds.ToList();
+                var bedsWithoutVisits = Beds.AsEnumerable().Where(b => b.Visits == null || !b.Visits.Any());
+                var bedsWithNoReleaseDate = Beds.Except(bedsWithoutVisits).AsEnumerable().Where(b => b.Visits.FirstOrDefault(v => v.ReleaseDate == null) == null);
+                return bedsWithoutVisits.Concat(bedsWithNoReleaseDate).ToList();
             }
         }
     }

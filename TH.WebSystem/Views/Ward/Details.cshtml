@@ -1,0 +1,93 @@
+﻿@model TH.WebSystem.Models.WardDetailsViewModel
+
+@{
+    ViewBag.Title = "Ward Details";
+}
+
+<h1>Ward Details</h1>
+<hr />
+
+<table>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.Ward.Number)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Ward.Number)
+        </td>
+    </tr>
+</table>
+
+<h4>Beds</h4>
+@if (Model.Ward.Beds.Count > 0)
+{
+    <table class="table">
+        <tr>
+            <th>
+                Bed number
+            </th>
+            <th>
+                Availablity
+            </th>
+        </tr>
+        @foreach (var bed in Model.Ward.Beds.OrderBy(b => b.Number))
+        {
+            <tr>
+                <td>
+                    @bed.Number
+                </td>
+                <td>
+                    @if (bed.IsAvailable)
+                    {
+                        @Html.Raw("Available")
+                    }
+                    else
+                    {
+                        @Html.Raw("Occupied")
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>There are no beds for this ward.</p>
+}
+
+<h4>Waiting list</h4>
+@if (Model.Ward.WardWaitingList.Patients.Count > 0)
+{
+    <table class="table">
+        <tr>
+            <th>
+                Patient name
+            </th>
+            <th>
+                Options
+            </th>
+        </tr>
+        @foreach (var patient in Model.Ward.WardWaitingList.Patients.OrderBy(b => b.FullName))
+        {
+            <tr>
+                <td>
+                    @patient.FullName
+                </td>
+                <td>
+                    @if (Model.Ward.AvailableBeds.Count > 0)
+                    {
+                        @Html.ActionLink("Assign to ward", "AssignBed", "Patient", new { patientId = patient.UserId, bedId = Model.Ward.AvailableBeds.First().BedId }, null)
+                    }
+                    else
+                    {
+                        @Html.Raw("N/A")
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>No patients waiting to be placed on this ward.</p>
+}

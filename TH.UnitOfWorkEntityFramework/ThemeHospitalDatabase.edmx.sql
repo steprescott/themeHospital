@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 01/02/2015 14:47:41
--- Generated from EDMX file: C:\Users\Jonathan\Source\Repos\themeHospital\TH.UnitOfWorkEntityFramework\ThemeHospitalDatabase.edmx
+-- Date Created: 01/03/2015 01:39:08
+-- Generated from EDMX file: D:\Documents\Uni\TH\TH.UnitOfWorkEntityFramework\ThemeHospitalDatabase.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -83,6 +83,12 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_TreatmentStaffMember]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Treatments] DROP CONSTRAINT [FK_TreatmentStaffMember];
 GO
+IF OBJECT_ID(N'[dbo].[FK_RefusalNote]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Refusals] DROP CONSTRAINT [FK_RefusalNote];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TreatmentRefusal]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Refusals] DROP CONSTRAINT [FK_TreatmentRefusal];
+GO
 IF OBJECT_ID(N'[dbo].[FK_StaffMember_inherits_User]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Users_StaffMember] DROP CONSTRAINT [FK_StaffMember_inherits_User];
 GO
@@ -144,6 +150,9 @@ IF OBJECT_ID(N'[dbo].[Visits]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[Skills]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Skills];
+GO
+IF OBJECT_ID(N'[dbo].[Refusals]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Refusals];
 GO
 IF OBJECT_ID(N'[dbo].[Users_StaffMember]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Users_StaffMember];
