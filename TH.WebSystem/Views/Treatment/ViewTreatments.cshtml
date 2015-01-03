@@ -41,7 +41,7 @@
                     }
                 </td>
                 <td>
-                    @Html.ActionLink("View visit", "Details", "Visit", new { id = courseOfMedicine.Visit.VisitId }, null)
+                    @Html.ActionLink("View", "CourseOfMedicine", "Treatment", new { id = courseOfMedicine.TreatmentId }, null)
                 </td>
             </tr>
         }
@@ -67,7 +67,7 @@
                     }
                 </td>
                 <td>
-                    @Html.ActionLink("Options", "Options", "Patient", new { id = procedure.Visit.Patient.UserId }, null)
+                    @Html.ActionLink("View", "Procedure", "Treatment", new { id = procedure.TreatmentId }, null)
                 </td>
             </tr>
         }
@@ -80,7 +80,8 @@ else
 
 @if (ThemeHospitalMembershipProvider.GetUserRole() == StaffType.Consultant && (Model.TeamsCourseOfMedicines.Any() || Model.TeamsProcedures.Any()))
 {
-    <h4>My Teams arranged Treatments</h4>
+    <h1>My Teams Assigned Treatments</h1>
+    <hr/>
     <table class="table">
         <tr>
             <th>Date</th>
