@@ -415,7 +415,6 @@ dt {
     margin-left: 25px;
     overflow: hidden;
     display: inline-block;
-    width: 500px;
 }
 
 .navigation a {
@@ -437,4 +436,8 @@ dt {
 .refusal-container .button {
     display: block;
     margin: 0 auto;
+}
+
+.visit-details h4 {
+    margin-top: 15px;
 }

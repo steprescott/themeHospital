@@ -7,10 +7,11 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>@ViewBag.Title - Theme Hospital</title>
+        <link rel="icon" href="@Url.Content("~/images/favicon.ico")" />
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/jquery-ui")
-        @RenderSection("scripts", required: false)
         @Styles.Render("~/Content/css")
+        @RenderSection("scripts", required: false)
     </head>
     <body>
         <header>
@@ -18,7 +19,7 @@
                 Theme Hospital
                 @if (ThemeHospitalMembershipProvider.IsLoggedIn())
                 {
-                    @Html.Raw(string.Format(" - Welcome {0}", @ThemeHospitalMembershipProvider.GetCurrentUser().FirstName))
+                    @Html.Raw(string.Format(" - Welcome {0}", ThemeHospitalMembershipProvider.GetCurrentUser().FirstName))
 
                     <div class="navigation">
                         @Html.Partial("_DashboardLink")

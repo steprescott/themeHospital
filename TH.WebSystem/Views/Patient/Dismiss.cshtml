@@ -13,6 +13,6 @@
     @using (Html.BeginForm("Dismiss", "Patient", FormMethod.Post))
     {
         @Html.HiddenFor(m => m.PatientId)
-        <input value="Dismiss" onclick="return confirm('Are you totally serial?');" class="button" type="submit" />
+        <input value="Dismiss" class="button" type="submit" />
     }
 </div>
