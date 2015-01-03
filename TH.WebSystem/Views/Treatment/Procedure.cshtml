@@ -64,3 +64,27 @@
         @Html.ActionLink("Record refusal of treatment", "RefuseTreatment", "Treatment", new { id = Model.TreatmentId }, null)
     </button>
 }
+
+<h4>Notes</h4>
+@if (Model.Procedure.Notes.Count > 0)
+{
+    <table class="table" width="100%">
+        <tr>
+            <th>Date created</th>
+            <th>Content</th>
+        </tr>
+        @foreach (var note in Model.Procedure.Notes)
+        {
+            <tr>
+                <td style="width:180px">@Html.DisplayFor(model => note.DateCreated)</td>
+                <td>@Html.DisplayFor(model => note.Content)</td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    @Html.Raw("No notes for treatment.");
+}
+<br />
+<button>@Html.ActionLink("Create new note", "CreateNote", new { id = Model.Procedure.TreatmentId })</button>

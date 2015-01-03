@@ -215,6 +215,7 @@
     <Compile Include="Models\PatientTreatmentsModel.cs" />
     <Compile Include="Models\ProcedureViewModel.cs" />
     <Compile Include="Models\RefuseTreatmentModel.cs" />
+    <Compile Include="Models\TreatmentCreateNoteViewModel.cs" />
     <Compile Include="Models\ViewTreatmentModel.cs" />
     <Compile Include="Models\VisitCreateNoteViewModel.cs" />
     <Compile Include="Models\VisitDetailsViewModel.cs" />
@@ -260,6 +261,7 @@
     <Content Include="Views\Treatment\CourseOfMedicine.cshtml" />
     <Content Include="Views\Ward\Details.cshtml" />
     <Content Include="Views\Ward\Index.cshtml" />
+    <Content Include="Views\Treatment\CreateNote.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

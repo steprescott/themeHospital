@@ -208,5 +208,28 @@ namespace TH.WebSystem.Controllers
                 TreatmentId = courseOfMedicine.TreatmentId
             });
         }
+        public ActionResult CreateNote(Guid id)
+        {
+            return View(new TreatmentCreateNoteViewModel
+            {
+                TreatmentId = id
+            });
+        }
+
+        [HttpPost]
+        public ActionResult CreateNote(TreatmentCreateNoteViewModel model)
+        {
+            var treatment = HospitalService.TreatmentBusinessLogic.GetTreatmentById(model.TreatmentId);
+
+            var result = HospitalService.NotesBusinessLogic.CreateNote(new Note
+            {
+                NoteId = Guid.NewGuid(),
+                DateCreated = DateTime.Now,
+                Content = model.NoteContent,
+                TreatmentId = model.TreatmentId
+            });
+
+            return RedirectToAction("Options", "Patient", new { id = treatment.Visit.Patient.UserId });
+        }
     }
 }
