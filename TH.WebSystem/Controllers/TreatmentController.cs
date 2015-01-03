@@ -13,12 +13,6 @@ namespace TH.WebSystem.Controllers
 {
     public class TreatmentController : AuthorisedBaseController
     {
-        // GET: Treatment
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         public ActionResult Create(Guid id)
         {
             var visit = HospitalService.VisitBusinessLogic.GetVisitWithId(id);

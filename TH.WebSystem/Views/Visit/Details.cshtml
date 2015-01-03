@@ -67,7 +67,7 @@
         @Html.Raw("No procedures for visit. ");
     }
     
-    @if (!ThemeHospitalMembershipProvider.IsReceptionist && !Model.Visit.ReleaseDate.HasValue)
+    @if (ThemeHospitalMembershipProvider.IsConsultant && !Model.Visit.ReleaseDate.HasValue)
     {
         <br />
         <button>
@@ -113,7 +113,7 @@
     {
         @Html.Raw("No course of medicines for visit. ");
     }
-    @if (!ThemeHospitalMembershipProvider.IsReceptionist && !Model.Visit.ReleaseDate.HasValue)
+    @if (ThemeHospitalMembershipProvider.IsConsultant && !Model.Visit.ReleaseDate.HasValue)
     { 
         <br />
         <button>@Html.ActionLink("Create new medicine course", "Create", "Treatment", new { id = Model.Visit.VisitId }, null)</button>

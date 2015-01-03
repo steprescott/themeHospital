@@ -42,7 +42,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
         {
             var coursesOfMedicines = _unitOfWork.GetAll<UnitOfWorkEntityFramework.CourseOfMedicine>().ToList();
 
-            coursesOfMedicines = coursesOfMedicines.Where(com => com.AdministeredByUserId == userId).ToList();
+            coursesOfMedicines = coursesOfMedicines.Where(com => com.AssignedToUserId == userId).ToList();
 
             return coursesOfMedicines.Select(com => ReflectiveMapperService.ConvertItem<UnitOfWorkEntityFramework.CourseOfMedicine, CourseOfMedicine>(com)).ToList();
         }

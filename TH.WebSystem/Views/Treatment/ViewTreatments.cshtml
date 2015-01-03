@@ -1,5 +1,4 @@
-﻿@using TH.Domain.Enums
-@using TH.WebSystem.Providers
+﻿@using TH.WebSystem.Providers
 @model TH.WebSystem.Models.ViewTreatmentModel
 
 @{
@@ -7,7 +6,7 @@
 }
 
 <h1>My Assigned Treatments</h1>
-<hr/>
+<hr />
 
 @if (Model.CoursesOfMedicines.Any() || Model.Procedures.Any())
 {
@@ -44,7 +43,7 @@
                 </td>
             </tr>
         }
-        
+
         @foreach (var procedure in Model.Procedures)
         {
             <tr>
@@ -74,76 +73,81 @@
 }
 else
 {
-  @Html.Raw("No treatments scheduled")
-}
-
-@if (ThemeHospitalMembershipProvider.GetUserRole() == StaffType.Consultant && (Model.TeamsCourseOfMedicines.Any() || Model.TeamsProcedures.Any()))
-{
-    <h1>My Teams Assigned Treatments</h1>
-    <hr/>
-    <table class="table">
-        <tr>
-            <th>Date</th>
-            <th>Patient</th>
-            <th>Assigned To</th>
-            <th>Treatment</th>
-            <th>Status</th>
-        </tr>
-        @foreach (var courseOfMedicine in Model.TeamsCourseOfMedicines)
-        {
-            <tr>
-                <td>@courseOfMedicine.ScheduledDate</td>
-                <td>@courseOfMedicine.Visit.Patient.FullName</td>
-                <td>@courseOfMedicine.AssignedTo.FullName</td>
-                <td>@courseOfMedicine.Medicine.Name</td>
-                <td>
-                    @if (courseOfMedicine.Refusal != null)
-                    {
-                        @Html.Raw("Treatment refused - ")@courseOfMedicine.Refusal.Note.Content
-                    }
-                    else if (courseOfMedicine.AdministeredBy != null)
-                    {
-                        @courseOfMedicine.AdministeredBy.FullName
-                    }
-                    else
-                    {
-                        @Html.Raw("Not yet administered")
-                    }
-                </td>
-            </tr>
-        }
-
-        @foreach (var procedure in Model.TeamsProcedures)
-        {
-            <tr>
-                <td>@procedure.ScheduledDate</td>
-                <td>@procedure.Visit.Patient.FullName</td>
-                <td>@procedure.AdministeredBy.FullName</td>
-                <td>@procedure.Operation.Name</td>
-                <td>
-                    @if (procedure.Refusal != null)
-                    {
-                        @Html.Raw("Treatment refused - ")@procedure.Refusal.Note.Content
-
-                    }
-                    else if (procedure.AdministeredBy != null)
-                    {
-                        @procedure.AdministeredBy.FullName
-
-                    }
-                    else
-                    {
-                        @Html.Raw("Not yet administered")
-
-                    }
-
-                </td>
-            </tr>
-        }
-    </table>
-}
-else
-{
-    <h4>My Teams arranged Treatments</h4>
     @Html.Raw("No treatments scheduled")
+}
+
+@if (ThemeHospitalMembershipProvider.IsConsultant)
+{
+    if (Model.TeamsCourseOfMedicines.Any() || Model.TeamsProcedures.Any())
+    {
+        <h1>My Teams Assigned Treatments</h1>
+        <hr />
+        <table class="table">
+            <tr>
+                <th>Date</th>
+                <th>Patient</th>
+                <th>Assigned To</th>
+                <th>Treatment</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            @foreach (var courseOfMedicine in Model.TeamsCourseOfMedicines)
+            {
+                <tr>
+                    <td>@courseOfMedicine.ScheduledDate</td>
+                    <td>@courseOfMedicine.Visit.Patient.FullName</td>
+                    <td>@courseOfMedicine.AssignedTo.FullName</td>
+                    <td>@courseOfMedicine.Medicine.Name</td>
+                    <td>
+                        @if (courseOfMedicine.Refusal != null)
+                        {
+                            @Html.Raw("Treatment refused - ")@courseOfMedicine.Refusal.Note.Content
+                        }
+                        else if (courseOfMedicine.AdministeredBy != null)
+                        {
+                            @courseOfMedicine.AdministeredBy.FullName
+                        }
+                        else
+                        {
+                            @Html.Raw("Not yet administered")
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("View", "CourseOfMedicine", "Treatment", new { id = courseOfMedicine.TreatmentId }, null)
+                    </td>
+                </tr>
+            }
+
+            @foreach (var procedure in Model.TeamsProcedures)
+            {
+                <tr>
+                    <td>@procedure.ScheduledDate</td>
+                    <td>@procedure.Visit.Patient.FullName</td>
+                    <td>@procedure.AssignedTo.FullName</td>
+                    <td>@procedure.Operation.Name</td>
+                    <td>
+                        @if (procedure.Refusal != null)
+                        {
+                            @Html.Raw("Treatment refused - ")@procedure.Refusal.Note.Content
+                        }
+                        else if (procedure.AdministeredBy != null)
+                        {
+                            @procedure.AdministeredBy.FullName
+                        }
+                        else
+                        {
+                            @Html.Raw("Not yet administered")
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("View", "Procedure", "Treatment", new { id = procedure.TreatmentId }, null)
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        @Html.Raw("No treatments scheduled")
+    }
 }

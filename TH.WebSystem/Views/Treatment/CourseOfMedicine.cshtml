@@ -10,8 +10,12 @@
 
 <table>
     <tr>
-        <td>@Html.LabelFor(model => model.CourseOfMedicine.ScheduledDate)</td>
+        <td>Start Date</td>
         <td>@Html.DisplayFor(model => model.CourseOfMedicine.ScheduledDate)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(model => model.CourseOfMedicine.EndDate)</td>
+        <td>@Html.DisplayFor(model => model.CourseOfMedicine.EndDate)</td>
     </tr>
     <tr>
         <td>@Html.LabelFor(model => model.CourseOfMedicine.Medicine.Name)</td>
