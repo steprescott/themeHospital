@@ -1,6 +1,10 @@
 ﻿@model TH.WebSystem.Models.CourseOfMedicineViewModel
 
-<h1>Procedure details</h1>
+@{
+    ViewBag.Title = "Course of Medicine details";
+}
+
+<h1>Course of Medicine details</h1>
 <hr />
 
 <table>
@@ -33,7 +37,7 @@
     </tr>
 </table>
 
-@if (Model.AdministeredBy == null && Model.CourseOfMedicine.Refusal == null)
+@if (!Model.CourseOfMedicine.Visit.ReleaseDate.HasValue && Model.AdministeredBy == null && Model.CourseOfMedicine.Refusal == null)
 {
     using (Html.BeginForm("AdministorCourseOfMedicine", "Treatment", FormMethod.Post))
     {

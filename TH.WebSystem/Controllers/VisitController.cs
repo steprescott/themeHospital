@@ -13,13 +13,16 @@ namespace TH.WebSystem.Controllers
         public ActionResult Details(Guid id)
         {
             var visit = HospitalService.VisitBusinessLogic.GetVisitWithId(id);
-            var procedures = HospitalService.ProcedureBusinessLogic.GetProceduresScheduledForPatientId(visit.Patient.UserId);
-            var courseOfMedicines = HospitalService.CourseOfMedicineBusinessLogic.GetCourseOfMedicinesScheduledForPatientId(visit.Patient.UserId);
+            var procedures = HospitalService.ProcedureBusinessLogic.GetProceduresScheduledForPatientId(visit.Patient.UserId)
+                .Where(p => p.VisitId == id);
+            var courseOfMedicines = HospitalService.CourseOfMedicineBusinessLogic.GetCourseOfMedicinesScheduledForPatientId(visit.Patient.UserId)
+                .Where(com => com.VisitId == id);
 
-            return View(new VisitDetailsViewModel {
+            return View(new VisitDetailsViewModel 
+            {
                 Visit = visit,
-                Procedures = procedures,
-                CourseOfMedicines = courseOfMedicines
+                Procedures = procedures.ToList(),
+                CourseOfMedicines = courseOfMedicines.ToList()
             });
         }
 

@@ -1,5 +1,9 @@
 ﻿@model TH.WebSystem.Models.ProcedureViewModel
            
+@{
+    ViewBag.Title = "Course of Medicine details";
+}
+
 <h1>Procedure details</h1>
 <hr />
 
@@ -44,7 +48,7 @@
     </tr>
 </table>
 
-@if (Model.AdministeredBy == null && Model.Procedure.Refusal == null)
+@if (!Model.Procedure.Visit.ReleaseDate.HasValue && Model.AdministeredBy == null && Model.Procedure.Refusal == null)
 {
     using (Html.BeginForm("AdministorProcedure", "Treatment", FormMethod.Post))
     {
