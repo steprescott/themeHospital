@@ -10,7 +10,6 @@
 <hr />
 
 <ul class="menu">
-
     <li>
         @Html.ActionLink("View Patient Record", "Details", "Patient", new { id = Model.PatientId }, null)
     </li>
@@ -31,12 +30,11 @@
         </li>
         if (Model.CurrentVisit.Bed == null) 
         {
-                <li>
+            <li>
                 @Html.ActionLink("Assign Patient To Ward", "AssignToWard", "Ward", new { id = Model.PatientId }, null)
-                </li>
-            }
+            </li>
         }
-        if (ThemeHospitalMembershipProvider.GetUserRole() != StaffType.Receptionist)
+        else if (ThemeHospitalMembershipProvider.GetUserRole() != StaffType.Receptionist)
         { 
             <li>
                 @Html.ActionLink("Arrange Treatment For Patient", "Create", "Treatment", new { id = Model.CurrentVisit.VisitId }, null)
@@ -45,6 +43,7 @@
         <li>
             @Html.ActionLink("Record Refusal Of Treatment", "RecordRefusal", "Patient", new { id = Model.PatientId }, null)
         </li>
+    }
 </ul>
 
 
