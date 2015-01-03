@@ -69,7 +69,7 @@
         @Html.Raw("No procedures for visit. ");
     }
     
-    @if (!isReceptionist)
+    @if (!isReceptionist && !Model.Visit.ReleaseDate.HasValue)
     {
         <br />
         <button>
@@ -115,7 +115,7 @@
     {
         @Html.Raw("No course of medicines for visit. ");
     }
-    @if (!isReceptionist)
+    @if (!isReceptionist && !Model.Visit.ReleaseDate.HasValue)
     { 
         <br />
         <button>@Html.ActionLink("Create new medicine course", "Create", "Treatment", new { id = Model.Visit.VisitId }, null)</button>
@@ -137,10 +137,6 @@
                 </tr>
             }
         </table>
-
-        <p>
-            <button>@Html.ActionLink("Create new note", "createNote", new { id = Model.Visit.VisitId })</button>
-        </p>
     }
     else
     {

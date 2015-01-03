@@ -22,23 +22,25 @@
     </tr>
     <tr>
         <td>Administored by</td>
-        <td>@if (Model.AdministeredBy != null)
-        {@Html.DisplayFor(model => model.AdministeredBy.FullName)}
-        else
-        {@Html.Raw("Not yet administered")}</td>
+        <td>
+            @if (Model.AdministeredBy != null)
+                {@Html.DisplayFor(model => model.AdministeredBy.FullName)}
+            else if (Model.CourseOfMedicine.Refusal != null)
+                {@Html.Raw("Treatment refused")}
+            else
+                {@Html.Raw("Not yet administered")}
+        </td>
     </tr>
 </table>
 
-@if (Model.AdministeredBy == null)
+@if (Model.AdministeredBy == null && Model.CourseOfMedicine.Refusal == null)
 {
     using (Html.BeginForm("AdministorCourseOfMedicine", "Treatment", FormMethod.Post))
     {
         @Html.HiddenFor(model => model.TreatmentId)
 
-        <tr>
-            <td>Administored by</td>
-            <td>@Html.DropDownListFor(model => model.AdministeredByUserId, new SelectList(Model.MedicalStaff, "UserId", "FullName", null))</td>
-        </tr>
+        @Html.Raw("Administered by")
+        @Html.DropDownListFor(model => model.AdministeredByUserId, new SelectList(Model.MedicalStaff, "UserId", "FullName", null))
         <input type="submit" value="Administor treatment" class="button">
     }
 

@@ -21,16 +21,30 @@
         <td>@Html.DisplayFor(model => model.AssignedTo.FullName)</td>
     </tr>
     <tr>
-        <td>Administered by</td>
-        <td>@(Model.AdministeredBy != null ? Html.DisplayFor(model => model.AdministeredBy.FullName) : Html.Raw("Not yet administered"))</td>
+        <td>Administored by</td>
+        <td>
+            @if (Model.AdministeredBy != null)
+            {@Html.DisplayFor(model => model.AdministeredBy.FullName)}
+            else if (Model.Procedure.Refusal != null)
+            {@Html.Raw("Treatment refused")}
+            else
+            {@Html.Raw("Not yet administered")}
+        </td>
     </tr>
     <tr>
-        <td>@Html.LabelFor(model => model.Procedure.DateAdministered)</td>
-        <td>@(Model.Procedure.DateAdministered != null ? Html.DisplayFor(model => model.Procedure.DateAdministered) : Html.Raw("Not yet administered"))</td>
+        <td>Date Administored</td>
+        <td>
+            @if (Model.AdministeredBy != null)
+            {@Html.DisplayFor(model => model.Procedure.DateAdministered)}
+            else if (Model.Procedure.Refusal != null)
+            {@Html.Raw("Treatment refused")}
+            else
+            {@Html.Raw("Not yet administered")}
+        </td>
     </tr>
 </table>
 
-@if(Model.AdministeredBy == null)
+@if (Model.AdministeredBy == null && Model.Procedure.Refusal == null)
 {
     using (Html.BeginForm("AdministorProcedure", "Treatment", FormMethod.Post))
     {
