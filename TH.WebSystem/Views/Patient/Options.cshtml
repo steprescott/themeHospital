@@ -25,16 +25,13 @@
         <li>
             @Html.ActionLink("Dismiss", "Dismiss", "Patient", new { id = Model.PatientId }, null)
         </li>
-        <li>
-            @Html.ActionLink("Arrange Treatment For Patient", "Create", "Treatment", new { id = Model.CurrentVisit.VisitId }, null)
-        </li>
         if (Model.CurrentVisit.Bed == null) 
         {
             <li>
                 @Html.ActionLink("Assign Patient To Ward", "AssignToWard", "Ward", new { id = Model.PatientId }, null)
             </li>
         }
-        else if (ThemeHospitalMembershipProvider.GetUserRole() != StaffType.Receptionist)
+        if (ThemeHospitalMembershipProvider.GetUserRole() != StaffType.Receptionist)
         { 
             <li>
                 @Html.ActionLink("Arrange Treatment For Patient", "Create", "Treatment", new { id = Model.CurrentVisit.VisitId }, null)
