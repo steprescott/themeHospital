@@ -159,8 +159,10 @@
     <Content Include="Global.asax" />
     <Content Include="Fonts\Frutiger-Ultra-Black.ttf" />
     <Content Include="Fonts\Optimum-Roman.ttf" />
+    <None Include="Properties\PublishProfiles\Web Deploy.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Images\cursor.png" />
+    <Content Include="Images\favicon.ico" />
     <Content Include="Images\logoSmall.png" />
     <Content Include="Images\NavIcons\Consultant.gif" />
     <Content Include="Scripts\jquery-2.1.1.js" />
