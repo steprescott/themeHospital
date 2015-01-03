@@ -7,7 +7,7 @@ using TH.Domain.Wards;
 
 namespace TH.WebSystem.Models
 {
-    public class DisplayWardsViewModel
+    public class AssignToWardViewModel
     {
         [DisplayName("Patient ID")]
         public Guid PatientId { get; set; }
@@ -15,7 +15,7 @@ namespace TH.WebSystem.Models
         [DisplayName("Wards")]
         public List<Ward> Wards { get; set; }
 
-        public DisplayWardsViewModel()
+        public AssignToWardViewModel()
         {
             Wards = new List<Ward>();
         }

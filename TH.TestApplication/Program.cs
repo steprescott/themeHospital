@@ -17,22 +17,22 @@ namespace TH.TestApplication
             Console.WriteLine("--- Starting... :D");
 
             //Add me some patients
-            AddPatient("482D8F08-92BB-11E4-91AE-DD2F340000B1", "Ste", "Prescott");
-            AddPatient("86A9EE66-92BB-11E4-91AE-DD2F340000B1", "Bryan", "Cranston");
-            AddPatient("8C722B7E-92BB-11E4-914F-DD2F340000B1", "Aaron", "Paul");
-            AddPatient("95C7F5A0-92BB-11E4-9237-DD2F340000B1", "Josh", "Smith");
+            AddPatient("482D8F08-92BB-11E4-91AE-DD2F340000B1", "Ste", "Prescott", "DA6DAAEA-92D6-11E4-A840-8032340000B1");
+            AddPatient("86A9EE66-92BB-11E4-91AE-DD2F340000B1", "Bryan", "Cranston", "EE2579AA-92D6-11E4-AF3A-8032340000B1");
+            AddPatient("8C722B7E-92BB-11E4-914F-DD2F340000B1", "Aaron", "Paul", "F1594A98-92D6-11E4-B124-8032340000B1");
+            AddPatient("95C7F5A0-92BB-11E4-9237-DD2F340000B1", "Josh", "Smith", "F5C3DF4E-92D6-11E4-AC6B-8032340000B1");
 
             //Add me some consultants
-            AddConsultantUser("1E02D510-92BD-11E4-B57E-8C7495DB5880", "Jonny", "Booker", "Consultant1", "Password");
-            AddConsultantUser("29AF7012-92BD-11E4-9CD3-8C7495DB5880", "Joe", "Fletcher", "Consultant2", "Password");
+            AddConsultantUser("1E02D510-92BD-11E4-B57E-8C7495DB5880", "Jonny", "Booker", "Consultant1", "Password", "37F21840-92D7-11E4-8B9A-8032340000B1");
+            AddConsultantUser("29AF7012-92BD-11E4-9CD3-8C7495DB5880", "Joe", "Fletcher", "Consultant2", "Password", "3BD217A8-92D7-11E4-B691-8032340000B1");
 
             //Add me some doctors
-            AddDoctorUser("38288E94-92BD-11E4-918E-8C7495DB5880", "Tom", "Windowson", "Doctor1", "Password");
-            AddDoctorUser("3B7C67C8-92BD-11E4-B9DC-8C7495DB5880", "Noah", "Knudsen", "Doctor2", "Password");
-            AddDoctorUser("3FC28B14-92BD-11E4-B7F0-8C7495DB5880", "Joel", "Thiruchelvan", "Doctor3", "Password");
+            AddDoctorUser("38288E94-92BD-11E4-918E-8C7495DB5880", "Tom", "Windowson", "Doctor1", "Password", "3E79D4D2-92D7-11E4-81CD-8032340000B1");
+            AddDoctorUser("3B7C67C8-92BD-11E4-B9DC-8C7495DB5880", "Noah", "Knudsen", "Doctor2", "Password", "4147D89E-92D7-11E4-B124-8032340000B1");
+            AddDoctorUser("3FC28B14-92BD-11E4-B7F0-8C7495DB5880", "Joel", "Thiruchelvan", "Doctor3", "Password", "4537E1E2-92D7-11E4-B691-8032340000B1");
 
             //Add me some receptionists
-            AddReceptionistUser("4782DA52-92BD-11E4-82F2-8C7495DB5880", "Dowdy", "Receptionist", "Receptionist1", "Password");
+            AddReceptionistUser("4782DA52-92BD-11E4-82F2-8C7495DB5880", "Dowdy", "Receptionist", "Receptionist1", "Password", "48597FAC-92D7-11E4-AC6B-8032340000B1");
 
             //Add me some operations
             AddOperation("d63f6ef7-594b-43e4-8523-105edefb93cd", "Vasectomy", "Vasectomy works by stopping sperm from getting into a man’s semen. This means that when a man ejaculates, the semen has no sperm and a woman’s egg cannot be fertilised.");
@@ -63,7 +63,7 @@ namespace TH.TestApplication
             Console.ReadKey();
         }
 
-        private static void AddPatient(string patientId, string firstName, string surname)
+        private static void AddPatient(string patientId, string firstName, string surname, string addressId)
         {
             var patientBusinessLogic = ThemeHospitalContainer.GetInstance<IPatientBusinessLogic>();
 
@@ -79,6 +79,7 @@ namespace TH.TestApplication
                 Addresses = new List<Address>
                 {
                     new Address{
+                        AddressId = new Guid(addressId),
                         AddressLine1 = "1 Lion Works",
                         AddressLine2 = "92 Arundel Street",
                         AddressLine3 = "",
@@ -93,7 +94,7 @@ namespace TH.TestApplication
             });
         }
 
-        private static void AddConsultantUser(string consultantId, string FirstName, string surname, string username, string password)
+        private static void AddConsultantUser(string consultantId, string FirstName, string surname, string username, string password, string addressId)
         {
             var staffMemberBusinessLogic = ThemeHospitalContainer.GetInstance<IStaffMemberBusinessLogic>();
 
@@ -109,6 +110,7 @@ namespace TH.TestApplication
                 Addresses = new List<Address>
                 {
                     new Address{
+                        AddressId = new Guid(addressId),
                         AddressLine1 = "Address line 1",
                         AddressLine2 = "Address line 2",
                         AddressLine3 = "Address line 3",
@@ -128,7 +130,7 @@ namespace TH.TestApplication
             });
         }
 
-        private static void AddDoctorUser(string doctorId, string FirstName, string surname, string username, string password)
+        private static void AddDoctorUser(string doctorId, string FirstName, string surname, string username, string password, string addressId)
         {
             var staffMemberBusinessLogic = ThemeHospitalContainer.GetInstance<IStaffMemberBusinessLogic>();
 
@@ -144,6 +146,7 @@ namespace TH.TestApplication
                 Addresses = new List<Address>
                 {
                     new Address{
+                        AddressId = new Guid(addressId),
                         AddressLine1 = "Address line 1",
                         AddressLine2 = "Address line 2",
                         AddressLine3 = "Address line 3",
@@ -158,8 +161,8 @@ namespace TH.TestApplication
                 Password = password
             });
         }
-        
-        private static void AddReceptionistUser(string receptionistId, string FirstName, string surname, string username, string password)
+
+        private static void AddReceptionistUser(string receptionistId, string FirstName, string surname, string username, string password, string addressId)
         {
             var staffMemberBusinessLogic = ThemeHospitalContainer.GetInstance<IStaffMemberBusinessLogic>();
 
@@ -175,6 +178,7 @@ namespace TH.TestApplication
                 Addresses = new List<Address>
                 {
                     new Address{
+                        AddressId = new Guid(addressId),
                         AddressLine1 = "Address line 1",
                         AddressLine2 = "Address line 2",
                         AddressLine3 = "Address line 3",

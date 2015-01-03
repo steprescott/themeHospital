@@ -8,6 +8,7 @@ namespace TH.WebSystem.Models
 {
     public class DisplayWardWaitingListViewModel
     {
-        public List<Patient> Patients; 
+        public List<Patient> Patients {get; set;} 
+
     }
 }

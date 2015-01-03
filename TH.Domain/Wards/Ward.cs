@@ -18,6 +18,7 @@ namespace TH.Domain.Wards
 
         public List<Bed> AvailableBeds { get; set; }
 
+        public WardWaitlingList WardWaitlingList { get; set; }
         public Ward()
         {
             Beds = new List<Bed>();

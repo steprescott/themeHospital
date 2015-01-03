@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TH.Domain.Wards;
 using TH.WebSystem.Models;
 
 namespace TH.WebSystem.Controllers
 {
     public class WardController : AuthorisedBaseController
     {
-        public ActionResult Index()
+        public ActionResult AssignToWard(Guid id)
         {
             var wards = HospitalService.WardBusinessLogic.GetAllWards();
-            return View(new DisplayWardsViewModel { Wards = wards });
+            var patient = HospitalService.PatientBusinessLogic.GetPatientWithId(id);
+            return View(new AssignToWardViewModel { Wards = wards, PatientId = id});
         }
 
         public ActionResult WaitingList()
@@ -21,9 +23,14 @@ namespace TH.WebSystem.Controllers
 
             return View(new DisplayWardWaitingListViewModel { Patients = patients });
         }
-        public ActionResult WaitingList(Guid patientId)
+
+        public ActionResult AddToWaitingList(Guid wardId, Guid patientId)
         {
-            return View();
+            var ward = HospitalService.WardBusinessLogic.GetWardWithId(wardId);
+
+            var result = HospitalService.WardBusinessLogic.AssignPatientToWardWaitingList(ward.WardWaitlingList.WardWaitingListId, patientId);
+
+            return RedirectToAction("WaitingList", "Ward");
         }
     }
 }

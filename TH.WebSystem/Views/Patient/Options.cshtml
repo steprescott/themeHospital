@@ -26,13 +26,13 @@
         <li>
             @Html.ActionLink("Dismiss", "Dismiss", "Patient", new { id = Model.PatientId }, null)
         </li>
-
+        <li>
+            @Html.ActionLink("Arrange Treatment For Patient", "Create", "Treatment", new { id = Model.CurrentVisit.VisitId }, null)
+        </li>
         if (Model.CurrentVisit.Bed == null) 
         {
-            if (Model.AvailabeBeds != null)
-            {
                 <li>
-                    @Html.ActionLink("Assign Patient To Ward", "DisplayWards", "Patient", new { id = Model.PatientId }, null)
+                @Html.ActionLink("Assign Patient To Ward", "AssignToWard", "Ward", new { id = Model.PatientId }, null)
                 </li>
             }
         }
@@ -45,8 +45,11 @@
         <li>
             @Html.ActionLink("Record Refusal Of Treatment", "RecordRefusal", "Patient", new { id = Model.PatientId }, null)
         </li>
-    }
 </ul>
+
+
+
+
 
 
 
