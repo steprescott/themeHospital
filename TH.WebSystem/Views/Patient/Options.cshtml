@@ -28,6 +28,12 @@
     }
     else
     {
+        if (Model.CurrentVisit != null)
+        {
+            <li>
+                @Html.ActionLink("Current Visit", "Details", "Visit", new { id = Model.CurrentVisit.VisitId }, null)
+            </li>
+        }
         if (Model.CurrentVisit != null && Model.CurrentVisit.Bed == null && ThemeHospitalMembershipProvider.IsReceptionist)
         {
             <li>
@@ -45,6 +51,12 @@
         </li>
     }
 </ul>
+
+
+
+
+
+
 
 
 
