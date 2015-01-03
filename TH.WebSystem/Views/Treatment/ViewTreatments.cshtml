@@ -1,4 +1,5 @@
-﻿@using TH.Domain.Enums
+﻿@using Microsoft.Ajax.Utilities
+@using TH.Domain.Enums
 @using TH.WebSystem.Providers
 @model TH.WebSystem.Models.ViewTreatmentModel
 
@@ -6,9 +7,9 @@
     ViewBag.Title = "View Treatments";
 }
 
-<h2>View Treatments</h2>
+<h1>My Assigned Treatments</h1>
+<hr/>
 
-<h4>My Assigned Treatments</h4>
 @if (Model.CoursesOfMedicines.Any() || Model.Procedures.Any())
 {
     <table class="table">
@@ -40,7 +41,7 @@
                     }
                 </td>
                 <td>
-                    @Html.ActionLink("Options", "Options", "Patient", new { id = courseOfMedicine.Visit.Patient.UserId }, null)
+                    @Html.ActionLink("View visit", "Details", "Visit", new { id = courseOfMedicine.Visit.VisitId }, null)
                 </td>
             </tr>
         }
@@ -93,7 +94,7 @@ else
             <tr>
                 <td>@courseOfMedicine.ScheduledDate</td>
                 <td>@courseOfMedicine.Visit.Patient.FullName</td>
-                <td>@courseOfMedicine.AdministeredBy.FullName</td>
+                <td>@courseOfMedicine.AssignedTo.FullName</td>
                 <td>@courseOfMedicine.Medicine.Name</td>
                 <td>
                     @if (courseOfMedicine.Refusal != null)

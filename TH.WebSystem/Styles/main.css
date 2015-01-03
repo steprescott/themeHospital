@@ -246,6 +246,7 @@ td:first-child {
 }
 
 .table {
+    width: 100%;
     border-spacing: 8px;
     border-collapse: separate;
 }

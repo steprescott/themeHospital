@@ -29,6 +29,8 @@ namespace TH.Domain.Treatments
 
         public StaffMember AdministeredBy { get; set; }
 
+        public StaffMember AssignedTo { get; set; }
+
         public List<Note> Notes { get; set; }
 
         public Visit Visit { get; set; }
