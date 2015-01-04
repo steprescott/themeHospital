@@ -38,7 +38,7 @@ namespace TH.WebSystem.Models
         public string EmergencyContactName { get; set; }
 
         [Required]
-        [Display(Name = "Contact Number")]
+        [Display(Name = "Emergency Contact Number")]
         [DataType(DataType.PhoneNumber, ErrorMessage = "Invalid Number")]
         public string EmergencyContactNumber { get; set; }
 
