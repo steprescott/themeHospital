@@ -106,10 +106,12 @@ namespace TH.WebSystem.Controllers
         public ActionResult Options(Guid id)
         {
             var currentVisit = HospitalService.PatientBusinessLogic.GetCurrentVisitForPatientId(id);
+            var patient = HospitalService.PatientBusinessLogic.GetPatientWithId(id);
 
             return View(new PatientOptionsViewModel
             {
                 PatientId = id,
+                Patient = patient,
                 CurrentVisit = currentVisit
             });
         }

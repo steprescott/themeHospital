@@ -26,6 +26,13 @@
             <td>@Html.LabelFor(model => model.Visit.Bed.Number)</td>
             <td>@Html.DisplayFor(model => model.Visit.Bed.Number)</td>
         </tr>
+        @if (Model.Visit.Bed != null && Model.Visit.Bed.Ward != null)
+        {
+            <tr>
+                <td>@Html.LabelFor(model => model.Visit.Bed.Ward.Number)</td>
+                <td>@Html.DisplayFor(model => model.Visit.Bed.Ward.Number)</td>
+            </tr>
+        }
     </table>
 
     <h4>Procedures</h4>
@@ -66,7 +73,7 @@
     {
         @Html.Raw("No procedures for visit. ");
     }
-    
+
     @if (ThemeHospitalMembershipProvider.IsConsultant && !Model.Visit.ReleaseDate.HasValue)
     {
         <br />
@@ -114,7 +121,7 @@
         @Html.Raw("No course of medicines for visit. ");
     }
     @if (ThemeHospitalMembershipProvider.IsConsultant && !Model.Visit.ReleaseDate.HasValue)
-    { 
+    {
         <br />
         <button>@Html.ActionLink("Create new medicine course", "Create", "Treatment", new { id = Model.Visit.VisitId }, null)</button>
     }

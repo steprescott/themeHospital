@@ -17,6 +17,8 @@ namespace TH.Domain.Wards
         [DisplayName(@"Ward ID")]
         public Guid WardId { get; set; }
 
+        public Ward Ward { get; set; }
+
         [DisplayName("Visits")]
         public List<Visit> Visits { get; set; }
         
