@@ -13,7 +13,8 @@ namespace TH.WebSystem.Controllers
         {
             var wards = HospitalService.WardBusinessLogic.GetAllWards();
 
-            return View(new WardViewModel { 
+            return View(new WardViewModel 
+            { 
                 Wards = wards
             });
         }
@@ -21,24 +22,28 @@ namespace TH.WebSystem.Controllers
         public ActionResult Details(Guid id)
         {
             var ward = HospitalService.WardBusinessLogic.GetWardWithId(id);
-            return View(new WardDetailsViewModel { 
+
+            return View(new WardDetailsViewModel 
+            { 
                 Ward = ward
             });
         }
         public ActionResult AssignToWard(Guid id)
         {
             var wards = HospitalService.WardBusinessLogic.GetAllWards();
-            var patient = HospitalService.PatientBusinessLogic.GetPatientWithId(id);
-            return View(new AssignToWardViewModel { Wards = wards, PatientId = id});
+
+            return View(new AssignToWardViewModel 
+            { 
+                Wards = wards, 
+                PatientId = id
+            });
         }
 
         public ActionResult AddToWaitingList(Guid wardId, Guid patientId)
         {
-            var ward = HospitalService.WardBusinessLogic.GetWardWithId(wardId);
+            HospitalService.WardBusinessLogic.AssignPatientToWardWaitingList(wardId, patientId);
 
-            var result = HospitalService.WardBusinessLogic.AssignPatientToWardWaitingList(ward.WardId, patientId);
-
-            return RedirectToAction("Details", "Ward", new { id = ward.WardId});
+            return RedirectToAction("Details", "Ward", new { id = wardId});
         }
     }
 }
