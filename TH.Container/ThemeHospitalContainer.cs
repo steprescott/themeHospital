@@ -28,26 +28,26 @@ namespace TH.Container
 
             _unityContainer.RegisterType<IUnitOfWork, UnitOfWorkEntityFrameworkImplementation>(new ContainerControlledLifetimeManager());
 
-            _unityContainer.RegisterType<ILoginServiceBusinessLogic, LoginServiceBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
+            _unityContainer.RegisterType<ILoginServiceBusinessLogic, LoginServiceBusinessLogic>(new ContainerControlledLifetimeManager());
 
-            _unityContainer.RegisterType<IVisitBusinessLogic, VisitBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
+            _unityContainer.RegisterType<IVisitBusinessLogic, VisitBusinessLogic>(new ContainerControlledLifetimeManager());
 
-            _unityContainer.RegisterType<IPatientBusinessLogic, PatientBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
-            _unityContainer.RegisterType<IStaffMemberBusinessLogic, StaffMemberBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
-            _unityContainer.RegisterType<IConsultantBusinessLogic, ConsultantBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
-            _unityContainer.RegisterType<IDoctorBusinessLogic, DoctorBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
-            _unityContainer.RegisterType<ITeamBusinessLogic, TeamBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
+            _unityContainer.RegisterType<IPatientBusinessLogic, PatientBusinessLogic>(new ContainerControlledLifetimeManager());
+            _unityContainer.RegisterType<IStaffMemberBusinessLogic, StaffMemberBusinessLogic>(new ContainerControlledLifetimeManager());
+            _unityContainer.RegisterType<IConsultantBusinessLogic, ConsultantBusinessLogic>(new ContainerControlledLifetimeManager());
+            _unityContainer.RegisterType<IDoctorBusinessLogic, DoctorBusinessLogic>(new ContainerControlledLifetimeManager());
+            _unityContainer.RegisterType<ITeamBusinessLogic, TeamBusinessLogic>(new ContainerControlledLifetimeManager());
 
-            _unityContainer.RegisterType<IWardBusinessLogic, WardBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
-            _unityContainer.RegisterType<IBedBusinessLogic, BedBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
+            _unityContainer.RegisterType<IWardBusinessLogic, WardBusinessLogic>(new ContainerControlledLifetimeManager());
+            _unityContainer.RegisterType<IBedBusinessLogic, BedBusinessLogic>(new ContainerControlledLifetimeManager());
 
-            _unityContainer.RegisterType<IOperationBusinessLogic, OperationBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
-            _unityContainer.RegisterType<IProcedureBusinessLogic, ProcedureBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
-            _unityContainer.RegisterType<IMedicineBusinessLogic, MedicineBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
-            _unityContainer.RegisterType<ICourseOfMedicineBusinessLogic, CourseOfMedicineBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
-            _unityContainer.RegisterType<ITreatmentBusinessLogic, TreatmentBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
+            _unityContainer.RegisterType<IOperationBusinessLogic, OperationBusinessLogic>(new ContainerControlledLifetimeManager());
+            _unityContainer.RegisterType<IProcedureBusinessLogic, ProcedureBusinessLogic>(new ContainerControlledLifetimeManager());
+            _unityContainer.RegisterType<IMedicineBusinessLogic, MedicineBusinessLogic>(new ContainerControlledLifetimeManager());
+            _unityContainer.RegisterType<ICourseOfMedicineBusinessLogic, CourseOfMedicineBusinessLogic>(new ContainerControlledLifetimeManager());
+            _unityContainer.RegisterType<ITreatmentBusinessLogic, TreatmentBusinessLogic>(new ContainerControlledLifetimeManager());
 
-            _unityContainer.RegisterType<INotesBusinessLogic, NotesBusinessLogicEntityFramework>(new ContainerControlledLifetimeManager());
+            _unityContainer.RegisterType<INotesBusinessLogic, NotesBusinessLogic>(new ContainerControlledLifetimeManager());
         }
     }
 }

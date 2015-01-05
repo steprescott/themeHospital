@@ -7,11 +7,11 @@ using Note = TH.Domain.Other.Note;
 
 namespace TH.BusinessLogicEntityFramework.Logic
 {
-    public class NotesBusinessLogicEntityFramework : INotesBusinessLogic
+    public class NotesBusinessLogic : INotesBusinessLogic
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public NotesBusinessLogicEntityFramework(IUnitOfWork unitOfWork)
+        public NotesBusinessLogic(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

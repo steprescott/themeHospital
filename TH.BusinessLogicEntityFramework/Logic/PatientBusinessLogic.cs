@@ -10,11 +10,11 @@ using Visit = TH.Domain.Other.Visit;
 
 namespace TH.BusinessLogicEntityFramework.Logic
 {
-    public class PatientBusinessLogicEntityFramework : IPatientBusinessLogic
+    public class PatientBusinessLogic : IPatientBusinessLogic
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public PatientBusinessLogicEntityFramework(IUnitOfWork unitOfWork)
+        public PatientBusinessLogic(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

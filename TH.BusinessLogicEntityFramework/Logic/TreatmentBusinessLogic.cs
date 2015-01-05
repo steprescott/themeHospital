@@ -8,11 +8,11 @@ using Treatment = TH.Domain.Treatments.Treatment;
 
 namespace TH.BusinessLogicEntityFramework.Logic
 {
-    public class TreatmentBusinessLogicEntityFramework : ITreatmentBusinessLogic
+    public class TreatmentBusinessLogic : ITreatmentBusinessLogic
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public TreatmentBusinessLogicEntityFramework(IUnitOfWork unitOfWork)
+        public TreatmentBusinessLogic(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

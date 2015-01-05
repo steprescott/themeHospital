@@ -7,11 +7,11 @@ using Operation = TH.Domain.Treatments.Operation;
 
 namespace TH.BusinessLogicEntityFramework.Logic
 {
-    public class OperationBusinessLogicEntityFramework : IOperationBusinessLogic
+    public class OperationBusinessLogic : IOperationBusinessLogic
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public OperationBusinessLogicEntityFramework(IUnitOfWork unitOfWork)
+        public OperationBusinessLogic(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

@@ -8,11 +8,11 @@ using CourseOfMedicine = TH.Domain.Treatments.CourseOfMedicine;
 
 namespace TH.BusinessLogicEntityFramework.Logic
 {
-    public class CourseOfMedicineBusinessLogicEntityFramework : ICourseOfMedicineBusinessLogic
+    public class CourseOfMedicineBusinessLogic : ICourseOfMedicineBusinessLogic
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public CourseOfMedicineBusinessLogicEntityFramework(IUnitOfWork unitOfWork)
+        public CourseOfMedicineBusinessLogic(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

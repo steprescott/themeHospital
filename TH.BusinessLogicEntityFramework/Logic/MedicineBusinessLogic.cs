@@ -7,11 +7,11 @@ using Medicine = TH.Domain.Treatments.Medicine;
 
 namespace TH.BusinessLogicEntityFramework.Logic
 {
-    public class MedicineBusinessLogicEntityFramework : IMedicineBusinessLogic
+    public class MedicineBusinessLogic : IMedicineBusinessLogic
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public MedicineBusinessLogicEntityFramework(IUnitOfWork unitOfWork)
+        public MedicineBusinessLogic(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

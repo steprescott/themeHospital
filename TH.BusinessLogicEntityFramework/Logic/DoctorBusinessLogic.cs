@@ -8,11 +8,11 @@ using Doctor = TH.Domain.User.Doctor;
 
 namespace TH.BusinessLogicEntityFramework.Logic
 {
-    public class DoctorBusinessLogicEntityFramework : IDoctorBusinessLogic
+    public class DoctorBusinessLogic : IDoctorBusinessLogic
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public DoctorBusinessLogicEntityFramework(IUnitOfWork unitOfWork)
+        public DoctorBusinessLogic(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

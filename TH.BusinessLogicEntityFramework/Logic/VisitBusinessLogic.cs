@@ -8,11 +8,11 @@ using Visit = TH.Domain.Other.Visit;
 
 namespace TH.BusinessLogicEntityFramework.Logic
 {
-    public class VisitBusinessLogicEntityFramework : IVisitBusinessLogic
+    public class VisitBusinessLogic : IVisitBusinessLogic
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public VisitBusinessLogicEntityFramework(IUnitOfWork unitOfWork)
+        public VisitBusinessLogic(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

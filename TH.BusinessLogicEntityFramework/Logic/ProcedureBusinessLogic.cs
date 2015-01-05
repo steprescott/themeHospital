@@ -8,11 +8,11 @@ using Procedure = TH.Domain.Treatments.Procedure;
 
 namespace TH.BusinessLogicEntityFramework.Logic
 {
-    public class ProcedureBusinessLogicEntityFramework : IProcedureBusinessLogic
+    public class ProcedureBusinessLogic : IProcedureBusinessLogic
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public ProcedureBusinessLogicEntityFramework(IUnitOfWork unitOfWork)
+        public ProcedureBusinessLogic(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

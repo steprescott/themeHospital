@@ -12,11 +12,11 @@ using StaffMember = TH.Domain.User.StaffMember;
 
 namespace TH.BusinessLogicEntityFramework.Logic
 {
-    public class StaffMemberBusinessLogicEntityFramework : IStaffMemberBusinessLogic
+    public class StaffMemberBusinessLogic : IStaffMemberBusinessLogic
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public StaffMemberBusinessLogicEntityFramework(IUnitOfWork unitOfWork)
+        public StaffMemberBusinessLogic(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

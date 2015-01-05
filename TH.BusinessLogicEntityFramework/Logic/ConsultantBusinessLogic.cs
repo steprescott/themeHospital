@@ -9,11 +9,11 @@ using Team = TH.Domain.Other.Team;
 
 namespace TH.BusinessLogicEntityFramework.Logic
 {
-    public class ConsultantBusinessLogicEntityFramework : IConsultantBusinessLogic
+    public class ConsultantBusinessLogic : IConsultantBusinessLogic
     {
-        private IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ConsultantBusinessLogicEntityFramework(IUnitOfWork unitOfWork)
+        public ConsultantBusinessLogic(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

@@ -9,11 +9,11 @@ using Ward = TH.UnitOfWorkEntityFramework.Ward;
 
 namespace TH.BusinessLogicEntityFramework.Logic
 {
-    public class WardBusinessLogicEntityFramework : IWardBusinessLogic
+    public class WardBusinessLogic : IWardBusinessLogic
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public WardBusinessLogicEntityFramework(IUnitOfWork unitOfWork)
+        public WardBusinessLogic(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
