@@ -20,19 +20,44 @@
         </tr>
         <tr>
             <td>@Html.LabelFor(model => model.Visit.ReleaseDate)</td>
-            <td>@Html.DisplayFor(model => model.Visit.ReleaseDate)</td>
+            <td>
+                @if (Model.Visit.ReleaseDate.HasValue)
+                {
+                    @Html.DisplayFor(model => model.Visit.ReleaseDate)
+                }
+                else
+                {
+                    @Html.Raw("Not released")
+                }
+            </td>
+
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.Visit.Bed.Ward.Number)</td>
+            <td>
+                @if (Model.Visit.Bed != null && Model.Visit.Bed.Ward != null)
+                {
+                    @Html.DisplayFor(model => model.Visit.Bed.Ward.Number)
+                }
+                else
+                {
+                    @Html.Raw("Unassigned")
+                }
+            </td>
         </tr>
         <tr>
             <td>@Html.LabelFor(model => model.Visit.Bed.Number)</td>
-            <td>@Html.DisplayFor(model => model.Visit.Bed.Number)</td>
+            <td>
+                @if (Model.Visit.Bed != null)
+                {
+                    @Html.DisplayFor(model => model.Visit.Bed.Number)
+                }
+                else
+                {
+                    @Html.Raw("Unassigned")
+                }
+            </td>
         </tr>
-        @if (Model.Visit.Bed != null && Model.Visit.Bed.Ward != null)
-        {
-            <tr>
-                <td>@Html.LabelFor(model => model.Visit.Bed.Ward.Number)</td>
-                <td>@Html.DisplayFor(model => model.Visit.Bed.Ward.Number)</td>
-            </tr>
-        }
     </table>
 
     <h4>Procedures</h4>
