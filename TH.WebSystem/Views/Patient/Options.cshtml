@@ -12,37 +12,37 @@
     <li>
         @Html.ActionLink("View Patient Record", "Details", "Patient", new { id = Model.PatientId }, null)
     </li>
-    @if (Model.CurrentVisit != null)
+    @if (Model.Patient.CurrentVisit != null)
     {
         <li>
-            @Html.ActionLink("Current Visit", "Details", "Visit", new { id = Model.CurrentVisit.VisitId }, null)
+            @Html.ActionLink("Current Visit", "Details", "Visit", new { id = Model.Patient.CurrentVisit.VisitId }, null)
         </li>
     }
-    @if (ThemeHospitalMembershipProvider.IsReceptionist && Model.CurrentVisit == null)
+    @if (ThemeHospitalMembershipProvider.IsReceptionist && Model.Patient.CurrentVisit == null)
     {
         <li>
             @Html.ActionLink("Admit", "Admit", "Patient", new { id = Model.PatientId }, null)
         </li>
     }
-    @if (ThemeHospitalMembershipProvider.IsReceptionist && Model.CurrentVisit != null)
+    @if (ThemeHospitalMembershipProvider.IsReceptionist && Model.Patient.CurrentVisit != null)
     {
         <li>
             @Html.ActionLink("Dismiss", "Dismiss", "Patient", new { id = Model.PatientId }, null)
         </li>
     }
-    @if (Model.CurrentVisit != null && Model.CurrentVisit.Bed == null && ThemeHospitalMembershipProvider.IsReceptionist)
+    @if (Model.Patient.CurrentVisit != null && Model.Patient.CurrentVisit.Bed == null && ThemeHospitalMembershipProvider.IsReceptionist)
     {
         <li>
             @Html.ActionLink("Assign Patient To Ward", "AssignToWard", "Ward", new { id = Model.PatientId }, null)
         </li>
     }
-    @if (ThemeHospitalMembershipProvider.IsConsultant && Model.CurrentVisit != null)
+    @if (ThemeHospitalMembershipProvider.IsConsultant && Model.Patient.CurrentVisit != null)
     {
         <li>
-            @Html.ActionLink("Arrange Treatment For Patient", "Create", "Treatment", new { id = Model.CurrentVisit.VisitId }, null)
+            @Html.ActionLink("Arrange Treatment For Patient", "Create", "Treatment", new { id = Model.Patient.CurrentVisit.VisitId }, null)
         </li>
     }
-    @if (Model.CurrentVisit != null)
+    @if (Model.Patient.CurrentVisit != null)
     {
         <li>
             @Html.ActionLink("Record Refusal Of Treatment", "RecordRefusal", "Patient", new { id = Model.PatientId }, null)

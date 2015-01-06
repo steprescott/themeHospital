@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web;
-using TH.Domain.Other;
 using TH.Domain.User;
 
 namespace TH.WebSystem.Models
@@ -14,8 +13,5 @@ namespace TH.WebSystem.Models
         public Guid PatientId { get; set; }
 
         public Patient Patient { get; set; }
-
-        [DisplayName("Current visit")]
-        public Visit CurrentVisit { get; set; }
     }
 }
