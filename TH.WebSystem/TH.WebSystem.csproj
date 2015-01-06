@@ -161,6 +161,7 @@
     <Content Include="Fonts\Optimum-Roman.ttf" />
     <None Include="Properties\PublishProfiles\Web Deploy.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Images\BeHappy.png" />
     <Content Include="Images\cursor.png" />
     <Content Include="Images\favicon.ico" />
     <Content Include="Images\logoSmall.png" />
@@ -190,6 +191,7 @@
     <Compile Include="Controllers\ConsultantController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IssueController.cs" />
     <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Controllers\ReceptionistController.cs" />
     <Compile Include="Controllers\TreatmentController.cs" />
@@ -260,6 +262,7 @@
     <Content Include="Views\Ward\Details.cshtml" />
     <Content Include="Views\Ward\Index.cshtml" />
     <Content Include="Views\Treatment\CreateNote.cshtml" />
+    <Content Include="Views\Issue\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

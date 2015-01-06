@@ -214,6 +214,14 @@ input[type=submit], .menu li, button, .button {
         text-decoration: none;
     }
 
+.error {
+    text-align: center;
+}
+
+.error img {
+    margin: 15px 0;
+}
+
 .button {
     cursor: auto;
     text-decoration: none;
