@@ -82,7 +82,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
             var ward = _unitOfWork.GetById<Ward>(wardId);
             var patient = _unitOfWork.GetById<Patient>(patientId);
 
-            if (ward != null)
+            if (ward != null && patient != null)
             {
                 try
                 {

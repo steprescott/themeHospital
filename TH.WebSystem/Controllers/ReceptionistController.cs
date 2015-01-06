@@ -50,7 +50,7 @@ namespace TH.WebSystem.Controllers
                 }
             });
 
-            return RedirectToAction("Index", "Patient");
+            return RedirectToAction("Index", "Receptionist");
         }
     }
 }

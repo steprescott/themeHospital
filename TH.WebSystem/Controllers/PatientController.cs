@@ -116,13 +116,6 @@ namespace TH.WebSystem.Controllers
             });
         }
 
-        public ActionResult DisplayWards(Guid patientId)
-        {
-            var wards = HospitalService.WardBusinessLogic.GetAllWards().OrderBy(ward => ward.Number).ToList();
-
-            return View(new AssignToWardViewModel { Wards = wards, PatientId = patientId});
-        }
-
         public ActionResult AssignBed(Guid bedId, Guid patientId)
         {
             HospitalService.BedBusinessLogic.AssignPatientToBed(bedId, patientId);

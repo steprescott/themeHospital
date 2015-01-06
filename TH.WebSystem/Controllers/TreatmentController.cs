@@ -145,7 +145,7 @@ namespace TH.WebSystem.Controllers
             var assignedProcedures = HospitalService.ProcedureBusinessLogic.GetProceduresToBeAdministeredByStaffMemberId(userId);
             var assignedCoursesOfMedicine = HospitalService.CourseOfMedicineBusinessLogic.GetCoursesOfMedicinesToBeAdministeredByStaffMemberId(userId);
 
-            if (ThemeHospitalMembershipProvider.GetUserRole() == StaffType.Consultant)
+            if (ThemeHospitalMembershipProvider.IsConsultant)
             {
                 var teamsAssignedProcedures = HospitalService.ProcedureBusinessLogic.GetProceduresForTeamByConsultantId(userId);
                 var teamsAssignedCoursesOfMedicines = HospitalService.CourseOfMedicineBusinessLogic.GetCoursesOfMedicinesForTeamByConsultantId(userId);

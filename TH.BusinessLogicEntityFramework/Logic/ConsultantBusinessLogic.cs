@@ -4,8 +4,6 @@ using System.Linq;
 using TH.Interfaces;
 using TH.ReflectiveMapper;
 using TH.UnitOfWorkEntityFramework;
-using Consultant = TH.Domain.User.Consultant;
-using Team = TH.Domain.Other.Team;
 
 namespace TH.BusinessLogicEntityFramework.Logic
 {
@@ -18,31 +16,31 @@ namespace TH.BusinessLogicEntityFramework.Logic
             _unitOfWork = unitOfWork;
         }
 
-        public Consultant GetConsultantForDoctorId(Guid doctorId)
+        public Domain.User.Consultant GetConsultantForDoctorId(Guid doctorId)
         {
             var doctor = _unitOfWork.GetById<Doctor>(doctorId);
 
             if (doctor != null && doctor.Team != null && doctor.Team.Consultant != null)
             {
-                return ReflectiveMapperService.ConvertItem<UnitOfWorkEntityFramework.Consultant, Consultant>(doctor.Team.Consultant);
+                return ReflectiveMapperService.ConvertItem<Consultant, Domain.User.Consultant>(doctor.Team.Consultant);
             }
             return null;
         }
 
-        public Team GetTeamForConsultantId(Guid consultantId)
+        public Domain.Other.Team GetTeamForConsultantId(Guid consultantId)
         {
-            var consultant = _unitOfWork.GetById<UnitOfWorkEntityFramework.Consultant>(consultantId);
+            var consultant = _unitOfWork.GetById<Consultant>(consultantId);
 
             if (consultant != null)
             {
-                return ReflectiveMapperService.ConvertItem<UnitOfWorkEntityFramework.Team, Team>(consultant.Team);
+                return ReflectiveMapperService.ConvertItem<Team, Domain.Other.Team>(consultant.Team);
             }
             return null;
         }
 
         public bool AddDoctorToConsultantTeam(Guid consultantId, Guid doctorId)
         {
-            var consultant = _unitOfWork.GetById<UnitOfWorkEntityFramework.Consultant>(consultantId);
+            var consultant = _unitOfWork.GetById<Consultant>(consultantId);
 
             if (consultant != null && consultant.Team != null)
             {
@@ -70,7 +68,7 @@ namespace TH.BusinessLogicEntityFramework.Logic
 
         public bool RemoveDoctorFromConsultantTeam(Guid consultantId, Guid doctorId)
         {
-            var consultant = _unitOfWork.GetById<UnitOfWorkEntityFramework.Consultant>(consultantId);
+            var consultant = _unitOfWork.GetById<Consultant>(consultantId);
 
             if (consultant != null && consultant.Team != null && consultant.Team.Doctors.Any())
             {
